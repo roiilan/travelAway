@@ -19,16 +19,11 @@ const routes = [
         name: 'favorEdit',
         component: favorEdit
     },
-    
-
-
-    // {
-    //   path: '/favor/:id?',
-    //   name: 'favorDetails',
-    //   component: favorDetails
-    // },
-
-
+    {
+      path: '/favor/:id?',
+      name: 'favorDetails',
+      component: favorDetails
+    },
 ]
 
 const router = new VueRouter({
