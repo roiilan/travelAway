@@ -1,6 +1,8 @@
 <template>
   <div v-if="favor">
  <pre>{{favor}}</pre>
+    <router-link :to="'/edit/' + favor._id">Edit</router-link>
+
 </div>
 </template>
 
