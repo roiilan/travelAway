@@ -1,6 +1,6 @@
 <template>
-  <div v-if="proj">
- {{proj}}
+  <div v-if="favor">
+ <pre>{{favor}}</pre>
   </div>
 </template>
 
@@ -9,16 +9,17 @@ import favorPreview from './favor-preview.vue'
 
 
 export default {
-  computed: {
-      proj() {
-          return this.$store.getters.proj;
-      }
+  data() {
+    return {
+      favor: null
+    }
   },
-  created() {
-      this.$store.dispatch({
-          type: 'getProj',
-          projId: this.$route.params.id
+  async created() {
+     var favor = await this.$store.dispatch({
+          type: 'getById',
+          favorId: this.$route.params.id
       });
+      this.favor = favor;
   }
 }
 </script>
