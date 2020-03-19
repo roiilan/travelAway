@@ -18,6 +18,7 @@ function query(){
 }
 
 function getById (favorId) {
+    var favors = query()
     return favors.find(favor=> favor._id = favorId)
 }
 

@@ -15,11 +15,14 @@ export default {
     }
   },
   async created() {
-     var favor = await this.$store.dispatch({
+     this.favor = await this.$store.dispatch({
           type: 'loadFavor',
           favorId: this.$route.params.id
       });
+<<<<<<< HEAD
       this.favor = favor;
+=======
+>>>>>>> bf2c93ac0f879793be3004ca26b633e603ae4719
   }
 }
 </script>

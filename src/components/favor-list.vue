@@ -1,5 +1,5 @@
 <template>
-  <div class="favor-list">
+  <div class="favor-list" v-if="favors">
     <ul>
       <li v-for="favor in favors" :key="favor._id">
         <favor-preview :favor="favor"></favor-preview>
