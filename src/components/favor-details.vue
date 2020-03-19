@@ -1,7 +1,7 @@
 <template>
   <div v-if="favor">
  <pre>{{favor}}</pre>
-  </div>
+</div>
 </template>
 
 <script>
@@ -16,9 +16,10 @@ export default {
   },
   async created() {
      var favor = await this.$store.dispatch({
-          type: 'getById',
+          type: 'loadFavor',
           favorId: this.$route.params.id
       });
+      console.log(favorId);
       this.favor = favor;
   }
 }
