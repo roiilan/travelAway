@@ -34,7 +34,7 @@ export default {
     //   }
     }, 
     actions: {
-        async loadFavors(context, {}){       
+        async loadFavors(context, {}){   
         const favors = await favorService.query()
         // async loadFavors(context, {filterBy}){       
         // const favors = await favorService.query(filterBy)

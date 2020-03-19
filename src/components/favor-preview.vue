@@ -7,7 +7,7 @@
 
     <div class = "footer">
     </div>
-</router-link> |
+      </router-link> |
     </div>
 </template>
 

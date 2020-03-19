@@ -19,7 +19,6 @@ export default {
           type: 'loadFavor',
           favorId: this.$route.params.id
       });
-      console.log(favorId);
       this.favor = favor;
   }
 }
