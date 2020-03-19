@@ -16,9 +16,10 @@ Reqieres Dates:
        <button>Edit</button>    
    </router-link>
    
-    </favor-map>    
+    <favor-map/> 
 
  <pre>{{favor}}</pre>
+ </div>
 </template>
 
 <script>
