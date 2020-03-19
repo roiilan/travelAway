@@ -1,5 +1,14 @@
 <template>
   <div v-if="favor">
+<div> 
+    <img src="" alt="favor picture">
+</div>
+
+   <router-link :to="'/edit/' + favor._id">
+       <button>Edit</button>    
+   </router-link>
+
+
  <pre>{{favor}}</pre>
 </div>
 </template>
@@ -19,10 +28,6 @@ export default {
           type: 'loadFavor',
           favorId: this.$route.params.id
       });
-<<<<<<< HEAD
-      this.favor = favor;
-=======
->>>>>>> bf2c93ac0f879793be3004ca26b633e603ae4719
   }
 }
 </script>
