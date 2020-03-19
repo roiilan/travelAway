@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import favorList from '../components/favor-list.vue'
 import favorApp from '../views/favor-app.vue'
-// import favorDetails from '../components/favor-details.vue'
+import favorDetails from '../components/favor-details.vue'
 
 
 Vue.use(VueRouter)
