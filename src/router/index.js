@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomePage from '../views/Home.vue'
-import favorDetails from '../views/Home.vue'
-import favorList from '../views/Home.vue'
+import favorList from '../components/favor-list.vue'
+import favorDetails from '../components/favor-details.vue'
 
 
 Vue.use(VueRouter)
