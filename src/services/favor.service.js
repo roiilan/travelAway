@@ -6,6 +6,7 @@ const KEY_FAVORS = 'favors';
 export const favorService = {
     getEmptyFavor,
     query,
+    getById,
     save,
     remove
 }
@@ -16,6 +17,10 @@ function query(){
     return _createFavors();
 }
 
+function getById (favorId) {
+    return favors.find(favor=> favor._id = favorId)
+}
+
 function save (favor) {
     var favors = query()
     favors = (favor._id)? _updateFavor(favor, favors): _addFavor(favor, favors);
@@ -23,7 +28,7 @@ function save (favor) {
 }
 
 function _updateFavor (currFavor, favors) {
-    const idx = favors.findIndex(favor=> favors._id = currFavor._id)
+    const idx = favors.findIndex(favor=> favor._id = currFavor._id)
     favors.splice(idx, 1, currFavor)
     return favors
 }
@@ -35,7 +40,7 @@ function _addFavor(currFavor, favors) {
 
 function remove(favorId){
     var favors = query()
-    const idx = favors.findIndex(favor=> favors._id = favorId)
+    const idx = favors.findIndex(favor=> favor._id = favorId)
     favors.splice(idx, 1)
     storageService.store(KEY_FAVORS, favors)
 }
@@ -53,7 +58,6 @@ function getEmptyFavor() {
 }
 
 function _createFavors(){
-
     return [
         _createFavor('Dog walking', 'Puki', Date.now - (1000 * 60 * 60 * 24 * 5)),
         _createFavor('Take my kids away', 'Muki', Date.now - (1000 * 60 * 60 * 24 * 3)),
