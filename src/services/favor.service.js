@@ -66,9 +66,11 @@ function _createFavors(){
 
 }
 
+var idNum =100
 function _createFavor(title, requestedBy, startAt){
     return {
-        _id: utilService.makeId(),
+        // _id: utilService.makeId(),
+        _id: idNum++,
         title,
         description: utilService.makeLorem(80),
         requestedBy,
