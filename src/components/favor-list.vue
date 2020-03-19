@@ -5,6 +5,7 @@
         <favor-preview :favor="favor"></favor-preview>
       </li>
     </ul>
+    <pre>{{favors}}</pre>
   </div>
 </template>
 

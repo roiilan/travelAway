@@ -1,7 +1,7 @@
 import {utilService} from './util.service.js'
 import {storageService} from './storage.service.js'
 
-const KEY_FAVORS = 'favors';
+const KEY_FAVORS = 'favors'
 
 export const favorService = {
     getEmptyFavor,
@@ -19,7 +19,7 @@ function query(){
 
 function getById (favorId) {
     var favors = query()
-    return favors.find(favor=> favor._id = favorId)
+    return favors.find(favor=> favor._id === favorId)
 }
 
 function save (favor) {
