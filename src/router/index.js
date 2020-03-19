@@ -1,35 +1,30 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomePage from '../views/Home.vue'
-import favorList from '../components/favor-list.vue'
-import favorDetails from '../components/favor-details.vue'
+// import favorList from '../components/favor-list.vue'
+import favorApp from '../views/favor-app.vue'
+// import favorDetails from '../components/favor-details.vue'
 
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'HomePage',
-    component: HomePage
-  },
-  {
-    path: '/favor',
-    name: 'favorList',
-    component: favorList
-  },
-  
-  {
-    path: '/favor/:id?',
-    name: 'favorDetails',
-    component: favorDetails
-  },
-  
+const routes = [{
+        path: '/',
+        name: 'favorApp',
+        component: favorApp
+    },
+
+
+    // {
+    //   path: '/favor/:id?',
+    //   name: 'favorDetails',
+    //   component: favorDetails
+    // },
+
 
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router
