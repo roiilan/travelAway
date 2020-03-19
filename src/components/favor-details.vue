@@ -1,33 +1,29 @@
 <template>
-  <div class="favor-list">
-    <ul>
-      <li v-for="favor in favors" :key="favor._id">
-        <toy-preview :favor="favor" @removeToy="removeToy"></toy-preview>
-      </li>
-    </ul>
+  <div v-if="proj">
+ {{proj}}
   </div>
 </template>
 
-
-
 <script>
-import toyPreview from "@/components/toy-preview.vue";
+import favorPreview from './favor-preview.vue'
+
 
 export default {
-  name: "toysList",
-  props: {
-    toys: Array
+  computed: {
+      proj() {
+          return this.$store.getters.proj;
+      }
   },
-  components: {
-    toyPreview
-  },
-  methods: {
-    removeToy(id) {
-      this.$emit("removeToy", id);
-    }
+  created() {
+      this.$store.dispatch({
+          type: 'getProj',
+          projId: this.$route.params.id
+      });
   }
-};
+}
 </script>
 
-<style  >
+
+<style scoped>
 </style>
+
