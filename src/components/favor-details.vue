@@ -1,5 +1,14 @@
 <template>
   <div v-if="favor">
+<div> 
+    <img src="" alt="favor picture">
+</div>
+
+   <router-link :to="'/edit/' + favor._id">
+       <button>Edit</button>    
+   </router-link>
+
+
  <pre>{{favor}}</pre>
     <router-link :to="'/edit/' + favor._id">Edit</router-link>
 
