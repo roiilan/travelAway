@@ -4,10 +4,14 @@ import {favorService} from '../services/favor.service.js'
 export default {
     state: {
         favors: [],
+        // currFavor: null
     },
     mutations: {
       setFavors(state, {favors}){
         state.favors = favors
+      },
+      setFavor(state, {favor}){
+        state.currFavor = favor
       },
       addFavor(state, {favor}) {
         state.favors.unshift(favor)
@@ -24,7 +28,10 @@ export default {
     getters: {
         favors(state){
         return state.favors
-      }
+      },
+    //     currFavor(state){
+    //     return state.favor
+    //   }
     }, 
     actions: {
         async loadFavors(context, {}){       
@@ -36,7 +43,7 @@ export default {
       },
         async loadFavor(context, {favorId}){
         const favor = await favorService.getById(favorId)
-        context.commit({type: 'updateFavor', favor})
+        // context.commit({type: 'setFavor', favor})
         return favor
       },
         async removeFavor(context, {favorId}){
