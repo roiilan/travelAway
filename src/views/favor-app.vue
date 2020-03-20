@@ -1,5 +1,8 @@
 <template>
   <div class="favor-app">
+    <router-link to="/edit">
+    Add Favor
+    </router-link>
     <favor-list />
   </div>
 </template>
