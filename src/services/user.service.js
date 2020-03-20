@@ -1,11 +1,14 @@
 const user = {
     _id: 'u100',
     fullName: 'Muki',
+    imgUrl: null,
     karma: 5,
+    loc: {lat, lng},
+    zoomUrl: '',
     followers: [{}],
     reviews: [{txt: 'cool!', rate: 5}, {txt: 'didnt show up', rate: 1}],
-    zoomUrl: '',
-    loc: {lat, lng}
+    favorsAsked: [],
+    favorsGivven : [],
   }
 
 // import {utilService} from './util.service.js'
