@@ -28,21 +28,21 @@ export const mapService = {
 
 
 
-//   You may use promise-based solution also
-const googleMapsClient = require('@google/maps').createClient({
-  key: 'your API key here',
-  Promise: Promise
-});
+// //   You may use promise-based solution also
+// const googleMapsClient = require('@google/maps').createClient({
+//   key: 'your API key here',
+//   Promise: Promise
+// });
 
 
-googleMapsClient.geocode({address: '1600 Amphitheatre Parkway, Mountain View, CA'})
-  .asPromise()
-  .then((response) => {
-    console.log(response.json.results);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// googleMapsClient.geocode({address: '1600 Amphitheatre Parkway, Mountain View, CA'})
+//   .asPromise()
+//   .then((response) => {
+//     console.log(response.json.results);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 
 
