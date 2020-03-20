@@ -53,7 +53,7 @@ function getEmptyFavor() {
         description: '',
         requestedBy: '',
         takenBy : {},
-        startAt: null,
+        startAt: _getValidDate (new Date()),
         endsAt: null,
     }
 }
@@ -84,7 +84,10 @@ function _createFavor(title, requestedBy, startAt, imgUrl){
     }
 }
 
-function _getValidDate (date){
-    var time = new Date(date);
-    return time.getFullYear() + '-' + this.padNum((time.getMonth() + 1)) + '-' + this.padNum(time.getDate());
+function _getValidDate (time){
+    return time.getFullYear() + '-' + _padNum((time.getMonth() + 1)) + '-' + _padNum(time.getDate());
+}
+
+function _padNum(num){
+    return (num < 10)? '0' + num: num;
 }

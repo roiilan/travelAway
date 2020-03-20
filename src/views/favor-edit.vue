@@ -6,8 +6,8 @@
         <input type="date" v-model="favor.startAt">
         <input type="date" v-model="favor.endsAt">
         <input type="url" v-model="favor.imgUrl">
-        <input type="file" ref="upLoadFile" hidden>
-        <img :src="favor.imgUrl" alt="../assets/svg/loading.svg" @click="$refs.upLoadFile.click()">
+        <input type="file" ref="upLoadImg" @change="upLoadImg" hidden>
+        <img :src="favor.imgUrl" @click="$refs.upLoadImg.click()">
         <img src="../assets/svg/loading.svg">
         <pre>{{favor}}</pre>
     </div>
@@ -31,6 +31,12 @@ export default {
            this.favor = JSON.parse(JSON.stringify(favor))
       } else {
           this.favor = favorService.getEmptyFavor();
+      }
+  },
+  methods: {
+      upLoadImg(ev){
+          console.log('ev:', ev.target.value);
+          this.favor.imgUrl = ev.target.value
       }
   },
 //   computed: {
