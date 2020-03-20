@@ -1,14 +1,20 @@
 <template>
     <div class="favor-edit" v-if="favor">
+        <form @submit.prevent="save(favor)">
         <h2 v-if="favor._id">{{favor.requestedBy}}</h2>
         <input type="text" v-model="favor.title">
         <textarea v-model="favor.description" cols="30" rows="10"></textarea>
-        <input type="date" v-model="favor.startAt">
-        <input type="date" v-model="favor.endsAt">
+        <input type="date" v-model="favor.startAt.date">
+        <input type="time" v-model="favor.startAt.time">
+        <input type="date" v-model="favor.endsAt.date">
+        <input type="time" v-model="favor.endsAt.time">
         <input type="url" v-model="favor.imgUrl">
         <input type="file" ref="upLoadImg" @change="upLoadImg" hidden>
         <img :src="favor.imgUrl" @click="$refs.upLoadImg.click()">
-        <img src="../assets/svg/loading.svg">
+        <button>Save</button>
+        <!-- <img src="../assets/svg/loading.svg"> -->
+        </form>
+        <button v-if="favor._id" @click="remove(favor._id)">Delete</button>
         <pre>{{favor}}</pre>
     </div>
 </template>
@@ -35,9 +41,16 @@ export default {
   },
   methods: {
       upLoadImg(ev){
-          console.log('ev:', ev.target.value);
           this.favor.imgUrl = ev.target.value
-      }
+      },
+      async save(favor){
+      var res = await this.$store.dispatch({type:'saveFavor', favor})
+      this.$router.push('/')
+      },
+      async remove(favorId){
+      var res = await this.$store.dispatch({type:'removeFavor', favorId})
+      this.$router.push('/')
+        },
   },
 //   computed: {
 //         startAt(){
