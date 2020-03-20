@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
 import favorStore from '../modules/favor.store.js'
-import mapStore from '../modules/map.store.js'
+// import mapStore from '../modules/map.store.js'
 // import userStore from '../modules/user.store.js'
 
 
@@ -19,7 +19,6 @@ export default new Vuex.Store({
   },
   modules: {
     favorStore,
-    // mapStore
     // userStore,
   }
 })
