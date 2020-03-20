@@ -1,6 +1,6 @@
 <template>
   <div class="favor-app">
-    <favor-list />
+    <favor-list :favors="favors"/>
   </div>
 </template>
 
@@ -10,9 +10,17 @@ import favorList from "@/components/favor-list.vue";
 
 export default {
   name: "favorApp",
+  data(){
+    return{
+      favors:null
+    }
+  },
   components: {
     favorList,
   },
+async created() {
+     this.favors = await this.$store.dispatch({type: 'loadFavors'});
+},
 
 };
 </script>

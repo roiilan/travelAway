@@ -5,7 +5,6 @@
         <favor-preview :favor="favor"></favor-preview>
       </li>
     </ul>
-    <pre>{{favors}}</pre>
   </div>
 </template>
 
@@ -16,16 +15,10 @@ import favorPreview from "./favor-preview";
 
 export default {
   name: "favorsList",
-data(){
-  return{
-    favors:null,
-    // favors:favors,
+    props: {
+    favors: Array
+  },
 
-  }
-},
-async created() {
-     this.favors = await this.$store.dispatch({type: 'loadFavors'});
-},
   components: {
     favorPreview
   },
@@ -107,4 +100,14 @@ async created() {
 </script>
 
 <style  >
+ul{
+  display: flex;
+  padding: 0;
+}
+
+li{
+  width: 33%;
+  border: 1px solid lightgray;
+  margin-left: 5px;
+}
 </style>
