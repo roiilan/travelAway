@@ -29,4 +29,5 @@ export default {
 .details-img{
     width: 25%;
 }
+
 </style>
