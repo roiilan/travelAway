@@ -67,15 +67,15 @@ function _createFavors() {
         // _createFavor('Dog walking', 'Puki', _getValidDate(Date.now() - (1000 * 60 * 60 * 24 * 5)), 'https://i.pinimg.com/originals/67/01/79/670179bf2f640c22b01556a0af74a97a.jpg'),
         // _createFavor('Take my kids away', 'Muki', _getValidDate(Date.now() - (1000 * 60 * 60 * 24 * 3)), 'https://www.newhitsingles.com/wp-content/uploads/2018/04/Justin-Timberlake-Links-Up-With-The-Selfie-Kid-In-Boston.jpg'),
         // _createFavor('Picture on the side', 'Shuki', _getValidDate(Date.now() - (1000 * 60 * 60 * 24 * 30 * 2)), 'https://cdn.cliqueinc.com/posts/216920/how-to-take-a-selfie-216920-1554893462671-image.700x0c.jpg')
-        _createFavor('Dog walking', 1, 'Puki', { date: '2020-03-14', time: '12:00' }, { date: '2020-03-14', time: '14:00' }, 'https://i.pinimg.com/originals/67/01/79/670179bf2f640c22b01556a0af74a97a.jpg'),
-        _createFavor('Take my kids away', 2, 'Muki', { date: '2020-03-12', time: '14:00' }, { date: '2020-03-12', time: '16:00' }, 'https://www.newhitsingles.com/wp-content/uploads/2018/04/Justin-Timberlake-Links-Up-With-The-Selfie-Kid-In-Boston.jpg'),
-        _createFavor('Picture on the side', 3, 'Shuki', { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, 'https://cdn.cliqueinc.com/posts/216920/how-to-take-a-selfie-216920-1554893462671-image.700x0c.jpg')
+        _createFavor('Dog walking', 1, 'Puki', { date: '2020-03-14', time: '12:00' }, { date: '2020-03-14', time: '14:00' }, 'https://i.pinimg.com/originals/67/01/79/670179bf2f640c22b01556a0af74a97a.jpg',{ lat: 32.178196, lng: 34.907612 }),
+        _createFavor('Take my kids away', 2, 'Muki', { date: '2020-03-12', time: '14:00' }, { date: '2020-03-12', time: '16:00' }, 'https://www.newhitsingles.com/wp-content/uploads/2018/04/Justin-Timberlake-Links-Up-With-The-Selfie-Kid-In-Boston.jpg',{ lat: 32.572762, lng: 34.962372 }),
+        _createFavor('Picture on the side', 3, 'Shuki', { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, 'https://cdn.cliqueinc.com/posts/216920/how-to-take-a-selfie-216920-1554893462671-image.700x0c.jpg',{ lat: 32.083549, lng: 34.815498 })
     ]
     storageService.store(KEY_FAVORS, favors)
     return favors;
 }
 
-function _createFavor(title, membersNeeded, requestedBy, startAt, endsAt, imgUrl) {
+function _createFavor(title, membersNeeded, requestedBy, startAt, endsAt, imgUrl ,position) {
     return {
         _id: utilService.makeId(),
         title,
@@ -85,7 +85,9 @@ function _createFavor(title, membersNeeded, requestedBy, startAt, endsAt, imgUrl
         takenBy: {},
         startAt,
         endsAt,
-        imgUrl
+        imgUrl,
+        position
+     
     }
 }
 
