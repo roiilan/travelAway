@@ -1,7 +1,8 @@
 <template>
     <div class="favor-edit" v-if="favor">
         <form @submit.prevent="save(favor)">
-        <h2 v-if="favor._id">{{favor.requestedBy}}</h2>
+        <h2 v-if="favor._id">{{favor.requestedBy.fullName}}</h2>
+        <img v-if="favor._id" :src="favor.requestedBy.imgUrl"/>
         <input type="text" v-model="favor.title">
         <textarea v-model="favor.description" cols="30" rows="10"></textarea>
         <input type="date" v-model="favor.startAt.date">
