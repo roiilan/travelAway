@@ -103,10 +103,11 @@ export default {
 ul{
   display: flex;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 li{
-  width: 33%;
+  width: 25%;
   border: 1px solid lightgray;
   margin-left: 5px;
 }
