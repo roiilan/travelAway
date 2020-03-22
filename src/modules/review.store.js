@@ -18,8 +18,8 @@ export default {
         // },
     },
     actions: {
-        async loadReviews(context, {user}) {
-            const reviews = await reviewService.getReviews(user);
+        async loadReviews(context, {userId}) {
+            const reviews = await reviewService.getReviews(userId);
             context.commit({type: 'setReviews', reviews})
             return reviews;
         },

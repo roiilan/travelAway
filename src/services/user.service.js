@@ -143,43 +143,35 @@ async function addReview(reviewAndUser){
 function _createUsers(){
     var users = [
         _createUser(
-         'p101',
+         'u101',
          'Muki',
          '111',
          'Muki Ben Moshe',
          'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
           15,
           { lat:12, lng: 12 },
-          [
-              {_id: utilService.makeId(),  createBy:{_id:'p102', fullName: 'Puki Ben Pinhas', imgUrl: 'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}, txt: 'Cool!', rate: 5},
-              {_id: utilService.makeId(),  createBy:{_id:'p103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}, txt: 'Didnt show up', rate: 1}
-          ],
           {date:'2020-01-14', time:'8:32'},
           true
           ),
         _createUser(
-            'p102',
+            'u102',
             'Puki',
             '222',
             'Puki Ben Pinhas',
             'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
             8,
             { lat:22, lng: 21 },
-            [
-                {_id: utilService.makeId(), createBy:{_id:'p103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}, txt: 'Awesome bro!', rate: 5},
-            ],
             {date:'2020-02-27', time:'17:47'},
             false
             ),
         _createUser(
-         'p103',
+         'u103',
          'Shuki',
          '333',
          'Shuki Ben Shaul',
          'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
          44,
         { lat:13, lng: 31 },
-        [],
         {date:'2019-01-30', time:'12:12'},
         false
         )
@@ -188,7 +180,7 @@ function _createUsers(){
     return users;
 }
 
-function _createUser(_id, username, password, fullName, imgUrl, karma, position, reviews, joinAt, isAdmin){
+function _createUser(_id, username, password, fullName, imgUrl, karma, position, joinAt, isAdmin){
     return {
         _id,
         username,
@@ -198,7 +190,6 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
         karma,
         position,
         // zoomUrl: '',
-        reviews,
         // favorsAsked: [],
         // favorsGivven : [],
         joinAt,

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import favorApp from '../views/favor-app.vue'
 import Login from '../views/Login.vue'
+import userProfile from '../views/user-profile.vue'
 import userEdit from '../views/user-edit.vue'
 import favorEdit from '../views/favor-edit.vue'
 import favorList from '../components/favor-list.vue'
@@ -24,6 +25,11 @@ const routes = [{
         path: '/login',
         name: 'login',
         component: Login
+    },
+    {
+        path: '/user/:id',
+        name: 'userProfile',
+        component: userProfile
     },
     {
         path: '/userEdit/:id',
