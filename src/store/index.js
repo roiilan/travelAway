@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import favorStore from '../modules/favor.store.js'
 // import mapStore from '../modules/map.store.js'
 import userStore from '../modules/user.store.js'
+import cloudinaryService from '../services/cloudinary.service.js'
 
 
 Vue.use(Vuex)
@@ -16,6 +17,10 @@ export default new Vuex.Store({
   getters: {
   }, 
   actions: {
+    async addImg(context, { imgEv }) {
+      const img = await cloudinaryService.uploadImg(imgEv)
+      return img
+  }
   },
   modules: {
     favorStore,

@@ -1,5 +1,4 @@
 import { favorService } from '../services/favor.service.js'
-import cloudinaryService from '../services/cloudinary.service.js'
 
 
 export default {
@@ -18,8 +17,6 @@ export default {
             state.favors.unshift(favor)
         },
         updateFavor(state, { favor }) {
-            console.log('tamir');
-
             const idx = state.favors.findIndex(currFavor => currFavor._id === favor._id)
             state.favors.splice(idx, 1, favor)
         },
@@ -57,21 +54,11 @@ export default {
         async saveFavor(context, { favor }) {
             const isEdit = !!favor._id;
             const savedFavor = await favorService.save(favor)
-            console.log('savedFavor', savedFavor);
-
             context.commit({
                 type: (isEdit) ? 'updateFavor' : 'addFavor',
                 favor: savedFavor
             })
             return savedFavor
         },
-        async addImg(context, { imgEv }) {
-            console.log('here again!');
-
-            const img = await cloudinaryService.uploadImg(imgEv)
-            return img
-
-
-        }
     }
 }
