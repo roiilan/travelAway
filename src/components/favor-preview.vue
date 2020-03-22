@@ -3,7 +3,7 @@
     <router-link :to="'/favor/' + favor._id">
     <h5>Name: {{favor.title}} </h5>
     <h5>Description: {{favor.description}} </h5>
-    <img v-bind:src=favor.imgUrl v-if="favor.imgUrl" class="details-img"/>
+    <img v-bind:src=favor.imgUrls v-if="favor.imgUrls" class="details-img"/>
 
     <div class = "footer">
     </div>

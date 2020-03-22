@@ -1,7 +1,7 @@
 <template>
   <div v-if="favor">
 <div> 
-    <img :src="favor.imgUrl" v-if="favor.imgUrl" alt="favor picture"/>
+    <img :src="favor.imgUrls" v-if="favor.imgUrls" alt="favor picture"/>
 </div>
 
   <h2 >how can you Help?</h2>
