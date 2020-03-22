@@ -66,7 +66,9 @@ function getEmptyFavor() {
         takenBy: {},
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
-        imgUrls: []
+        imgUrls: [],
+        address: '',
+        position: ''
     }
 }
 

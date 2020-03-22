@@ -29,8 +29,8 @@
 
 <script>
 import favorPreview from "./favor-preview";
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
+// import { VueperSlides, VueperSlide } from 'vueperslides'
+// import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: "favorsList",
@@ -65,8 +65,8 @@ destroyed(){
 
   components: {
     favorPreview,
-      VueperSlides, 
-      VueperSlide ,
+      // VueperSlides, 
+      // VueperSlide ,
   },
 
 };
