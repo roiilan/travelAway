@@ -86,7 +86,7 @@ function _createFavor(title, membersNeeded, requestedBy, startAt, endsAt, imgUrl
         takenBy: {},
         startAt,
         endsAt,
-        imgUrl: [],
+        imgUrl,
         position
 
     }
