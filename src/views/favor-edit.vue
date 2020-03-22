@@ -24,11 +24,6 @@
                  <input @input="uploadImg" type="file" hidden>
                  </label>
                 </div>
-            <!-- <label class="favor-edit-upload-img" v-if="favor.isAboard"> 
-                <input @input="uploadImg" type="file" hidden>
-                <img :src="favor.imgUrl">
-                <p class="favor-edit-upload-txt">Upload your own! </p>
-            </label> -->
             <button>Save</button>       
         </form>
         <button v-if="favor._id" @click="remove(favor._id)">Delete</button>

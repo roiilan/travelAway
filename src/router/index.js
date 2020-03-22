@@ -4,16 +4,20 @@ import favorApp from '../views/favor-app.vue'
 import Login from '../views/Login.vue'
 import userEdit from '../views/user-edit.vue'
 import favorEdit from '../views/favor-edit.vue'
-// import favorList from '../components/favor-list.vue'
+import favorList from '../components/favor-list.vue'
 import favorDetails from '../components/favor-details.vue'
 
 
 Vue.use(VueRouter)
 
-const routes = [
-    {
+const routes = [{
         path: '/',
         name: 'favorApp',
+        component: favorApp
+    },
+    {
+        path: '/favors',
+        name: 'favors',
         component: favorApp
     },
     {
@@ -32,9 +36,9 @@ const routes = [
         component: favorEdit
     },
     {
-      path: '/favor/:id?',
-      name: 'favorDetails',
-      component: favorDetails
+        path: '/favor/:id?',
+        name: 'favorDetails',
+        component: favorDetails
     },
 ]
 
