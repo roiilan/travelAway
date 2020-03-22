@@ -58,7 +58,7 @@ function getEmptyFavor() {
         takenBy: {},
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
-        imgUrl: 'https://image.flaticon.com/icons/svg/1837/1837526.svg'
+        imgUrl: ['https://image.flaticon.com/icons/svg/1837/1837526.svg']
     }
 }
 
@@ -85,7 +85,7 @@ function _createFavor(title, membersNeeded, requestedBy, startAt, endsAt, imgUrl
         takenBy: {},
         startAt,
         endsAt,
-        imgUrl
+        imgUrl: []
     }
 }
 
