@@ -1,4 +1,5 @@
 import { favorService } from '../services/favor.service.js'
+import  mapService  from '../services/map.service.js'
 
 
 export default {
@@ -60,5 +61,11 @@ export default {
             })
             return savedFavor
         },
-    }
+        async searchPosition(context,{ txt }){
+            console.log('store',txt)
+            const getPosition = await mapService.searchPosition(txt)
+            // context.commit({ type: 'removeFavor', favorId });
+            return getPosition;
+        }
+},
 }

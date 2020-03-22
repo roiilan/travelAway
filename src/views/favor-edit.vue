@@ -28,6 +28,17 @@
                 <img :src="favor.imgUrl">
                 <p class="favor-edit-upload-txt">Upload your own! </p>
             </label> -->
+
+                 <div>
+                   What is the favor address?
+                   <input class="text-location" type="text" placeholder="Address"
+                    v-model="favor.position.txtAddress"
+                    @change="searchPosition(favor.position.txtAddress)"
+                    >
+                  <favor-map :position="favor.position"> </favor-map>
+                 </div>
+
+
             <button>Save</button>       
         </form>
         <button v-if="favor._id" @click="remove(favor._id)">Delete</button>
@@ -38,6 +49,8 @@
 <script>
 import { favorService } from "../services/favor.service.js";
 import toggleBtn from "@/components/toggle-btn.vue";
+import favorMap from '../components/favor-map.vue';
+
 
 export default {
   data() {
@@ -83,11 +96,18 @@ export default {
        
       this.currentImgIdx = idx
     },
+       async searchPosition(txt) {
+         console.log(txt,"txt")
+         var currPosition = await this.$store.dispatch({ type: "searchPosition", txt });
+         console.log("second favorEdit")
+         console.log(currPosition.lat,"second favorEdit")
+        }
 
 
 },
         components: {
-      toggleBtn
+      toggleBtn,
+      favorMap
     },
 }
 </script>
