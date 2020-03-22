@@ -1,4 +1,5 @@
 import { favorService } from '../services/favor.service.js'
+import  mapService  from '../services/map.service.js'
 import { locService } from '../services/loc.service.js'
 
 
@@ -64,9 +65,11 @@ export default {
             })
             return savedFavor
         },
-        async getLatLong(context, {txt}){
-            return await locService.getLatLong(txt)
+        async searchPosition(context,{ txt }){
+            console.log('store',txt)
+            const getPosition = await mapService.searchPosition(txt)
+            // context.commit({ type: 'removeFavor', favorId });
+            return getPosition;
         }
-
-    }
+},
 }
