@@ -1,16 +1,12 @@
 <template>
   <div class="favor-list" v-if="favors">
-    <ul v-if="!allFavors">
+   <h1>Local favors</h1>
+    <ul>
       <li v-for="(favor,index) in favors" :key="favor._id" v-if="index < 4">
         <favor-preview :favor="favor"></favor-preview>
       </li>
     </ul>
-    <ul v-else>
-      <li v-for="(favor) in favors" :key="favor._id">
-        <favor-preview :favor="favor"></favor-preview>
-      </li>
-    </ul>
-    <router-link to='/favors/' @click.native="revealAllFavors">All favors</router-link>
+    <router-link to='/favors/' >All local favors</router-link>
 
 
 
@@ -33,15 +29,12 @@ import favorPreview from "./favor-preview";
 // import 'vueperslides/dist/vueperslides.css'
 
 export default {
-  name: "favorsList",
+  name: "favorList",
     props: {
     favors: Array,
   },
-  data(){
-    return{
-      allFavors:false
-    }
-  },
+
+
 //   data: () => ({
 //   slides: [
 //     {
@@ -51,23 +44,13 @@ export default {
 //     }
 //   ]
 // }),
-methods:{
-revealAllFavors(){
-  console.log(this.allFavors);
-  this.allFavors = !this.allFavors
-  
-}
-},
-destroyed(){
-  this.allFavors = false
-},
-
 
   components: {
     favorPreview,
       // VueperSlides, 
       // VueperSlide ,
   },
+
 
 };
 
@@ -87,6 +70,11 @@ destroyed(){
 
 .favor-list li{
   width: 20%;
+  margin: 5px;
+  list-style: none;
+}
+.favor-list li img{
+  width:100%;
   margin: 5px;
   list-style: none;
 }

@@ -1,4 +1,5 @@
 import { favorService } from '../services/favor.service.js'
+import  mapService  from '../services/map.service.js'
 import { locService } from '../services/loc.service.js'
 
 
@@ -11,6 +12,7 @@ export default {
         setFavors(state, { favors }) {
             state.favors = favors
         },
+
         setFavor(state, { favor }) {
             state.currFavor = favor
         },
@@ -30,6 +32,7 @@ export default {
         favors(state) {
             return state.favors
         },
+
         //     currFavor(state){
         //     return state.favor
         //   }
@@ -42,6 +45,7 @@ export default {
             context.commit({ type: 'setFavors', favors })
             return favors
         },
+
         async loadFavor(context, { favorId }) {
             const favor = await favorService.getById(favorId)
                 // context.commit({type: 'setFavor', favor})
@@ -61,9 +65,11 @@ export default {
             })
             return savedFavor
         },
-        async getLatLong(context, {txt}){
-            return await locService.getLatLong(txt)
+        async searchPosition(context,{ txt }){
+            console.log('store',txt)
+            const getPosition = await mapService.searchPosition(txt)
+            // context.commit({ type: 'removeFavor', favorId });
+            return getPosition;
         }
-
-    }
+},
 }

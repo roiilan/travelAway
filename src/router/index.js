@@ -5,7 +5,7 @@ import Login from '../views/Login.vue'
 import userProfile from '../views/user-profile.vue'
 import userEdit from '../views/user-edit.vue'
 import favorEdit from '../views/favor-edit.vue'
-import favorList from '../components/favor-list.vue'
+import favorListLocal from '../views/favor-list-local.vue'
 import favorDetails from '../components/favor-details.vue'
 
 
@@ -18,8 +18,8 @@ const routes = [{
     },
     {
         path: '/favors',
-        name: 'favors',
-        component: favorApp
+        name: 'favorsListLocal',
+        component: favorListLocal
     },
     {
         path: '/login',
