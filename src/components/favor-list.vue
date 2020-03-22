@@ -29,15 +29,11 @@ import favorPreview from "./favor-preview";
 // import 'vueperslides/dist/vueperslides.css'
 
 export default {
-  name: "favorsList",
+  name: "favorList",
     props: {
     favors: Array,
   },
-  data(){
-    return{
-      localFavors:null
-    }
-  },
+
 
 //   data: () => ({
 //   slides: [
@@ -48,10 +44,6 @@ export default {
 //     }
 //   ]
 // }),
-
-  async created() {
-     this.localFavors= await this.$store.dispatch({type: 'loadLocalFavors'});
-},
 
   components: {
     favorPreview,
@@ -78,6 +70,11 @@ export default {
 
 .favor-list li{
   width: 20%;
+  margin: 5px;
+  list-style: none;
+}
+.favor-list li img{
+  width:100%;
   margin: 5px;
   list-style: none;
 }
