@@ -5,21 +5,13 @@
         <h2>{{user.fullName}}</h2>
         <img :src="user.imgUrl" :alt="user.fullName">
         <h3>Karma: {{user.karma}}</h3>
-        <h3>Join At- date: {{user.joinAt.date}} time: {{user.joinAt.time}}</h3>
-        <ul v-if="user.followers.length">
-            <h2 v-if="user.followers.length === 1">One follower</h2>
-            <h2 v-else>{{user.followers.length}} Followers</h2>
-            <li v-for="follower in user.followers" :key="follower._id">
-                <h3>Name: {{follower.fullName}}</h3>
-                <img :src="follower.imgUrl" :alt="follower.fullName">
-            </li>
-        </ul>
-        <h2 v-else>There are no followers yet</h2> 
+        <h3>Join At- date: {{user.joinAt.date}} time: {{user.joinAt.time}}</h3> 
         <ul v-if="user.reviews.length">
             <h2 v-if="user.reviews.length === 1">One review</h2>
             <h2 v-else>{{user.reviews.length}} Reviews</h2>
             <li v-for="review in user.reviews" :key="review.txt">
-                <h3>Review: {{review.txt}}</h3>
+                <h3>Review:</h3>
+                <h3><img class="img-profile-for-review" :src="review.imgUrl" alt=""> {{review.fullName}}: {{review.txt}}</h3>
                 <h3>Rate: {{review.rate}}</h3>
             </li>
         </ul> 
@@ -39,8 +31,11 @@ export default {
 img {
     width: 150px;
     /* height: 350px; */
-    background-position: cover;
     /* border-radius: 50%; */
 
+}
+
+.img-profile-for-review{
+    width: 30px;
 }
 </style>

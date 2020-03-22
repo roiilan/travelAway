@@ -54,6 +54,7 @@ export default {
             }
         },
         async signup(){
+            if (this.newUserCred.password.length < 3 || this.newUserCred.username.length < 3 || this.newUserCred.fullName.length < 3) return
             var user = await this.$store.dispatch({ type:'signup',  newUserCred:this.newUserCred})
             console.log('user: ', user);
             this.$router.push('/')
