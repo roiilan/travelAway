@@ -9,25 +9,22 @@
             <input type="time" v-model="favor.startAt.time">
             <input type="date" v-model="favor.endsAt.date">
             <input type="time" v-model="favor.endsAt.time">
+            <input type="text" v-model="favor.address" @blur="getLatLong" placeholder="Please enter an address.." required>
              <toggle-btn v-model="favor.isAboard" @click.native="emitAboard"></toggle-btn>
 
             <!-- <input type="file" ref="upLoadImg" @change="upLoadImg" hidden> -->
-            <label class="favor-edit-upload-img"> 
-                <input @input="uploadImg" type="file" hidden>
-                <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
-                <p class="favor-edit-upload-txt">Upload! </p>
-            </label>
+                <label class="favor-edit-upload-img"> 
+                    <input @input="uploadImg" type="file" hidden>
+                    <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
+                    <p class="favor-edit-upload-txt">Upload! </p>
+                </label>
+                
                 <div v-for="(url, index) in favor.imgUrls" class = "uploaded-img" >
-                   <label> 
-                  <img :src="url" @click="setCurrImg(index)" >
-                 <input @input="uploadImg" type="file" hidden>
-                 </label>
-                </div>
-            <!-- <label class="favor-edit-upload-img" v-if="favor.isAboard"> 
-                <input @input="uploadImg" type="file" hidden>
-                <img :src="favor.imgUrl">
-                <p class="favor-edit-upload-txt">Upload your own! </p>
-            </label> -->
+                  <label> 
+                    <img :src="url" @click="setCurrImg(index)" >
+                    <input @input="uploadImg" type="file" hidden>
+                  </label>
+                </div>         
 
                  <div>
                    What is the favor address?
@@ -88,6 +85,9 @@ export default {
       var res = await this.$store.dispatch({ type: "removeFavor", favorId });
       this.$router.push("/");
     },
+    async getLatLong(){
+      this.favor.position = await this.$store.dispatch({type:'getLatLong', txt: this.favor.address})
+    },
      emitAboard() {
       this.$emit("set-filter", JSON.parse(JSON.stringify(this.favor)));
     },
@@ -100,7 +100,7 @@ export default {
          console.log(txt,"txt")
          var currPosition = await this.$store.dispatch({ type: "searchPosition", txt });
          console.log("second favorEdit")
-         console.log(currPosition.lat,"second favorEdit")
+         console.log(currPosition,"second favorEdit")
         }
 
 

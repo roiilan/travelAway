@@ -1,10 +1,27 @@
 <template>
   <div class="favor-list" v-if="favors">
-    <ul>
-      <li v-for="favor in favors" :key="favor._id">
+    <ul v-if="!allFavors">
+      <li v-for="(favor,index) in favors" :key="favor._id" v-if="index < 4">
         <favor-preview :favor="favor"></favor-preview>
       </li>
     </ul>
+    <ul v-else>
+      <li v-for="(favor) in favors" :key="favor._id">
+        <favor-preview :favor="favor"></favor-preview>
+      </li>
+    </ul>
+    <router-link to='/favors/' @click.native="revealAllFavors">All favors</router-link>
+
+
+
+
+<!-- <vueper-slides
+  class="no-shadow"
+  :visible-slides="3"
+  :slide-ratio="1 / 4"
+  :dragging-distance="10">
+  <vueper-slide v-for="(favor,i) in favors" :key="i" :image="favor.imgUrls[0]" :title="favor.title" :content="favor.description" :link='"#/favor/" + favor._id'/>
+</vueper-slides> -->
   </div>
 </template>
 
@@ -12,88 +29,49 @@
 
 <script>
 import favorPreview from "./favor-preview";
+// import { VueperSlides, VueperSlide } from 'vueperslides'
+// import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: "favorsList",
     props: {
-    favors: Array
+    favors: Array,
   },
+  data(){
+    return{
+      allFavors:false
+    }
+  },
+//   data: () => ({
+//   slides: [
+//     {
+//       title: 'Slide #1',
+//       content: 'Slide content.',
+//       _id:null
+//     }
+//   ]
+// }),
+methods:{
+revealAllFavors(){
+  console.log(this.allFavors);
+  this.allFavors = !this.allFavors
+  
+}
+},
+destroyed(){
+  this.allFavors = false
+},
+
 
   components: {
-    favorPreview
+    favorPreview,
+      // VueperSlides, 
+      // VueperSlide ,
   },
 
 };
 
 
-// const users = [
-//   {
-  
-//   _id: 'u100',
-//   fullName: 'Ruki',
-//   karma: 5,
-//   followers: [{}],
-//   reviews: [{txt: 'baaaaa!', rate: 5}, {txt: 'didnt show up', rate: 2}],
-//   zoomUrl: '',
-//   // loc: {lat, lng}
-// }
-// ,{  _id: 'u102',
-//   fullName: 'Muki',
-//   karma: 5,
-//   followers: [{}],
-//   reviews: [{txt: 'cool!', rate: 5}, {txt: ' show up!', rate: 1}],
-//   zoomUrl: '',
-//   // loc: {lat, lng}
-//   }
-//   ,{
-//   _id: 'u103',
-//   fullName: 'Zuki',
-//   karma: 5,
-//   followers: [{}],
-//   reviews: [{txt: 'nice man!', rate: 5}, {txt: 'so and so', rate: 1}],
-//   zoomUrl: '',
-//   // loc: {lat, lng}
-//   },
-//   ]
-
-
-
-
-// const favors = [{
-//   _id: 'p1031',
-//   title: 'Dog walking ',
-//   description: 'take my dog out!',
-//   requestedBy: {},
-//   takenBy : {},
-//   startAt:1584631383289,
-//   endsAt: null,
-//     imgUrl:'https://i.pinimg.com/originals/67/01/79/670179bf2f640c22b01556a0af74a97a.jpg'
-
-// },
-// {
-//   _id: 'p1041',
-//   title: 'Take my kids away',
-//   description: 'Take my kids out!',
-//   requestedBy: {},
-//   takenBy : {},
-//   startAt: 1584631383289,
-//   endsAt: null,
-//   imgUrl:'https://www.newhitsingles.com/wp-content/uploads/2018/04/Justin-Timberlake-Links-Up-With-The-Selfie-Kid-In-Boston.jpg'
-
-// },
-// {
-//   _id: 'p1051',
-//   title: 'Hang on the side',
-//   description: 'Take a hammer and nail that picture!',
-//   requestedBy: {},
-//   takenBy : {},
-//   startAt:1584631383289,
-//   endsAt: null,
-//   imgUrl:'https://cdn.cliqueinc.com/posts/216920/how-to-take-a-selfie-216920-1554893462671-image.700x0c.jpg'
-
-// },
-
-// ]
 
 
 
@@ -104,11 +82,20 @@ export default {
   display: flex;
   padding: 0;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .favor-list li{
-  width: 25%;
-  border: 1px solid lightgray;
-  margin-left: 5px;
+  width: 20%;
+  margin: 5px;
+  list-style: none;
 }
+/* 
+.vueperslide__content-wrapper{
+  color: white;
+}
+
+a{
+  margin: 5px;
+} */
 </style>

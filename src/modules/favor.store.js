@@ -1,5 +1,6 @@
 import { favorService } from '../services/favor.service.js'
 import  mapService  from '../services/map.service.js'
+import { locService } from '../services/loc.service.js'
 
 
 export default {

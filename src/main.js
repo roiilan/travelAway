@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import './registerServiceWorker';
+import router from './router';
+import store from './store';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 
 //google maps
-import * as VueGoogleMaps from 'vue2-google-maps'
+import * as VueGoogleMaps from 'vue2-google-maps';
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyAfOgP37XV4mv6RcyxIwOk1ajVevIhN2TM',

@@ -15,7 +15,7 @@ export default {
   name: "favorApp",
   data(){
     return{
-      favors:null
+      favors:null,
     }
   },
   components: {

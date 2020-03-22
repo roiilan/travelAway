@@ -1,7 +1,10 @@
 <template>
   <div v-if="favor">
+    <router-link :to="'/user/' + favor.requestedBy._id">
+      User Profile
+    </router-link>
 <div> 
-    <img :src="favor.imgUrls" v-if="favor.imgUrls" alt="favor picture"/>
+    <img :src="favor.imgUrls[0]" v-if="favor.imgUrls" alt="favor picture"/>
 </div>
 
   <h2 >how can you Help?</h2>

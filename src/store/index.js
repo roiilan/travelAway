@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex';
 import favorStore from '../modules/favor.store.js'
 // import mapStore from '../modules/map.store.js'
-import userStore from '../modules/user.store.js'
+import userStore from '../modules/user.store.js';
+import reviewStore from '../modules/review.store.js';
 import cloudinaryService from '../services/cloudinary.service.js'
 
 
@@ -25,5 +26,6 @@ export default new Vuex.Store({
   modules: {
     favorStore,
     userStore,
+    reviewStore,
   }
 })
