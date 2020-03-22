@@ -9,20 +9,23 @@
             <input type="time" v-model="favor.startAt.time">
             <input type="date" v-model="favor.endsAt.date">
             <input type="time" v-model="favor.endsAt.time">
+            <input type="text" v-model="favor.address" @blur="getLatLong" placeholder="Please enter an address.." required>
              <toggle-btn v-model="favor.isAboard" @click.native="emitAboard"></toggle-btn>
 
             <!-- <input type="file" ref="upLoadImg" @change="upLoadImg" hidden> -->
-            <label class="favor-edit-upload-img"> 
-                <input @input="uploadImg" type="file" hidden>
-                <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
-                <p class="favor-edit-upload-txt">Upload! </p>
-            </label>
+                <label class="favor-edit-upload-img"> 
+                    <input @input="uploadImg" type="file" hidden>
+                    <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
+                    <p class="favor-edit-upload-txt">Upload! </p>
+                </label>
+                
                 <div v-for="(url, index) in favor.imgUrls" class = "uploaded-img" >
-                   <label> 
-                  <img :src="url" @click="setCurrImg(index)" >
-                 <input @input="uploadImg" type="file" hidden>
-                 </label>
+                  <label> 
+                    <img :src="url" @click="setCurrImg(index)" >
+                    <input @input="uploadImg" type="file" hidden>
+                  </label>
                 </div>
+                
             <button>Save</button>       
         </form>
         <button v-if="favor._id" @click="remove(favor._id)">Delete</button>
@@ -69,6 +72,9 @@ export default {
     async remove(favorId) {
       var res = await this.$store.dispatch({ type: "removeFavor", favorId });
       this.$router.push("/");
+    },
+    async getLatLong(){
+      this.favor.position = await this.$store.dispatch({type:'getLatLong', txt: this.favor.address})
     },
      emitAboard() {
       this.$emit("set-filter", JSON.parse(JSON.stringify(this.favor)));

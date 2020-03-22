@@ -14,7 +14,11 @@ export const userService = {
     getById,
     getEmptyUser,
     remove,
-    update
+    update,
+    getLoggeinUser,
+    getMinimalUser,
+    removeReview,
+    addReview,
 }
 
 async function getById(userId) {
@@ -51,16 +55,18 @@ async function login(credentials) {
     // return _handleLogin(user)
 }
 async function signup(newUserCred) {
+    sessionStorage.clear();
     var users = getUsers();
     newUserCred._id = utilService.makeId();
     newUserCred.joinAt = {date:_getValidDate (new Date()),time: _getValidtime(new Date())};
     newUserCred.karma = 5;
     console.log('newUserCred before: ', newUserCred);
     var pos = await locService.getPosition()
-    newUserCred.loc = {lat: pos.coords.latitude, lng: pos.coords.longitude}
+    newUserCred.position = {lat: pos.coords.latitude, lng: pos.coords.longitude}
     console.log('newUserCred after: ', newUserCred);
     users.push(newUserCred)
     storageService.store(KEY_USERS, users)
+    sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
     return newUserCred;
     // const user = await httpService.post('auth/signup', userCred)
     // return _handleLogin(user)
@@ -92,6 +98,18 @@ function getUsers() {
     // return httpService.get('user')
 }
 
+function getLoggeinUser() {
+    return JSON.parse(sessionStorage.getItem(KEY_LOGGEDIN))    
+}
+
+function getMinimalUser(user){
+    return {
+        _id:user._id,
+        fullName: user.fullName,
+        imgUrl: user.imgUrl
+    }
+}
+
 function getEmptyUser() {
     return {
         username: '',
@@ -103,46 +121,57 @@ function getEmptyUser() {
     }
 }
 
+async function removeReview(ids){
+    var users = getUsers();
+    var user = users.find(user=> user._id === ids.userId)
+    const idx = user.reviews.findIndex(review=> review._id === ids.reviewId)
+    user.reviews.splice(idx, 1);
+    storageService.store(KEY_USERS, users)
+    return ('Successfully deleted paid review!!')
+}
+
+async function addReview(reviewAndUser){
+    console.log('reviewAndUser: ', reviewAndUser);
+    
+    var users = getUsers();
+    var user = users.find(user=> user._id === reviewAndUser.user._id)
+    user.reviews.unshift(reviewAndUser.newReview);
+    storageService.store(KEY_USERS, users)
+    return (reviewAndUser.newReview)
+}
+
 function _createUsers(){
     var users = [
         _createUser(
-         'p101',
+         'u101',
          'Muki',
          '111',
          'Muki Ben Moshe',
          'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
           15,
           { lat:12, lng: 12 },
-          [
-              {_id:'p102', fullName: 'Puki Ben Pinhas', imgUrl: 'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', txt: 'Cool!', rate: 5},
-              {_id:'p103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', txt: 'Didnt show up', rate: 1}
-          ],
           {date:'2020-01-14', time:'8:32'},
           true
           ),
         _createUser(
-            'p102',
+            'u102',
             'Puki',
             '222',
             'Puki Ben Pinhas',
             'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
             8,
             { lat:22, lng: 21 },
-            [
-                {_id:'p103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', txt: 'Awesome bro!', rate: 5}, {txt: 'Good heart', rate: 5}
-            ],
             {date:'2020-02-27', time:'17:47'},
             false
             ),
         _createUser(
-         'p103',
+         'u103',
          'Shuki',
          '333',
          'Shuki Ben Shaul',
          'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
          44,
         { lat:13, lng: 31 },
-        [],
         {date:'2019-01-30', time:'12:12'},
         false
         )
@@ -151,7 +180,7 @@ function _createUsers(){
     return users;
 }
 
-function _createUser(_id, username, password, fullName, imgUrl, karma, loc, reviews, joinAt, isAdmin){
+function _createUser(_id, username, password, fullName, imgUrl, karma, position, joinAt, isAdmin){
     return {
         _id,
         username,
@@ -159,9 +188,8 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, loc, revi
         fullName,
         imgUrl,
         karma,
-        loc,
+        position,
         // zoomUrl: '',
-        reviews,
         // favorsAsked: [],
         // favorsGivven : [],
         joinAt,

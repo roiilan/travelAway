@@ -20,7 +20,13 @@
             <pre>{{newUserCred}}</pre>
         </form>
     <ul class="login-user" v-if="users">
-        <user-list v-for="user in users" :key="user._id" :user="user" @removeUser="removeUser"/>
+        <user-list 
+        v-for="user in users" :key="user._id" 
+        :user="user" 
+        @removeUser="removeUser" 
+        @removeReview="removeReview"
+        @addReview="addReview"
+        />
     </ul>
     </div>
 </template>
@@ -28,6 +34,7 @@
 <script>
 import { userService } from '../services/user.service.js'
 import userList from '../components/user-list.cmp.vue'
+
 export default {
     name: 'Login',
     data() {
@@ -76,6 +83,18 @@ export default {
         async removeUser(userId){
             var msg = await this.$store.dispatch({ type:'removeUser', userId})
             console.log('msg: ', msg);
+        },
+        async removeReview(ids){
+            console.log('ids: ', ids);
+            
+            var msg = await this.$store.dispatch({ type:'removeReview', ids});
+            console.log('msg: ', msg);
+        },
+        async addReview(reviewAndUser){
+            console.log('reviewAndUser: ', reviewAndUser);
+            
+            var review = await this.$store.dispatch({ type:'addReview', reviewAndUser});
+            console.log('review: ', review);
         }
     },
      computed: {

@@ -5,25 +5,35 @@
         <h2>{{user.fullName}}</h2>
         <img :src="user.imgUrl" :alt="user.fullName">
         <h3>Karma: {{user.karma}}</h3>
-        <h3>Join At- date: {{user.joinAt.date}} time: {{user.joinAt.time}}</h3> 
-        <ul v-if="user.reviews.length">
-            <h2 v-if="user.reviews.length === 1">One review</h2>
-            <h2 v-else>{{user.reviews.length}} Reviews</h2>
-            <li v-for="review in user.reviews" :key="review.txt">
-                <h3>Review:</h3>
-                <h3><img class="img-profile-for-review" :src="review.imgUrl" alt=""> {{review.fullName}}: {{review.txt}}</h3>
-                <h3>Rate: {{review.rate}}</h3>
-            </li>
-        </ul> 
-         <h2 v-else>There are no reviews yet</h2> 
-        <!-- <pre>{{user}}</pre> -->
+        <h3>Join At- date: {{user.joinAt.date}} time: {{user.joinAt.time}}</h3>
+        <review-list 
+        :reviews="user.reviews" 
+        />
     </li>
 </template>
 
 <script>
-export default {
-    props: ['user'],
+import {eventBus} from '../services/eventbus-service.js';
 
+import reviewList from './review-list.cmp.vue'
+export default {
+    name: 'user-list',
+    props: ['user'],
+    components: {
+        reviewList,
+    },
+     async mounted() {
+      eventBus.$on('removeReview', reviewId=>{
+          console.log(reviewId);
+          
+            this.$emit('removeReview', {reviewId, userId:this.user._id})
+      })
+      eventBus.$on('addReview', newReview=>{
+          console.log(newReview);
+          
+            this.$emit('removeReview', {newReview, user:this.user})
+      })
+  },
 }
 </script>
 
@@ -39,3 +49,6 @@ img {
     width: 30px;
 }
 </style>
+
+//  @removeReview="$emit('removeReview', {reviewId, userId:user._id})"
+//         @addReview="$emit('addReview', {newReview, user})"

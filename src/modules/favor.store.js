@@ -1,4 +1,5 @@
 import { favorService } from '../services/favor.service.js'
+import { locService } from '../services/loc.service.js'
 
 
 export default {
@@ -63,5 +64,9 @@ export default {
             })
             return savedFavor
         },
+        async getLatLong(context, {txt}){
+            return await locService.getLatLong(txt)
+        }
+
     }
 }
