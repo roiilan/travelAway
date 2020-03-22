@@ -4,11 +4,15 @@ import { favorService } from '../services/favor.service.js'
 export default {
     state: {
         favors: [],
+        localFavors: [],
         // currFavor: null
     },
     mutations: {
         setFavors(state, { favors }) {
             state.favors = favors
+        },
+        setLocalFavors(state, { localFavors }) {
+            state.localFavors = localFavors
         },
         setFavor(state, { favor }) {
             state.currFavor = favor
@@ -29,6 +33,7 @@ export default {
         favors(state) {
             return state.favors
         },
+
         //     currFavor(state){
         //     return state.favor
         //   }
@@ -40,6 +45,16 @@ export default {
                 // const favors = await favorService.query(filterBy)
             context.commit({ type: 'setFavors', favors })
             return favors
+        },
+        async loadLocalFavors(context, {}) {
+            const Localfavors = await favorService.query()
+                // async loadFavors(context, {filterBy}){       
+                // const favors = await favorService.query(filterBy)
+            localFavors = localFavors.filter(favor => {
+                return favor.isAboard === false
+            })
+            context.commit({ type: 'setLocalFavors', Localfavors })
+            return localfavors
         },
         async loadFavor(context, { favorId }) {
             const favor = await favorService.getById(favorId)

@@ -1,16 +1,12 @@
 <template>
   <div class="favor-list" v-if="favors">
-    <ul v-if="!allFavors">
+   <h1>Local favors</h1>
+    <ul>
       <li v-for="(favor,index) in favors" :key="favor._id" v-if="index < 4">
         <favor-preview :favor="favor"></favor-preview>
       </li>
     </ul>
-    <ul v-else>
-      <li v-for="(favor) in favors" :key="favor._id">
-        <favor-preview :favor="favor"></favor-preview>
-      </li>
-    </ul>
-    <router-link to='/favors/' @click.native="revealAllFavors">All favors</router-link>
+    <router-link to='/favors/' >All local favors</router-link>
 
 
 
@@ -29,8 +25,8 @@
 
 <script>
 import favorPreview from "./favor-preview";
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
+// import { VueperSlides, VueperSlide } from 'vueperslides'
+// import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: "favorsList",
@@ -39,9 +35,10 @@ export default {
   },
   data(){
     return{
-      allFavors:false
+      localFavors:null
     }
   },
+
 //   data: () => ({
 //   slides: [
 //     {
@@ -51,23 +48,17 @@ export default {
 //     }
 //   ]
 // }),
-methods:{
-revealAllFavors(){
-  console.log(this.allFavors);
-  this.allFavors = !this.allFavors
-  
-}
-},
-destroyed(){
-  this.allFavors = false
-},
 
+  async created() {
+     this.localFavors= await this.$store.dispatch({type: 'loadLocalFavors'});
+},
 
   components: {
     favorPreview,
-      VueperSlides, 
-      VueperSlide ,
+      // VueperSlides, 
+      // VueperSlide ,
   },
+
 
 };
 

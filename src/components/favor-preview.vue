@@ -38,6 +38,8 @@ export default {
 
 .favor-preview{
   height: 350px;
+  width: 200px ;
+  margin-left: 10px;
 }
 
 </style>

@@ -25,6 +25,8 @@ async created() {
      this.favors = await this.$store.dispatch({type: 'loadFavors'});
 },
 
+
+
 };
 </script>
 
