@@ -9,10 +9,14 @@ function getLocs() {
     });
 }
 
-
-async function getPosition() {
-    return await navigator.geolocation.getCurrentPosition()
+function getPosition() {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
 }
+// async function getPosition() {
+//     return await navigator.geolocation.getCurrentPosition()
+// }
 
 
 

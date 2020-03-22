@@ -1,6 +1,6 @@
 import {utilService} from './util.service.js'
 import {storageService} from './storage.service.js'
-// import {locService} from './loc.service.js'
+import {locService} from './loc.service.js'
 // import httpService from './http.service'
 
 const KEY_USERS = 'users';
@@ -55,8 +55,10 @@ async function signup(newUserCred) {
     newUserCred._id = utilService.makeId();
     newUserCred.joinAt = {date:_getValidDate (new Date()),time: _getValidtime(new Date())};
     newUserCred.karma = 5;
-    // var pos = await locService.getPosition()
-    // newUserCred.loc = {lat: pos.coords.latitude, lng: pos.coords.longitude}
+    console.log('newUserCred before: ', newUserCred);
+    var pos = await locService.getPosition()
+    newUserCred.loc = {lat: pos.coords.latitude, lng: pos.coords.longitude}
+    console.log('newUserCred after: ', newUserCred);
     users.push(newUserCred)
     storageService.store(KEY_USERS, users)
     return newUserCred;
@@ -96,7 +98,6 @@ function getEmptyUser() {
         password: '',
         fullName: '',
         imgUrl: 'https://image.flaticon.com/icons/svg/1837/1837526.svg',
-        followers: [],
         reviews: [],
         isAdmin: false
     }
@@ -113,12 +114,8 @@ function _createUsers(){
           15,
           { lat:12, lng: 12 },
           [
-              {_id:'p102', fullName: 'Puki Ben Pinhas', imgUrl: 'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'},
-              {_id:'p103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}
-          ],
-          [
-              {txt: 'Cool!', rate: 5},
-              {txt: 'Didnt show up', rate: 1}
+              {_id:'p102', fullName: 'Puki Ben Pinhas', imgUrl: 'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', txt: 'Cool!', rate: 5},
+              {_id:'p103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', txt: 'Didnt show up', rate: 1}
           ],
           {date:'2020-01-14', time:'8:32'},
           true
@@ -132,10 +129,7 @@ function _createUsers(){
             8,
             { lat:22, lng: 21 },
             [
-                 {_id:'p103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}
-            ],
-            [
-                {txt: 'Awesome bro!', rate: 5}, {txt: 'Good heart', rate: 5}
+                {_id:'p103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', txt: 'Awesome bro!', rate: 5}, {txt: 'Good heart', rate: 5}
             ],
             {date:'2020-02-27', time:'17:47'},
             false
@@ -149,7 +143,6 @@ function _createUsers(){
          44,
         { lat:13, lng: 31 },
         [],
-        [],
         {date:'2019-01-30', time:'12:12'},
         false
         )
@@ -158,7 +151,7 @@ function _createUsers(){
     return users;
 }
 
-function _createUser(_id, username, password, fullName, imgUrl, karma, loc, followers, reviews, joinAt, isAdmin){
+function _createUser(_id, username, password, fullName, imgUrl, karma, loc, reviews, joinAt, isAdmin){
     return {
         _id,
         username,
@@ -168,7 +161,6 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, loc, foll
         karma,
         loc,
         // zoomUrl: '',
-        followers,
         reviews,
         // favorsAsked: [],
         // favorsGivven : [],
