@@ -100,13 +100,13 @@ export default {
 </script>
 
 <style  >
-ul{
+.favor-list ul{
   display: flex;
   padding: 0;
   flex-wrap: wrap;
 }
 
-li{
+.favor-list li{
   width: 25%;
   border: 1px solid lightgray;
   margin-left: 5px;
