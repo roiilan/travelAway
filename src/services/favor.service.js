@@ -94,6 +94,7 @@ function _createFavor(title, membersNeeded, requestedBy, startAt, endsAt, imgUrl
         startAt,
         endsAt,
         imgUrls,
+        address: '',
         position
     }
 }
