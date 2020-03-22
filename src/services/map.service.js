@@ -10,7 +10,7 @@ export default {
     GAPI_KEY
 }
 
-
+import axios from "axios";
 // var map;
 
 
@@ -60,7 +60,7 @@ export default {
 
 
 function searchPosition(txt){
-     console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`,'mapService ',txt, )
+     console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}`,'mapService ',txt, )
           return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
         .then(res => res.data.results[0].geometry.location)
     // var b='bbbbbbbbbbbbbb'
