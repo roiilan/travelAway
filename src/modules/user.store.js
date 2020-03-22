@@ -1,7 +1,6 @@
 import {userService} from '../services/user.service.js'
 
 var localLoggedinUser = null;
-// if (sessionStorage.user) localLoggedinUser = JSON.parse(sessionStorage.user);
 if (sessionStorage.loggedinUser) localLoggedinUser = JSON.parse(sessionStorage.loggedinUser);
 
 export default {
@@ -59,6 +58,16 @@ export default {
             user = await userService.update(user);
             context.commit({type: 'setUser', user})
             return user;
+        },
+        async removeReview(context, {ids}) {
+            return await userService.removeReview(ids);
+            // context.commit({type: 'removeUser', reviewId})
+            // return msg;
+        },
+        async addReview(context, {reviewAndUser}) {
+            return await userService.addReview(reviewAndUser);
+            // context.commit({type: 'removeUser', reviewId})
+            // return msg;
         }
     }
 }

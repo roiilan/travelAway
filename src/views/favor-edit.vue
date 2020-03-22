@@ -9,7 +9,7 @@
             <input type="time" v-model="favor.startAt.time">
             <input type="date" v-model="favor.endsAt.date">
             <input type="time" v-model="favor.endsAt.time">
-            <!-- <input type="file" ref="upLoadImg" @change="upLoadImg" hidden> -->
+            <input type="text" v-model="favor.address" @blur="getLatLong" placeholder="Please enter an address.." required>
             <label class="favor-edit-upload-img"> 
                 <input @change="uploadImg" type="file" hidden>
                 <img :src="favor.imgUrl" >
@@ -27,7 +27,7 @@ import {favorService} from '../services/favor.service.js'
 export default {
     data() {
     return {
-      favor: null
+      favor: null,
     }
   },
   async created() {
@@ -44,20 +44,23 @@ export default {
   },
   methods: {
       async uploadImg(ev){
-      var img = await this.$store.dispatch({
-        type:'addImg',
-        imgEv:ev
+        var img = await this.$store.dispatch({
+          type:'addImg',
+          imgEv:ev
       })
       this.favor.imgUrl = img.url      
       },
       async save(favor){
-      var res = await this.$store.dispatch({type:'saveFavor', favor})
-      this.$router.push('/')
+        var res = await this.$store.dispatch({type:'saveFavor', favor})
+        this.$router.push('/')
       },
       async remove(favorId){
-      var res = await this.$store.dispatch({type:'removeFavor', favorId})
-      this.$router.push('/')
+        var res = await this.$store.dispatch({type:'removeFavor', favorId})
+        this.$router.push('/')
       },
+      async getLatLong(){
+        this.favor.position = await this.$store.dispatch({type:'getLatLong', txt: this.favor.address})
+      }
   },
 }
 </script>

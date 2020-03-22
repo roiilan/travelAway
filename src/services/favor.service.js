@@ -1,5 +1,7 @@
 import { utilService } from './util.service.js'
-import { storageService } from './storage.service.js'
+import { storageService } from './storage.service.js';
+import { userService } from './user.service';
+
 
 const KEY_FAVORS = 'favors'
 
@@ -36,6 +38,11 @@ function _updateFavor(currFavor, favors) {
 }
 
 function _addFavor(currFavor, favors) {
+    const loggeinUser = userService.getLoggeinUser()
+    console.log('loggeinUser in service: ', loggeinUser);
+    if (loggeinUser) {
+        currFavor.requestedBy = userService.getMinimalUser(loggeinUser)
+    }
     currFavor._id = utilService.makeId();
     favors.unshift(currFavor);
     return favors
@@ -55,11 +62,13 @@ function getEmptyFavor() {
         description: utilService.makeLorem(80),
         membersNeeded: 1,
         isLocal: true,
-        requestedBy: '',
+        requestedBy: {},
         takenBy: {},
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
-        imgUrl: 'https://image.flaticon.com/icons/svg/1837/1837526.svg'
+        imgUrl: 'https://image.flaticon.com/icons/svg/1837/1837526.svg',
+        address: '',
+        position: ''
     }
 }
 
@@ -88,7 +97,6 @@ function _createFavor(title, membersNeeded, requestedBy, startAt, endsAt, imgUrl
         endsAt,
         imgUrl,
         position
-     
     }
 }
 
