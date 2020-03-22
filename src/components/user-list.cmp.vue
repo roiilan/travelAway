@@ -6,34 +6,20 @@
         <img :src="user.imgUrl" :alt="user.fullName">
         <h3>Karma: {{user.karma}}</h3>
         <h3>Join At- date: {{user.joinAt.date}} time: {{user.joinAt.time}}</h3>
-        <review-list 
-        :reviews="user.reviews" 
-        />
+        
     </li>
 </template>
 
 <script>
-import {eventBus} from '../services/eventbus-service.js';
+// import {eventBus} from '../services/eventbus-service.js';
+// import reviewList from '../components/review-list.cmp.vue';
 
-import reviewList from './review-list.cmp.vue'
 export default {
     name: 'user-list',
     props: ['user'],
     components: {
-        reviewList,
+        // reviewList,
     },
-     async mounted() {
-      eventBus.$on('removeReview', reviewId=>{
-          console.log(reviewId);
-          
-            this.$emit('removeReview', {reviewId, userId:this.user._id})
-      })
-      eventBus.$on('addReview', newReview=>{
-          console.log(newReview);
-          
-            this.$emit('removeReview', {newReview, user:this.user})
-      })
-  },
 }
 </script>
 

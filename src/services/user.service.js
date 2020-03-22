@@ -17,8 +17,6 @@ export const userService = {
     update,
     getLoggeinUser,
     getMinimalUser,
-    removeReview,
-    addReview,
 }
 
 async function getById(userId) {
@@ -119,25 +117,6 @@ function getEmptyUser() {
         reviews: [],
         isAdmin: false
     }
-}
-
-async function removeReview(ids){
-    var users = getUsers();
-    var user = users.find(user=> user._id === ids.userId)
-    const idx = user.reviews.findIndex(review=> review._id === ids.reviewId)
-    user.reviews.splice(idx, 1);
-    storageService.store(KEY_USERS, users)
-    return ('Successfully deleted paid review!!')
-}
-
-async function addReview(reviewAndUser){
-    console.log('reviewAndUser: ', reviewAndUser);
-    
-    var users = getUsers();
-    var user = users.find(user=> user._id === reviewAndUser.user._id)
-    user.reviews.unshift(reviewAndUser.newReview);
-    storageService.store(KEY_USERS, users)
-    return (reviewAndUser.newReview)
 }
 
 function _createUsers(){

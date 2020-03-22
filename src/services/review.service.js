@@ -1,11 +1,12 @@
 import { utilService } from "./util.service.js";
 import { storageService } from "./storage.service.js";
 
-
 const KEY_REVIEWS = 'reviews'
 
 export const reviewService = {
     getReviews,
+    remove,
+    save,
 }
 
 async function getReviews(userId){
@@ -14,16 +15,37 @@ async function getReviews(userId){
         reviews = _createReviews()
         storageService.store(KEY_REVIEWS, reviews)
     }
-    return reviews.filter(review=>{
-        console.log(review, userId);
-        
-        return review.on._id === userId
-    })
+    if (userId){
+        return reviews.filter(review=>{
+            console.log(review, userId);
+            
+            return review.on._id === userId
+        })
+    } else return reviews;
+}
+
+async function remove(reviewId) {
+    var reviews = storageService.load(KEY_REVIEWS)
+    const idx = reviews.findIndex(review=> review._id === reviewId);
+    reviews.splice(idx, 1);
+    storageService.store(KEY_REVIEWS, reviews);
+    return ('Deletion of the browser successfully completed!!');
+    // return httpService.delete(`user/${userId}`)
+}
+
+async function save(review) {
+    (review._id)? _updateReview(review): _addReview(review);
+}
+
+async function _addReview(review) {
+    console.log(review);
+    
 }
 
 function _createReviews(){
     return [
-        _createReview('Cool!',
+        _createReview(
+        'Cool!',
         5, 
         {
             _id: 'u102',
@@ -35,7 +57,6 @@ function _createReviews(){
             fullName: 'Muki Ben Moshe',
             imgUrl: 'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
         },
-
         ),
         _createReview('Cool!',
         5, 

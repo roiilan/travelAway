@@ -6,6 +6,9 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+// style
+import "./styles/global.scss";
+
 
 //google maps
 import * as VueGoogleMaps from 'vue2-google-maps';

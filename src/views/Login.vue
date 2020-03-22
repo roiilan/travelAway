@@ -84,18 +84,18 @@ export default {
             var msg = await this.$store.dispatch({ type:'removeUser', userId})
             console.log('msg: ', msg);
         },
-        async removeReview(ids){
-            console.log('ids: ', ids);
+        // async removeReview(ids){
+        //     console.log('ids: ', ids);
             
-            var msg = await this.$store.dispatch({ type:'removeReview', ids});
-            console.log('msg: ', msg);
-        },
-        async addReview(reviewAndUser){
-            console.log('reviewAndUser: ', reviewAndUser);
+        //     var msg = await this.$store.dispatch({ type:'removeReview', ids});
+        //     console.log('msg: ', msg);
+        // },
+        // async addReview(reviewAndUser){
+        //     console.log('reviewAndUser: ', reviewAndUser);
             
-            var review = await this.$store.dispatch({ type:'addReview', reviewAndUser});
-            console.log('review: ', review);
-        }
+        //     var review = await this.$store.dispatch({ type:'addReview', reviewAndUser});
+        //     console.log('review: ', review);
+        // }
     },
      computed: {
     loggedinUser(){

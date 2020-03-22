@@ -59,15 +59,5 @@ export default {
             context.commit({type: 'setUser', user})
             return user;
         },
-        async removeReview(context, {ids}) {
-            return await userService.removeReview(ids);
-            // context.commit({type: 'removeUser', reviewId})
-            // return msg;
-        },
-        async addReview(context, {reviewAndUser}) {
-            return await userService.addReview(reviewAndUser);
-            // context.commit({type: 'removeUser', reviewId})
-            // return msg;
-        }
     }
 }
