@@ -1,21 +1,21 @@
 <template>
     <div class="favor-edit" v-if="favor">
         <form @submit.prevent="save(favor)">
-        <h2 v-if="favor._id">{{favor.requestedBy.fullName}}</h2>
-        <img v-if="favor._id" :src="favor.requestedBy.imgUrl"/>
-        <input type="text" v-model="favor.title">
-        <textarea v-model="favor.description" cols="30" rows="10"></textarea>
-        <input type="date" v-model="favor.startAt.date">
-        <input type="time" v-model="favor.startAt.time">
-        <input type="date" v-model="favor.endsAt.date">
-        <input type="time" v-model="favor.endsAt.time">
-        <!-- <input type="file" ref="upLoadImg" @change="upLoadImg" hidden> -->
-           <label class="favor-edit-upload-img"> 
-        <input @change="uploadImg" type="file" hidden>
-        <img :src="favor.imgUrl" >
-        <p class="favor-edit-upload-txt">Upload yout own! </p>
-    </label>
-        <button>Save</button>       
+            <h2 v-if="favor._id">{{favor.requestedBy.fullName}}</h2>
+            <img v-if="favor._id" :src="favor.requestedBy.imgUrl"/>
+            <input type="text" v-model="favor.title">
+            <textarea v-model="favor.description" cols="30" rows="10"></textarea>
+            <input type="date" v-model="favor.startAt.date">
+            <input type="time" v-model="favor.startAt.time">
+            <input type="date" v-model="favor.endsAt.date">
+            <input type="time" v-model="favor.endsAt.time">
+            <!-- <input type="file" ref="upLoadImg" @change="upLoadImg" hidden> -->
+            <label class="favor-edit-upload-img"> 
+                <input @change="uploadImg" type="file" hidden>
+                <img :src="favor.imgUrl" >
+                <p class="favor-edit-upload-txt">Upload your own! </p>
+            </label>
+            <button>Save</button>       
         </form>
         <button v-if="favor._id" @click="remove(favor._id)">Delete</button>
         <pre>{{favor}}</pre>
@@ -43,16 +43,13 @@ export default {
       }
   },
   methods: {
-         async uploadImg(ev){
-      console.log(ev);
-    //   console.log(ev.target.files[0]);
-      
+      async uploadImg(ev){
       var img = await this.$store.dispatch({
         type:'addImg',
         imgEv:ev
       })
-        this.favor.imgUrl = img.url      
-    },
+      this.favor.imgUrl = img.url      
+      },
       async save(favor){
       var res = await this.$store.dispatch({type:'saveFavor', favor})
       this.$router.push('/')
@@ -60,7 +57,7 @@ export default {
       async remove(favorId){
       var res = await this.$store.dispatch({type:'removeFavor', favorId})
       this.$router.push('/')
-        },
+      },
   },
 }
 </script>
