@@ -4,19 +4,18 @@
         <img :src="user.imgUrl" alt="">
         <h2>{{user.karma}} Karma</h2>
         <h2>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h2>
-        <favor-map :position="user.position"> </favor-map>
+        <proj-map :position="user.position"> </proj-map>
         <review-list :reviews="reviews"/>
         <form v-if="review" @submit.prevent="save">
             <input type="text" v-model="review.txt">
             <input type="number" v-model="review.rate">
-            <pre>{{review}}</pre>
             <button>Add Review</button>
         </form>
     </div>
 </template>
 <script>
 import {userService} from '../services/user.service.js';
-import favorMap from '../components/favor-map.vue';
+import projMap from '../components/proj-map.vue';
 import reviewList from '../components/review-list.cmp.vue';
 import {eventBus} from '../services/eventbus-service.js';
 
@@ -26,19 +25,41 @@ export default {
         return {
             user: null,
             reviews: null,
-            review: null
+            review: null,
+            from: null
         }
     },
     async created() {
         const userId = this.$route.params.id;
         this.user = await userService.getById(userId);
         this.reviews = await this.$store.dispatch({type: "loadReviews", userId});
-        this.review = {txt: '', rate: 5};
+        this.from = this.$store.getters.loggedinUser;
+        if (!this.from) {
+            this.from = {
+                _id: 1, 
+                fullName: 'Anonymous', 
+                imgUrl: '../assets/icon/login.png'
+            }
+        }
+        this.review = {
+            txt: '',
+            rate: 5, 
+            from:{
+                _id: this.from._id, 
+                fullName: this.from.fullName, 
+                imgUrl: this.from.imgUrl
+                },
+            on:{
+                 _id: this.user._id, 
+                fullName: this.user.fullName, 
+                imgUrl: this.user.imgUrl
+            }    
+                };
     },
     methods: {
         async save(){
-            var reviewAdded = await this.$store.dispatch({ type:'save', review:this.review});
-            console.log('reviewAdded: ', reviewAdded)
+            var reviews = await this.$store.dispatch({ type:'save', review:this.review});
+            this.reviews = this.$store.getters.reviews;
         }
     },
     mounted() {
@@ -54,7 +75,7 @@ export default {
     //   })
     },
     components:{
-        favorMap,
+        projMap,
         reviewList,
     }
 }

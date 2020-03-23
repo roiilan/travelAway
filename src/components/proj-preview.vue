@@ -1,9 +1,9 @@
 <template>
-  <div class="favor-preview" >
-    <router-link :to="'/favor/' + favor._id">
-    <img v-bind:src=favor.imgUrls[0] v-if="favor.imgUrls" class="details-img"/>
-    <h5>{{favor.title}} </h5>
-    <h5>Description: {{favor.description}} </h5>
+  <div class="proj-preview" >
+    <router-link :to="'/proj/' + proj._id">
+    <img v-bind:src=proj.imgUrls[0] v-if="proj.imgUrls" class="details-img"/>
+    <h5>{{proj.title}} </h5>
+    <h5>Description: {{proj.description}} </h5>
 
     <div class = "footer">
     </div>
@@ -20,9 +20,9 @@
 
 
 export default {
-  name: 'favorPreview',
+  name: 'projPreview',
   props: {
-   favor: Object
+   proj: Object
   },
 
 
@@ -36,7 +36,7 @@ export default {
     object-fit: cover;
 }
 
-.favor-preview{
+.proj-preview{
   height: 350px;
   width: 200px ;
   margin-left: 10px;

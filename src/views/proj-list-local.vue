@@ -1,39 +1,39 @@
 <template>
-  <div class="favor-list-local" >
-   <h1> All Local favors</h1>
+  <div class="proj-list-local" >
+   <h1> All Local projs</h1>
     <ul>
-      <li v-for="(favor) in favors" :key="favor._id">
-          <div class="favor-preview">
-        <favor-preview :favor="favor"></favor-preview>
+      <li v-for="(proj) in projs" :key="proj._id">
+          <div class="proj-preview">
+        <proj-preview :proj="proj"></proj-preview>
         </div>
       </li>
     </ul>
-    <router-link to='/favors/' >All local favors</router-link>
+    <router-link to='/projs/' >All local projs</router-link>
   </div>
 </template>
 
 
 
 <script>
-import favorPreview from "../components/favor-preview.vue";
+import projPreview from "../components/proj-preview.vue";
 
 export default {
-  name: "favorsListLocal",
+  name: "projsListLocal",
 
   data(){
     return{
-  favors:null
+  projs:null
     }
   },
   async created() {
-     this.favors = await this.$store.dispatch({type: 'loadFavors'});
+     this.projs = await this.$store.dispatch({type: 'loadProjs'});
 },
 
 
 
 
   components: {
-    favorPreview,
+    projPreview,
       // VueperSlides, 
       // VueperSlide ,
   },
@@ -47,24 +47,24 @@ export default {
 </script>
 
 <style scoped >
-.favor-list-local ul{
+.proj-list-local ul{
   display: flex;
   padding: 0;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.favor-list-local li{
+.proj-list-local li{
   width: 25%;
   margin: 5px;
   list-style: none;
 }
 
-.favor-preview{
+.proj-preview{
     width: 100%;
 }
 
-/* li.favor-preview{
+/* li.proj-preview{
     width:33%;
     margin: 10px
 } */

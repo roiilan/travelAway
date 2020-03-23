@@ -1,25 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import favorApp from '../views/favor-app.vue'
+import projApp from '../views/walkways-app.vue'
 import Login from '../views/Login.vue'
 import userProfile from '../views/user-profile.vue'
 import userEdit from '../views/user-edit.vue'
-import favorEdit from '../views/favor-edit.vue'
-import favorListLocal from '../views/favor-list-local.vue'
-import favorDetails from '../components/favor-details.vue'
+import projEdit from '../views/proj-edit.vue'
+import projListLocal from '../views/proj-list-local.vue'
+import projDetails from '../components/proj-details.vue'
 
 
 Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
-        name: 'favorApp',
-        component: favorApp
+        name: 'projApp',
+        component: projApp
     },
     {
-        path: '/favors',
-        name: 'favorsListLocal',
-        component: favorListLocal
+        path: '/projs',
+        name: 'projsListLocal',
+        component: projListLocal
     },
     {
         path: '/login',
@@ -38,13 +38,13 @@ const routes = [{
     },
     {
         path: '/edit/:id?',
-        name: 'favorEdit',
-        component: favorEdit
+        name: 'projEdit',
+        component: projEdit
     },
     {
-        path: '/favor/:id?',
-        name: 'favorDetails',
-        component: favorDetails
+        path: '/proj/:id?',
+        name: 'projDetails',
+        component: projDetails
     },
 ]
 

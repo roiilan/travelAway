@@ -11,29 +11,27 @@
             <input type="text" v-model="newUserCred.username" placeholder="Username" required>
             <input type="password" v-model="newUserCred.password" placeholder="Password" required>
             <input type="text" v-model="newUserCred.fullName" placeholder="FullName" required>
-            <label class="favor-edit-upload-img"> 
+            <label class="proj-edit-upload-img"> 
                 <input @change="uploadImg" type="file" hidden>
                 <img :src="newUserCred.imgUrl" >
-                <p class="favor-edit-upload-txt">Upload your own! </p>
+                <p class="proj-edit-upload-txt">Upload your own! </p>
             </label>
             <button>Sign Up</button>
             <pre>{{newUserCred}}</pre>
         </form>
-    <ul class="login-user" v-if="users">
+    <!-- <ul class="login-user" v-if="users">
         <user-list 
         v-for="user in users" :key="user._id" 
         :user="user" 
         @removeUser="removeUser" 
-        @removeReview="removeReview"
-        @addReview="addReview"
         />
-    </ul>
+    </ul> -->
     </div>
 </template>
 
 <script>
 import { userService } from '../services/user.service.js'
-import userList from '../components/user-list.cmp.vue'
+// import userList from '../components/user-list.cmp.vue'
 
 export default {
     name: 'Login',
@@ -50,7 +48,7 @@ export default {
         this.newUserCred = userService.getEmptyUser()        
     },
     components: {
-        userList
+        // userList
     },
     methods: {
         async login(){
@@ -84,18 +82,6 @@ export default {
             var msg = await this.$store.dispatch({ type:'removeUser', userId})
             console.log('msg: ', msg);
         },
-        // async removeReview(ids){
-        //     console.log('ids: ', ids);
-            
-        //     var msg = await this.$store.dispatch({ type:'removeReview', ids});
-        //     console.log('msg: ', msg);
-        // },
-        // async addReview(reviewAndUser){
-        //     console.log('reviewAndUser: ', reviewAndUser);
-            
-        //     var review = await this.$store.dispatch({ type:'addReview', reviewAndUser});
-        //     console.log('review: ', review);
-        // }
     },
      computed: {
     loggedinUser(){

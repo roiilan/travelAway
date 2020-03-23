@@ -1,12 +1,12 @@
 <template>
-  <div class="favor-list" v-if="favors">
-   <h1>Local favors</h1>
+  <div class="proj-list" v-if="projs">
+   <h1>Local projs</h1>
     <ul>
-      <li v-for="(favor,index) in favors" :key="favor._id" v-if="index < 4">
-        <favor-preview :favor="favor"></favor-preview>
+      <li v-for="(proj,index) in projs" :key="proj._id" v-if="index < 4">
+        <proj-preview :proj="proj"></proj-preview>
       </li>
     </ul>
-    <router-link to='/favors/' >All local favors</router-link>
+    <router-link to='/projs/' >All local projs</router-link>
 
 
 
@@ -16,7 +16,7 @@
   :visible-slides="3"
   :slide-ratio="1 / 4"
   :dragging-distance="10">
-  <vueper-slide v-for="(favor,i) in favors" :key="i" :image="favor.imgUrls[0]" :title="favor.title" :content="favor.description" :link='"#/favor/" + favor._id'/>
+  <vueper-slide v-for="(proj,i) in projs" :key="i" :image="proj.imgUrls[0]" :title="proj.title" :content="proj.description" :link='"#/proj/" + proj._id'/>
 </vueper-slides> -->
   </div>
 </template>
@@ -24,14 +24,14 @@
 
 
 <script>
-import favorPreview from "./favor-preview";
+import projPreview from "./proj-preview";
 // import { VueperSlides, VueperSlide } from 'vueperslides'
 // import 'vueperslides/dist/vueperslides.css'
 
 export default {
-  name: "favorList",
+  name: "projList",
     props: {
-    favors: Array,
+    projs: Array,
   },
 
 
@@ -46,7 +46,7 @@ export default {
 // }),
 
   components: {
-    favorPreview,
+    projPreview,
       // VueperSlides, 
       // VueperSlide ,
   },
@@ -61,19 +61,19 @@ export default {
 </script>
 
 <style  >
-.favor-list ul{
+.proj-list ul{
   display: flex;
   padding: 0;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.favor-list li{
+.proj-list li{
   width: 20%;
   margin: 5px;
   list-style: none;
 }
-.favor-list li img{
+.proj-list li img{
   width:100%;
   margin: 5px;
   list-style: none;

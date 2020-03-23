@@ -17,8 +17,6 @@ async function getReviews(userId){
     }
     if (userId){
         return reviews.filter(review=>{
-            console.log(review, userId);
-            
             return review.on._id === userId
         })
     } else return reviews;
@@ -38,8 +36,11 @@ async function save(review) {
 }
 
 async function _addReview(review) {
-    console.log(review);
-    
+    var reviews = storageService.load(KEY_REVIEWS)
+    review._id = utilService.makeId()
+    reviews.unshift(review)
+    storageService.store(KEY_REVIEWS, reviews)
+    return reviews
 }
 
 function _createReviews(){

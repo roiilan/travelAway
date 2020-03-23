@@ -114,7 +114,6 @@ function getEmptyUser() {
         password: '',
         fullName: '',
         imgUrl: 'https://image.flaticon.com/icons/svg/1837/1837526.svg',
-        reviews: [],
         isAdmin: false
     }
 }
@@ -169,8 +168,8 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
         karma,
         position,
         // zoomUrl: '',
-        // favorsAsked: [],
-        // favorsGivven : [],
+        // projsAsked: [],
+        // projsGivven : [],
         joinAt,
         isAdmin
     }

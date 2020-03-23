@@ -4,10 +4,10 @@
             <input type="text" v-model="user.username" placeholder="Username" required>
             <input type="password" v-model="user.password" placeholder="Password" required>
             <input type="text" v-model="user.fullName" placeholder="FullName" required>
-            <label class="favor-edit-upload-img"> 
+            <label class="proj-edit-upload-img"> 
                 <input @change="uploadImg" type="file" hidden>
                 <img :src="user.imgUrl" >
-                <p class="favor-edit-upload-txt">Upload your own! </p>
+                <p class="proj-edit-upload-txt">Upload your own! </p>
             </label>
             <button>Update</button>
         </form>

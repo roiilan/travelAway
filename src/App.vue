@@ -10,7 +10,7 @@
 import navBar from "./components/nav-bar.vue"
 
 export default {
-  name:'favorApp',
+  name:'projApp',
     components: {
     navBar,
     }
