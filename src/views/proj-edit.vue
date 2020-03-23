@@ -18,10 +18,8 @@
                   <option value="scubaDiving">Scuba Diving</option>
                   <option value="humanitarian">Humanitarian</option>
                   <option value="healthcare">Healthcare</option>
-                  <option value="specialNeeds">Special Needs</option>
                   <option value="sports">Sports</option>
                   <option value="education">Education</option>
-                  <option value="building">Building & Construction</option>
                   <option value="communityDev">Community Development</option>
                   <option value="art">culture & Arts</option>
                   <option value="humanRights">Human Rights</option>

@@ -33,6 +33,51 @@ data(){
         title:'Animals & Wildlife',
         imgUrl:'https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg'
       },
+      {
+        category:'environmentalProtection',
+        title:'Environmental Protection',
+        imgUrl:'https://beaches.lacounty.gov/wp-content/uploads/2016/10/BeachCleaning.jpg'
+      },
+      {
+        category:'farming',
+        title:'Animals & Wildlife',
+        imgUrl:'https://www.thebalancesmb.com/thmb/zLMhuQKCL24jIckZmKqw6E4n2hI=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-585859259-57997e215f9b589aa94c4243.jpg'
+      },
+      {
+        category:'scubaDiving',
+        title:'Animals & Wildlife',
+        imgUrl:'https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg'
+      },
+      {
+        category:'humanitarian',
+        title:'Animals & Wildlife',
+        imgUrl:'https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg'
+      },
+      {
+        category:'healthcare',
+        title:'Animals & Wildlife',
+        imgUrl:'https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg'
+      },
+      {
+        category:'sports',
+        title:'Animals & Wildlife',
+        imgUrl:'https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg'
+      },
+      {
+        category:'communityDev',
+        title:'Animals & Wildlife',
+        imgUrl:'https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg'
+      },
+      {
+        category:'art',
+        title:'Animals & Wildlife',
+        imgUrl:'https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg'
+      },
+      {
+        category:'humanRights',
+        title:'Animals & Wildlife',
+        imgUrl:'https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg'
+      },
 
     ]
 
