@@ -67,7 +67,7 @@ function getEmptyProj() {
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         imgUrls: [],
-        position: { txtAddress: '', lat: 0, lng: 0 }
+        position: { txtAddress: '', lat: 33.886917, lng: 9.537499 }
     }
 }
 

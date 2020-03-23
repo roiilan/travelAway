@@ -1,16 +1,36 @@
 const GAPI_KEY = 'AIzaSyC78ilnhS4Ey5k2TImLGPdWYV6eYsBhoEo'; 
 // const GAPI_KEY = 'AIzaSyAfOgP37XV4mv6RcyxIwOk1ajVevIhN2TM'; 
 
-export default {
-    // initMap,
-    // addMarker,
-    // panTo,
-    // getNameOfLatLng,
+export default {   
     searchPosition,
     GAPI_KEY
 }
 
 import axios from "axios";
+
+
+function searchPosition(txt){
+    console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}`,'mapService ',txt, )
+         return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
+       .then(res => res.data.results[0].geometry.location)    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // var map;
 
 
@@ -58,11 +78,3 @@ import axios from "axios";
 // }
 
 
-
-function searchPosition(txt){
-     console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}`,'mapService ',txt, )
-          return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
-        .then(res => res.data.results[0].geometry.location)
-    // var b='bbbbbbbbbbbbbb'
-    //  return b;
-}
