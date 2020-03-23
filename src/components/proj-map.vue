@@ -1,8 +1,8 @@
 <template>
   <GmapMap
   v-if="position"
-    :center="center"
-    :zoom="16"
+    :center="position"
+    :zoom="11"
     map-type-id="terrain"
     style="width: 500px; height: 300px"
   >
@@ -20,36 +20,32 @@
 
 export default {
    props: {
-   position: null
+   position: null,
+      markers: Array
   },
-  data() {
-    return {
-      markers: [
-        { position: { lat: this.position.lat, lng: this.position.lng } },      
-      ],
-      center: { lat: this.position.lat, lng: this.position.lng }
-    };
-  },
-  created(){
-    // console.log(this.position.lat);
-  }
+
 };
 
 
 
 
 
-// export default {
-//   data() {
-//     return {
-//       markers: [
-//         { position: { lat: 33.088007, lng: 34.8031678 } },
-//         { position: { lat: 33.088007, lng: 35.8031678 } }
-//       ],
-//       center:{ lat: 34.088007, lng: 34.8031678 }
-//     };
-//   }
-// };
+
+
+
+
+
+  // data() {
+  //   return {
+  //     markers: [
+  //       // { position: { lat: this.position.lat, lng: this.position.lng } }, !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     
+  //     ],
+  //     center: { lat: this.position.lat, lng: this.position.lng }
+  //   };
+  // },
+  // created(){
+    // console.log(this.position.lat);
+  // }
 </script>
 
 

@@ -19,7 +19,7 @@ Reqieres Dates:
        <button>Edit</button>    
    </router-link>
    
-<proj-map :position="proj.position"> </proj-map>
+<proj-map  :position="proj.position"> </proj-map>
 
  <pre>{{proj}}</pre>
  </div>

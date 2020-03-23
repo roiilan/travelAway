@@ -31,7 +31,7 @@
                     v-model="proj.position.txtAddress"
                     @change="searchPosition(proj.position.txtAddress)"
                     >
-                  <proj-map :position="proj.position"> </proj-map>
+                  <proj-map :markers="markers" :position="proj.position"> </proj-map>
                  </div>
 
 
@@ -49,10 +49,15 @@ import projMap from '../components/proj-map.vue';
 
 
 export default {
+ // <proj-map v-else=":position={ txtAddress: '', lat: 32.083549, lng: 34.815498 }"> </proj-map>
+//  v-if="proj.position.lng"
+
   data() {
     return {
       proj: null,
-      currentImgIdx:null
+      currentImgIdx:null,
+      // position:{txtAddress: '', lat: 32.083549, lng: 34.815498}  ,
+      markers: []   
     };
   },
   async created() {
@@ -66,6 +71,12 @@ export default {
     } else {
       this.proj = projService.getEmptyProj();
     }
+  },
+  computed:{
+    // position(){
+    //   return this.$store.getters.loggedinUser;
+    // }
+
   },
   methods: {
     async uploadImg(ev) {
@@ -84,9 +95,9 @@ export default {
       var res = await this.$store.dispatch({ type: "removeProj", projId });
       this.$router.push("/");
     },
-    async getLatLong(){
-      this.proj.position = await this.$store.dispatch({type:'getLatLong', txt: this.proj.address})
-    },
+    // async getLatLong(){
+    //   this.proj.position = await this.$store.dispatch({type:'getLatLong', txt: this.proj.address})
+    // },
      emitAboard() {
       this.$emit("set-filter", JSON.parse(JSON.stringify(this.proj)));
     },
@@ -96,13 +107,13 @@ export default {
       this.currentImgIdx = idx
     },
        async searchPosition(txt) {
-         console.log(txt,"txt")
+         console.log(txt,"txt");
          var currPosition = await this.$store.dispatch({ type: "searchPosition", txt });
-         console.log("second projEdit")
-         console.log(currPosition,"second projEdit")
+         this.proj.position=currPosition;
+        //  position = this.$store.getters(baga)
+         console.log(this.position,"this.position");
+         console.log(position,"position");
         }
-
-
 },
         components: {
       toggleBtn,
@@ -152,3 +163,4 @@ img {
 
 }
 </style>
+
