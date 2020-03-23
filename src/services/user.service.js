@@ -1,6 +1,5 @@
 import { utilService } from './util.service.js'
 import { storageService } from './storage.service.js'
-import { locService } from './loc.service.js'
 // import httpService from './http.service'
 
 const KEY_USERS = 'users';
@@ -60,8 +59,7 @@ async function signup(newUserCred) {
     newUserCred.joinAt = { date: _getValidDate(new Date()), time: _getValidtime(new Date()) };
     newUserCred.karma = 5;
     console.log('newUserCred before: ', newUserCred);
-    var pos = await locService.getPosition()
-    newUserCred.position = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+
     console.log('newUserCred after: ', newUserCred);
     users.push(newUserCred)
     storageService.store(KEY_USERS, users)
@@ -71,18 +69,6 @@ async function signup(newUserCred) {
     // return _handleLogin(user)
 }
 
-// locService.getPosition()
-// .then(pos => {
-//     mapService.initMap(pos.coords.latitude, pos.coords.longitude)
-//         .then(() => {
-//             mapService.getNameOfLatLng(pos.coords.latitude, pos.coords.longitude)
-//                 .then(locationName => {
-//                     mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude }, locationName);
-//                     renders(pos.coords.latitude, pos.coords.longitude)
-//                 })
-//         })
-//         .catch(() => console.log('INIT MAP ERROR'));
-// })
 
 
 async function logout() {

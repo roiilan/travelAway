@@ -9,7 +9,6 @@
             <input type="time" v-model="proj.startAt.time">
             <input type="date" v-model="proj.endsAt.date">
             <input type="time" v-model="proj.endsAt.time">
-            <input type="text" v-model="proj.address" @blur="getLatLong" placeholder="Please enter an address.." required>
              <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn>
 
             <!-- <input type="file" ref="upLoadImg" @change="upLoadImg" hidden> -->

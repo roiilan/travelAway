@@ -1,6 +1,5 @@
 import { projService } from '../services/proj.service.js'
-import  mapService  from '../services/map.service.js'
-import { locService } from '../services/loc.service.js'
+import mapService from '../services/map.service.js'
 
 
 export default {
@@ -65,11 +64,11 @@ export default {
             })
             return savedProj
         },
-        async searchPosition(context,{ txt }){
-            console.log('store',txt)
+        async searchPosition(context, { txt }) {
+            console.log('store', txt)
             const getPosition = await mapService.searchPosition(txt)
-            // context.commit({ type: 'removeProj', projId });
+                // context.commit({ type: 'removeProj', projId });
             return getPosition;
         }
-},
+    },
 }
