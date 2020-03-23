@@ -111,8 +111,8 @@ export default {
          var currPosition = await this.$store.dispatch({ type: "searchPosition", txt });
          this.proj.position=currPosition;
         //  position = this.$store.getters(baga)
-         console.log(this.position,"this.position");
-         console.log(position,"position");
+        //  console.log(this.position,"this.position");
+        //  console.log(position,"position");
         }
 },
         components: {
