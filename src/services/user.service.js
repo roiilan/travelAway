@@ -168,7 +168,8 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
         imgUrl,
         karma,
         position,
-        // zoomUrl: '',
+        // pref:[], לעשות בסוף
+        // zoomUrl: '', לעשות בסוף
         // favorsAsked: [],
         // favorsGivven : [],
         joinAt,

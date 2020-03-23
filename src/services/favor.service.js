@@ -61,13 +61,14 @@ function getEmptyFavor() {
         title: utilService.makeLorem(12),
         description: utilService.makeLorem(80),
         membersNeeded: 1,
-        isLocal: true,
+        // isLocal: true,
         requestedBy: {},
         takenBy: {},
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         imgUrls: [],
-        position: { txtAddress: '', lat: null, lng: null }
+        position: { txtAddress: '', lat: null, lng: null },
+        tags:[] //לעשות התאמה 
     }
 }
 
@@ -97,6 +98,7 @@ function _createFavor(title, membersNeeded, requestedBy, startAt, endsAt, imgUrl
         endsAt,
         imgUrls,
         position,
+        tags:[]
 
     }
 }
