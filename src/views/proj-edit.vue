@@ -1,17 +1,32 @@
 <template>
     <div class="proj-edit" v-if="proj">
         <form @submit.prevent="save(proj)">
-            <h2 v-if="proj._id">{{proj.requestedBy.fullName}}</h2>
-            <img v-if="proj._id" :src="proj.requestedBy.imgUrl"/>
+            <h2 v-if="proj._id">{{proj.createdBy.fullName}}</h2>
+            <img v-if="proj._id" :src="proj.createdBy.imgUrl"/>
             <input type="text" v-model="proj.title">
             <textarea v-model="proj.description" cols="30" rows="10"></textarea>
             <input type="date" v-model="proj.startAt.date">
             <input type="time" v-model="proj.startAt.time">
             <input type="date" v-model="proj.endsAt.date">
             <input type="time" v-model="proj.endsAt.time">
-             <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn>
+             <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
+               <select v-model="proj.category" required>
+                  <option value="childcare">Childcare</option>
+                  <option value="animalsAndWildlife">Animals & Wildlife</option>
+                  <option value="environmentalProtection">Environmental Protection</option>
+                  <option value="farming">Farming</option>
+                  <option value="scubaDiving">Scuba Diving</option>
+                  <option value="humanitarian">Humanitarian</option>
+                  <option value="healthcare">Healthcare</option>
+                  <option value="specialNeeds">Special Needs</option>
+                  <option value="sports">Sports</option>
+                  <option value="education">Education</option>
+                  <option value="building">Building & Construction</option>
+                  <option value="communityDev">Community Development</option>
+                  <option value="art">culture & Arts</option>
+                  <option value="humanRights">Human Rights</option>
+               </select>
 
-            <!-- <input type="file" ref="upLoadImg" @change="upLoadImg" hidden> -->
                 <label class="proj-edit-upload-img"> 
                     <input @input="uploadImg" type="file" hidden>
                     <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">

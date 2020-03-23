@@ -1,6 +1,6 @@
 <template>
   <div v-if="proj">
-    <router-link :to="'/user/' + proj.requestedBy._id">
+    <router-link :to="'/user/' + proj.createdBy._id">
       User Profile
     </router-link>
 <div> 

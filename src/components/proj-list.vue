@@ -1,12 +1,12 @@
 <template>
   <div class="proj-list" v-if="projs">
-   <h1>Local projs</h1>
+   <h1> projs</h1>
     <ul>
       <li v-for="(proj,index) in projs" :key="proj._id" v-if="index < 4">
         <proj-preview :proj="proj"></proj-preview>
       </li>
     </ul>
-    <router-link to='/projs/' >All local projs</router-link>
+    <router-link to='/projs/' >All projs</router-link>
 
 
 

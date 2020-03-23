@@ -5,7 +5,7 @@ import Login from '../views/Login.vue'
 import userProfile from '../views/user-profile.vue'
 import userEdit from '../views/user-edit.vue'
 import projEdit from '../views/proj-edit.vue'
-import projListLocal from '../views/proj-list-local.vue'
+import projListFiltered from '../views/proj-list-filtered.vue'
 import projDetails from '../components/proj-details.vue'
 
 
@@ -17,9 +17,9 @@ const routes = [{
         component: projApp
     },
     {
-        path: '/projs',
-        name: 'projsListLocal',
-        component: projListLocal
+        path: '/projs/:filter',
+        name: 'projsListFiltered',
+        component: projListFiltered
     },
     {
         path: '/login',

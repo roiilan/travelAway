@@ -1,6 +1,6 @@
 <template>
-  <div class="proj-list-local" >
-   <h1> All Local projs</h1>
+  <div class="proj-list-filtered" >
+   <h1> More projs</h1>
     <ul>
       <li v-for="(proj) in projs" :key="proj._id">
           <div class="proj-preview">
@@ -18,7 +18,7 @@
 import projPreview from "../components/proj-preview.vue";
 
 export default {
-  name: "projsListLocal",
+  name: "projsListFiltered",
 
   data(){
     return{
@@ -26,16 +26,20 @@ export default {
     }
   },
   async created() {
-     this.projs = await this.$store.dispatch({type: 'loadProjs'});
+     this.projs = await this.$store.dispatch({type: 'loadProjs'})
+     const filter = this.$route.params.filter
+     const filteredProjs = this.projs.filter(proj=>{
+       return proj.category[0] === filter
+     })
+     this.projs = filteredProjs
+ 
+     
+  
 },
-
-
 
 
   components: {
     projPreview,
-      // VueperSlides, 
-      // VueperSlide ,
   },
 
 };
