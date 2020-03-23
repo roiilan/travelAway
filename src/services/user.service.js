@@ -167,9 +167,16 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
         imgUrl,
         karma,
         position,
+<<<<<<< HEAD
         // zoomUrl: '',
         // projsAsked: [],
         // projsGivven : [],
+=======
+        // pref:[], לעשות בסוף
+        // zoomUrl: '', לעשות בסוף
+        // favorsAsked: [],
+        // favorsGivven : [],
+>>>>>>> d177723f13ed8f243d441d991db6f8768a4cf874
         joinAt,
         isAdmin
     }
