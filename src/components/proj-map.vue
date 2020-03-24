@@ -1,10 +1,10 @@
 <template>
   <GmapMap
-  v-if="position"
-    :center="center"
-    :zoom="16"
+     v-if="position"
+    :center="position"
+    :zoom="zoomSize"
     map-type-id="terrain"
-    style="width: 500px; height: 300px"
+    style="height: 500px"
   >
     <GmapMarker
       :key="index"
@@ -20,36 +20,32 @@
 
 export default {
    props: {
-   position: null
+   position: null,
+      markers: Array,
+      zoomSize:null
   },
-  data() {
+    data() {
     return {
-      markers: [
-        { position: { lat: this.position.lat, lng: this.position.lng } },      
-      ],
-      center: { lat: this.position.lat, lng: this.position.lng }
     };
   },
+//   computed: {
+// computedZoom()
+
+//   }
   created(){
-    // console.log(this.position.lat);
-  }
+    console.log(this.position.lat);
+  },
+
 };
 
 
 
 
 
-// export default {
-//   data() {
-//     return {
-//       markers: [
-//         { position: { lat: 33.088007, lng: 34.8031678 } },
-//         { position: { lat: 33.088007, lng: 35.8031678 } }
-//       ],
-//       center:{ lat: 34.088007, lng: 34.8031678 }
-//     };
-//   }
-// };
+      // markers: [
+      //   // { position: { lat: this.position.lat, lng: this.position.lng } },     
+      // ],
+      // center: { lat: this.position.lat, lng: this.position.lng }
 </script>
 
 

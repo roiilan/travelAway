@@ -9,8 +9,14 @@
 @import 'basics/base';
 @import 'basics/layout';
 
+// PAGES
+@import 'pages/proj-details';
+
+
 // COMPONENTS
-@import 'components/main-header';
-@import 'components/main-footer';
-@import 'components/cat-card';
+@import 'components/nav-bar';
+// @import 'components/main-header';
+// @import 'components/main-footer';
+// @import 'components/cat-card';
 @import 'components/user-profile';
+@import 'components/proj-apply';

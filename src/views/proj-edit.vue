@@ -43,7 +43,8 @@
                     v-model="proj.position.txtAddress"
                     @change="searchPosition(proj.position.txtAddress)"
                     >
-                  <proj-map :position="proj.position"> </proj-map>
+                  <proj-map :zoomSize="zoomSize" :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]" 
+                  :position="proj.position"> </proj-map>
                  </div>
 
 
@@ -64,7 +65,9 @@ export default {
   data() {
     return {
       proj: null,
-      currentImgIdx:null
+      currentImgIdx:null,
+      markers: [],
+      zoomSize: 1,   
     };
   },
   async created() {
@@ -95,26 +98,26 @@ export default {
     async remove(projId) {
       var res = await this.$store.dispatch({ type: "removeProj", projId });
       this.$router.push("/");
-    },
-    async getLatLong(){
-      this.proj.position = await this.$store.dispatch({type:'getLatLong', txt: this.proj.address})
-    },
+    },  
      emitAboard() {
       this.$emit("set-filter", JSON.parse(JSON.stringify(this.proj)));
     },
      async setCurrImg(idx){
-       console.log(idx);
+      //  console.log(idx);
        
       this.currentImgIdx = idx
     },
        async searchPosition(txt) {
-         console.log(txt,"txt")
+         console.log(txt,"txt");
          var currPosition = await this.$store.dispatch({ type: "searchPosition", txt });
-         console.log("second projEdit")
-         console.log(currPosition,"second projEdit")
+         this.proj.position=currPosition;
+         if(this.proj.position.lng){
+           this.zoomSize=14;
+         }
+        //  position = this.$store.getters(baga)
+        //  console.log(this.position,"this.position");
+        //  console.log(position,"position");
         }
-
-
 },
         components: {
       toggleBtn,
@@ -161,6 +164,6 @@ img {
 .uploaded-img{
   width: 25%;
   display:inline-block
-
 }
 </style>
+

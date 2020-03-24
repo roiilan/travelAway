@@ -67,7 +67,7 @@ function getEmptyProj() {
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         imgUrls: [],
-        position: { txtAddress: '', lat: null, lng: null }
+        position: { txtAddress: '', lat: 33.886917, lng: 9.537499 }
     }
 }
 
@@ -94,8 +94,7 @@ function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt,
     return {
         _id: utilService.makeId(),
         title,
-        description: utilService.makeLorem(80),
-        category,
+        description: utilService.makeLorem(8000),
         membersNeeded,
         membersApplyed: [],
         createdBy,

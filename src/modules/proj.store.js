@@ -64,11 +64,11 @@ export default {
             })
             return savedProj
         },
-        async searchPosition(context, { txt }) {
-            console.log('store', txt)
-            const getPosition = await mapService.searchPosition(txt)
-                // context.commit({ type: 'removeProj', projId });
-            return getPosition;
-        }
+        // async searchPosition(context, { txt }) {
+        //     console.log('store', txt)
+        //     const getPosition = await mapService.searchPosition(txt)
+        //         // context.commit({ type: 'removeProj', projId });
+        //     return getPosition;
+        // }
     },
 }

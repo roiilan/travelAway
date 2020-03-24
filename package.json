@@ -15,11 +15,13 @@
         "core-js": "^3.6.4",
         "eventbus": "0.0.3",
         "load-google-maps-api": "^2.0.2",
+        "luxon": "^1.22.0",
         "register-service-worker": "^1.6.2",
         "vue": "^2.6.11",
-        "vue-plyr": "^6.0.4",
+        "vue-datetime": "^1.0.0-beta.11",
         "vue-router": "^3.1.5",
         "vue2-google-maps": "^0.10.7",
+        "vuejs-datetimepicker": "^1.1.13",
         "vuex": "^3.1.2"
     },
     "devDependencies": {
