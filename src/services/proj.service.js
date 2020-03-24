@@ -69,10 +69,26 @@ function getEmptyProj() {
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         imgUrls: [],
         position: { txtAddress: '', lat: 33.886917, lng: 9.537499 },
+        requirements: {
+            age: {min: 0, max:120},
+            dayTime: {min: 0, max:365},
+            language: false,
+            // languageSkills: {is:false, languages: [{language: '', level: ''}]},
+            criminalBackgroundCheck: false,
+            education: false,
+            otherSkills: false,
+        }, 
         tags: {
+        // includes: {
+            airportTaxi: false,
+            housing: {
+                guestFamily: false,
+                singleBad: false,
+                dubleBad: false
+            },
+            food: false,
             wifi: false,
             hotWater: false,
-            dubleBad: false
         }
     }
 }
@@ -109,10 +125,26 @@ function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt,
         endsAt,
         imgUrls,
         position,
+        requirements: {
+            age: {min: 18, max:55},
+            dayTime: {min: 30, max:365},
+            language: true,
+            // languageSkills: {is:false, languages: [{language: '', level: ''}]},
+            criminalBackgroundCheck: false,
+            education: false,
+            otherSkills: true,
+        }, 
         tags: {
+        // includes: {
+            airportTaxi: true,
+            housing: {
+                guestFamily: false,
+                singleBad: true,
+                dubleBad: false
+            },
+            food: true,
             wifi: false,
-            hotWater: false,
-            dubleBad: true,
+            hotWater: true,
         }
 
     }

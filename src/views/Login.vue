@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="login-page">
+        <pre>{{credentials}}</pre>
         <button v-if="loggedinUser" @click="logout">Logout</button>
         <form @submit.prevent="login" v-else-if="credentials">
             <input type="text" v-model="credentials.username" required>

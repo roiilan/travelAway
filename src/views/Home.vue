@@ -89,6 +89,9 @@ data(){
 
 
 .category-container{
+  /* Temporary */
+  margin-top: 110px;
+
   max-width:1080px;
   display: grid;
   grid-template-columns:3fr 4fr 3fr 4fr;

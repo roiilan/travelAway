@@ -23,6 +23,17 @@
                   <option value="art">culture & Arts</option>
                   <option value="humanRights">Human Rights</option>
                </select>
+<!-- 
+               <div v-for="requirement in proj.requirements" :key="requirement">
+                 <input type="checkbox" v-model="requirement">
+               </div> -->
+<!-- 
+               <select v-model="proj.requirements">
+                 <option v-for="requirement in proj.requirements" :key="requirement" value="requirement">{{requirement}}</option>
+               </select>
+               <select v-model="proj.tags">
+                 <option v-for="tag in proj.tags" :key="tag" value="requirement">{{tag}}</option>
+               </select> -->
 
                 <label class="proj-edit-upload-img"> 
                     <input @input="uploadImg" type="file" hidden>

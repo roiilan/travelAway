@@ -7,14 +7,15 @@
         :alt="proj.createdBy.fullName"
         :title="proj.createdBy.fullName"/>
         </router-link> -->
-        
+        <pre v-if="loggedinUser">{{loggedinUser}}</pre>
+        <!-- <button v-if="loggedinUser._id === proj.createdBy._id" @click="isEdit = !isEdit">EDIT MODE</button> -->
         <div class="img-proj-container ratio-16-9">
-        <img v-if="proj.imgUrls"
-        class="img-proj" 
+        <img class="img-proj" 
         :src="proj.imgUrls[0]" 
         alt="proj picture"/>
         <!-- <h2 >how can you Help?</h2> -->
-        <div class="title-proj">{{proj.title}}</div>
+        <input v-if="isEdit" class="title-proj" v-model="proj.title"/>
+        <div v-else class="title-proj">{{proj.title}}</div>
         </div>
 
         <div class="main-content-details">
@@ -42,6 +43,7 @@ export default {
     return {
       proj: null,
       isApplyOpen: false,
+      isEdit: false
     }
   },
   async created() {
@@ -53,6 +55,11 @@ export default {
     components: {
      projMap,
      projApply
+    },
+    computed: {
+      loggedinUser(){
+        return this.$store.getters.loggedinUser;
+      }
     },
     methods: {
       openApply() {
