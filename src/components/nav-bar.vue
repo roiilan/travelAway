@@ -26,10 +26,10 @@
         </div>
         <div class="link-container">
           <router-link to="/edit">Add</router-link>
-          <router-link to="/">Home</router-link>
-          <router-link to="/login">
-          <span v-if="loggedinUser">Logout</span> 
-          <span v-else>Login</span> 
+          <router-link to="/">Home</router-link> 
+          <span v-if="loggedinUser" @click="logout">Logout</span> 
+          <router-link v-else to="/login">
+          Login | Signup 
           </router-link> 
         </div>
       </div>
@@ -42,6 +42,16 @@ export default {
     loggedinUser(){
       return this.$store.getters.loggedinUser;
     }
+  },
+  methods: {
+    async logout(){
+            var res = await this.$store.dispatch({ type:'logout'})
+            if (res) {
+                console.log('res: ', res);
+                // this.$router.push('/')
+                return
+            }
+        },
   },
 }
 </script>

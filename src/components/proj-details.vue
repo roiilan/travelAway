@@ -1,8 +1,8 @@
 <template>
-  <div class="proj-details-container">
+  <div class="proj-details-container width-container" v-if="proj">
 
-      <div class="proj-details" v-if="proj">
-          
+      <div class="proj-details" >
+         
           <!-- <router-link :to="'/user/' + proj.createdBy._id">
           <img class="img-user" 
           :src="proj.createdBy.imgUrl" 
@@ -34,13 +34,13 @@
               
               </div>
           </div>
+    </div>
           <div @click.stop="isApplyOpen = true">
-          <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
+            <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
           </div>
           <div @click.stop="isApplyOpen = true" class="proj-apply-for-mobile" :class="{'apply-opened':isApplyOpen}">
             Apply now
           </div>
-    </div>
   </div>
 </template>
 
