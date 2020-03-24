@@ -1,39 +1,46 @@
 <template>
-    <div class="proj-details" v-if="proj">
-        
-        <!-- <router-link :to="'/user/' + proj.createdBy._id">
-        <img class="img-user" 
-        :src="proj.createdBy.imgUrl" 
-        :alt="proj.createdBy.fullName"
-        :title="proj.createdBy.fullName"/>
-        </router-link> -->
-        <pre v-if="loggedinUser">{{loggedinUser}}</pre>
-        <!-- <button v-if="loggedinUser._id === proj.createdBy._id" @click="isEdit = !isEdit">EDIT MODE</button> -->
-        <div class="img-proj-container ratio-16-9">
-        <img class="img-proj" 
-        :src="proj.imgUrls[0]" 
-        alt="proj picture"/>
-        <!-- <h2 >how can you Help?</h2> -->
-        <input v-if="isEdit" class="title-proj" v-model="proj.title"/>
-        <div v-else class="title-proj">{{proj.title}}</div>
-        </div>
+  <div class="proj-details-container">
 
-        <div class="main-content-details">
-            <article class="card-deatails description">Description: {{proj.description}} </article>
-            <div class="card-deatails">Reqieres Dates:</div>
-            <div class="card-deatails map-container">
-            <proj-map class="map" :zoomSize="zoomSize"
-             :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]" 
-                  :position="proj.position"> </proj-map>
-            
-            </div>
-        </div>
-        <div @click.stop="isApplyOpen = true">
-        <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
-        </div>
-        <div @click.stop="isApplyOpen = true" class="proj-apply-for-mobile" :class="{'apply-opened':isApplyOpen}">
-          Apply now
-        </div>
+      <div class="proj-details" v-if="proj">
+          
+          <!-- <router-link :to="'/user/' + proj.createdBy._id">
+          <img class="img-user" 
+          :src="proj.createdBy.imgUrl" 
+          :alt="proj.createdBy.fullName"
+          :title="proj.createdBy.fullName"/>
+          </router-link> -->
+          <router-link 
+          v-if="loggedinUser && (loggedinUser._id === proj.createdBy._id || loggedinUser.isAdmin)"
+          :to="'/edit/' + proj._id"
+          >
+          EDIT
+          </router-link>
+          <div class="img-proj-container ratio-16-9">
+          <img class="img-proj" 
+          :src="proj.imgUrls[0]" 
+          alt="proj picture"/>
+          <!-- <h2 >how can you Help?</h2> -->
+          <input v-if="isEdit" class="title-proj" v-model="proj.title"/>
+          <div v-else class="title-proj">{{proj.title}}</div>
+          </div>
+
+          <div class="main-content-details">
+              <article class="card-deatails description">Description: {{proj.description}} </article>
+              <div class="card-deatails">Reqieres Dates:</div>
+              <div class="card-deatails map-container">
+              <proj-map class="map" :zoomSize="zoomSize"
+              :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]" 
+                    :position="proj.position"> </proj-map>
+              
+              </div>
+          </div>
+          <div @click.stop="isApplyOpen = true">
+          <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
+          </div>
+          <div @click.stop="isApplyOpen = true" class="proj-apply-for-mobile" :class="{'apply-opened':isApplyOpen}">
+            Apply now
+          </div>
+    </div>
   </div>
 </template>
 
