@@ -1,7 +1,7 @@
 <template>
     <div class="login-page">
-        <button v-if="loggedinUser" @click="logout">Logout</button>
-        <form @submit.prevent="login" v-else-if="credentials">
+        <!-- <button v-if="loggedinUser" @click="logout">Logout</button> -->
+        <form @submit.prevent="login" v-if="credentials">
             <input type="text" v-model="credentials.username" required>
             <input type="password" v-model="credentials.password" required>
             <button>Login</button>
@@ -25,9 +25,6 @@
         @removeUser="removeUser" 
         />
     </ul> -->
-        <!-- <div v-if="msg.isShow">
-            {{msg.txt}}
-        </div> -->
     </div>
 </template>
 
@@ -72,13 +69,6 @@ export default {
                 imgEv:ev
             })
             this.newUserCred.imgUrl = img.url      
-        },
-        async logout(){
-            var res = await this.$store.dispatch({ type:'logout'})
-            if (res) {
-                console.log('res: ', res);
-                this.$router.push('/')
-            }
         },
         async removeUser(userId){
             var msg = await this.$store.dispatch({ type:'removeUser', userId})
