@@ -69,7 +69,7 @@
             transform: translate(-50%, -50%);
             position: absolute;
             font-size: 20px;
-            color: rgb(66, 66, 66);
+            color: $clr3;
             font-family: Sen;
             text-align: center;
             font-size: 2.3vw;
@@ -81,6 +81,7 @@
             }
             .img-tag {
                 transform: translate(-50%, -50%) scale(1.1);
+                color: $clr1;
             }
         }
     }
