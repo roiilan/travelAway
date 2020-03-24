@@ -2,7 +2,7 @@
   <GmapMap
      v-if="position"
     :center="position"
-    :zoom="11"
+    :zoom="zoomSize"
     map-type-id="terrain"
     style="height: 500px"
   >
@@ -21,7 +21,19 @@
 export default {
    props: {
    position: null,
-      markers: Array
+      markers: Array,
+      zoomSize:null
+  },
+    data() {
+    return {
+    };
+  },
+//   computed: {
+// computedZoom()
+
+//   }
+  created(){
+    console.log(this.position.lat);
   },
 
 };
@@ -30,22 +42,10 @@ export default {
 
 
 
-
-
-
-
-
-  // data() {
-  //   return {
-  //     markers: [
-  //       // { position: { lat: this.position.lat, lng: this.position.lng } }, !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     
-  //     ],
-  //     center: { lat: this.position.lat, lng: this.position.lng }
-  //   };
-  // },
-  // created(){
-    // console.log(this.position.lat);
-  // }
+      // markers: [
+      //   // { position: { lat: this.position.lat, lng: this.position.lng } },     
+      // ],
+      // center: { lat: this.position.lat, lng: this.position.lng }
 </script>
 
 
