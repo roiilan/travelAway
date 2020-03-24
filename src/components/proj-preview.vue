@@ -1,12 +1,11 @@
 <template>
-  <div class="proj-preview" >
+  <div class="proj-preview">
     <router-link :to="'/proj/' + proj._id" class="proj-card">
 
     <img v-bind:src=proj.imgUrls[0] v-if="proj.imgUrls" class="details-img"/>
     <div class="proj-txt">
+    <h5>{{projCategory}}</h5>
     <h2>{{proj.title}} </h2>
-    <h5>Description: {{proj.description}} </h5>
-
     </div>
 
     <div class = "footer">
@@ -16,52 +15,25 @@
 </template>
 
 
-
-
 <script>
-
-
-
 
 export default {
   name: 'projPreview',
   props: {
    proj: Object
   },
+  computed:{
+   projCategory(){
+     
+      if(this.proj.category[0] === "animalsAndWildlife") return "Animals & Wildlife"
+    }
+  }
 
 
 }
 </script>
 
 <style scoped >
-.details-img{
-    width: 33%;
-    height: 10rem;
-    object-fit: cover;
-    mix-blend-mode: multiply;
-    filter: grayscale(0.5);
-    border-radius: 3px;
-}
-
-.proj-card{
-  display: flex;
-  flex-direction: row;
-    border-bottom: 0.5px solid lightgrey;
-  padding-bottom: 10px;
-  /* margin: 5px; */
-}
-
-.proj-txt{
-  padding: 5px;
-}
-
-h5, h2{
-  margin: 0;
-}
-
-.proj-preview{
-  padding-bottom: 10px;
-}
 
 
 </style>

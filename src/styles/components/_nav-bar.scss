@@ -1,12 +1,12 @@
-.nav-bar-container{
+.nav-bar-container {
     position: fixed;
     top: 0;
     background-color: lighten($clr2, 20%);
     box-shadow: $shadow;
     width: 100vw;
     z-index: 5;
-    
-    
+    font-family: Sen;
+    ;
     .nav-bar {
         margin: 0 auto;
         width: 100vw;
@@ -17,13 +17,14 @@
             margin: 0;
         }
         .logo-container {
-            
             .logo {
                 cursor: pointer;
                 width: rem(50px);
                 margin: 0 rem(20px);
+                &:hover {
+                    box-shadow: unset;
+                }
             }
-            
             .img-user {
                 cursor: pointer;
                 width: rem(35px);
@@ -31,9 +32,8 @@
                 border-radius: 50%;
                 object-fit: cover;
             }
-        } 
-        
-        .link-container{
+        }
+        .link-container {
             text-transform: uppercase;
             padding: rem(40px) 0;
             >* {
@@ -46,5 +46,5 @@
                 }
             }
         }
-}
+    }
 }
