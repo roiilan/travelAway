@@ -1,10 +1,11 @@
 <template>
     <div class="proj-details" v-if="proj">
-        <!-- <router-link :to="'/user/' + proj.requestedBy._id">
+
+        <!-- <router-link :to="'/user/' + proj.createdBy._id">
         <img class="img-user" 
-        :src="proj.requestedBy.imgUrl" 
-        :alt="proj.requestedBy.fullName"
-        :title="proj.requestedBy.fullName"/>
+        :src="proj.createdBy.imgUrl" 
+        :alt="proj.createdBy.fullName"
+        :title="proj.createdBy.fullName"/>
         </router-link> -->
         
         <div class="img-proj-container ratio-16-9">

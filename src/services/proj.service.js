@@ -41,7 +41,7 @@ function _addProj(currProj, projs) {
     const loggeinUser = userService.getLoggeinUser()
     console.log('loggeinUser in service: ', loggeinUser);
     if (loggeinUser) {
-        currProj.requestedBy = userService.getMinimalUser(loggeinUser)
+        currProj.createdBy = userService.getMinimalUser(loggeinUser)
     }
     currProj._id = utilService.makeId();
     projs.unshift(currProj);
@@ -62,7 +62,7 @@ function getEmptyProj() {
         description: utilService.makeLorem(80),
         membersNeeded: 1,
         isLocal: true,
-        requestedBy: {},
+        createdBy: {},
         takenBy: {},
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
@@ -74,29 +74,40 @@ function getEmptyProj() {
 function _createProjs() {
     var projs = [
 
-        _createProj('Dog walking', 1, { _id: 'u102', fullName: 'Puki Ben Pinhas', imgUrl: 'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-03-14', time: '12:00' }, { date: '2020-03-14', time: '14:00' }, ['https://i.pinimg.com/originals/67/01/79/670179bf2f640c22b01556a0af74a97a.jpg'], { txtAddress: null, lat: 32.178196, lng: 34.907612 }),
-        _createProj('Take my kids away', 2, { _id: 'u102', fullName: 'Puki Ben Pinhas', imgUrl: 'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-03-12', time: '14:00' }, { date: '2020-03-12', time: '16:00' }, ['https://www.newhitsingles.com/wp-content/uploads/2018/04/Justin-Timberlake-Links-Up-With-The-Selfie-Kid-In-Boston.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
-        _createProj('Picture on the side', 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://cdn.cliqueinc.com/posts/216920/how-to-take-a-selfie-216920-1554893462671-image.700x0c.jpg'], { txtAddress: null, lat: 32.083549, lng: 34.815498 }),
-        _createProj('Picture on the side', 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://cdn.cliqueinc.com/posts/216920/how-to-take-a-selfie-216920-1554893462671-image.700x0c.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
-        _createProj('Picture on the side', 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://cdn.cliqueinc.com/posts/216920/how-to-take-a-selfie-216920-1554893462671-image.700x0c.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
-        _createProj('Picture on the side', 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://cdn.cliqueinc.com/posts/216920/how-to-take-a-selfie-216920-1554893462671-image.700x0c.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 })
+        _createProj('Feeding hungry lions', ['animalsAndWildlife'], 1, { _id: 'u102', fullName: 'Puki Ben Pinhas', imgUrl: 'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-03-14', time: '12:00' }, { date: '2020-03-14', time: '14:00' }, ['https://saltypopcorn.com.au/wp-content/uploads/2014/07/1q.jpg'], { txtAddress: null, lat: 32.178196, lng: 34.907612 }),
+        _createProj('Taking care of dolphins', ['scubaDiving'], 2, { _id: 'u102', fullName: 'Puki Ben Pinhas', imgUrl: 'https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-03-12', time: '14:00' }, { date: '2020-03-12', time: '16:00' }, ['https://sn4.scholastic.com/content/dam/classroom-magazines/sn4/issues/2019-20/090219/dolphins-on-duty/SN4-090219-Dolphins-HR.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
+        _createProj('Teach english', ['education'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://cdn2.hubspot.net/hubfs/67369/KJ%20Schultz%20-%20Seoul,%20South%20Korea%20-%20Classroom%20-%20Students-652332-edited.jpg'], { txtAddress: null, lat: 32.083549, lng: 34.815498 }),
+        _createProj('Building an orphanage', ['humanitarian'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://s3.amazonaws.com/launchgood/project%2F14381%2Fbody%2FIMG_2067.JPG'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
+        _createProj('Dancing with crocodails', ['animalsAndWildlife'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://metro.co.uk/wp-content/uploads/2016/11/ad_226722521.jpg?quality=90&strip=all'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
+        _createProj('Saving huge turtels', ['scubaDiving'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://andyoucreations.com/wp-content/uploads/2017/11/thumbsupturt.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
+        _createProj('Teach math', ['education'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://www.uvolunteer.net/wp-content/uploads/himg-ghana-orphanage.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
+        _createProj('Taking care of hourses', ['animalsAndWildlife'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://www.thesprucepets.com/thmb/zMMsYmboywKdTvaYgRb6M-5PfK4=/3437x2578/smart/filters:no_upscale()/woman-brushing-a-horse-532396921-58c94add3df78c353c991e59.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
+        _createProj('Teach art', ['education'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://rs.projects-abroad.ie/v1/hero/product-5b6d5748b2684.[1600].jpeg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
+        _createProj('Taking care of hunted gorillaz', ['animalsAndWildlife'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://www.telegraph.co.uk/content/dam/tv/2016/06/15/99637201-Koko-The-Gorilla-CULTURE_trans_NvBQzQNjv4Bqeo_i_u9APj8RuoebjoAHt0k9u7HhRJvuo-ZLenGRumA.jpg'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
+        _createProj('Women Shelter Activist', ['humanitarian'], 3, { _id: 'u103', fullName: 'Shuki Ben Shaul', imgUrl: 'https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }, { date: '2020-02-27', time: '20:00' }, { date: '2020-02-27', time: '20:30' }, ['https://bloximages.newyork1.vip.townnews.com/winchesterstar.com/content/tncms/assets/v3/editorial/3/c5/3c5f94a0-e97b-5cc9-995c-1115835abfaf/5a8111997e2c0.image.jpg?resize=1200%2C777'], { txtAddress: null, lat: 32.572762, lng: 34.962372 }),
     ]
     storageService.store(KEY_FAVORS, projs)
     return projs;
 }
 
-function _createProj(title, membersNeeded, requestedBy, startAt, endsAt, imgUrls, position) {
+function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt, imgUrls, position) {
     return {
         _id: utilService.makeId(),
         title,
         description: utilService.makeLorem(8000),
         membersNeeded,
-        requestedBy,
+        membersApplyed: [],
+        createdBy,
         takenBy: {},
         startAt,
         endsAt,
         imgUrls,
         position,
+        tags: {
+            wifi: false,
+            hotWater: true,
+            dubleBad: false
+        }
 
     }
 }

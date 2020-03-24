@@ -8,8 +8,8 @@
       alt="Logo">
       </router-link>
       
-      <router-link :to="'/user/' + loggedinUser._id">
-      <img v-if="loggedinUser" 
+      <router-link :to="'/user/' + loggedinUser._id" v-if="loggedinUser" >
+      <img 
       class="img-user" 
       :src="loggedinUser.imgUrl" 
       :title="loggedinUser.fullName">
