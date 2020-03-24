@@ -1,6 +1,5 @@
 <template>
-    <div class="proj-details">
-        
+    <div class="proj-details" v-if="proj">
         <!-- <router-link :to="'/user/' + proj.requestedBy._id">
         <img class="img-user" 
         :src="proj.requestedBy.imgUrl" 
@@ -21,7 +20,7 @@
             <article class="card-deatails description">Description: {{proj.description}} </article>
             <div class="card-deatails">Reqieres Dates:</div>
             <div class="card-deatails map-container">
-            <proj-map class="map" :position="proj.position"> </proj-map>
+                <proj-map class="map" :position="proj.position"> </proj-map>
             </div>
         </div>
         <div @click.stop="isApplyOpen = true">
@@ -35,7 +34,7 @@
 
 <script>
 import projMap from './proj-map.vue';
-import projApply from './proj-apply.cmp.vue'
+import projApply from './proj-apply.cmp.vue';
 
 export default {
   data() {
