@@ -1,6 +1,7 @@
 import { utilService } from './util.service.js'
 import { storageService } from './storage.service.js';
-import { userService } from './user.service';
+import { userService } from './user.service.js';
+import HttpService from '../services/http.service.js'
 
 
 const KEY_FAVORS = 'projs'
@@ -13,10 +14,48 @@ export const projService = {
     remove
 }
 
+// function getById(toyId) {
+//     return HttpService.get(`toy/${toyId}`)
+// }
+
+// function remove(toyId) {
+//     return HttpService.delete(`toy/${toyId}`)
+// }
+
+// function update(toy) {
+//     return HttpService.put(`toy/${toy._id}`, toy)
+// }
+
+
+// function save(toy) {
+//     (toy.createdAt) ? toy.updatedAt = Date.now(): toy.createdAt = Date.now()
+//     toy.inStock = true
+//     if (toy._id) {
+//         return update(toy)
+//     } else {
+//         return HttpService.post(`toy`, toy)
+//     }
+// }
+
+
+// function query(filterBy) {
+//     console.log(filterBy);
+
+//     var queryParams = new URLSearchParams(filterBy)
+//         // var queryStr = `?name=${filterBy.name}&sort=${filterBy.sort}&type=${filterBy.category}&inStock=${filterBy.inStock}`
+//     return HttpService.get(`toy?${queryParams}`)
+// }
+
+
 function query() {
-    var projs = storageService.load(KEY_FAVORS)
-    if (projs) return projs
-    return _createProjs();
+    // var projs = storageService.load(KEY_FAVORS)
+    // if (projs) return projs
+    // return _createProjs();
+
+    console.log(filterBy);
+    // var queryParams = new URLSearchParams(filterBy)
+    var queryStr = `?name=${filterBy.name}&sort=${filterBy.sort}&type=${filterBy.category}&inStock=${filterBy.inStock}`
+    return HttpService.get(`toy?${queryParams}`)
 }
 
 function getById(projId) {
