@@ -105,7 +105,6 @@ function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt,
         membersNeeded,
         membersApplyed: [],
         createdBy,
-        takenBy: {},
         startAt,
         endsAt,
         imgUrls,
@@ -113,7 +112,7 @@ function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt,
         tags: {
             wifi: false,
             hotWater: false,
-            dubleBad: true
+            dubleBad: true,
         }
 
     }
