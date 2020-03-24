@@ -9,10 +9,22 @@ export default {
 import axios from "axios";
 
 
-function searchPosition(txt){
+async function searchPosition(txt){
     console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}`,'mapService ',txt, )
-         return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
-       .then(res => res.data.results[0].geometry.location)    
+    const res= await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
+         
+    //    .then(res => res.data.results[0].geometry.location)
+    //    .catch(err=>console.log(err,'err'))
+    try {
+        var position=res.data.results[0].geometry.location
+        return position    
+      }
+      catch(error) {
+         console.error('Address not found' );
+       
+      }
+      
+
 }
 
 

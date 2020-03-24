@@ -98,6 +98,9 @@ data(){
 
 
 .category-container{
+  /* Temporary */
+  margin-top: 110px;
+
   max-width:1080px;
   max-height: 750px;
   display: grid;
