@@ -1,76 +1,103 @@
 <template>
     <div class="proj-edit" v-if="proj">
-        <form @submit.prevent="save(proj)">
-            <h2 v-if="proj._id">{{proj.createdBy.fullName}}</h2>
-            <img v-if="proj._id" :src="proj.createdBy.imgUrl"/>
-            <input type="text" v-model="proj.title">
-            <textarea v-model="proj.description" cols="30" rows="10"></textarea>
-            <input type="date" v-model="proj.startAt.date">
-            <input type="time" v-model="proj.startAt.time">
-            <input type="date" v-model="proj.endsAt.date">
-            <input type="time" v-model="proj.endsAt.time">
-             <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
-               <select v-model="proj.category" required>
-                  <option value="childcare">Childcare</option>
-                  <option value="animalsAndWildlife">Animals & Wildlife</option>
-                  <option value="environmentalProtection">Environmental Protection</option>
-                  <option value="farming">Farming</option>
-                  <option value="scubaDiving">Scuba Diving</option>
-                  <option value="humanitarian">Humanitarian</option>
-                  <option value="healthcare">Healthcare</option>
-                  <option value="sports">Sports</option>
-                  <option value="education">Education</option>
-                  <option value="art">culture & Arts</option>
-                  <option value="humanRights">Human Rights</option>
-               </select>
-<!-- 
-               <div v-for="requirement in proj.requirements" :key="requirement">
-                 <input type="checkbox" v-model="requirement">
-               </div> -->
-<!-- 
-               <select v-model="proj.requirements">
-                 <option v-for="requirement in proj.requirements" :key="requirement" value="requirement">{{requirement}}</option>
-               </select>
-               <select v-model="proj.tags">
-                 <option v-for="tag in proj.tags" :key="tag" value="requirement">{{tag}}</option>
-               </select> -->
-
-                <label class="proj-edit-upload-img"> 
-                    <input @input="uploadImg" type="file" hidden>
-                    <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
-                    <p class="proj-edit-upload-txt">Upload! </p>
+        <form class="form-proj-edit flex col" @submit.prevent="save(proj)">
+          <div class="flex around">
+            <div class="flex col">
+              <!-- <label class="proj-edit-upload-img"> 
+                  <input @input="uploadImg" type="file" hidden>
+                  <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
+                  <p class="proj-edit-upload-txt">Upload! </p>
+              </label> -->
+              
+            <div v-for="(url, index) in proj.imgUrls" :key="url" class="img-proj-container ratio-16-9">
+                <label > 
+                  <img :src="url" @click="setCurrImg(index)" class="img-proj">
+                  <input @input="uploadImg" type="file" hidden>
                 </label>
-                
-                <div v-for="(url, index) in proj.imgUrls" class = "uploaded-img" >
-                  <label> 
-                    <img :src="url" @click="setCurrImg(index)" >
-                    <input @input="uploadImg" type="file" hidden>
-                  </label>
-                </div>         
+            </div>         
+              <!-- <img v-if="proj._id"
+              class="img-user"
+              :title="proj.createdBy.fullName" 
+              :src="proj.createdBy.imgUrl"/> -->
+              <input type="text" v-model="proj.title">
+              <textarea v-model="proj.description" cols="30" rows="10"></textarea>
+              <input type="date" v-model="proj.startAt.date">
+              <input type="time" v-model="proj.startAt.time">
+              <input type="date" v-model="proj.endsAt.date">
+              <input type="time" v-model="proj.endsAt.time">
+              <!-- <date-range-picker
+                ref="picker"
+                :opens="opens"
+                :locale-data="{ firstDay: 1, format: 'DD-MM-YYYY HH:mm:ss' }"
+                :minDate="minDate" :maxDate="maxDate"
+                :singleDatePicker="singleDatePicker"
+                :timePicker="timePicker"
+                :timePicker24Hour="timePicker24Hour"
+                :showWeekNumbers="showWeekNumbers"
+                :showDropdowns="showDropdowns"
+                :autoApply="autoApply"
+                v-model="dateRange"
+                @update="updateValues"
+                @toggle="checkOpen"
+                :linkedCalendars="linkedCalendars"
+                :dateFormat="dateFormat">
+                <template v-slot:input="picker" style="min-width: 350px;">
+                    {{ picker.startDate | date }} - {{ picker.endDate | date }}
+                </template>
+              </date-range-picker> -->
+              <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
+              <select v-model="proj.category" required>
+                <option value="childcare">Childcare</option>
+                <option value="animalsAndWildlife">Animals & Wildlife</option>
+                <option value="environmentalProtection">Environmental Protection</option>
+                <option value="farming">Farming</option>
+                <option value="scubaDiving">Scuba Diving</option>
+                <option value="humanitarian">Humanitarian</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="sports">Sports</option>
+                <option value="education">Education</option>
+                <option value="art">culture & Arts</option>
+                <option value="humanRights">Human Rights</option>
+              </select>
+    <!-- 
+                  <div v-for="requirement in proj.requirements" :key="requirement">
+                    <input type="checkbox" v-model="requirement">
+                  </div> -->
+    <!-- 
+                  <select v-model="proj.requirements">
+                    <option v-for="requirement in proj.requirements" :key="requirement" value="requirement">{{requirement}}</option>
+                  </select>
+                  <select v-model="proj.tags">
+                    <option v-for="tag in proj.tags" :key="tag" value="requirement">{{tag}}</option>
+                  </select> -->
 
-                 <div>
-                   What is the project address?
-                   <input class="text-location" type="text" placeholder="Address"
-                    v-model="proj.position.txtAddress"
-                    @change="searchPosition(proj.position.txtAddress)"
-                    >
-                  <proj-map :zoomSize="zoomSize" :markers="markers" 
-                  :position="proj.position"> </proj-map>
-                 </div>
+              
 
-
-            <button>Save</button>       
+          </div>
+          <div>
+            What is the project address?
+            <input class="text-location" type="text" placeholder="Address"
+            v-model="proj.position.txtAddress"
+            @change="searchPosition(proj.position.txtAddress)"
+            >
+            <proj-map :zoomSize="zoomSize" :markers="markers" 
+            :position="proj.position"> </proj-map>
+            </div>
+          </div>
+          <button>Save</button>       
         </form>
         <button v-if="proj._id" @click="remove(proj._id)">Delete</button>
-        <pre>{{proj}}</pre>
+        <!-- <pre>{{proj}}</pre> -->
     </div>
 </template>
 
 <script>
+import DateRangePicker from 'vue2-daterange-picker';
+import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 import { projService } from "../services/proj.service.js";
 import toggleBtn from "@/components/toggle-btn.vue";
 import projMap from '../components/proj-map.vue';
-
+import {eventBus} from '../services/eventbus-service.js';
 
 export default {
   data() {
@@ -78,10 +105,12 @@ export default {
       proj: null,
       currentImgIdx:null,
       markers: [],
-      zoomSize: 2,   
+      zoomSize: 2,
+      loggedinUser: null,
     };
   },
   async created() {
+    this.loggedinUser = await this.$store.getters.loggedinUser
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
@@ -89,7 +118,15 @@ export default {
         projId
       });
       this.proj = JSON.parse(JSON.stringify(proj));
+      if (this.loggedinUser._id !== this.proj.createdBy._id && !this.loggedinUser.isAdmin) {
+        this.$router.push('/')
+      }
     } else {
+       if (!this.loggedinUser) {
+          this.$store.commit({type:'setMsg', msg: 'You must register first' })
+        this.$router.push('/login')
+        // eventBus.$emit('showMsg', 'You must register first')
+      }
       this.proj = projService.getEmptyProj();
     }
   },
@@ -127,9 +164,15 @@ export default {
          }     
         }
 },
+// computed: {
+//       loggedinUser(){
+//         return this.$store.getters.loggedinUser;
+//       }
+//     },
         components: {
       toggleBtn,
-      projMap
+      projMap,
+      DateRangePicker
     },
 }
 </script>

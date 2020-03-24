@@ -1,0 +1,48 @@
+.proj-edit {
+
+    // local helpers (to copy?)
+    input, textarea, select {
+        border: none;
+        border-radius: 3px;
+        box-shadow: $shadow;
+    }
+
+    margin: rem(110px) auto 0;
+    background-color: lighten($clr2, 40%);
+    padding: rem(20px);
+    width: 100vw;
+    @include for-normal-layout {
+         width: $break-normal;
+    }
+    .form-proj-edit {
+        
+        .img-proj-container {
+            margin: 0 0 rem(10px);
+            width: 100%;
+            background-color: lighten($clr2, 40%);
+            box-shadow: $shadow;
+            // .title-proj {
+            //     display: flex;
+            //     justify-content: center;
+            //     align-items: flex-end;
+            //     font-size: rem(40px);
+            //     color: #fff;
+            // }
+            .img-proj {
+                width: 100%;
+                mix-blend-mode: multiply;
+                filter: grayscale(0.5);
+            }
+
+
+        .img-user {
+            cursor: pointer;
+            width: rem(35px);
+            height: rem(35px);
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+    }
+
+}

@@ -1,6 +1,5 @@
 <template>
     <div class="login-page">
-        <pre>{{credentials}}</pre>
         <button v-if="loggedinUser" @click="logout">Logout</button>
         <form @submit.prevent="login" v-else-if="credentials">
             <input type="text" v-model="credentials.username" required>
@@ -18,7 +17,6 @@
                 <p class="proj-edit-upload-txt">Upload your own! </p>
             </label>
             <button>Sign Up</button>
-            <pre>{{newUserCred}}</pre>
         </form>
     <!-- <ul class="login-user" v-if="users">
         <user-list 
@@ -27,6 +25,9 @@
         @removeUser="removeUser" 
         />
     </ul> -->
+        <!-- <div v-if="msg.isShow">
+            {{msg.txt}}
+        </div> -->
     </div>
 </template>
 
@@ -40,7 +41,7 @@ export default {
         return {
             users: null,
             credentials: null,
-            newUserCred: null
+            newUserCred: null,
         }
     },
     async created() {
@@ -88,7 +89,7 @@ export default {
     loggedinUser(){
       return this.$store.getters.loggedinUser;
     }
-  },
+  }
 }
 </script>
 
