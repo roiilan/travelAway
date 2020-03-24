@@ -89,7 +89,7 @@ function _createProj(title, membersNeeded, requestedBy, startAt, endsAt, imgUrls
     return {
         _id: utilService.makeId(),
         title,
-        description: utilService.makeLorem(80),
+        description: utilService.makeLorem(8000),
         membersNeeded,
         requestedBy,
         takenBy: {},

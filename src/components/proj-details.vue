@@ -1,38 +1,47 @@
 <template>
-  <div v-if="proj">
-    <router-link :to="'/user/' + proj.requestedBy._id">
-      User Profile
-    </router-link>
-<div> 
-    <img :src="proj.imgUrls[0]" v-if="proj.imgUrls" alt="proj picture"/>
-</div>
+    <div class="proj-details">
+        
+        <!-- <router-link :to="'/user/' + proj.requestedBy._id">
+        <img class="img-user" 
+        :src="proj.requestedBy.imgUrl" 
+        :alt="proj.requestedBy.fullName"
+        :title="proj.requestedBy.fullName"/>
+        </router-link> -->
+        
+        <div class="img-proj-container ratio-16-9">
+        <img v-if="proj.imgUrls"
+        class="img-proj" 
+        :src="proj.imgUrls[0]" 
+        alt="proj picture"/>
+        <!-- <h2 >how can you Help?</h2> -->
+        <div class="title-proj">{{proj.title}}</div>
+        </div>
 
-  <h2 >how can you Help?</h2>
-  <h3>{{proj.title}}</h3>
-  <article class="description">Description: {{proj.description}} </article>
-
-<div class="avilable-date-container">
-Reqieres Dates:
-</div>
-
-   <router-link :to="'/edit/' + proj._id">
-       <button>Edit</button>    
-   </router-link>
-   
-<proj-map  :position="proj.position"> </proj-map>
-
- <pre>{{proj}}</pre>
- </div>
+        <div class="main-content-details">
+            <article class="card-deatails description">Description: {{proj.description}} </article>
+            <div class="card-deatails">Reqieres Dates:</div>
+            <div class="card-deatails map-container">
+            <proj-map class="map" :position="proj.position"> </proj-map>
+            </div>
+        </div>
+        <div @click.stop="isApplyOpen = true">
+        <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
+        </div>
+        <div @click.stop="isApplyOpen = true" class="proj-apply-for-mobile" :class="{'apply-opened':isApplyOpen}">
+          Apply now
+        </div>
+  </div>
 </template>
 
 <script>
-import projMap from './proj-map.vue'
-
+import projMap from './proj-map.vue';
+import projApply from './proj-apply.cmp.vue'
 
 export default {
   data() {
     return {
-      proj: null
+      proj: null,
+      isApplyOpen: false,
     }
   },
   async created() {
@@ -40,14 +49,21 @@ export default {
           type: 'loadProj',
           projId: this.$route.params.id
       });
-  },
-     components: {
-    projMap
-    }
+    },
+    components: {
+     projMap,
+     projApply
+    },
+    methods: {
+      openApply() {
+        this.isApplyOpen = false;
+      },
+    },
+    mounted() {
+      document.addEventListener('click', this.openApply);
+    },
+    beforeDestroy() {
+      document.removeEventListener('click', this.openApply);
+    },
 }
 </script>
-
-
-<style scoped>
-</style>
-

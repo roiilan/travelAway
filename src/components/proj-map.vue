@@ -1,10 +1,10 @@
 <template>
   <GmapMap
-  v-if="position"
+     v-if="position"
     :center="position"
     :zoom="11"
     map-type-id="terrain"
-    style="width: 500px; height: 300px"
+    style="height: 500px"
   >
     <GmapMarker
       :key="index"
