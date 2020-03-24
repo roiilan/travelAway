@@ -1,43 +1,25 @@
-.proj-details{
+.proj-details {
     margin-top: rem(110px);
     margin-bottom: rem(80px);
     @include for-normal-layout {
         margin-bottom: rem(20px);
     }
     min-height: 100vh;
-    
     * {
         border-radius: 3px;
     }
-
-   
     display: grid;
-
-    grid-template-columns: 
-        minmax(0.6rem, auto) 
-        minmax(100px, 1fr) 
-        minmax(0.6rem, auto);
+    grid-template-columns: minmax(0.6rem, auto) minmax(100px, 1fr) minmax(0.6rem, auto);
     grid-template-rows: auto 1fr auto;
-
     @include for-normal-layout {
-        grid-template-columns:
-        minmax(0.6rem, auto) 
-        minmax(100px, 1fr) 
-        40vw;
+        grid-template-columns: minmax(0.6rem, auto) minmax(100px, 1fr) 40vw;
     }
     @include for-wide-layout {
-        grid-template-columns:
-        minmax(0.6rem, auto) 
-        rem(700px) 
-        40vw;
+        grid-template-columns: minmax(0.6rem, auto) rem(700px) 40vw;
     }
-
-    
-    > * {
+    >* {
         grid-column: 2;
     }
-    
-
     .img-user {
         cursor: pointer;
         width: rem(35px);
@@ -45,13 +27,11 @@
         border-radius: 50%;
         object-fit: cover;
     }
-
-    .img-proj-container{
+    .img-proj-container {
         margin: 0 0 rem(10px);
         width: 100%;
         background-color: lighten($clr2, 40%);
         box-shadow: $shadow;
-
         .title-proj {
             display: flex;
             justify-content: center;
@@ -59,31 +39,27 @@
             font-size: rem(40px);
             color: #fff;
         }
-
         .img-proj {
             width: 100%;
             mix-blend-mode: multiply;
-            filter: grayscale(1);
+            filter: grayscale(0.5);
         }
     }
-
     .main-content-details {
         display: grid;
         gap: rem(10px);
-        
-        .card-deatails{
+        .card-deatails {
             box-shadow: $shadow;
             padding: rem(10px);
             line-height: 1.5;
             background-color: lighten($clr2, 40%);
             color: darken($clr2, 50%);
         }
-        
         .map-container {
             background-color: lighten($clr2, 40%);
             .map {
                 mix-blend-mode: multiply;
-                filter: grayscale(1);
+                filter: grayscale(0.5);
                 width: var(--map-width, 100%);
                 height: var(--map-height, 100%);
                 z-index: 0;
@@ -98,23 +74,20 @@
         color: lighten($clr1, 20%);
         height: rem(400px);
         display: none;
-        
         &.apply-opened {
             display: block;
             top: 50%;
             left: 50%;
             width: rem(400px);
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             // z-index: 3;
         }
-
         @include for-normal-layout {
             display: block;
             top: rem(110px);
             height: rem(400px);
             right: rem(25px);
             width: 35vw;
-
             &.apply-opened {
                 top: rem(110px);
                 left: auto;
@@ -126,15 +99,12 @@
         @include for-wide-layout {
             right: 3vw;
             width: rem(400px);
-
             &.apply-opened {
                 right: 3vw;
                 width: rem(400px);
             }
-
         }
     }
-
     .proj-apply-for-mobile {
         position: fixed;
         bottom: 0;
@@ -144,11 +114,9 @@
         width: 100%;
         height: rem(60px);
         text-transform: uppercase;
-
         &.apply-opened {
             display: none;
         }
-        
         @include for-normal-layout {
             display: none;
         }

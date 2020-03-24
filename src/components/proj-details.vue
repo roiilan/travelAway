@@ -1,6 +1,6 @@
 <template>
     <div class="proj-details" v-if="proj">
-
+        
         <!-- <router-link :to="'/user/' + proj.createdBy._id">
         <img class="img-user" 
         :src="proj.createdBy.imgUrl" 
