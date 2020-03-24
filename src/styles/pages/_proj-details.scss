@@ -63,7 +63,7 @@
         .img-proj {
             width: 100%;
             mix-blend-mode: multiply;
-            filter: grayscale(1);
+            filter: grayscale(0.5);
         }
     }
 
@@ -83,7 +83,7 @@
             background-color: lighten($clr2, 40%);
             .map {
                 mix-blend-mode: multiply;
-                filter: grayscale(1);
+                filter: grayscale(0.5);
                 width: var(--map-width, 100%);
                 height: var(--map-height, 100%);
                 z-index: 0;
