@@ -1,8 +1,7 @@
 import { utilService } from './util.service.js'
 import { storageService } from './storage.service.js';
 import { userService } from './user.service.js';
-import HttpService from '../services/http.service.js'
-
+import httpService from './http.service.js'
 
 const KEY_FAVORS = 'projs'
 
@@ -14,91 +13,93 @@ export const projService = {
     remove
 }
 
-// function getById(toyId) {
-//     return HttpService.get(`toy/${toyId}`)
-// }
-
-// function remove(toyId) {
-//     return HttpService.delete(`toy/${toyId}`)
-// }
-
-// function update(toy) {
-//     return HttpService.put(`toy/${toy._id}`, toy)
-// }
-
-
-// function save(toy) {
-//     (toy.createdAt) ? toy.updatedAt = Date.now(): toy.createdAt = Date.now()
-//     toy.inStock = true
-//     if (toy._id) {
-//         return update(toy)
-//     } else {
-//         return HttpService.post(`toy`, toy)
-//     }
-// }
-
-
-// function query(filterBy) {
-//     console.log(filterBy);
-
-//     var queryParams = new URLSearchParams(filterBy)
-//         // var queryStr = `?name=${filterBy.name}&sort=${filterBy.sort}&type=${filterBy.category}&inStock=${filterBy.inStock}`
-//     return HttpService.get(`toy?${queryParams}`)
-// }
-
 
 function query() {
+
+    // old query
+
     // var projs = storageService.load(KEY_FAVORS)
     // if (projs) return projs
     // return _createProjs();
 
-    console.log(filterBy);
-    // var queryParams = new URLSearchParams(filterBy)
-    var queryStr = `?name=${filterBy.name}&sort=${filterBy.sort}&type=${filterBy.category}&inStock=${filterBy.inStock}`
-    return HttpService.get(`toy?${queryParams}`)
+    // is filter
+
+    // const queryParams = new URLSearchParams();
+    // if(filterBy){
+    // if(filterBy.name) queryParams.set('name', filterBy.name)
+    // queryParams.set('minPrice', filterBy.minPrice);
+    // queryParams.set('maxPrice', filterBy.maxPrice);
+    // queryParams.set('type', filterBy.type);
+    // return httpService.get(`proj?${queryParams}`);
+    // }
+    
+    
+    return httpService.get('proj');
+   
 }
 
 function getById(projId) {
-    var projs = query()
-    return projs.find(proj => proj._id === projId)
-}
 
-function save(proj) {
-    var projs = query()
-    projs = (proj._id) ? _updateProj(proj, projs) : _addProj(proj, projs);
-    storageService.store(KEY_FAVORS, projs)
-    return projs
-}
+    // old getById
 
-function _updateProj(currProj, projs) {
-    const idx = projs.findIndex(proj => proj._id === currProj._id)
-    projs.splice(idx, 1, currProj)
-    return projs
-}
+    // var projs = query()
+    // return projs.find(proj => proj._id === projId)
 
-function _addProj(currProj, projs) {
-    const loggeinUser = userService.getLoggeinUser()
-    console.log('loggeinUser in service: ', loggeinUser);
-    if (loggeinUser) {
-        currProj.createdBy = userService.getMinimalUser(loggeinUser)
-    }
-    currProj._id = utilService.makeId();
-    projs.unshift(currProj);
-    return projs
+    return httpService.get(`proj/${projId}`);
 }
 
 function remove(projId) {
-    var projs = query()
-    const idx = projs.findIndex(proj => proj._id === projId)
-    projs.splice(idx, 1)
-    storageService.store(KEY_FAVORS, projs)
-    return ('The deletion was successful!!')
+    return httpService.delete(`proj/${projId}`);
 }
+
+function save(proj) {
+   return (proj._id)? _update(proj): _add(proj);
+}
+
+function _add(proj) {
+    return httpService.post(`proj`, proj);
+}
+function _update(proj) {
+    return httpService.put(`proj/${proj._id}`, proj);
+}
+
+
+// function save(proj) {
+//     var projs = query()
+//     projs = (proj._id) ? _updateProj(proj, projs) : _addProj(proj, projs);
+//     storageService.store(KEY_FAVORS, projs)
+//     return projs
+// }
+
+// function _updateProj(currProj, projs) {
+//     const idx = projs.findIndex(proj => proj._id === currProj._id)
+//     projs.splice(idx, 1, currProj)
+//     return projs
+// }
+
+// function _addProj(currProj, projs) {
+//     const loggeinUser = userService.getLoggeinUser()
+//     console.log('loggeinUser in service: ', loggeinUser);
+//     if (loggeinUser) {
+//         currProj.createdBy = userService.getMinimalUser(loggeinUser)
+//     }
+//     currProj._id = utilService.makeId();
+//     projs.unshift(currProj);
+//     return projs
+// }
+
+// function remove(projId) {
+//     var projs = query()
+//     const idx = projs.findIndex(proj => proj._id === projId)
+//     projs.splice(idx, 1)
+//     storageService.store(KEY_FAVORS, projs)
+//     return ('The deletion was successful!!')
+// }
 
 function getEmptyProj() {
     return {
         title: utilService.makeLorem(12),
-        category: [],
+        category: '',
         description: utilService.makeLorem(80),
         membersNeeded: 1,
         isLocal: true,

@@ -3,11 +3,11 @@
         <form class="form-proj-edit flex col" @submit.prevent="save(proj)">
           <div class="flex around">
             <div class="flex col">
-              <!-- <label class="proj-edit-upload-img"> 
+             <label class="proj-edit-upload-img"> 
                   <input @input="uploadImg" type="file" hidden>
                   <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
                   <p class="proj-edit-upload-txt">Upload! </p>
-              </label> -->
+              </label> 
               
             <div v-for="(url, index) in proj.imgUrls" :key="url" class="img-proj-container ratio-16-9">
                 <label > 
@@ -140,6 +140,7 @@ export default {
       this.currentImgIdx = null
     },
     async save(proj) {
+      console.log('save edit', proj)
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$router.push("/");
     },

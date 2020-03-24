@@ -1,10 +1,10 @@
-// import router from '@/router'
-import router from '../router/index.js'
-// import VueRouter from 'vue-router'
+import router from '@/router'
+import store from '@/store'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/api/'
-    : '//localhost:3000/api/'
+    // : '//localhost:3000/api/'
+    : '//localhost:3030/api/'
 
 
 import Axios from 'axios';
@@ -29,20 +29,21 @@ export default {
 
 
 async function ajax(endpoint, method='get', data=null) {
+    console.log('endpoint: ', endpoint);
+    
     try {
-        var config = {
+        const res = await axios({
+            method,
             url: `${BASE_URL}${endpoint}`,
-            method
-        }
-        if (method === 'get' || method === 'GET') config.params = {data}
-        else config.data = data
+            data
+        })
+        console.log('res.data: ', res.data);
         
-        const res = await axios(config)
         return res.data;
     } catch (err) {
         if (err.response.status === 401) {
+            throw new Error('error:  http.service page')
             router.push('/');
-            throw new Error('Unautonticated-  http.service page')
         }
     }
 }
