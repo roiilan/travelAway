@@ -1,5 +1,5 @@
 <template>
-  <div class="category-container"> 
+  <div class="category-container" > 
     <div v-for="category in categories">
     <router-link :to="'/projs/' + category.category">
       <!-- {{category.title}} -->
@@ -97,13 +97,13 @@ data(){
 }
 
 img{
-  width: 100%;
-    height: 22vw;
+  width: 25%;
+    /* height: 22vw;
     object-fit: cover;
-    border-radius: 3px;
+    border-radius: 3px; */
 }
 
-img.scubaDiving{
+/* img.scubaDiving{
    grid-row:1/3;
   grid-column: 4/-1
 }
@@ -147,6 +147,6 @@ img.art{
 img.humanRights{
   grid-row:5/6;
   grid-column: 4/-1
-}
+} */
 
 </style>

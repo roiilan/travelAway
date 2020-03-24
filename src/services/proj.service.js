@@ -59,6 +59,7 @@ function remove(projId) {
 function getEmptyProj() {
     return {
         title: utilService.makeLorem(12),
+        category: [],
         description: utilService.makeLorem(80),
         membersNeeded: 1,
         isLocal: true,
@@ -67,7 +68,12 @@ function getEmptyProj() {
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         imgUrls: [],
-        position: { txtAddress: '', lat: 33.886917, lng: 9.537499 }
+        position: { txtAddress: '', lat: 33.886917, lng: 9.537499 },
+        tags: {
+            wifi: false,
+            hotWater: false,
+            dubleBad: false
+        }
     }
 }
 
@@ -94,7 +100,8 @@ function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt,
     return {
         _id: utilService.makeId(),
         title,
-        description: utilService.makeLorem(8000),
+        category,
+        description: utilService.makeLorem(250),
         membersNeeded,
         membersApplyed: [],
         createdBy,
@@ -105,8 +112,8 @@ function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt,
         position,
         tags: {
             wifi: false,
-            hotWater: true,
-            dubleBad: false
+            hotWater: false,
+            dubleBad: true
         }
 
     }
