@@ -10,7 +10,7 @@
 
 <script>
 import projList from "@/components/proj-list.vue";
-import home from "@/views/home.vue";
+import home from "@/views/Home.vue";
 
 export default {
   name: "projApp",
