@@ -28,12 +28,8 @@ export default {
     return {
     };
   },
-//   computed: {
-// computedZoom()
-
-//   }
   created(){
-    console.log(this.position.lat);
+    // console.log(this.position.lat);
   },
 
 };
