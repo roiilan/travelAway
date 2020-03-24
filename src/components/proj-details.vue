@@ -21,7 +21,10 @@
             <article class="card-deatails description">Description: {{proj.description}} </article>
             <div class="card-deatails">Reqieres Dates:</div>
             <div class="card-deatails map-container">
-            <proj-map class="map" :position="proj.position"> </proj-map>
+            <proj-map class="map" :zoomSize="zoomSize"
+             :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]" 
+                  :position="proj.position"> </proj-map>
+            
             </div>
         </div>
         <div @click.stop="isApplyOpen = true">
@@ -42,6 +45,7 @@ export default {
     return {
       proj: null,
       isApplyOpen: false,
+      zoomSize: 14
     }
   },
   async created() {

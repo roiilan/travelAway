@@ -38,12 +38,12 @@
                 </div>         
 
                  <div>
-                   What is the proj address?
+                   What is the project address?
                    <input class="text-location" type="text" placeholder="Address"
                     v-model="proj.position.txtAddress"
                     @change="searchPosition(proj.position.txtAddress)"
                     >
-                  <proj-map :zoomSize="zoomSize" :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]" 
+                  <proj-map :zoomSize="zoomSize" :markers="markers" 
                   :position="proj.position"> </proj-map>
                  </div>
 
@@ -67,7 +67,7 @@ export default {
       proj: null,
       currentImgIdx:null,
       markers: [],
-      zoomSize: 1,   
+      zoomSize: 2,   
     };
   },
   async created() {
@@ -103,20 +103,17 @@ export default {
       this.$emit("set-filter", JSON.parse(JSON.stringify(this.proj)));
     },
      async setCurrImg(idx){
-      //  console.log(idx);
-       
-      this.currentImgIdx = idx
+         this.currentImgIdx = idx
     },
        async searchPosition(txt) {
+        //  var txt =proj.position.txtAddress
          console.log(txt,"txt");
          var currPosition = await this.$store.dispatch({ type: "searchPosition", txt });
+         if(currPosition){
          this.proj.position=currPosition;
-         if(this.proj.position.lng){
            this.zoomSize=14;
-         }
-        //  position = this.$store.getters(baga)
-        //  console.log(this.position,"this.position");
-        //  console.log(position,"position");
+           this.markers=[{ position: { lat: currPosition.lat, lng: currPosition.lng } }]
+         }     
         }
 },
         components: {
