@@ -11,6 +11,8 @@
 @import 'pages/proj-details';
 @import 'pages/login-page';
 @import 'pages/proj-edit';
+@import 'pages/home-page';
+@import 'pages/proj-list-filtered';
 // COMPONENTS
 @import 'components/nav-bar';
 // @import 'components/main-header';
@@ -18,4 +20,4 @@
 // @import 'components/cat-card';
 @import 'components/user-profile';
 @import 'components/proj-apply';
-@import 'pages/proj-list-filtered';
+@import 'components/proj-preview';
