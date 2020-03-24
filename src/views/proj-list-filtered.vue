@@ -7,7 +7,7 @@
         </div>
       </li>
     </ul>
-    <side-bar :projs="projs" class="side-bar"></side-bar>
+    <side-bar :projs="projs" class="side-bar" v-if="projs"></side-bar>
     <!-- <router-link to='/projs/' >All local projs</router-link>  -->
   </div>
 </template>
@@ -55,29 +55,7 @@ export default {
 </script>
 
 <style scoped >
-.proj-list-filtered{
-    max-width: 1080px;
-     margin: 0 auto;
-     display: flex;
-     margin-top: 110px;
-  
-  }
-  
-  li{
-    list-style: none;
-  }
-  
-  ul{
-    margin: 0;
-    padding: 0;
-    width: 66%
-  }
-  
- 
-  
-  .side-bar{
-    width: 33%;
-    padding: 5px;
 
-  }
+
+
 </style>

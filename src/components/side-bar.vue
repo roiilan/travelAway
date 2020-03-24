@@ -1,10 +1,8 @@
 <template>
   <div class="side-bar">
-      <div v-for="proj in projs" class="map">
-    <proj-map :zoomSize="zoomSize"
-     :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]" 
-        :position="proj.position"> </proj-map>
-        </div>
+      <div class="map">
+    <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"> </proj-map>
+  </div>
   </div>
 </template>
 
@@ -14,24 +12,45 @@ import projMap from './proj-map.vue';
 
 export default {
       props: {
-   projs: Array
+   projs: Array,
   },
       data() {
     return {
-      zoomSize: 14
-    }
+      zoomSize:1.5,
+      markers:[],
+      position:{
+       txtAdress:null,
+       lat:33.886917,
+       lng:9.537499
+   }
+   }
   },
+
     components:{
         projMap
+    },
+    methods:{
+        getMarkers(){
+           var markers = []
+           this.projs.map(proj=>{       
+             markers.push(proj.position)
+            }),
+            markers.map(marker=>{
+                var position = new Object();  
+                this.markers.push({ position: { lat: marker.lat, lng: marker.lng } })
+            })
+        }
+    },
+    created(){
+        this.getMarkers()  
+        console.log(this.markers);
+              
     }
 
 }
 </script>
 
 <style scoped>
-.map{
-    height: 300px;
-    border-radius: 3px;
-}
+
 </style>
 

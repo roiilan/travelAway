@@ -46,6 +46,8 @@ export default {
 .proj-card{
   display: flex;
   flex-direction: row;
+    border-bottom: 0.5px solid lightgrey;
+  padding-bottom: 10px;
   /* margin: 5px; */
 }
 
@@ -58,7 +60,7 @@ h5, h2{
 }
 
 .proj-preview{
-  padding: 5px;
+  padding-bottom: 10px;
 }
 
 
