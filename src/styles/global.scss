@@ -3,17 +3,13 @@
 @import 'setup/variables';
 @import 'setup/mixins';
 @import 'setup/functions';
-
 // BASICS
 @import 'basics/helpers';
 @import 'basics/base';
 @import 'basics/layout';
-
 // PAGES
 @import 'pages/proj-details';
 @import 'pages/login-page';
-
-
 // COMPONENTS
 @import 'components/nav-bar';
 // @import 'components/main-header';
@@ -21,3 +17,4 @@
 // @import 'components/cat-card';
 @import 'components/user-profile';
 @import 'components/proj-apply';
+@import 'pages/proj-list-filtered';
