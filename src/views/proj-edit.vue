@@ -20,7 +20,6 @@
                   <option value="healthcare">Healthcare</option>
                   <option value="sports">Sports</option>
                   <option value="education">Education</option>
-                  <option value="communityDev">Community Development</option>
                   <option value="art">culture & Arts</option>
                   <option value="humanRights">Human Rights</option>
                </select>

@@ -3,13 +3,12 @@
      <router-link to="/edit">
         Add Proj
     </router-link>
-    <proj-list :projs="projs"/>
+    <!-- <proj-list :projs="projs"/> -->
     <home/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import projList from "@/components/proj-list.vue";
 import home from "@/views/home.vue";
 
