@@ -1,6 +1,5 @@
 <template>
   <div class="proj-list-filtered" >
-   <h1> More projs</h1>
     <ul>
       <li v-for="(proj) in projs" :key="proj._id">
           <div class="proj-preview">
@@ -8,7 +7,8 @@
         </div>
       </li>
     </ul>
-    <router-link to='/projs/' >All local projs</router-link>
+    <side-bar :projs="projs" class="side-bar"></side-bar>
+    <!-- <router-link to='/projs/' >All local projs</router-link>  -->
   </div>
 </template>
 
@@ -16,6 +16,8 @@
 
 <script>
 import projPreview from "../components/proj-preview.vue";
+import sideBar from '../components/side-bar.vue';
+
 
 export default {
   name: "projsListFiltered",
@@ -28,9 +30,7 @@ export default {
   async created() {
      this.projs = await this.$store.dispatch({type: 'loadProjs'})
      const filter = this.$route.params.filter
-     const filteredProjs = this.projs.filter(proj=>{
-       console.log(proj);
-       
+     const filteredProjs = this.projs.filter(proj=>{  
        return proj.category[0] === filter
      })
      this.projs = filteredProjs
@@ -42,6 +42,8 @@ export default {
 
   components: {
     projPreview,
+    sideBar
+    
   },
 
 };
@@ -53,33 +55,29 @@ export default {
 </script>
 
 <style scoped >
-.proj-list-local ul{
-  display: flex;
-  padding: 0;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+.proj-list-filtered{
+    max-width: 1080px;
+     margin: 0 auto;
+     display: flex;
+     margin-top: 110px;
+  
+  }
+  
+  li{
+    list-style: none;
+  }
+  
+  ul{
+    margin: 0;
+    padding: 0;
+    width: 66%
+  }
+  
+ 
+  
+  .side-bar{
+    width: 33%;
+    padding: 5px;
 
-.proj-list-local li{
-  width: 25%;
-  margin: 5px;
-  list-style: none;
-}
-
-.proj-preview{
-    width: 100%;
-}
-
-/* li.proj-preview{
-    width:33%;
-    margin: 10px
-} */
-/* 
-.vueperslide__content-wrapper{
-  color: white;
-}
-
-a{
-  margin: 5px;
-} */
+  }
 </style>

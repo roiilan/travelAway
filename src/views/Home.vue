@@ -93,7 +93,8 @@ data(){
    transform: translate(-50%,-50%);
    position: absolute;
    font-size:20px;
-   color: rgb(219, 219, 219);
+   color: rgb(66, 66, 66);
+   
   }
 
 
@@ -116,6 +117,8 @@ img{
     height: 100%;
     object-fit: cover;
     border-radius: 3px;
+    mix-blend-mode: multiply;
+    filter: grayscale(0.5);
 }
 
 .category-container > *{
