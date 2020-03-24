@@ -7,6 +7,22 @@
     border-radius: 3px;
 }
 
+.members-needed {
+    display: flex;
+    align-items: center;
+}
+
+.members-needed img {
+    width: 20px;
+    padding: 1px;
+}
+
+.proj-txt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .proj-card {
     display: flex;
     flex-direction: row;
