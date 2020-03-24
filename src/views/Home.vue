@@ -1,9 +1,9 @@
 <template>
-  <div class="category-container" > 
-    <div v-for="category in categories">
-    <router-link :to="'/projs/' + category.category">
-      <!-- {{category.title}} -->
-      <img :src="category.imgUrl" :class="category.category"/>
+  <div class="category-container"> 
+    <div v-for="category in categories" :class="category.category">
+    <router-link :to="'/projs/' + category.category" >
+       <span class="img-tag"> {{category.title}} </span>
+      <img :src="category.imgUrl" />
       </router-link>
   </div>
   </div>
@@ -87,66 +87,83 @@ data(){
 
 <style scoped>
 
+.img-tag {
+   left:50%;
+   top:50%;
+   transform: translate(-50%,-50%);
+   position: absolute;
+   font-size:20px;
+   color: rgb(219, 219, 219);
+  }
+
 
 .category-container{
   max-width:1080px;
+  max-height: 750px;
   display: grid;
   grid-template-columns:3fr 4fr 3fr 4fr;
   grid-template-rows:3fr 2fr 1fr 1fr 3fr;
-  gap: 1rem;
+  gap: 0.8rem;
+  margin: 0 auto;
+  margin-top: 100px;
 }
 
 img{
-  width: 25%;
-    /* height: 22vw;
+  width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 3px; */
+    border-radius: 3px;
 }
 
-/* img.scubaDiving{
+.category-container > *{
+  position: relative;
+}
+
+.scubaDiving{
    grid-row:1/3;
   grid-column: 4/-1
 }
-img.childcare{
+.childcare{
    grid-row:2/4;
   grid-column: 2/3
 }
 
-img.education{
+.education{
   grid-row:5/6;
   grid-column: 3/4
 }
-img.environmentalProtection{
-  grid-row:3/5;
-  grid-column: 4/-1
+.environmentalProtection{
+   grid-row:2/5;
+  grid-column: 3/4
 }
 .animalsAndWildlife{
   grid-row:1/2;
   grid-column: 1/3
 }
-img.farming{
+.farming{
   grid-row:1/2;
   grid-column: 3/4
 }
-img.humanitarian{
-  grid-row:2/5;
-  grid-column: 3/4
+.humanitarian{
+
+    grid-row:3/5;
+  grid-column: 4/-1
 }
-img.healthcare{
+.healthcare{
   grid-row:5/-1;
   grid-column: 1/2
 }
-img.sports{
+.sports{
   grid-row:4/-1;
   grid-column: 2/3
 }
-img.art{
+.art{
   grid-row:2/5;
   grid-column: 1/2
 }
-img.humanRights{
+.humanRights{
   grid-row:5/6;
   grid-column: 4/-1
-} */
+}
 
 </style>

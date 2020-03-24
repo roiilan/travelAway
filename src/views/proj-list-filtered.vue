@@ -29,6 +29,8 @@ export default {
      this.projs = await this.$store.dispatch({type: 'loadProjs'})
      const filter = this.$route.params.filter
      const filteredProjs = this.projs.filter(proj=>{
+       console.log(proj);
+       
        return proj.category[0] === filter
      })
      this.projs = filteredProjs
