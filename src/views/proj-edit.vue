@@ -179,9 +179,9 @@
     default-first-option
     placeholder="Facilities">
     <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
+      v-for="item in proj.tags"
+      :key="item"
+      :label="item"
       :value="item.value">
     </el-option>
   </el-select> -->
@@ -225,7 +225,7 @@ export default {
       zoomSize: 2,
       loggedinUser: null,
     //  options: [{
-    //       value: proj.tags.food,
+    //       value: 'ds',
     //       label: 'Food',
     //     }, {
     //       value: 'CSS',

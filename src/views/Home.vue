@@ -1,5 +1,10 @@
 <template>
-  <div class="category-container"> 
+<div class = "home">
+<video-bg :sources="['https://www.volunteerworld.com/_Resources/Static/Packages/Vowo.Main/Video/moments-of-volunteer-lifes-volunteer-world.mp4']" class="video-bg">
+  <!-- If you want to add content here, a slot is waiting! -->
+</video-bg>
+  <div class="category-container">  
+
     <div v-for="category in categories" :key="category.category" :class="category.category" class="category">
     <router-link :to="'/projs/' + category.category" >
        <span class="img-tag"> {{category.title}} </span>
@@ -7,9 +12,12 @@
       </router-link>
   </div>
   </div>
+  </div>
 </template>
 
 <script>
+import VideoBg from 'vue-videobg'
+
 // @ is an alias to /src
 export default {
   name: 'home',
@@ -80,11 +88,12 @@ data(){
 
 },
   components: {
+    VideoBg 
   }
 }
 </script>
 
-<style scoped>
+<style>
 
 
 
