@@ -253,7 +253,7 @@ export default {
       }
     } else {
        if (!this.loggedinUser) {
-          this.$store.commit({type:'setMsg', msg: 'You must register first' })
+        this.$store.commit({type:'setMsg', msg: {isShow: true, txt:'You must register first'} })
         this.$router.push('/login')
         // eventBus.$emit('showMsg', 'You must register first')
       }
@@ -270,7 +270,6 @@ export default {
       this.currentImgIdx = null
     },
     async save(proj) {
-      console.log('save edit', proj)
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$router.push("/");
     },
