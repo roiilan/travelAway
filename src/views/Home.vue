@@ -11,7 +11,6 @@
 
 <script>
 // @ is an alias to /src
-
 export default {
   name: 'home',
 data(){
@@ -55,7 +54,7 @@ data(){
       {
         category:'healthcare',
         title:'Health Care',
-        imgUrl:'https://lh3.googleusercontent.com/proxy/c_Ydka5HZ8h71msaNz1UwRmpdPNA9but3__WgAKyg47284eUiWlHkJQnUejj01sDc6u1ZcNkXDmC-lPPoib3r343py72rK515QfY6KERBbTdY46gGnM7B2aB--t95HbQ3_Sm02_z8ibdajyg2G9afw'
+        imgUrl:'https://mikedanneskjold.files.wordpress.com/2013/01/sickness-3rd-world-doctor.jpg'
       },
       {
         category:'sports',

@@ -30,8 +30,9 @@ export default {
   },
   computed:{
    projCategory(){
-     
-      if(this.proj.category[0] === "animalsAndWildlife") return "Animals & Wildlife"
+     console.log(this.proj.category);
+      if(this.proj.category === "animalsAndWildlife") return "Animals & Wildlife"
+      if(this.proj.category === "education") return "Education"
     }
   }
 
