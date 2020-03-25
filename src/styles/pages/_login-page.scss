@@ -2,10 +2,14 @@
     position: fixed;
     top: 52%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    
-    
-    input, textarea, button, .login-btn,  select {
+    transform: translate(-50%, -50%);
+    font-family: Sen;
+    input,
+    textarea,
+    button,
+    .login-btn,
+    select {
+        font-family: Montserrat;
         padding: rem(15px);
         margin: rem(2px);
         border: none;
@@ -15,29 +19,27 @@
         font-size: rem(20px);
         font-weight: 400;
         transition: background-color .3s;
-        
         &:hover {
             background-color: lighten($clr3, 20%);
-            
         }
     }
-    button, .login-btn,  select {
+    button,
+    .login-btn,
+    select {
         cursor: pointer;
-        background-color: lighten($clr3, 25%);       
+        background-color: lighten($clr3, 25%);
     }
-    
     .login-btn {
         // margin: rem(15px) 0 ;
     }
-
-    .login-card{
+    .login-card {
         // margin: rem(12px);
         padding: rem(20px);
         border-radius: 3px;
         box-shadow: $shadow;
-            
+        margin-top: 100px;
         img {
-                width: rem(30px);
+            width: rem(30px);
         }
     }
 }

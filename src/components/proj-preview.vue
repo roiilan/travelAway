@@ -13,6 +13,7 @@
     <div class = "user-img" v-for="i in proj.membersNeeded">
        <img src="../../img/voulnteer.png"/>
     </div>
+
 </div>
     </div>
     <div class = "footer">
@@ -42,6 +43,7 @@ export default {
 
 <style scoped >
 
+  
 
 
 </style>

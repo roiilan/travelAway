@@ -60,8 +60,13 @@
             object-fit: cover;
             border-radius: 3px;
             mix-blend-mode: multiply;
-            filter: grayscale(0.5);
+            // filter: grayscale(0.5);
             transition: 0.3s;
+            &:hover {
+                img {
+                    opacity: 0.8;
+                }
+            }
         }
         .img-tag {
             left: 50%;
@@ -74,14 +79,10 @@
             font-size: 1.9vw;
         }
         &:hover {
-            opacity: 0.8;
-            img {
-                box-shadow: $shadow;
-            }
             .img-tag {
                 transform: translate(-50%, -50%) scale(1.1);
-                color: lighten($clr1, 1.5);
-                background-color: $clr4;
+                color: $clr4;
+                background-color: lighten($clr1, 40%);
                 width: 90%;
             }
         }
