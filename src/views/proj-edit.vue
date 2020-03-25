@@ -239,8 +239,6 @@ export default {
   },
   async created() {
     this.loggedinUser = await this.$store.getters.loggedinUser
-        console.log(this.loggedinUser)
-
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
@@ -252,7 +250,7 @@ export default {
         this.$router.push('/')
       }
     } else {
-       if (!this.loggedinUser) {
+      if (!this.loggedinUser) {
           this.$store.commit({type:'setMsg', msg: 'You must register first' })
         this.$router.push('/login')
         // eventBus.$emit('showMsg', 'You must register first')

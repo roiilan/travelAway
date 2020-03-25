@@ -21,12 +21,12 @@ export default new Vuex.Store({
   mutations: {
     setMsg(state, { msg }){
       state.msg = msg
-     state.timeout = setTimeout (()=>{
-        state.msg = {
-          isShow: false,
-          txt: ''
-        }
-      },2500)
+      state.timeout = setTimeout (()=>{
+          state.msg = {
+            isShow: false,
+            txt: ''
+          }
+        },2500)
     },
     closeMsg(state, { msg }){
       state.msg = msg;
