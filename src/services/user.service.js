@@ -49,10 +49,12 @@ async function login(credentials) {
     //     sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(user))
     //     return user
     // } else return ('User Not Found')
-    console.log('hi')
-        const user = await httpService.post('auth/login', credentials)
+    const user = await httpService.post('auth/login', credentials)
+
         return _handleLogin(user)
 }
+
+
 async function signup(newUserCred) {
     console.log('signup',newUserCred)
 
