@@ -43,7 +43,9 @@ function getById(projId) {
     // old getById
 
     var projs = query()
-    return projs.find(proj => proj._id === projId)
+    var proj = projs.find(proj => proj._id === projId)
+    return proj
+    // return  _repareForEdit(proj)
 
     // return httpService.get(`proj/${projId}`);
 }
@@ -63,9 +65,12 @@ function getById(projId) {
 //     return httpService.put(`proj/${proj._id}`, proj);
 // }
 
-function _prepareForEdit(proj) {
-    const projToEdit = {};
-
+function _repareForEdit(proj) {
+    var projToEdit = proj;
+    proj.requirements.reduce((result, item)=> {
+        result[item] = {}; //a, b, c
+        return result;
+      }, {})
     return projToEdit;
 }
 
@@ -75,9 +80,13 @@ function _prepareForEdit(proj) {
 // }
 
 function _cleanupProj(proj) {
+
     for (var requirement in proj.requirements) {
-        if (requirement.isTrue) {
+        if (requirement.isOn) {
             proj.requirements[requirement] = requirement.data
+        }
+        if (!requirement.isOn && requirement.isOn !== false){
+            proj.requirements[requirement] = requirement
         }
     }
 }
@@ -85,7 +94,7 @@ function _cleanupProj(proj) {
 function save(proj) {
 
 
-    proj = _cleanupProj(proj)
+    // proj = _cleanupProj(proj)
 
     var projs = query()
     projs = (proj._id) ? _updateProj(proj, projs) : _addProj(proj, projs);
@@ -131,19 +140,19 @@ function getEmptyProj() {
         imgUrls: [],
         position: { txtAddress: '', lat: 33.886917, lng: 9.537499 },
         requirements: {
-            age: { isTrue: false, data: { min: 0, max: 120 } },
-            date: { isTrue: false, data: { min: 0, max: 365 } },
-            language: { isTrue: false, data: { he: false, en: false, es: false } },
+            age: { isOn: false, data: { min: 0, max: 120 } },
+            date: { isOn: false, data: { min: 0, max: 365 } },
+            language: { isOn: false, data: { he: false, en: false, es: false } },
+            otherSkills: { isOn: false, data: {} },
             criminalBackgroundCheck: false,
             education: false,
-            otherSkills: { isTrue: false, data: {} },
         },
         tags: {
             airportTaxi: false,
             housing: {
                 guestFamily: false,
                 singleBad: false,
-                dubleBad: false
+                dubleBad: false,
             },
             food: false,
             wifi: false,
@@ -184,23 +193,23 @@ function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt,
         endsAt,
         imgUrls,
         position,
-        requirements: {
-            age: { min: 18, max: 55 },
-            dayTime: { min: 30, max: 365 },
-            language: true,
-            // languageSkills: {is:false, languages: [{language: '', level: ''}]},
-            criminalBackgroundCheck: false,
-            education: false,
-            otherSkills: true,
-        },
+        // requirements: {
+        //     age: { min: 18, max: 55 },
+        //     dayTime: { min: 30, max: 365 },
+        //     language: true,
+        //     // languageSkills: {is:false, languages: [{language: '', level: ''}]},
+        //     criminalBackgroundCheck: false,
+        //     education: false,
+        //     otherSkills: true,
+        // },
         tags: {
             // includes: {
             airportTaxi: true,
-            housing: {
+            // housing: {
                 guestFamily: false,
                 singleBad: true,
-                dubleBad: false
-            },
+                dubleBad: false,
+            // },
             food: true,
             wifi: false,
             hotWater: true,
