@@ -4,7 +4,7 @@
   <source src='../../video/heroHeader.mp4' type="video/mp4">
 </video>
    <div class="overlayText">
-        <p id="welcom-txt">Welcome To WalkWays</p>
+        <p id="welcom-txt">WalkWays</p>
     </div>
   <div class="category-container">  
 
