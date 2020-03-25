@@ -68,11 +68,10 @@
             top: 50%;
             transform: translate(-50%, -50%);
             position: absolute;
-            font-size: 20px;
-            color: rgb(66, 66, 66);
+            color: $clr4;
             font-family: Sen;
             text-align: center;
-            font-size: 2.3vw;
+            font-size: 1.9vw;
         }
         &:hover {
             opacity: 0.8;
@@ -81,6 +80,9 @@
             }
             .img-tag {
                 transform: translate(-50%, -50%) scale(1.1);
+                color: lighten($clr1, 1.5);
+                background-color: $clr4;
+                width: 90%;
             }
         }
     }
