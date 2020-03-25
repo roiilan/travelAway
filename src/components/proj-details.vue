@@ -35,7 +35,7 @@
               </div>
           </div>
     </div>
-          <div @click.stop="isApplyOpen = true">
+          <div @click.stop="stop">
             <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
           </div>
           <div @click.stop="isApplyOpen = true" class="proj-apply-for-mobile" :class="{'apply-opened':isApplyOpen}">
@@ -76,6 +76,9 @@ export default {
       openApply() {
         this.isApplyOpen = false;
       },
+      stop (){
+        
+      }
     },
     mounted() {
       document.addEventListener('click', this.openApply);

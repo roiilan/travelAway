@@ -3,11 +3,11 @@
         <form class="form-proj-edit flex col" @submit.prevent="save(proj)">
           <div class="flex around">
             <div class="flex col">
-              <!-- <label class="proj-edit-upload-img"> 
+              <label class="proj-edit-upload-img"> 
                   <input @input="uploadImg" type="file" hidden>
                   <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
                   <p class="proj-edit-upload-txt">Upload! </p>
-              </label> -->
+              </label>
               
             <div v-for="(url, index) in proj.imgUrls" :key="url" class="img-proj-container ratio-16-9">
                 <label > 
@@ -123,7 +123,7 @@ export default {
       }
     } else {
        if (!this.loggedinUser) {
-          this.$store.commit({type:'setMsg', msg: 'You must register first' })
+          this.$store.commit({type:'setMsg', msg: {isShow: true, txt:'You must register first'} })
         this.$router.push('/login')
         // eventBus.$emit('showMsg', 'You must register first')
       }
