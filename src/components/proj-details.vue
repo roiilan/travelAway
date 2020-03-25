@@ -25,8 +25,8 @@
           </div>
 
           <div class="main-content-details">
-              <article class="card-deatails description">Description: {{proj.description}} </article>
-              <div class="card-deatails">Reqieres Dates:</div>
+              <article class="card-deatails description"><span class ="strong">Description: </span> {{proj.description}} </article>
+              <div class="card-deatails"><span class="strong">Required Dates: </span> {{proj.startAt.date}} - {{proj.endsAt.date}}</div>
               <div class="card-deatails map-container">
               <proj-map class="map" :zoomSize="zoomSize"
               :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]" 
@@ -35,7 +35,7 @@
               </div>
           </div>
     </div>
-          <div @click.stop="isApplyOpen = true">
+          <div @click.stop="stop">
             <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
           </div>
           <div @click.stop="isApplyOpen = true" class="proj-apply-for-mobile" :class="{'apply-opened':isApplyOpen}">
@@ -76,6 +76,9 @@ export default {
       openApply() {
         this.isApplyOpen = false;
       },
+      stop (){
+        
+      }
     },
     mounted() {
       document.addEventListener('click', this.openApply);
@@ -85,3 +88,8 @@ export default {
     },
 }
 </script>
+
+<style>
+ 
+
+</style>

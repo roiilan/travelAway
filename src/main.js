@@ -6,9 +6,12 @@ import store from './store';
 import { Datetime } from 'vue-datetime';
 import 'vue-datetime/dist/vue-datetime.css'
 // import { Settings } from 'luxon'
- 
+
 // Settings.defaultLocale = 'he'
 Vue.use(Datetime)
+import ElementUI from 'element-ui';
+Vue.use(ElementUI);
+
 Vue.component('datetime', Datetime);
 
 

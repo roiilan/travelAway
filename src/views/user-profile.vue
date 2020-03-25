@@ -66,7 +66,7 @@ export default {
         eventBus.$on('removeReview',async reviewId=>{
             const msg = await this.$store.dispatch({ type:'removeReview', reviewId});
             console.log('msg: ', msg);
-            this.reviews = this.$store.getters.reviews
+            this.reviews = this.$store.getters.reviews;
       })
     //   eventBus.$on('addReview',async newReview=>{
     //       console.log(newReview);

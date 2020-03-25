@@ -13,6 +13,7 @@
     <div class = "user-img" v-for="i in proj.membersNeeded">
        <img src="../../img/voulnteer.png"/>
     </div>
+
 </div>
     </div>
     <div class = "footer">
@@ -30,8 +31,9 @@ export default {
   },
   computed:{
    projCategory(){
-     
-      if(this.proj.category[0] === "animalsAndWildlife") return "Animals & Wildlife"
+     console.log(this.proj.category);
+      if(this.proj.category === "animalsAndWildlife") return "Animals & Wildlife"
+      if(this.proj.category === "education") return "Education"
     }
   }
 
@@ -41,6 +43,7 @@ export default {
 
 <style scoped >
 
+  
 
 
 </style>

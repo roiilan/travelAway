@@ -17,9 +17,7 @@
   <span v-if='scope.step === "date"'>Next <i class='fas fa-arrow-right' /></span>
   <span v-else><i class='fas fa-check-circle' /> Publish</span>
 </template> -->
-<!-- </datetime> -->
-        <button>Apply now</button> 
-        <p>Takes less than 5 minutes. You won't be charged yet.</p>
+<!-- </datetime> --> 
     </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <nav-bar/> 
-<router-view/>
-  <!-- <div class="msg"> -->
-  <div class="msg" v-if="msg && msg.isShow">
-      {{msg.txt}}
-  </div>
+    <router-view/>
+    <div class="msg" v-if="msg && msg.isShow">
+        <button class="close-msg-btn" @click="closeMsg">X</button>
+        {{msg.txt}}
+    </div>
   </div>
 </template>
 
@@ -20,6 +20,11 @@ export default {
       return this.$store.getters.msg
     }
   },
+  methods: {
+    closeMsg(){
+      this.$store.commit({type: 'closeMsg', msg: {isShow: false, txt: ''}})
+    }
+  },
     components: {
     navBar,
     }
@@ -27,15 +32,7 @@ export default {
 </script>
 
 <style>
-  .msg {
-    position: fixed;
-    background-color: #000;
-    color: #fff;
-    height: 100px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-  }
+  
 
 </style>
 

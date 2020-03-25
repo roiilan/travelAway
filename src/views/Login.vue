@@ -1,30 +1,47 @@
 <template>
     <div class="login-page">
+
         <!-- <button v-if="loggedinUser" @click="logout">Logout</button> -->
-        <form @submit.prevent="login" v-if="credentials">
+        <form 
+        v-if="credentials && !isSignup"
+        class="login-card flex col"
+        @submit.prevent="login"
+        >
+            <h2>Log in to your account</h2>
+            <h3>Username:</h3>
             <input type="text" v-model="credentials.username" required>
+            <h3>Password:</h3>
             <input type="password" v-model="credentials.password" required>
-            <button>Login</button>
-            <pre>{{credentials}}</pre>
+            <button class="login-btn" type="submit">Login</button>
+            <h3>Don't have an account? <span class="login-btn" @click.stop="isSignup = true">Signup</span></h3>
         </form>
-        <form @submit.prevent="signup" v-if="newUserCred">
-            <input type="text" v-model="newUserCred.username" placeholder="Username" required>
-            <input type="password" v-model="newUserCred.password" placeholder="Password" required>
+        <form 
+        v-if="newUserCred && isSignup"
+        class="login-card flex col"
+        @submit.prevent="signup" 
+        >
+            <h3>Full-Name:</h3>
             <input type="text" v-model="newUserCred.fullName" placeholder="FullName" required>
-            <label class="proj-edit-upload-img"> 
+            <h3>Username:</h3>
+            <input type="text" v-model="newUserCred.username" placeholder="Username" required>
+            <h3>Password:</h3>
+            <input type="password" v-model="newUserCred.password" placeholder="Password" required>
+            <label > 
                 <input @change="uploadImg" type="file" hidden>
-                <img :src="newUserCred.imgUrl" >
-                <p class="proj-edit-upload-txt">Upload your own! </p>
+                <h3 class="login-btn flex a-center around">Upload Img <img  :src="newUserCred.imgUrl" title="Upload Img:" /></h3>
+                
             </label>
-            <button>Sign Up</button>
+            <button >Sign-Up</button>
+            <h3 class="flex a-center between" >Go back to login <span class="login-btn" @click.stop="isSignup = false">Login</span></h3>
+
         </form>
-    <!-- <ul class="login-user" v-if="users">
+         <!-- <ul class="login-user" v-if="users">
         <user-list 
         v-for="user in users" :key="user._id" 
         :user="user" 
         @removeUser="removeUser" 
         />
-    </ul> -->
+        </ul> -->
     </div>
 </template>
 
@@ -39,6 +56,15 @@ export default {
             users: null,
             credentials: null,
             newUserCred: null,
+            isSignup: false,
+            params: {
+                    client_id: "638406108101-fgbubnomg43t3hvbh47v4p26tk7a7ltg.apps.googleusercontent.com"
+                },
+            renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
+            }
         }
     },
     async created() {
@@ -74,6 +100,12 @@ export default {
             var msg = await this.$store.dispatch({ type:'removeUser', userId})
             console.log('msg: ', msg);
         },
+        onSuccess(googleUser) {
+            console.log(googleUser);
+ 
+            // This only gets the user information: id, name, imageUrl and email
+            console.log(googleUser.getBasicProfile());
+        }
     },
      computed: {
     loggedinUser(){

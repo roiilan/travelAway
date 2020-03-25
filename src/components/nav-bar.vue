@@ -29,7 +29,7 @@
           <router-link to="/">Home</router-link> 
           <span v-if="loggedinUser" @click="logout">Logout</span> 
           <router-link v-else to="/login">
-          Login | Signup 
+          Login
           </router-link> 
         </div>
       </div>

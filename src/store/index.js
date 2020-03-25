@@ -15,20 +15,22 @@ export default new Vuex.Store({
     msg: {
       isShow: false,
       txt: ''
-    }
+    },
+    timeout: '',
   },
   mutations: {
     setMsg(state, { msg }){
-      setTimeout (()=>{
+      state.msg = msg
+     state.timeout = setTimeout (()=>{
         state.msg = {
           isShow: false,
           txt: ''
         }
-      },1000)
-      state.msg = {
-        isShow: true,
-        txt: msg
-      }
+      },2500)
+    },
+    closeMsg(state, { msg }){
+      state.msg = msg;
+      clearTimeout(state.timeout)
     }
   },
   getters: {

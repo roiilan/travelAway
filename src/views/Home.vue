@@ -1,5 +1,10 @@
 <template>
-  <div class="category-container"> 
+<div class = "home">
+<video-bg :sources="['https://www.volunteerworld.com/_Resources/Static/Packages/Vowo.Main/Video/moments-of-volunteer-lifes-volunteer-world.mp4']" class="video-bg">
+  <!-- If you want to add content here, a slot is waiting! -->
+</video-bg>
+  <div class="category-container">  
+
     <div v-for="category in categories" :key="category.category" :class="category.category" class="category">
     <router-link :to="'/projs/' + category.category" >
        <span class="img-tag"> {{category.title}} </span>
@@ -7,11 +12,13 @@
       </router-link>
   </div>
   </div>
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import VideoBg from 'vue-videobg'
 
+// @ is an alias to /src
 export default {
   name: 'home',
 data(){
@@ -55,7 +62,7 @@ data(){
       {
         category:'healthcare',
         title:'Health Care',
-        imgUrl:'https://lh3.googleusercontent.com/proxy/c_Ydka5HZ8h71msaNz1UwRmpdPNA9but3__WgAKyg47284eUiWlHkJQnUejj01sDc6u1ZcNkXDmC-lPPoib3r343py72rK515QfY6KERBbTdY46gGnM7B2aB--t95HbQ3_Sm02_z8ibdajyg2G9afw'
+        imgUrl:'https://mikedanneskjold.files.wordpress.com/2013/01/sickness-3rd-world-doctor.jpg'
       },
       {
         category:'sports',
@@ -81,11 +88,12 @@ data(){
 
 },
   components: {
+    VideoBg 
   }
 }
 </script>
 
-<style scoped>
+<style>
 
 
 

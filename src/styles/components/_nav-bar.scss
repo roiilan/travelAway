@@ -20,7 +20,10 @@
             .logo {
                 cursor: pointer;
                 width: rem(50px);
-                margin: 0 rem(20px);
+                margin: 0 rem(10px);
+                @include for-normal-layout {
+                    margin: 0;
+                }
                 &:hover {
                     box-shadow: unset;
                 }
