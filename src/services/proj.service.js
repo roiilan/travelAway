@@ -102,7 +102,6 @@ function getEmptyProj() {
         category: '',
         description: utilService.makeLorem(80),
         membersNeeded: 1,
-        isLocal: true,
         createdBy: {},
         takenBy: {},
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
@@ -110,16 +109,14 @@ function getEmptyProj() {
         imgUrls: [],
         position: { txtAddress: '', lat: 33.886917, lng: 9.537499 },
         requirements: {
-            age: { min: 0, max: 120 },
-            dayTime: { min: 0, max: 365 },
-            language: false,
-            // languageSkills: {is:false, languages: [{language: '', level: ''}]},
+            age:{isTrue: false, age: { min: 0, max: 120 }},
+            date:{isTrue: false, date:  { min: 0, max: 365 }},
+            language: {isTrue: false, language:  { he: false, en: false, es: false }},
             criminalBackgroundCheck: false,
             education: false,
-            otherSkills: false,
+            otherSkills: {isTrue: false, skills: {}},
         },
         tags: {
-            // includes: {
             airportTaxi: false,
             housing: {
                 guestFamily: false,

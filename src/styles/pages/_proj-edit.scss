@@ -1,10 +1,28 @@
 .proj-edit {
 
+    img {
+        width: rem(30px);
+    }
     // local helpers (to copy?)
-    input, textarea, select {
+    input, textarea, button,  select {
+        padding: rem(15px);
+        margin: rem(2px);
         border: none;
         border-radius: 3px;
         box-shadow: $shadow;
+        background-color: lighten($clr3, 30%);
+        font-size: rem(20px);
+        font-weight: 400;
+        transition: background-color .3s;
+        
+        &:hover {
+            background-color: lighten($clr3, 20%);
+            
+        }
+    }
+    button, select {
+        cursor: pointer;
+        background-color: lighten($clr3, 25%);       
     }
 
     margin: rem(110px) auto 0;
@@ -45,4 +63,18 @@
     }
     }
 
+    .tags-container {
+        
+        .tag-card {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .is-true {
+            text-decoration: line-through;
+        }
+
+    }
 }
