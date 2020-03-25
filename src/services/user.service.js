@@ -69,7 +69,8 @@ async function signup(newUserCred) {
     // sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
     // return newUserCred;
     const user = await httpService.post('auth/signup', newUserCred)
-    return _handleLogin(user)
+    console.log('userrrr',user)
+        return _handleLogin(user)
 }
 
 
@@ -163,7 +164,7 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
 
 
 function _handleLogin(user) {
-    console.log('hi')
+    console.log('handle', user)
 
     sessionStorage.setItem('user', JSON.stringify(user))
     return user;
