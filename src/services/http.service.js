@@ -42,6 +42,7 @@ async function ajax(endpoint, method='get', data=null) {
         return res.data;
     } catch (err) {
         if (err.response.status === 401) {
+            throw new Error('error:  http.service page')
             router.push('/');
         }
     }

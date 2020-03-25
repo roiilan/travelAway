@@ -13,13 +13,14 @@ export const projService = {
     remove
 }
 
+
 function query() {
 
     // old query
 
-    var projs = storageService.load(KEY_FAVORS)
-    if (projs) return projs
-    return _createProjs();
+    // var projs = storageService.load(KEY_FAVORS)
+    // if (projs) return projs
+    // return _createProjs();
 
     // is filter
 
@@ -31,101 +32,68 @@ function query() {
     // queryParams.set('type', filterBy.type);
     // return httpService.get(`proj?${queryParams}`);
     // }
-
-
-    // return httpService.get('proj');
-
+        
+    return httpService.get('proj');
+   
 }
-
 
 function getById(projId) {
 
     // old getById
 
-    var projs = query()
-    var proj = projs.find(proj => proj._id === projId)
-    return proj
-    // return  _repareForEdit(proj)
+    // var projs = query()
+    // return projs.find(proj => proj._id === projId)
 
-    // return httpService.get(`proj/${projId}`);
-}
-
-// function remove(projId) {
-//     return httpService.delete(`proj/${projId}`);
-// }
-
-// function save(proj) {
-//    return (proj._id)? _update(proj): _add(proj);
-// }
-
-// function _add(proj) {
-//     return httpService.post(`proj`, proj);
-// }
-// function _update(proj) {
-//     return httpService.put(`proj/${proj._id}`, proj);
-// }
-
-function _repareForEdit(proj) {
-    var projToEdit = proj;
-    proj.requirements.reduce((result, item)=> {
-        result[item] = {}; //a, b, c
-        return result;
-      }, {})
-    return projToEdit;
-}
-
-// This function cleans up a proj:
-//  requirements: {
-// age: { isOn: false, data: { min: 0, max: 120 } },
-// }
-
-function _cleanupProj(proj) {
-
-    for (var requirement in proj.requirements) {
-        if (requirement.isOn) {
-            proj.requirements[requirement] = requirement.data
-        }
-        if (!requirement.isOn && requirement.isOn !== false){
-            proj.requirements[requirement] = requirement
-        }
-    }
-}
-
-function save(proj) {
-
-
-    // proj = _cleanupProj(proj)
-
-    var projs = query()
-    projs = (proj._id) ? _updateProj(proj, projs) : _addProj(proj, projs);
-    storageService.store(KEY_FAVORS, projs)
-    return projs
-}
-
-function _updateProj(currProj, projs) {
-    const idx = projs.findIndex(proj => proj._id === currProj._id)
-    projs.splice(idx, 1, currProj)
-    return projs
-}
-
-function _addProj(currProj, projs) {
-    const loggeinUser = userService.getLoggeinUser()
-    console.log('loggeinUser in service: ', loggeinUser);
-    if (loggeinUser) {
-        currProj.createdBy = userService.getMinimalUser(loggeinUser)
-    }
-    currProj._id = utilService.makeId();
-    projs.unshift(currProj);
-    return projs
+    return httpService.get(`proj/${projId}`);
 }
 
 function remove(projId) {
-    var projs = query()
-    const idx = projs.findIndex(proj => proj._id === projId)
-    projs.splice(idx, 1)
-    storageService.store(KEY_FAVORS, projs)
-    return ('The deletion was successful!!')
+    return httpService.delete(`proj/${projId}`);
 }
+
+function save(proj) {
+   return (proj._id)? _update(proj): _add(proj);
+}
+
+function _add(proj) {
+    return httpService.post(`proj`, proj);
+}
+function _update(proj) {
+    return httpService.put(`proj/${proj._id}`, proj);
+}
+
+
+// function save(proj) {
+//     var projs = query()
+//     projs = (proj._id) ? _updateProj(proj, projs) : _addProj(proj, projs);
+//     storageService.store(KEY_FAVORS, projs)
+//     return projs
+// }
+
+// function _updateProj(currProj, projs) {
+//     const idx = projs.findIndex(proj => proj._id === currProj._id)
+//     projs.splice(idx, 1, currProj)
+//     return projs
+// }
+
+// function _addProj(currProj, projs) {
+//     const loggeinUser = userService.getLoggeinUser()
+//     console.log('loggeinUser in service: ', loggeinUser);
+//     if (loggeinUser) {
+//         currProj.createdBy = userService.getMinimalUser(loggeinUser)
+//     }
+//     currProj._id = utilService.makeId();
+//     projs.unshift(currProj);
+//     return projs
+// }
+
+// function remove(projId) {
+//     var projs = query()
+//     const idx = projs.findIndex(proj => proj._id === projId)
+//     projs.splice(idx, 1)
+//     storageService.store(KEY_FAVORS, projs)
+//     return ('The deletion was successful!!')
+// }
 
 function getEmptyProj() {
     return {

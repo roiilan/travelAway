@@ -34,12 +34,8 @@ export default {
        return proj.category === filter
      })
      this.projs = filteredProjs
- 
-     
   
 },
-
-
   components: {
     projPreview,
     sideBar

@@ -59,10 +59,9 @@
                 <option value="art">culture & Arts</option>
                 <option value="humanRights">Human Rights</option>
               </select>
-    <!-- 
-                  <div v-for="requirement in proj.requirements" :key="requirement">
-                    <input type="checkbox" v-model="requirement">
-                  </div> -->
+    
+           
+                  </div> 
     <!-- 
                   <select v-model="proj.requirements">
                     <option v-for="requirement in proj.requirements" :key="requirement" value="requirement">{{requirement}}</option>
@@ -168,8 +167,8 @@
                       <toggle-btn v-model="proj.tags.hotWater"></toggle-btn>
                       <h4  :class="{'is-true': !proj.tags.hotWater}">HotWater</h4>
                     </div> -->
-                  </div>
-                  <pre>   
+                  <!-- </div> -->
+                  <!-- <pre>   
                   {{proj}}
                   </pre>
   <el-select
@@ -184,12 +183,13 @@
       :label="item.label"
       :value="item.value">
     </el-option>
-  </el-select>
-
-
+  </el-select> -->
 
               
-
+<div>
+                      <h4  :class="{'is-on': !proj.tags.hotWater}">HotWater</h4>
+                    </div>
+                  </div>         
           </div>
           <div>
             What is the project address?
@@ -200,10 +200,10 @@
             <proj-map :zoomSize="zoomSize" :markers="markers" 
             :position="proj.position"> </proj-map>
             </div>
-          </div>
+          <!-- </div> -->
+          <span v-if="proj._id" @click="remove(proj._id)">Delete</span>
           <button>Save</button>       
         </form>
-        <button v-if="proj._id" @click="remove(proj._id)">Delete</button>
         <!-- <pre>{{proj}}</pre> -->
     </div>
 </template>
@@ -224,21 +224,23 @@ export default {
       markers: [],
       zoomSize: 2,
       loggedinUser: null,
-     options: [{
-          value: 'proj.tags.food',
-          label: 'Food',
-        }, {
-          value: 'CSS',
-          label: 'CSS'
-        }, {
-          value: 'JavaScript',
-          label: 'JavaScript'
-        }],
-        value: []
-    };
+    //  options: [{
+    //       value: 'ds',
+    //       label: 'Food',
+    //     }, {
+    //       value: 'CSS',
+    //       label: 'CSS'
+    //     }, {
+    //       value: 'JavaScript',
+    //       label: 'JavaScript'
+    //     }],
+    //     value: []
+    }
   },
   async created() {
     this.loggedinUser = await this.$store.getters.loggedinUser
+        console.log(this.loggedinUser)
+
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
@@ -268,6 +270,7 @@ export default {
       this.currentImgIdx = null
     },
     async save(proj) {
+      console.log('save edit', proj)
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$router.push("/");
     },

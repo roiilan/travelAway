@@ -38,6 +38,7 @@ export default {
     },
     actions: {
         async loadProjs(context, {}) {
+            
             const projs = await projService.query()
                 // async loadProjs(context, {filterBy}){       
                 // const projs = await projService.query(filterBy)
@@ -56,6 +57,7 @@ export default {
             return msg
         },
         async saveProj(context, { proj }) {
+
             const isEdit = !!proj._id;
             const savedProj = await projService.save(proj)
             context.commit({

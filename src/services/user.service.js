@@ -1,6 +1,6 @@
 import { utilService } from './util.service.js'
 import { storageService } from './storage.service.js'
-// import httpService from './http.service'
+import httpService from './http.service.js'
 
 const KEY_USERS = 'users';
 const KEY_LOGGEDIN = 'loggedinUser';
@@ -19,69 +19,73 @@ export const userService = {
 }
 
 async function getById(userId) {
-    var users = getUsers();
-    return users.find(user => user._id === userId);
-    // return httpService.get(`user/${userId}`)
+    // var users = getUsers();
+    // return users.find(user => user._id === userId);
+    return httpService.get(`user/${userId}`)
 }
 
 function remove(userId) {
-    var users = getUsers();
-    const idx = users.findIndex(user => user._id === userId);
-    users.splice(idx, 1);
-    storageService.store(KEY_USERS, users);
-    return ('Deletion of the browser successfully completed!!');
-    // return httpService.delete(`user/${userId}`)
+    // var users = getUsers();
+    // const idx = users.findIndex(user => user._id === userId);
+    // users.splice(idx, 1);
+    // storageService.store(KEY_USERS, users);
+    // return ('Deletion of the browser successfully completed!!');
+    return httpService.delete(`user/${userId}`)
 }
 
 function update(currUser) {
-    var users = getUsers();
-    const idx = users.findIndex(user => user._id === currUser._id);
-    users.splice(idx, 1, currUser);
-    storageService.store(KEY_USERS, users);
-    return currUser;
-    // return httpService.put(`user/${user._id}`, user)
+    // var users = getUsers();
+    // const idx = users.findIndex(user => user._id === currUser._id);
+    // users.splice(idx, 1, currUser);
+    // storageService.store(KEY_USERS, users);
+    // return currUser;
+    return httpService.put(`user/${user._id}`, currUser)
 }
 
 async function login(credentials) {
-    var users = getUsers();
-    var user = users.find(user => user.username.toUpperCase() === credentials.username.toUpperCase() && user.password === credentials.password);
-    if (user) {
-        sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(user))
-        return user
-    } else return ('User Not Found')
-        // const user = await httpService.post('auth/login', userCred)
-        // return _handleLogin(user)
+    // var users = getUsers();
+    // var user = users.find(user => user.username.toUpperCase() === credentials.username.toUpperCase() && user.password === credentials.password);
+    // if (user) {
+    //     sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(user))
+    //     return user
+    // } else return ('User Not Found')
+    console.log('hi')
+        const user = await httpService.post('auth/login', credentials)
+        return _handleLogin(user)
 }
 async function signup(newUserCred) {
-    sessionStorage.clear();
-    var users = getUsers();
-    newUserCred._id = utilService.makeId();
-    newUserCred.joinAt = { date: _getValidDate(new Date()), time: _getValidtime(new Date()) };
-    newUserCred.karma = 5;
-    console.log('newUserCred before: ', newUserCred);
+    console.log('signup',newUserCred)
 
-    console.log('newUserCred after: ', newUserCred);
-    users.push(newUserCred)
-    storageService.store(KEY_USERS, users)
-    sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
-    return newUserCred;
-    // const user = await httpService.post('auth/signup', userCred)
-    // return _handleLogin(user)
+    // sessionStorage.clear();
+    // var users = getUsers();
+    // newUserCred._id = utilService.makeId();
+    // newUserCred.joinAt = { date: _getValidDate(new Date()), time: _getValidtime(new Date()) };
+    // newUserCred.karma = 5;
+    // console.log('newUserCred before: ', newUserCred);
+
+    // console.log('newUserCred after: ', newUserCred);
+    // users.push(newUserCred)
+    // storageService.store(KEY_USERS, users)
+    // sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
+    // return newUserCred;
+    const user = await httpService.post('auth/signup', newUserCred)
+    console.log('userrrr',user)
+        return _handleLogin(user)
 }
 
 
 
 async function logout() {
-    // await httpService.post('auth/logout');
-    sessionStorage.clear();
-    return ('Exit successfully completed')
+    await httpService.post('auth/logout');
+    // sessionStorage.clear();
+    // return ('Exit successfully completed')
 }
 
 function getUsers() {
-    var users = storageService.load(KEY_USERS);
-    if (users) return users
-    return _createUsers();
-    // return httpService.get('user')
+    // var users = storageService.load(KEY_USERS);
+    // if (users) return users
+    // return _createUsers();
+    return httpService.get('user')
 }
 
 function getLoggeinUser() {
@@ -159,10 +163,12 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
 }
 
 
-// function _handleLogin(user) {
-//     sessionStorage.setItem('user', JSON.stringify(user))
-//     return user;
-// }
+function _handleLogin(user) {
+    console.log('handle', user)
+
+    sessionStorage.setItem('user', JSON.stringify(user))
+    return user;
+}
 
 function _getValidDate(date) {
     return date.getFullYear() + '-' + _padNum((date.getMonth() + 1)) + '-' + _padNum(date.getDate());
