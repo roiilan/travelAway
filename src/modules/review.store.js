@@ -1,8 +1,32 @@
 import {reviewService} from '../services/review.service.js';
 
+var localLoggedinUser = null;
+
+function _getFrom() {
+    var form = {
+        _id: 1, 
+        fullName: 'Anonymous', 
+        imgUrl: '../assets/icon/login.png'
+    }
+    // const user = userService.getLoggedinUser()
+
+}
+
+// if (sessionStorage.loggedinUser) {
+//     localLoggedinUser = JSON.parse(sessionStorage.loggedinUser);
+//     form = {
+//         _id: localLoggedinUser._id, 
+//         fullName: localLoggedinUser.fullName, 
+//         imgUrl: localLoggedinUser.imgUrl
+//     }
+// } 
+
+
+
 export default {
     state: {
         reviews: [],
+        from :_getFrom(),
     },
     getters: {
         reviews(state) {
