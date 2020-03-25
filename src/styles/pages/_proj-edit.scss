@@ -1,3 +1,4 @@
+@import url("//unpkg.com/element-ui@2.13.0/lib/theme-chalk/index.css");
 .proj-edit {
     img {
         width: rem(30px);
@@ -26,7 +27,8 @@
         background-color: lighten($clr3, 25%);
     }
     margin: rem(110px) auto 0;
-    background-color: lighten($clr2, 40%);
+    background-color: lighten($clr2,
+    40%);
     padding: rem(20px);
     width: 100vw;
     @include for-normal-layout {
