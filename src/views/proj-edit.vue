@@ -175,9 +175,9 @@
             :position="proj.position"> </proj-map>
             </div>
           </div>
+          <span v-if="proj._id" @click="remove(proj._id)">Delete</span>
           <button>Save</button>       
         </form>
-        <button v-if="proj._id" @click="remove(proj._id)">Delete</button>
         <!-- <pre>{{proj}}</pre> -->
     </div>
 </template>
