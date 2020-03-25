@@ -1,8 +1,11 @@
 <template>
 <div class = "home">
-<video-bg :sources="['https://www.volunteerworld.com/_Resources/Static/Packages/Vowo.Main/Video/moments-of-volunteer-lifes-volunteer-world.mp4']" class="video-bg">
-  <!-- If you want to add content here, a slot is waiting! -->
-</video-bg>
+<video autoplay muted loop id="myVideo">
+  <source src='../../video/heroHeader.mp4' type="video/mp4">
+</video>
+   <div class="overlayText">
+        <p id="welcom-txt">WalkWays</p>
+    </div>
   <div class="category-container">  
 
     <div v-for="category in categories" :key="category.category" :class="category.category" class="category">
@@ -16,7 +19,6 @@
 </template>
 
 <script>
-import VideoBg from 'vue-videobg'
 
 // @ is an alias to /src
 export default {
@@ -88,13 +90,11 @@ data(){
 
 },
   components: {
-    VideoBg 
   }
 }
 </script>
 
 <style>
-
 
 
 

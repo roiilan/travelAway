@@ -50,13 +50,12 @@ async function login(credentials) {
     //     return user
     // } else return ('User Not Found')
     const user = await httpService.post('auth/login', credentials)
-
-        return _handleLogin(user)
+    return _handleLogin(user)
 }
 
 
 async function signup(newUserCred) {
-    console.log('signup',newUserCred)
+    console.log('signup', newUserCred)
 
     // sessionStorage.clear();
     // var users = getUsers();
@@ -71,16 +70,16 @@ async function signup(newUserCred) {
     // sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
     // return newUserCred;
     const user = await httpService.post('auth/signup', newUserCred)
-    console.log('userrrr',user)
-        return _handleLogin(user)
+    console.log('userrrr', user)
+    return _handleLogin(user)
 }
 
 
 
 async function logout() {
     await httpService.post('auth/logout');
-    // sessionStorage.clear();
-    // return ('Exit successfully completed')
+    sessionStorage.clear();
+    return ('Exit successfully completed')
 }
 
 function getUsers() {
@@ -166,9 +165,7 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
 
 
 function _handleLogin(user) {
-    console.log('handle', user)
-
-    sessionStorage.setItem('user', JSON.stringify(user))
+    sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(user))
     return user;
 }
 

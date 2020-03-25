@@ -3,7 +3,6 @@
         <form class="form-proj-edit flex col" @submit.prevent="save(proj)">
           <div class="flex around">
             <div class="flex col">
-              <h2>Upload images</h2>
               <label class="proj-edit-upload-img"> 
                   <input @input="uploadImg" type="file" hidden>
                   <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
@@ -20,14 +19,10 @@
               class="img-user"
               :title="proj.createdBy.fullName" 
               :src="proj.createdBy.imgUrl"/> -->
-              <h2>Title</h2>
               <input type="text" v-model="proj.title">
-              <h2>Description</h2>
               <textarea v-model="proj.description" cols="30" rows="10"></textarea>
-              <h2>Start At</h2>
               <input type="date" v-model="proj.startAt.date">
               <input type="time" v-model="proj.startAt.time">
-              <h2>Ends At</h2>
               <input type="date" v-model="proj.endsAt.date">
               <input type="time" v-model="proj.endsAt.time">
               <!-- <date-range-picker
@@ -50,7 +45,7 @@
                     {{ picker.startDate | date }} - {{ picker.endDate | date }}
                 </template>
               </date-range-picker> -->
-              <h2>Category</h2>
+              <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
               <select v-model="proj.category" required>
                 <option value="childcare">Childcare</option>
                 <option value="animalsAndWildlife">Animals & Wildlife</option>
@@ -65,56 +60,65 @@
                 <option value="humanRights">Human Rights</option>
               </select>
     
-                  <div class="tags-container">
+           
+                  </div> 
+    <!-- 
+                  <select v-model="proj.requirements">
+                    <option v-for="requirement in proj.requirements" :key="requirement" value="requirement">{{requirement}}</option>
+                  </select>
+                  <select v-model="proj.tags">
+                    <option v-for="tag in proj.tags" :key="tag" value="requirement">{{tag}}</option>
+                  </select> -->
+                         <div class="tags-container">
                     <h2>Requirements</h2>
                     <div>
                       <div class="tag-card">
-                        <toggle-btn v-model="proj.requirements.age.isOn"></toggle-btn>
-                        <h4 :class="{'is-on': !proj.requirements.age.isOn}">Age</h4>
+                        <toggle-btn v-model="proj.requirements.age.isTrue"></toggle-btn>
+                        <h4 :class="{'is-true': !proj.requirements.age.isTrue}">Age</h4>
                       </div>
 
-                      <div v-if="proj.requirements.age.isOn">
-                        <input type="range" v-model.number="proj.requirements.age.data.min">
-                        <pre>{{proj.requirements.age.data.min}}</pre>
-                        <input type="range" v-model.number="proj.requirements.age.data.max">
-                        <pre>{{proj.requirements.age.data.max}}</pre>
+                      <div v-if="proj.requirements.age.isTrue">
+                        <input type="range" v-model.number="proj.requirements.age.age.min">
+                        <pre>{{proj.requirements.age.age.min}}</pre>
+                        <input type="range" v-model.number="proj.requirements.age.age.max">
+                        <pre>{{proj.requirements.age.age.max}}</pre>
                       </div>
                     </div>
                     <div>
                        <div class="tag-card">
-                        <toggle-btn v-model="proj.requirements.date.isOn"></toggle-btn>
-                        <h4 :class="{'is-on': !proj.requirements.date.isOn}">Date</h4>
+                        <toggle-btn v-model="proj.requirements.date.isTrue"></toggle-btn>
+                        <h4 :class="{'is-true': !proj.requirements.date.isTrue}">Date</h4>
                       </div>
-                      <div v-if="proj.requirements.date.isOn">
-                        <input type="range" v-model.number="proj.requirements.date.data.min">
-                        <pre>{{proj.requirements.date.data.min}}</pre>
-                        <input type="range" v-model.number="proj.requirements.date.data.max">
-                        <pre>{{proj.requirements.date.data.max}}</pre>
+                      <div v-if="proj.requirements.date.isTrue">
+                        <input type="range" v-model.number="proj.requirements.date.date.min">
+                        <pre>{{proj.requirements.date.date.min}}</pre>
+                        <input type="range" v-model.number="proj.requirements.date.date.max">
+                        <pre>{{proj.requirements.date.date.max}}</pre>
                       </div>
                     </div>
                     <div>
                         <div class="tag-card">
-                        <toggle-btn v-model="proj.requirements.language.isOn"></toggle-btn>
-                        <h4 :class="{'is-on': !proj.requirements.language.isOn}">Language</h4>
+                        <toggle-btn v-model="proj.requirements.language.isTrue"></toggle-btn>
+                        <h4 :class="{'is-true': !proj.requirements.language.isTrue}">Language</h4>
                       </div>
-                      <div v-if="proj.requirements.language.isOn">
+                      <div v-if="proj.requirements.language.isTrue">
                           <div class="tag-card">
-                            <toggle-btn v-model="proj.requirements.language.data.he"></toggle-btn>
-                            <h4 :class="{'is-on': !proj.requirements.language.data.he}">Hebrew</h4>
+                            <toggle-btn v-model="proj.requirements.language.language.he"></toggle-btn>
+                            <h4 :class="{'is-true': !proj.requirements.language.language.he}">Hebrew</h4>
                           </div>
                           <div class="tag-card">
-                            <toggle-btn v-model="proj.requirements.language.data.en"></toggle-btn>
-                            <h4 :class="{'is-on': !proj.requirements.language.data.en}">English</h4>
+                            <toggle-btn v-model="proj.requirements.language.language.en"></toggle-btn>
+                            <h4 :class="{'is-true': !proj.requirements.language.language.en}">English</h4>
                           </div>
                           <div class="tag-card">
-                            <toggle-btn v-model="proj.requirements.language.data.es"></toggle-btn>
-                            <h4 :class="{'is-on': !proj.requirements.language.data.es}">Spanish</h4>
+                            <toggle-btn v-model="proj.requirements.language.language.es"></toggle-btn>
+                            <h4 :class="{'is-true': !proj.requirements.language.language.es}">Spanish</h4>
                           </div>
                       </div>
                     </div>
                     <!-- <div>
-                      <input type="checkbox" v-model="proj.requirements.otherSkills.isOn">
-                      <div v-if="proj.requirements.otherSkills.isOn">
+                      <input type="checkbox" v-model="proj.requirements.otherSkills.isTrue">
+                      <div v-if="proj.requirements.otherSkills.isTrue">
                         <input type="text" placeholder="" v-model="skill">
                         <input type="text" v-model.number="proj.requirements.otherSkills.skills.skill">
                         <pre>{{proj.requirements.language.language.he}}</pre>
@@ -122,11 +126,11 @@
                     </div> -->
                     <div class="tag-card">
                         <toggle-btn v-model="proj.requirements.criminalBackgroundCheck"></toggle-btn>
-                        <h4 :class="{'is-on': !proj.requirements.criminalBackgroundCheck}">Check Criminal Background</h4>
+                        <h4 :class="{'is-true': !proj.requirements.criminalBackgroundCheck}">Check Criminal Background</h4>
                     </div>
                     <div class="tag-card">
                         <toggle-btn v-model="proj.requirements.education"></toggle-btn>
-                        <h4 :class="{'is-on': !proj.requirements.education}">Education</h4>
+                        <h4 :class="{'is-true': !proj.requirements.education}">Education</h4>
                     </div>
                   </div>
                  
@@ -134,36 +138,36 @@
                     <h2>What's incloudes</h2>
                     <div class="tag-card">
                       <toggle-btn v-model="proj.tags.airportTaxi"></toggle-btn>
-                      <h4  :class="{'is-on': !proj.tags.airportTaxi}">AirportTaxi</h4>
+                      <h4  :class="{'is-true': !proj.tags.airportTaxi}">AirportTaxi</h4>
                     </div>
                     <div class="housing">
                       <h3>Housing</h3>
                         <div class="tag-card">
                           <toggle-btn v-model="proj.tags.housing.guestFamily"></toggle-btn>
-                          <h4  :class="{'is-on': !proj.tags.housing.guestFamily}">GuestFamily</h4>
+                          <h4  :class="{'is-true': !proj.tags.housing.guestFamily}">GuestFamily</h4>
                         </div>
                         <div class="tag-card">
                           <toggle-btn v-model="proj.tags.housing.singleBad"></toggle-btn>
-                          <h4  :class="{'is-on': !proj.tags.housing.singleBad}">SingleBad</h4>
+                          <h4  :class="{'is-true': !proj.tags.housing.singleBad}">SingleBad</h4>
                         </div>
                         <div class="tag-card">
                           <toggle-btn v-model="proj.tags.housing.dubleBad"></toggle-btn>
-                          <h4  :class="{'is-on': !proj.tags.housing.dubleBad}">DubleBad</h4>
+                          <h4  :class="{'is-true': !proj.tags.housing.dubleBad}">DubleBad</h4>
                         </div>
                     </div>
-                    <div class="tag-card">
+                    <!-- <div class="tag-card">
                       <toggle-btn v-model="proj.tags.food"></toggle-btn>
-                      <h4  :class="{'is-on': !proj.tags.food}">Food</h4>
+                      <h4  :class="{'is-true': !proj.tags.food}">Food</h4>
                     </div>
                     <div class="tag-card">
                       <toggle-btn v-model="proj.tags.wifi"></toggle-btn>
-                      <h4  :class="{'is-on': !proj.tags.wifi}">Wifi</h4>
+                      <h4  :class="{'is-true': !proj.tags.wifi}">Wifi</h4>
                     </div>
                     <div class="tag-card">
                       <toggle-btn v-model="proj.tags.hotWater"></toggle-btn>
                       <h4  :class="{'is-true': !proj.tags.hotWater}">HotWater</h4>
                     </div> -->
-                  </div>
+                  <!-- </div> -->
                   <!-- <pre>   
                   {{proj}}
                   </pre>
@@ -174,19 +178,19 @@
     default-first-option
     placeholder="Facilities">
     <el-option
-      v-for="item in proj.tags"
-      :key="item"
-      :label="item"
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
       :value="item.value">
     </el-option>
   </el-select> -->
 
               
-
+<div>
                       <h4  :class="{'is-on': !proj.tags.hotWater}">HotWater</h4>
                     </div>
                   </div>         
-          <!-- </div> -->
+          </div>
           <div>
             What is the project address?
             <input class="text-location" type="text" placeholder="Address"
@@ -231,12 +235,10 @@ export default {
     //       label: 'JavaScript'
     //     }],
     //     value: []
-    };
+    }
   },
   async created() {
     this.loggedinUser = await this.$store.getters.loggedinUser
-        console.log(this.loggedinUser)
-
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
@@ -249,7 +251,7 @@ export default {
       }
     } else {
        if (!this.loggedinUser) {
-          this.$store.commit({type:'setMsg', msg: {isShow: true, txt:'You must register first'} })
+        this.$store.commit({type:'setMsg', msg: {isShow: true, txt:'You must register first'} })
         this.$router.push('/login')
         // eventBus.$emit('showMsg', 'You must register first')
       }
@@ -266,7 +268,6 @@ export default {
       this.currentImgIdx = null
     },
     async save(proj) {
-      console.log('save edit', proj)
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$router.push("/");
     },
