@@ -23,7 +23,6 @@
         "vue-element": "^1.0.1",
         "vue-google-login": "^2.0.3",
         "vue-router": "^3.1.5",
-        "vue-videobg": "^2.0.0",
         "vue2-daterange-picker": "^0.4.6",
         "vue2-google-maps": "^0.10.7",
         "vuejs-datetimepicker": "^1.1.13",
