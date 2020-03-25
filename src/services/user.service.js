@@ -77,8 +77,8 @@ async function signup(newUserCred) {
 
 async function logout() {
     await httpService.post('auth/logout');
-    // sessionStorage.clear();
-    // return ('Exit successfully completed')
+    sessionStorage.clear();
+    return ('Exit successfully completed')
 }
 
 function getUsers() {
@@ -164,8 +164,6 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
 
 
 function _handleLogin(user) {
-    console.log('handle', user)
-
     sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(user))
     return user;
 }

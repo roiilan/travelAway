@@ -239,8 +239,6 @@ export default {
   },
   async created() {
     this.loggedinUser = await this.$store.getters.loggedinUser
-        console.log(this.loggedinUser)
-
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
