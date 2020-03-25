@@ -63,8 +63,30 @@ function getById(projId) {
 //     return httpService.put(`proj/${proj._id}`, proj);
 // }
 
+function _prepareForEdit(proj) {
+    const projToEdit = {};
+
+    return projToEdit;
+}
+
+// This function cleans up a proj:
+//  requirements: {
+// age: { isOn: false, data: { min: 0, max: 120 } },
+// }
+
+function _cleanupProj(proj) {
+    for (var requirement in proj.requirements) {
+        if (requirement.isTrue) {
+            proj.requirements[requirement] = requirement.data
+        }
+    }
+}
 
 function save(proj) {
+
+
+    proj = _cleanupProj(proj)
+
     var projs = query()
     projs = (proj._id) ? _updateProj(proj, projs) : _addProj(proj, projs);
     storageService.store(KEY_FAVORS, projs)
@@ -103,18 +125,18 @@ function getEmptyProj() {
         description: utilService.makeLorem(80),
         membersNeeded: 1,
         createdBy: {},
-        takenBy: {},
+        membersApplyed: [],
         startAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         endsAt: { date: _getValidDate(new Date()), time: _getValidtime(new Date()) },
         imgUrls: [],
         position: { txtAddress: '', lat: 33.886917, lng: 9.537499 },
         requirements: {
-            age:{isTrue: false, age: { min: 0, max: 120 }},
-            date:{isTrue: false, date:  { min: 0, max: 365 }},
-            language: {isTrue: false, language:  { he: false, en: false, es: false }},
+            age: { isTrue: false, data: { min: 0, max: 120 } },
+            date: { isTrue: false, data: { min: 0, max: 365 } },
+            language: { isTrue: false, data: { he: false, en: false, es: false } },
             criminalBackgroundCheck: false,
             education: false,
-            otherSkills: {isTrue: false, skills: {}},
+            otherSkills: { isTrue: false, data: {} },
         },
         tags: {
             airportTaxi: false,

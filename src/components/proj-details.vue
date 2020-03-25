@@ -25,8 +25,8 @@
           </div>
 
           <div class="main-content-details">
-              <article class="card-deatails description">Description: {{proj.description}} </article>
-              <div class="card-deatails">Reqieres Dates:</div>
+              <article class="card-deatails description"><span class ="strong">Description: </span> {{proj.description}} </article>
+              <div class="card-deatails"><span class="strong">Required Dates: </span> {{proj.startAt.date}} - {{proj.endsAt.date}}</div>
               <div class="card-deatails map-container">
               <proj-map class="map" :zoomSize="zoomSize"
               :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]" 
@@ -88,3 +88,8 @@ export default {
     },
 }
 </script>
+
+<style>
+ 
+
+</style>

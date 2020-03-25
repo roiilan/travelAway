@@ -3,12 +3,11 @@
         <form class="form-proj-edit flex col" @submit.prevent="save(proj)">
           <div class="flex around">
             <div class="flex col">
-              <h2>Upload images</h2>
-              <label class="proj-edit-upload-img"> 
+              <!-- <label class="proj-edit-upload-img"> 
                   <input @input="uploadImg" type="file" hidden>
                   <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg">
                   <p class="proj-edit-upload-txt">Upload! </p>
-              </label>
+              </label> -->
               
             <div v-for="(url, index) in proj.imgUrls" :key="url" class="img-proj-container ratio-16-9">
                 <label > 
@@ -20,14 +19,10 @@
               class="img-user"
               :title="proj.createdBy.fullName" 
               :src="proj.createdBy.imgUrl"/> -->
-              <h2>Title</h2>
               <input type="text" v-model="proj.title">
-              <h2>Description</h2>
               <textarea v-model="proj.description" cols="30" rows="10"></textarea>
-              <h2>Start At</h2>
               <input type="date" v-model="proj.startAt.date">
               <input type="time" v-model="proj.startAt.time">
-              <h2>Ends At</h2>
               <input type="date" v-model="proj.endsAt.date">
               <input type="time" v-model="proj.endsAt.time">
               <!-- <date-range-picker
@@ -50,7 +45,7 @@
                     {{ picker.startDate | date }} - {{ picker.endDate | date }}
                 </template>
               </date-range-picker> -->
-              <h2>Category</h2>
+              <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
               <select v-model="proj.category" required>
                 <option value="childcare">Childcare</option>
                 <option value="animalsAndWildlife">Animals & Wildlife</option>
@@ -64,8 +59,18 @@
                 <option value="art">culture & Arts</option>
                 <option value="humanRights">Human Rights</option>
               </select>
-    
-                  <div class="tags-container">
+    <!-- 
+                  <div v-for="requirement in proj.requirements" :key="requirement">
+                    <input type="checkbox" v-model="requirement">
+                  </div> -->
+    <!-- 
+                  <select v-model="proj.requirements">
+                    <option v-for="requirement in proj.requirements" :key="requirement" value="requirement">{{requirement}}</option>
+                  </select>
+                  <select v-model="proj.tags">
+                    <option v-for="tag in proj.tags" :key="tag" value="requirement">{{tag}}</option>
+                  </select> -->
+                         <div class="tags-container">
                     <h2>Requirements</h2>
                     <div>
                       <div class="tag-card">
@@ -151,7 +156,7 @@
                           <h4  :class="{'is-true': !proj.tags.housing.dubleBad}">DubleBad</h4>
                         </div>
                     </div>
-                    <div class="tag-card">
+                    <!-- <div class="tag-card">
                       <toggle-btn v-model="proj.tags.food"></toggle-btn>
                       <h4  :class="{'is-true': !proj.tags.food}">Food</h4>
                     </div>
@@ -162,8 +167,29 @@
                     <div class="tag-card">
                       <toggle-btn v-model="proj.tags.hotWater"></toggle-btn>
                       <h4  :class="{'is-true': !proj.tags.hotWater}">HotWater</h4>
-                    </div>
-                  </div>         
+                    </div> -->
+                  </div>
+                  <!-- <pre>   
+                  {{proj}}
+                  </pre>
+  <el-select
+    v-model="value"
+    multiple
+    allow-create
+    default-first-option
+    placeholder="Facilities">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select> -->
+
+
+
+              
+
           </div>
           <div>
             What is the project address?
@@ -198,7 +224,17 @@ export default {
       markers: [],
       zoomSize: 2,
       loggedinUser: null,
-      skill: '',
+    //  options: [{
+    //       value: proj.tags.food,
+    //       label: 'Food',
+    //     }, {
+    //       value: 'CSS',
+    //       label: 'CSS'
+    //     }, {
+    //       value: 'JavaScript',
+    //       label: 'JavaScript'
+    //     }],
+    //     value: []
     };
   },
   async created() {
@@ -215,7 +251,7 @@ export default {
       }
     } else {
        if (!this.loggedinUser) {
-          this.$store.commit({type:'setMsg', msg: {isShow: true, txt:'You must register first'} })
+          this.$store.commit({type:'setMsg', msg: 'You must register first' })
         this.$router.push('/login')
         // eventBus.$emit('showMsg', 'You must register first')
       }
