@@ -186,7 +186,7 @@
                       <h4  :class="{'is-on': !proj.tags.hotWater}">HotWater</h4>
                     </div>
                   </div>         
-          </div>
+          <!-- </div> -->
           <div>
             What is the project address?
             <input class="text-location" type="text" placeholder="Address"
@@ -196,7 +196,7 @@
             <proj-map :zoomSize="zoomSize" :markers="markers" 
             :position="proj.position"> </proj-map>
             </div>
-          </div>
+          <!-- </div> -->
           <span v-if="proj._id" @click="remove(proj._id)">Delete</span>
           <button>Save</button>       
         </form>
