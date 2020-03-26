@@ -1,6 +1,50 @@
 .user-profile {
-    background-color: $clr5;
-    width: 80vw;
-    margin: 0 auto;
-    border-radius: 3px;
+    margin-top: rem(110px);
+    padding: rem(10px);
+    // background-color: lighten($clr2, 20%);
+    display: grid;
+    gap: rem(20px);
+    
+    >* {
+        font-family: Montserrat;
+        box-shadow: $shadow;
+        padding: rem(10px);
+        line-height: 1.5;
+        // background-color: lighten($clr2, 40%);
+        color: darken($clr2, 50%);
+            }
+
+    .main-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: rem(50px);
+        .map {
+            grid-row: 1/2;
+            grid-column: 2/3;
+            height: 100%;
+        }
+    }
+
+    .main-img-profile-contianer {
+        margin: 0 0 rem(10px);
+        width: 100%;
+        background-color: lighten($clr2, 20%);
+        box-shadow: $shadow;
+        .username {
+            font-family: Sen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: rem(40px);
+            color: #fff;
+        }
+        .main-img-profile {
+            width: 100%;
+            mix-blend-mode: multiply;
+            filter: grayscale(0.5);
+        }
+    }
+    .add-review {
+
+    }
 }

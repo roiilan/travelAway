@@ -1,6 +1,7 @@
 import { utilService } from './util.service.js'
-import { storageService } from './storage.service.js'
-import httpService from './http.service.js'
+import { storageService } from './storage.service.js';
+import httpService from './http.service.js';
+import mapService from './map.service.js'
 
 const KEY_USERS = 'users';
 const KEY_LOGGEDIN = 'loggedinUser';
@@ -56,17 +57,18 @@ async function login(credentials) {
 async function signup(newUserCred) {
     console.log('signup',newUserCred)
 
-    // sessionStorage.clear();
+    sessionStorage.clear();
     // var users = getUsers();
     // newUserCred._id = utilService.makeId();
-    // newUserCred.joinAt = { date: _getValidDate(new Date()), time: _getValidtime(new Date()) };
-    // newUserCred.karma = 5;
+    newUserCred.joinAt = { date: _getValidDate(new Date()), time: _getValidtime(new Date()) };
+    newUserCred.karma = 5;
     // console.log('newUserCred before: ', newUserCred);
-
+    var pos = await mapService.getPosition()
+    newUserCred.position = {lat: pos.coords.latitude, lng: pos.coords.longitude}
     // console.log('newUserCred after: ', newUserCred);
     // users.push(newUserCred)
     // storageService.store(KEY_USERS, users)
-    // sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
+    sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
     // return newUserCred;
     const user = await httpService.post('auth/signup', newUserCred)
     console.log('userrrr',user)
@@ -76,9 +78,9 @@ async function signup(newUserCred) {
 
 
 async function logout() {
-    await httpService.post('auth/logout');
+   const msg =  await httpService.post('auth/logout');
     sessionStorage.clear();
-    return ('Exit successfully completed')
+    return (msg)
 }
 
 function getUsers() {
@@ -87,8 +89,9 @@ function getUsers() {
     // return _createUsers();
     return httpService.get('user')
 }
-
 function getLoggeinUser() {
+    console.log('hi');
+    
     return JSON.parse(sessionStorage.getItem(KEY_LOGGEDIN))
 }
 

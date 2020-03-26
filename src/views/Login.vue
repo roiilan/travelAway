@@ -1,7 +1,6 @@
 <template>
     <div class="login-page">
 
-        <!-- <button v-if="loggedinUser" @click="logout">Logout</button> -->
         <form 
         v-if="credentials && !isSignup"
         class="login-card flex col"
@@ -13,7 +12,7 @@
             <h3>Password:</h3>
             <input type="password" v-model="credentials.password" required>
             <button class="login-btn" type="submit">Login</button>
-            <h3>Don't have an account? <span class="login-btn" @click.stop="isSignup = true">Signup</span></h3>
+            <h3>Don't have an account? <span class="login-link" @click.stop="isSignup = true">Signup</span></h3>
         </form>
         <form 
         v-if="newUserCred && isSignup"
@@ -32,8 +31,7 @@
                 
             </label>
             <button >Sign-Up</button>
-            <h3 class="flex a-center between" >Go back to login <span class="login-btn" @click.stop="isSignup = false">Login</span></h3>
-
+            <h3 style="display:block; height:5px;" class="flex a-center j-center" >Go back to <span  class="login-link" @click.stop="isSignup = false">Login</span></h3>
         </form>
          <!-- <ul class="login-user" v-if="users">
         <user-list 
@@ -68,8 +66,8 @@ export default {
         }
     },
     async created() {
-        this.users = await this.$store.dispatch({ type:'loadUsers' });
-        this.credentials = {username: 'Muki', password: '111'},
+        // this.users = await this.$store.dispatch({ type:'loadUsers' });
+        this.credentials = {username: '', password: ''},
         this.newUserCred = userService.getEmptyUser()        
     },
     components: {
@@ -100,12 +98,6 @@ export default {
             var msg = await this.$store.dispatch({ type:'removeUser', userId})
             console.log('msg: ', msg);
         },
-        onSuccess(googleUser) {
-            console.log(googleUser);
- 
-            // This only gets the user information: id, name, imageUrl and email
-            console.log(googleUser.getBasicProfile());
-        }
     },
      computed: {
     loggedinUser(){

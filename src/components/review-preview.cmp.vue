@@ -1,13 +1,17 @@
 <template>
     <div class="review-preview">
-        <form @submit.prevent="updateReview">
-        <h3>Review:</h3>
-        <h3><img class="img-profile-for-review" :src="review.from.imgUrl" alt=""> {{review.from.fullName}}:</h3>
-        <textarea v-model="review.txt" cols="30" rows="10"></textarea>
-        <h3>Rate:</h3>
-        <input type="number" v-model="review.rate">
-        <button>Update Review</button>
-        </form>
+        <!-- <form @submit.prevent="updateReview"> -->
+        <h3><img class="img-profile" :src="reviewForUpdate.by.imgUrl" alt=""> {{reviewForUpdate.by.fullName}}:</h3>
+        <p>{{reviewForUpdate.txt}}</p>
+         <el-rate
+          v-model="reviewForUpdate.rate"
+          disabled
+          show-score
+          text-color="#ff9900"
+          score-template="{value} points"
+        ></el-rate>
+        <!-- <button>Update Review</button> -->
+        <!-- </form> -->
         <button @click.stop="removeReview">Delete Review</button>
     </div>
 </template>

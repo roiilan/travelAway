@@ -20,6 +20,8 @@ export default new Vuex.Store({
   },
   mutations: {
     setMsg(state, { msg }){
+      console.log(msg);
+      
       state.msg = msg
       state.timeout = setTimeout (()=>{
           state.msg = {
