@@ -9,7 +9,7 @@
     right: 25px;
     width: 15ch;
     text-align: center;
-    box-shadow: $shadow;
+    box-shadow: $shadow3;
     // transform: translate(-50%,-50%);
     z-index: 100;
     font-size: 35px;
@@ -20,7 +20,7 @@
       left: 5px;
       border: none;
       border-radius: 3px;
-      box-shadow: $shadow;
+      box-shadow: $shadow1;
       background-color: lighten($clr1, 15%);
       color: lighten($clr2, 35%);
       font-size: rem(20px);

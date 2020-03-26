@@ -1,12 +1,17 @@
 .nav-bar-container {
-    position: fixed;
-    top: 0;
+    position: static;
+    // transition:  .3s;
+    height: rem(80px);
+    &.scrollering {
+        position: sticky;
+        top: 0;
+        // height: rem(0px);
+    }
     background-color: lighten($clr2, 20%);
-    box-shadow: $shadow;
+    box-shadow: $shadow2;
     width: 100vw;
     z-index: 5;
     font-family: Sen;
-    ;
     .nav-bar {
         margin: 0 auto;
         width: 100vw;
@@ -30,8 +35,8 @@
             }
             .img-user {
                 cursor: pointer;
-                width: rem(35px);
-                height: rem(35px);
+                width: rem(45px);
+                height: rem(45px);
                 border-radius: 50%;
                 object-fit: cover;
             }

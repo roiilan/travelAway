@@ -1,34 +1,27 @@
 .login-page {
     position: fixed;
-    top: 52%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: Sen;
-    input,
-    textarea,
-    button,
-    .login-btn,
-    select {
+    
+    .login-btn {
         font-family: Montserrat;
         padding: rem(15px);
         margin: rem(2px);
         border: none;
         border-radius: 3px;
-        box-shadow: $shadow;
-        background-color: lighten($clr3, 30%);
+        box-shadow: $shadow1;
+        background-color: lighten($clr3, 25%);
         font-size: rem(20px);
         font-weight: 400;
         transition: background-color .3s;
+        cursor: pointer;
         &:hover {
             background-color: lighten($clr3, 20%);
         }
     }
-    button,
-    .login-btn,
-    select {
-        cursor: pointer;
-        background-color: lighten($clr3, 25%);
-    }
+    
     .login-link {
         color: rgb(0, 204, 255);
         
@@ -38,7 +31,7 @@
         // margin: rem(12px);
         padding: rem(20px);
         border-radius: 3px;
-        box-shadow: $shadow;
+        box-shadow: $shadow1;
         margin-top: 100px;
         img {
             width: rem(30px);

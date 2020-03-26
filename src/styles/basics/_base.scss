@@ -8,6 +8,7 @@
 }
 
 html {
+    scroll-behavior: smooth;
     // font-family: Montserrat, sans-serif;
     // color: $clr2;
     // text-align: center;
@@ -32,6 +33,10 @@ a {
     color: initial;
 }
 
+#app {
+    min-height: 100vh;
+}
+
 input,
 textarea,
 button,
@@ -41,7 +46,7 @@ select {
     margin: rem(2px);
     border: none;
     border-radius: 3px;
-    box-shadow: $shadow;
+    box-shadow: $shadow1;
     background-color: lighten($clr3, 30%);
     font-size: rem(20px);
     font-weight: 400;
@@ -57,14 +62,14 @@ textarea {
 
 button,
 select {
-        cursor: pointer;
-        background-color: lighten($clr3, 25%);
+    cursor: pointer;
+    background-color: lighten($clr3, 25%);
 }
 
-.img-profile{
+.img-profile {
     cursor: pointer;
     width: rem(35px);
     height: rem(35px);
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: cover
 }

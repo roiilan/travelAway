@@ -9,10 +9,10 @@ export default {
         async searchPosition(context, { txt }) {
             // console.log('store', txt)
             const getPosition = await mapService.searchPosition(txt)
-            if(getPosition) {
-                getPosition.txtAddress=txt
-                  return getPosition;
-                 }
+            if (getPosition) {
+                getPosition.txtAddress = txt
+                return getPosition;
+            }
         }
     },
 }

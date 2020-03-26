@@ -1,5 +1,5 @@
 <template>
-    <div class="nav-bar-container">
+    <div class="nav-bar-container" :class="{'scrollering': isScrollering}">
       <div class="nav-bar flex a-center between">
         <div class="logo-container flex a-center">
 
@@ -38,6 +38,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isScrollering: false,
+    }
+  },
   computed: {
     loggedinUser(){
       return this.$store.getters.loggedinUser;
@@ -52,7 +57,19 @@ export default {
                 return
             }
         },
+        handleScroll () {
+         this.isScrollering = true;
+         if (window.scrollY === 0) {
+           this.isScrollering = false;
+         }
+    }
   },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
 }
 </script>
 
