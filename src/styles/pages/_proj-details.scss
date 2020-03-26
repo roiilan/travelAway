@@ -12,7 +12,7 @@
             grid-column: 1/2;
         }
         min-height: 100vh;
-        * {
+        >* {
             border-radius: 3px;
         }
         .img-user {
@@ -58,11 +58,15 @@
             .map-container {
                 // background-color: lighten($clr2, 40%);
                 .map {
+                    height: 70vw;                    
+                    @include for-normal-layout {
+                        height: 45vw;
+                    }
                     // mix-blend-mode: multiply;
                     // filter: grayscale(0.5);
-                    width: var(--map-width, 100%);
-                    height: var(--map-height, 100%);
-                    z-index: 0;
+                    // width: var(--map-width, 100%);
+                    // height: var(--map-height, 100%);
+                    // z-index: 0;
                 }
             }
         }

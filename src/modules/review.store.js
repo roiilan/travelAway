@@ -1,36 +1,39 @@
 import {reviewService} from '../services/review.service.js';
+import {userService} from '../services/user.service.js';
 
-var localLoggedinUser = null;
-
-function _getFrom() {
-    var form = {
+function _getBy() {
+    var by = {
         _id: 1, 
         fullName: 'Anonymous', 
         imgUrl: '../assets/icon/login.png'
     }
-    // const user = userService.getLoggedinUser()
-
+    
+    console.log('by in store review:', by);
+    const user = JSON.parse(sessionStorage.getItem('loggedinUser'))
+    // const user = userService.getLoggeinUser()
+    console.log('user in store review:', user);
+    
+    if (user) {
+        by = {
+            _id: user._id,
+            fullName: user.fullName,
+            imgUrl: user.imgUrl
+        }
+    }
+    return by
 }
-
-// if (sessionStorage.loggedinUser) {
-//     localLoggedinUser = JSON.parse(sessionStorage.loggedinUser);
-//     form = {
-//         _id: localLoggedinUser._id, 
-//         fullName: localLoggedinUser.fullName, 
-//         imgUrl: localLoggedinUser.imgUrl
-//     }
-// } 
-
-
 
 export default {
     state: {
         reviews: [],
-        from :_getFrom(),
+        by :_getBy(),
     },
     getters: {
         reviews(state) {
             return state.reviews;
+        },
+        by(state){
+            return state.by;
         },
     },
     mutations: {
@@ -43,8 +46,8 @@ export default {
         },
     },
     actions: {
-        async loadReviews(context, {userId}) {
-            const reviews = await reviewService.getReviews(userId);
+        async loadReviews(context, {id}) {
+            const reviews = await reviewService.getReviews(id);
             context.commit({type: 'setReviews', reviews})
             return reviews;
         },
