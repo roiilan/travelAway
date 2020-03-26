@@ -9,22 +9,116 @@ export default {
 
 import axios from "axios";
 
-
 async function searchPosition(txt){
-    console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}`,'mapService ',txt, )
-    const res= await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
+    console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}&language=en&region=US`,'mapService ',txt, )
+    const res= await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}&language=en&region=US`)
+    // console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}`,'mapService ',txt, )
+    // const res= await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
          
-    //    .then(res => res.data.results[0].geometry.location)
-    //    .catch(err=>console.log(err,'err'))
-    try {
-        var position=res.data.results[0].geometry.location
-        return position    
+    try { 
+        var position=res.data.results[0].geometry.location ;
+        const address_components_Length =res.data.results[0].address_components.length;     
+        // var country=res.data.results[0].address_components[address_components_Length-1].long_name;      
+        // var city=res.data.results[0].address_components[address_components_Length-3].long_name;          
+        // var country=res.data.results[0].address_components.map(x => x * 2);
+
+        var results=res.data.results[0].address_components;
+
+      
+
+for (var i=0;i<address_components_Length;i++){
+    // console.log(i)
+    // console.log(results[i].types)
+
+    for (var j=0;j<results[i].types.length;j++){
+        // console.log(results[i].types[j])
+        if(results[i].types[j]==='country'){
+            // console.log(results[i].long_name)
+            var country=results[i].long_name;
+            var short_country =results[i].short_name; //short name country          
+            // console.log(short_country)
+
+        }
+
+        if(results[i].types[j]= "administrative_area_level_1"){
+        var region =results[i].long_name;
+    }
+    
+    // if(results[i].types[j]="administrative_area_level_1")
+    // if(res.data.results[i].address_components[j].types[0] == "administrative_area_level_1")
+    // var region =results[i].long_name;
+    // console.log(results[j].address_components[i])
+    // console.log(results[i].types[j]="administrative_area_level_1")
+}
+console.log(region)
+}
+
+        
+// console.log(results,'results')                
+        //  console.log(position)
+        //  console.log(country)
+        //  console.log(city)
+         return position    
+            // }
       }
       catch(error) {
          console.error('Address not found' );
        
       }
 }
+
+
+
+
+function codeLatLng(lat, lng) {
+    console('codeLatLng',lat,lng)
+    var latlng = new google.maps.LatLng(lat, lng);
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+      console.log(results,'results');
+        if (results[1]) {
+        var indice=0;
+        for (var j=0; j<results.length; j++)
+        {
+            if (results[j].types[0]=='locality')
+                {
+                    indice=j;
+                    break;
+                }
+            }
+        alert('The good number is: '+j);
+        console.log(results[j]);
+        for (var i=0; i<results[j].address_components.length; i++)
+            {
+                if (results[j].address_components[i].types[0] == "locality") {
+                        //this is the object you are looking for City
+                        city = results[j].address_components[i];
+                    }
+                if (results[j].address_components[i].types[0] == "administrative_area_level_1") {
+                        //this is the object you are looking for State
+                        region = results[j].address_components[i];
+                    }
+                if (results[j].address_components[i].types[0] == "country") {
+                        //this is the object you are looking for
+                        country = results[j].address_components[i];
+                    }
+            }
+
+            //city data
+            alert(city.long_name + " || " + region.long_name + " || " + country.short_name)
+
+
+            } else {
+              alert("No results found");
+            }
+        //}
+      } else {
+        alert("Geocoder failed due to: " + status);
+      }
+    });
+  }
+
+
 
 
 // FOR USER
