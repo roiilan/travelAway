@@ -67,9 +67,9 @@ export default {
             return savedProj
         },
         async getFilteredProjHeader(context, { filter }) {
-            console.log('store', filter)
             const filteredProjsHeader = await projService.getHeaderObj(filter)
                 // context.commit({ type: 'removeProj', projId });
+
             return filteredProjsHeader;
         }
     },

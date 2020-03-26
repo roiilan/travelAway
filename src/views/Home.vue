@@ -1,10 +1,13 @@
 <template>
 <div class = "home">
+  <div class="video-bcg">
 <video autoplay muted loop id="myVideo">
   <source src='../../video/heroHeader.mp4' type="video/mp4">
 </video>
+</div>
    <div class="overlayText">
-        <p id="welcom-txt">WalkWays</p>
+        <h3 id="welcom-txt">WalkWays</h3>
+        <p>“The best way to find yourself is to lose yourself in the service of others.” <br><span class="gandy"> Mahatma Gandhi</span></p>
     </div>
   <div class="category-container">  
 
@@ -89,6 +92,10 @@ data(){
 },
   components: {
   },
+  async created() {
+     this.projs = await this.$store.dispatch({type: 'loadProjs'});
+},
+
 }
 </script>
 

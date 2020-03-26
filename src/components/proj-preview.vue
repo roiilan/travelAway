@@ -31,9 +31,22 @@ export default {
   },
   computed:{
    projCategory(){
-     console.log(this.proj.category);
-      if(this.proj.category === "animalsAndWildlife") return "Animals & Wildlife"
-      if(this.proj.category === "education") return "Education"
+     var category = this.proj.category
+     var categoryTxt ={
+       "animalsAndWildlife" : "Animals & Wildlife",
+       "education":"Education",
+       "childcare": "Child Care",
+       "environmentalProtection":"Environmental Protection",
+       "farming":"Farming",
+       "scubaDiving": "Scuba Diving",
+       "humanitarian":"Humanitarian",
+       "healthcare":"Healthcare",
+       "sports":"Sports",
+       "art":"Art",
+       "humanRights":"Human Rights"
+     }
+     return categoryTxt[category]
+     
     }
   }
 
