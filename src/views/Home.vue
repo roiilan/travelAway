@@ -1,19 +1,20 @@
 <template>
 <div class = "home">
+  <div class="video-bcg">
 <video autoplay muted loop id="myVideo">
   <source src='../../video/heroHeader.mp4' type="video/mp4">
 </video>
+</div>
    <div class="overlayText">
-        <p id="welcom-txt">WalkWays</p>
+        <h3 id="welcom-txt">WalkWays</h3>
+        <p>“The best way to find yourself is to lose yourself in the service of others.” <br><span class="gandy"> Mahatma Gandhi</span></p>
     </div>
   <div class="category-container">  
 
-    <div v-for="category in categories" :key="category.category" :class="category.category" class="category">
-    <router-link :to="'/projs/' + category.category" >
+    <router-link :to="'/projs/' + category.category" v-for="category in categories" :key="category.category" :class="category.category" class="category">
       <img :src="category.imgUrl" />
        <div class="img-tag" :class="category.category"> {{category.title}} </div>
       </router-link>
-  </div>
   </div>
   </div>
 </template>
@@ -90,7 +91,11 @@ data(){
 
 },
   components: {
-  }
+  },
+  async created() {
+     this.projs = await this.$store.dispatch({type: 'loadProjs'});
+},
+
 }
 </script>
 

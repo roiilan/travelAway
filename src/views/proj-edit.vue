@@ -308,9 +308,7 @@ export default {
       var res = await this.$store.dispatch({ type: "removeProj", projId });
       this.$router.push("/");
     },
-    emitAboard() {
-      this.$emit("set-filter", JSON.parse(JSON.stringify(this.proj)));
-    },
+
     async setCurrImg(idx) {
       this.currentImgIdx = idx;
     },
@@ -323,6 +321,7 @@ export default {
       });
       if (currPosition) {
         this.proj.position = currPosition;
+        
         this.zoomSize = 14;
         this.markers = [
           { position: { lat: currPosition.lat, lng: currPosition.lng } }

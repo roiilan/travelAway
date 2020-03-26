@@ -1,7 +1,7 @@
-const GAPI_KEY = 'AIzaSyC78ilnhS4Ey5k2TImLGPdWYV6eYsBhoEo'; 
+const GAPI_KEY = 'AIzaSyC78ilnhS4Ey5k2TImLGPdWYV6eYsBhoEo';
 // const GAPI_KEY = 'AIzaSyAfOgP37XV4mv6RcyxIwOk1ajVevIhN2TM'; 
 
-export default {   
+export default {
     searchPosition,
     getPosition,
     GAPI_KEY
@@ -10,29 +10,27 @@ export default {
 import axios from "axios";
 
 
-async function searchPosition(txt){
-    console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}`,'mapService ',txt, )
-    const res= await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
-         
+async function searchPosition(txt) {
+    console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt}&key=${GAPI_KEY}`, 'mapService ', txt, )
+    const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}`)
+
     //    .then(res => res.data.results[0].geometry.location)
     //    .catch(err=>console.log(err,'err'))
     try {
-        var position=res.data.results[0].geometry.location
-        return position    
-      }
-      catch(error) {
-         console.error('Address not found' );
-       
-      }
+        var position = res.data.results[0].geometry.location
+        return position
+    } catch (error) {
+        console.error('Address not found');
+
+    }
 }
 
 
 // FOR USER
 function getPosition() {
     return new Promise((resolve, reject) => {
-        console.log('resolve: ',resolve);
-        console.log('reject: ',reject);
-        
+        console.log('resolve: ', resolve);
+        console.log('reject: ', reject);
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
@@ -98,5 +96,3 @@ function getPosition() {
 //         elGoogleApi.onerror = () => reject('Google script failed to load')
 //     })
 // }
-
-
