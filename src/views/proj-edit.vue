@@ -8,7 +8,7 @@
             <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg" />
             <p class="proj-edit-upload-txt">Upload!</p>
           </label>
-
+  <pre>{{proj}}</pre>
           <div
             v-for="(url, index) in proj.imgUrls"
             :key="url"
@@ -52,7 +52,6 @@
           <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
           <el-select
             v-model="proj.category"
-            multiple
             filterable
             allow-create
             default-first-option
@@ -111,7 +110,6 @@
             v-model="proj.tags"
             :options="tags"
             clearable
-            debounce
             placeholder="What's included"
             :props="{ multiple: true, checkStrictly: true }"
             collapse-tags
