@@ -10,7 +10,8 @@ export const projService = {
     query,
     getById,
     save,
-    remove
+    remove,
+    getHeaderObj
 }
 
 
@@ -32,9 +33,9 @@ function query() {
     // queryParams.set('type', filterBy.type);
     // return httpService.get(`proj?${queryParams}`);
     // }
-        
+
     return httpService.get('proj');
-   
+
 }
 
 function getById(projId) {
@@ -52,12 +53,13 @@ function remove(projId) {
 }
 
 function save(proj) {
-   return (proj._id)? _update(proj): _add(proj);
+    return (proj._id) ? _update(proj) : _add(proj);
 }
 
 function _add(proj) {
     return httpService.post(`proj`, proj);
 }
+
 function _update(proj) {
     return httpService.put(`proj/${proj._id}`, proj);
 }
@@ -174,9 +176,9 @@ function _createProj(title, category, membersNeeded, createdBy, startAt, endsAt,
             // includes: {
             airportTaxi: true,
             // housing: {
-                guestFamily: false,
-                singleBad: true,
-                dubleBad: false,
+            guestFamily: false,
+            singleBad: true,
+            dubleBad: false,
             // },
             food: true,
             wifi: false,
@@ -196,4 +198,18 @@ function _getValidtime(time) {
 
 function _padNum(num) {
     return (num < 10) ? '0' + num : num;
+}
+
+function getHeaderObj(filter) {
+    var headerObj = {
+        title: '',
+        desc: '',
+        imgUrl: ''
+    }
+    if (filter === 'animalsAndWildlife') {
+        headerObj.title = 'Animals And Wildlife'
+        headerObj.desc = 'lots of lions and shit'
+        headerObj.imgUrl = 'https://i.insider.com/5bebcf4d66be5046a2737572?width=1136&format=jpeg'
+    }
+    return headerObj
 }

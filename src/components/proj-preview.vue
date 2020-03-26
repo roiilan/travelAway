@@ -1,7 +1,7 @@
 <template>
   <div class="proj-preview">
-    <router-link :to="'/proj/' + proj._id" class="proj-card">
 
+    <router-link :to="'/proj/' + proj._id" class="proj-card">
     <img v-bind:src=proj.imgUrls[0] v-if="proj.imgUrls" class="details-img"/>
     <div class="proj-txt">
       <div class="proj-txt-header">

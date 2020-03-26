@@ -1,27 +1,32 @@
 .proj-list-filtered {
-    max-width: 1080px;
+    // max-width: 1080px;
     margin: 0 auto;
     display: flex;
-    align-items: flex-start;
+    // align-items: flex-start;
+    // flex-direction: column;
     margin-top: 110px;
     position: relative;
+    .main-content {
+        flex-basis: 45%;
+    }
     li {
         list-style: none;
     }
     ul {
         margin: 0;
         padding: 0;
-        width: 66%
     }
     .side-bar {
-        width: 33%;
+        // width: 33%;
+        flex-basis: 55%;
         .map {
-            >*{
-                height: rem(500px);
+            >* {
+                // height: rem(500px);
+                height: calc(100vh - 100px);
             }
         }
         padding: 5px;
-        position: sticky;
+        // position: sticky;
         bottom: 0;
         /* position: fixed; */
     }

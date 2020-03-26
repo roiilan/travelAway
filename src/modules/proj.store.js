@@ -38,7 +38,7 @@ export default {
     },
     actions: {
         async loadProjs(context, {}) {
-            
+
             const projs = await projService.query()
                 // async loadProjs(context, {filterBy}){       
                 // const projs = await projService.query(filterBy)
@@ -66,11 +66,11 @@ export default {
             })
             return savedProj
         },
-        // async searchPosition(context, { txt }) {
-        //     console.log('store', txt)
-        //     const getPosition = await mapService.searchPosition(txt)
-        //         // context.commit({ type: 'removeProj', projId });
-        //     return getPosition;
-        // }
+        async getFilteredProjHeader(context, { filter }) {
+            console.log('store', filter)
+            const filteredProjsHeader = await projService.getHeaderObj(filter)
+                // context.commit({ type: 'removeProj', projId });
+            return filteredProjsHeader;
+        }
     },
 }

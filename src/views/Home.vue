@@ -88,7 +88,7 @@ data(){
 
 },
   components: {
-  }
+  },
 }
 </script>
 

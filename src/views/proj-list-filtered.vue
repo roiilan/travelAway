@@ -1,5 +1,11 @@
 <template>
   <div class="proj-list-filtered" >
+    <div class = "main-content">
+        <div class="category-header" v-if="projsHeader"> 
+          {{projsHeader.title}}
+          <img :src=projsHeader.imgUrl>
+          {{projsHeader.desc}}
+    </div>
     <ul>
       <li v-for="(proj) in projs" :key="proj._id">
           <div class="proj-preview">
@@ -7,6 +13,7 @@
         </div>
       </li>
     </ul>
+    </div>
     <side-bar :projs="projs" class="side-bar" v-if="projs"></side-bar>
     <!-- <router-link to='/projs/' >All local projs</router-link>  -->
   </div>
@@ -24,7 +31,8 @@ export default {
 
   data(){
     return{
-  projs:null
+  projs:null,
+  projsHeader:null
     }
   },
   async created() {
@@ -34,7 +42,25 @@ export default {
        return proj.category === filter
      })
      this.projs = filteredProjs
+     this.getHeader(filter)
+     
   
+},
+methods:{
+      async getHeader(filter) {
+      //  var txt =proj.position.txtAddress
+      var headerObj = await this.$store.dispatch({
+        type: "getFilteredProjHeader",
+        filter
+      });
+      
+      if (headerObj) {
+        console.log(headerObj);
+        
+        this.projsHeader = headerObj;
+        
+      }
+    }
 },
   components: {
     projPreview,
@@ -52,6 +78,9 @@ export default {
 
 <style scoped >
 
+img{
+  width:25%
+}
 
 
 </style>
