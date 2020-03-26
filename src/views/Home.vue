@@ -8,12 +8,10 @@
     </div>
   <div class="category-container">  
 
-    <div v-for="category in categories" :key="category.category" :class="category.category" class="category">
-    <router-link :to="'/projs/' + category.category" >
+    <router-link :to="'/projs/' + category.category" v-for="category in categories" :key="category.category" :class="category.category" class="category">
       <img :src="category.imgUrl" />
        <div class="img-tag" :class="category.category"> {{category.title}} </div>
       </router-link>
-  </div>
   </div>
   </div>
 </template>
