@@ -111,7 +111,7 @@
             v-model="proj.tags"
             :options="tags"
             clearable
-            debounce
+            
             placeholder="What's included"
             :props="{ multiple: true, checkStrictly: true }"
             collapse-tags
