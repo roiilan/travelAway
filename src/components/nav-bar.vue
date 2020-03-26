@@ -25,7 +25,7 @@
           <h2 v-else>Hello guest</h2> -->
         </div>
         <div class="link-container">
-          <router-link to="/edit">Add</router-link>
+          <router-link to="/edit">Add Project</router-link>
           <router-link to="/">Home</router-link> 
           <span v-if="loggedinUser" @click="logout">Logout</span> 
           <router-link v-else to="/login">
