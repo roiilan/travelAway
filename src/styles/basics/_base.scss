@@ -31,3 +31,40 @@ a {
     text-decoration: none;
     color: initial;
 }
+
+input,
+textarea,
+button,
+select {
+    font-family: Montserrat;
+    padding: rem(15px);
+    margin: rem(2px);
+    border: none;
+    border-radius: 3px;
+    box-shadow: $shadow;
+    background-color: lighten($clr3, 30%);
+    font-size: rem(20px);
+    font-weight: 400;
+    transition: background-color .3s;
+    &:hover {
+        background-color: lighten($clr3, 20%);
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+button,
+select {
+        cursor: pointer;
+        background-color: lighten($clr3, 25%);
+}
+
+.img-profile{
+    cursor: pointer;
+    width: rem(35px);
+    height: rem(35px);
+    border-radius: 50%;
+    object-fit: cover;
+}

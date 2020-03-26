@@ -29,8 +29,10 @@
         cursor: pointer;
         background-color: lighten($clr3, 25%);
     }
-    .login-btn {
-        // margin: rem(15px) 0 ;
+    .login-link {
+        color: rgb(0, 204, 255);
+        
+        cursor: pointer;
     }
     .login-card {
         // margin: rem(12px);

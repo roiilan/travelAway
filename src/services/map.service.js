@@ -3,6 +3,7 @@ const GAPI_KEY = 'AIzaSyC78ilnhS4Ey5k2TImLGPdWYV6eYsBhoEo';
 
 export default {   
     searchPosition,
+    getPosition,
     GAPI_KEY
 }
 
@@ -23,8 +24,17 @@ async function searchPosition(txt){
          console.error('Address not found' );
        
       }
-      
+}
 
+
+// FOR USER
+function getPosition() {
+    return new Promise((resolve, reject) => {
+        console.log('resolve: ',resolve);
+        console.log('reject: ',reject);
+        
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
 }
 
 
