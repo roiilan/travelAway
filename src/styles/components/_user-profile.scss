@@ -1,5 +1,4 @@
 .user-profile {
-    margin-top: rem(110px);
     padding: rem(10px);
     // background-color: lighten($clr2, 20%);
     display: grid;
@@ -7,7 +6,7 @@
     
     >* {
         font-family: Montserrat;
-        box-shadow: $shadow;
+        box-shadow: $shadow1;
         padding: rem(10px);
         line-height: 1.5;
         // background-color: lighten($clr2, 40%);
@@ -29,7 +28,6 @@
         margin: 0 0 rem(10px);
         width: 100%;
         background-color: lighten($clr2, 20%);
-        box-shadow: $shadow;
         .username {
             font-family: Sen;
             display: flex;

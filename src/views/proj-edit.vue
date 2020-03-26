@@ -1,5 +1,5 @@
 <template>
-  <div class="proj-edit" v-if="proj">
+  <div class="proj-edit width-container" v-if="proj">
     <form class="form-proj-edit flex col" @submit.prevent="save(proj)">
       <div class="flex around">
         <div class="flex col">
@@ -50,159 +50,76 @@
                 </template>
           </date-range-picker>-->
           <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
-          <select v-model="proj.category" required>
-            <option value="childcare">Childcare</option>
-            <option value="animalsAndWildlife">Animals & Wildlife</option>
-            <option value="environmentalProtection">Environmental Protection</option>
-            <option value="farming">Farming</option>
-            <option value="scubaDiving">Scuba Diving</option>
-            <option value="humanitarian">Humanitarian</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="sports">Sports</option>
-            <option value="education">Education</option>
-            <option value="art">culture & Arts</option>
-            <option value="humanRights">Human Rights</option>
-          </select>
+          <el-select
+            v-model="proj.category"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            placeholder="Choose language"
+          >
+            <el-option
+              v-for="item in categories"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+         
         </div>
-        <!-- 
-                  <select v-model="proj.requirements">
-                    <option v-for="requirement in proj.requirements" :key="requirement" value="requirement">{{requirement}}</option>
-                  </select>
-                  <select v-model="proj.tags">
-                    <option v-for="tag in proj.tags" :key="tag" value="requirement">{{tag}}</option>
-        </select>-->
+
         <div class="tags-container">
           <h2>Requirements</h2>
-          <div>
-            <div class="tag-card">
-              <toggle-btn v-model="proj.requirements.age.isTrue"></toggle-btn>
-              <h4 :class="{'is-true': !proj.requirements.age.isTrue}">Age</h4>
-            </div>
+          <h3>Age range (in years): Min: {{proj.requirements.age[0]}}, Max: {{proj.requirements.age[1]}}.</h3>
+          <el-slider v-model="proj.requirements.age" range show-input :max="120" :min="0"></el-slider>
+          <h3>Volunteering range (in days): Min: {{proj.requirements.day[0]}}, Max: {{proj.requirements.day[1]}}.</h3>
+          <el-slider v-model="proj.requirements.day" range show-input :max="1000" :min="0"></el-slider>
+          <h3>Language skill</h3>
+          <el-select
+            v-model="proj.requirements.languages"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            placeholder="Choose language"
+          >
+            <el-option
+              v-for="item in languages"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
 
-            <div v-if="proj.requirements.age.isTrue">
-              <input type="range" v-model.number="proj.requirements.age.age.min" />
-              <pre>{{proj.requirements.age.age.min}}</pre>
-              <input type="range" v-model.number="proj.requirements.age.age.max" />
-              <pre>{{proj.requirements.age.age.max}}</pre>
-            </div>
-          </div>
-          <div>
-            <div class="tag-card">
-              <toggle-btn v-model="proj.requirements.date.isTrue"></toggle-btn>
-              <h4 :class="{'is-true': !proj.requirements.date.isTrue}">Date</h4>
-            </div>
-            <div v-if="proj.requirements.date.isTrue">
-              <input type="range" v-model.number="proj.requirements.date.date.min" />
-              <pre>{{proj.requirements.date.date.min}}</pre>
-              <input type="range" v-model.number="proj.requirements.date.date.max" />
-              <pre>{{proj.requirements.date.date.max}}</pre>
-            </div>
-          </div>
-          <div>
-            <div class="tag-card">
-              <toggle-btn v-model="proj.requirements.language.isTrue"></toggle-btn>
-              <h4 :class="{'is-true': !proj.requirements.language.isTrue}">Language</h4>
-            </div>
-            <div v-if="proj.requirements.language.isTrue">
-              <div class="tag-card">
-                <toggle-btn v-model="proj.requirements.language.language.he"></toggle-btn>
-                <h4 :class="{'is-true': !proj.requirements.language.language.he}">Hebrew</h4>
-              </div>
-              <div class="tag-card">
-                <toggle-btn v-model="proj.requirements.language.language.en"></toggle-btn>
-                <h4 :class="{'is-true': !proj.requirements.language.language.en}">English</h4>
-              </div>
-              <div class="tag-card">
-                <toggle-btn v-model="proj.requirements.language.language.es"></toggle-btn>
-                <h4 :class="{'is-true': !proj.requirements.language.language.es}">Spanish</h4>
-              </div>
-            </div>
-          </div>
-          <!-- <div>
-                      <input type="checkbox" v-model="proj.requirements.otherSkills.isTrue">
-                      <div v-if="proj.requirements.otherSkills.isTrue">
-                        <input type="text" placeholder="" v-model="skill">
-                        <input type="text" v-model.number="proj.requirements.otherSkills.skills.skill">
-                        <pre>{{proj.requirements.language.language.he}}</pre>
-                      </div>
-          </div>-->
+          <el-select
+            v-model="proj.requirements.otherSkills"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            placeholder="Add Skills"
+          >
+            <el-option
+              v-for="item in otherSkills"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
 
-          <div class="tag-card">
-            <toggle-btn v-model="proj.requirements.criminalBackgroundCheck"></toggle-btn>
-            <h4
-              :class="{'is-true': !proj.requirements.criminalBackgroundCheck}"
-            >Check Criminal Background</h4>
-          </div>
-          <div class="tag-card">
-            <toggle-btn v-model="proj.requirements.education"></toggle-btn>
-            <h4 :class="{'is-true': !proj.requirements.education}">Education</h4>
-          </div>
-        </div>
-
-        <div class="tags-container">
-          <h2>What's incloudes</h2>
-          <div class="tag-card">
-            <toggle-btn v-model="proj.tags.airportTaxi"></toggle-btn>
-            <h4 :class="{'is-true': !proj.tags.airportTaxi}">AirportTaxi</h4>
-          </div>
-          <div class="housing">
-            <h3>Housing</h3>
-            <div class="tag-card">
-              <toggle-btn v-model="proj.tags.housing.guestFamily"></toggle-btn>
-              <h4 :class="{'is-true': !proj.tags.housing.guestFamily}">GuestFamily</h4>
-            </div>
-            <div class="tag-card">
-              <toggle-btn v-model="proj.tags.housing.singleBad"></toggle-btn>
-              <h4 :class="{'is-true': !proj.tags.housing.singleBad}">SingleBad</h4>
-            </div>
-            <div class="tag-card">
-              <toggle-btn v-model="proj.tags.housing.dubleBad"></toggle-btn>
-              <h4 :class="{'is-true': !proj.tags.housing.dubleBad}">DubleBad</h4>
-            </div>
-          </div>
-          <div class="tag-card">
-            <toggle-btn v-model="proj.tags.food"></toggle-btn>
-            <h4 :class="{'is-true': !proj.tags.food}">Food</h4>
-          </div>
-          <div class="tag-card">
-            <toggle-btn v-model="proj.tags.wifi"></toggle-btn>
-            <h4 :class="{'is-true': !proj.tags.wifi}">Wifi</h4>
-          </div>
-          <div class="tag-card">
-            <toggle-btn v-model="proj.tags.hotWater"></toggle-btn>
-            <h4 :class="{'is-true': !proj.tags.hotWater}">HotWater</h4>
-          </div>
-          <el-tree
+          <el-cascader
             v-model="proj.tags"
-            :data="data"
-            show-checkbox
-            node-key="id"
-            :default-expanded-keys="[2]"
-            :default-checked-keys="[7]"
-            :props="defaultProps"
-          ></el-tree>
-          <pre>{{data}}</pre>
-          <!-- <el-select
-    v-model="value"
-    multiple
-    allow-create
-    default-first-option
-    placeholder="Facilities">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option>
-          </el-select>-->
-
-          <div>
-            <h4 :class="{'is-on': !proj.tags.hotWater}">HotWater</h4>
-          </div>
+            :options="tags"
+            clearable
+            debounce
+            placeholder="What's included"
+            :props="{ multiple: true, checkStrictly: true }"
+            collapse-tags
+            filterable
+          ></el-cascader>
         </div>
       </div>
       <div>
-        What is the project address?
         <input
           class="text-location"
           type="text"
@@ -210,13 +127,11 @@
           v-model="proj.position.txtAddress"
           @change="searchPosition(proj.position.txtAddress)"
         />
-        <proj-map :zoomSize="zoomSize" :markers="markers" :position="proj.position"></proj-map>
+        <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="proj.position"></proj-map>
       </div>
-      <!-- </div> -->
       <span v-if="proj._id" @click="remove(proj._id)">Delete</span>
       <button>Save</button>
     </form>
-    <!-- <pre>{{proj}}</pre> -->
   </div>
 </template>
 
@@ -236,57 +151,116 @@ export default {
       markers: [],
       zoomSize: 2,
       loggedinUser: null,
-      data: [
+      categories:[
         {
-          id: 1,
-          label: "Level one 1",
+          value: "childcare",
+          label: "Childcare"
         },
         {
-          id: 2,
-          label: "Level one 2",
+          value: "animalsAndWildlife",
+          label: "Animals & Wildlife"
+        },
+        {
+          value: "environmentalProtection",
+          label: "Environmental Protection"
+        },
+        {
+          value: "farming",
+          label: "Farming"
+        },
+        {
+          value: "scubaDiving",
+          label: "Scuba Diving"
+        },
+        {
+          value: "humanitarian",
+          label: "Humanitarian"
+        },
+        {
+          value: "healthcare",
+          label: "Healthcare"
+        },
+        {
+          value: "sports",
+          label: "Sports"
+        },
+        {
+          value: "education",
+          label: "Education"
+        },
+        {
+          value: "art",
+          label: "culture & Arts"
+        },
+        {
+          value: "humanRights",
+          label: "Human Rights"
+        },
+      ],
+      languages: [
+        {
+          value: "Hebrew",
+          label: "Hebrew"
+        },
+        {
+          value: "English",
+          label: "English"
+        },
+        {
+          value: "Spanish",
+          label: "Spanish"
+        }
+      ],
+      otherSkills: [
+        {
+          value: "Driving",
+          label: "Driving"
+        },
+        {
+          value: "Health",
+          label: "Health"
+        },
+        {
+          value: "Education",
+          label: "Education"
+        },
+        {
+          value: "Organizer",
+          label: "Organizer"
+        }
+      ],
+      tags: [
+        {
+          value: "Housing",
+          label: "Housing",
           children: [
             {
-              id: 7,
-              label: "Level two 2-1"
+              value: "GuestFamily",
+              label: "GuestFamily"
             },
             {
-              id: 8,
-              label: "Level two 2-2"
+              value: "SingleBad",
+              label: "SingleBad"
+            },
+            {
+              value: "DubleBad",
+              label: "DubleBad"
             }
           ]
         },
         {
-          id: 3,
-          label: "Level one 3",
+          value: "Food",
+          label: "Food"
         },
         {
-          id: 4,
-          label: "Level one 3",
+          value: "Wifi",
+          label: "Wifi"
         },
         {
-          id: 5,
-          label: "Level one 3",
-        },
-        {
-          id: 6,
-          label: "Level one 3",
+          value: "HotWater",
+          label: "HotWater"
         }
-      ],
-      defaultProps: {
-        children: "children",
-        label: "label"
-      }
-      //  options: [{
-      //       value: 'ds',
-      //       label: 'Food',
-      //     }, {
-      //       value: 'CSS',
-      //       label: 'CSS'
-      //     }, {
-      //       value: 'JavaScript',
-      //       label: 'JavaScript'
-      //     }],
-      //     value: []
+      ]
     };
   },
   async created() {
@@ -305,10 +279,12 @@ export default {
         this.$router.push("/");
       }
     } else {
-       if (!this.loggedinUser) {
-        this.$store.commit({type:'setMsg', msg: {isShow: true, txt:'You must register first'} })
-        this.$router.push('/login')
-        // eventBus.$emit('showMsg', 'You must register first')
+      if (!this.loggedinUser) {
+        this.$store.commit({
+          type: "setMsg",
+          msg: { isShow: true, txt: "You must register first" }
+        });
+        this.$router.push("/login");
       }
       this.proj = projService.getEmptyProj();
     }
@@ -354,11 +330,6 @@ export default {
       }
     }
   },
-  // computed: {
-  //       loggedinUser(){
-  //         return this.$store.getters.loggedinUser;
-  //       }
-  //     },
   components: {
     toggleBtn,
     projMap,
@@ -366,45 +337,4 @@ export default {
   }
 };
 </script>
-
-
-<style scoped>
-img {
-  width: 50%;
-}
-
-.proj-edit-upload-img {
-  position: relative;
-  height: 200px;
-  width: 257px;
-  transition: opacity 0.2s, visibility 0.2s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.proj-edit-upload-img:hover {
-  opacity: 0.8;
-}
-
-.proj-edit-upload-txt {
-  position: absolute;
-  font-size: 1.5em;
-  background: rgba(241, 241, 241, 0.72);
-  color: rgb(26, 26, 26);
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.2s, visibility 0.2s;
-}
-
-.proj-edit-upload-img:hover .proj-edit-upload-txt {
-  visibility: visible;
-  opacity: 1;
-}
-
-.uploaded-img {
-  width: 25%;
-  display: inline-block;
-}
-</style>
 

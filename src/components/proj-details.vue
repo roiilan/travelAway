@@ -11,24 +11,18 @@
         v-if="loggedinUser && (loggedinUser._id === proj.createdBy._id || loggedinUser.isAdmin)"
         :to="'/edit/' + proj._id"
       >EDIT</router-link>
+       <div class="main-content-details">
+        <div class="title-proj">{{proj.title}}</div>
       <div class="img-proj-container ratio-16-9">
         <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
         <!-- <h2 >how can you Help?</h2> -->
-        <input v-if="isEdit" class="title-proj" v-model="proj.title" />
-        <div v-else class="title-proj">{{proj.title}}</div>
       </div>
-
-      <div class="main-content-details">
-        <article class="card-deatails description">
+        <article class="description">
           <span class="strong">Description:</span>
           {{proj.description}}
         </article>
-        <div class="card-deatails">
           <span class="strong">Required Dates:</span>
           {{proj.startAt.date}} - {{proj.endsAt.date}}
-        </div>
-
-        <div>
           <el-rate
             v-model="averageRate"
             disabled
@@ -38,6 +32,13 @@
           ></el-rate>
           <h2 v-if="reviews.length === 1">One review</h2>
           <h2 v-else-if="reviews.length > 1">{{reviews.length}} Reviews</h2>
+       </div>
+
+      <div class="util-details">
+        <div class="card-deatails">
+        </div>
+
+        <div>
         </div>
 
         <div class="card-deatails map-container">

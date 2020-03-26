@@ -1,9 +1,5 @@
 <template>
   <div class="walkways-app">
-     <router-link to="/edit">
-        Add Proj
-    </router-link>
-    <!-- <proj-list :projs="projs"/> -->
     <home/>
   </div>
 </template>

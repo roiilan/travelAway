@@ -13,17 +13,7 @@ export const projService = {
     remove
 }
 
-
 function query() {
-
-    // old query
-
-    // var projs = storageService.load(KEY_FAVORS)
-    // if (projs) return projs
-    // return _createProjs();
-
-    // is filter
-
     // const queryParams = new URLSearchParams();
     // if(filterBy){
     // if(filterBy.name) queryParams.set('name', filterBy.name)
@@ -31,19 +21,11 @@ function query() {
     // queryParams.set('maxPrice', filterBy.maxPrice);
     // queryParams.set('type', filterBy.type);
     // return httpService.get(`proj?${queryParams}`);
-    // }
-        
-    return httpService.get('proj');
-   
+    // } 
+    return httpService.get('proj');  
 }
 
 function getById(projId) {
-
-    // old getById
-
-    // var projs = query()
-    // return projs.find(proj => proj._id === projId)
-
     return httpService.get(`proj/${projId}`);
 }
 
@@ -62,39 +44,6 @@ function _update(proj) {
     return httpService.put(`proj/${proj._id}`, proj);
 }
 
-
-// function save(proj) {
-//     var projs = query()
-//     projs = (proj._id) ? _updateProj(proj, projs) : _addProj(proj, projs);
-//     storageService.store(KEY_FAVORS, projs)
-//     return projs
-// }
-
-// function _updateProj(currProj, projs) {
-//     const idx = projs.findIndex(proj => proj._id === currProj._id)
-//     projs.splice(idx, 1, currProj)
-//     return projs
-// }
-
-// function _addProj(currProj, projs) {
-//     const loggeinUser = userService.getLoggeinUser()
-//     console.log('loggeinUser in service: ', loggeinUser);
-//     if (loggeinUser) {
-//         currProj.createdBy = userService.getMinimalUser(loggeinUser)
-//     }
-//     currProj._id = utilService.makeId();
-//     projs.unshift(currProj);
-//     return projs
-// }
-
-// function remove(projId) {
-//     var projs = query()
-//     const idx = projs.findIndex(proj => proj._id === projId)
-//     projs.splice(idx, 1)
-//     storageService.store(KEY_FAVORS, projs)
-//     return ('The deletion was successful!!')
-// }
-
 function getEmptyProj() {
     return {
         title: utilService.makeLorem(12),
@@ -108,24 +57,14 @@ function getEmptyProj() {
         imgUrls: [],
         position: { txtAddress: '', lat: 33.886917, lng: 9.537499 },
         requirements: {
-            age: { isOn: false, data: { min: 0, max: 120 } },
-            date: { isOn: false, data: { min: 0, max: 365 } },
-            language: { isOn: false, data: { he: false, en: false, es: false } },
-            otherSkills: { isOn: false, data: {} },
-            criminalBackgroundCheck: false,
-            education: false,
+            // age: { isOn: false, data: { min: 0, max: 120 } },
+            age: [ 0, 120 ],
+            day: [ 0, 1000 ],
+            // date: { isOn: false, data: { min: 0, max: 365 } },
+            languages: [],
+            otherSkills: [],
         },
-        tags: {
-            airportTaxi: false,
-            housing: {
-                guestFamily: false,
-                singleBad: false,
-                dubleBad: false,
-            },
-            food: false,
-            wifi: false,
-            hotWater: false,
-        }
+        tags: []
     }
 }
 
