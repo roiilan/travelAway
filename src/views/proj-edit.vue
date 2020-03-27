@@ -23,6 +23,7 @@
               class="img-user"
               :title="proj.createdBy.fullName" 
           :src="proj.createdBy.imgUrl"/>-->
+          <el-input placeholder="Organization name" v-model="proj.organization"></el-input>
           <input type="text" v-model="proj.title" />
           <textarea v-model="proj.description" cols="30" rows="10"></textarea>
           <input type="date" v-model="proj.startAt.date" />
@@ -55,7 +56,7 @@
             filterable
             allow-create
             default-first-option
-            placeholder="Choose language"
+            placeholder="Category"
           >
             <el-option
               v-for="item in categories"
