@@ -128,9 +128,10 @@
           class="text-location"
           type="text"
           placeholder="Address"
-          v-model="proj.position.txtAddress"
-          @change="searchPosition(proj.position.txtAddress)"
-        />
+          v-model="proj.position.txtAddress"       
+        /> 
+         <button @click.prevent="searchPosition(proj.position.txtAddress)">Search</button>
+
         <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="proj.position"></proj-map>
       </div>
       <span v-if="proj._id" @click="remove(proj._id)">Delete</span>
