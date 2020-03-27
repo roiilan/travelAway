@@ -94,8 +94,8 @@ data(){
   },
   async created() {
      this.projs = await this.$store.dispatch({type: 'loadProjs'});
-         window.scrollTo(0,0)
-        //  window.scrollTo(515,515)
+        //  window.scrollTo(0,0)
+         window.scrollTo(515,515)
 
 },
 

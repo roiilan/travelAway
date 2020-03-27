@@ -52,7 +52,6 @@
           </date-range-picker>-->
           <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
           <el-select
-          required
             v-model="proj.category"
             filterable
             allow-create
@@ -64,6 +63,7 @@
               :key="item.value"
               :label="item.label"
               :value="item.value"
+              :required="true"
 
             ></el-option>
           </el-select>
@@ -128,10 +128,9 @@
           class="text-location"
           type="text"
           placeholder="Address"
-          v-model="proj.position.txtAddress"       
-        /> 
-         <button @click.prevent="searchPosition(proj.position.txtAddress)">Search</button>
-
+          v-model="proj.position.txtAddress"
+          @change="searchPosition(proj.position.txtAddress)"
+        />
         <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="proj.position"></proj-map>
       </div>
       <span v-if="proj._id" @click="remove(proj._id)">Delete</span>
