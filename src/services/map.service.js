@@ -45,8 +45,7 @@ for (var i=0;i<address_components_Length;i++){
            
       }
       catch(error) {
-         console.error('Address not found' );
-       
+         console.error('Address not found' );       
       }
     }
 
