@@ -8,7 +8,7 @@
             <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg" />
             <p class="proj-edit-upload-txt">Upload!</p>
           </label>
-  <pre>{{proj}}</pre>
+  <pre>{{proj.position}}</pre>
           <div
             v-for="(url, index) in proj.imgUrls"
             :key="url"
