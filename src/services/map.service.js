@@ -40,7 +40,7 @@ for (var i=0;i<address_components_Length;i++){
         position.short_country=short_country;
         position.city=city;
         position.region=region;
-        console.log(position)
+        // console.log(position)
          return position    
            
       }
