@@ -52,6 +52,7 @@
           </date-range-picker>-->
           <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
           <el-select
+          required
             v-model="proj.category"
             filterable
             allow-create
@@ -63,6 +64,7 @@
               :key="item.value"
               :label="item.label"
               :value="item.value"
+
             ></el-option>
           </el-select>
          
@@ -90,6 +92,9 @@
               :value="item.value"
             ></el-option>
           </el-select>
+<h5> Members Needed </h5>
+  <el-input-number v-model="proj.membersNeeded" :min="1" :max="100"></el-input-number>
+
 
           <el-select
             v-model="proj.requirements.otherSkills"

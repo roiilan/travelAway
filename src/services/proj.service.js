@@ -23,7 +23,7 @@ function query() {
     // queryParams.set('type', filterBy.type);
     // return httpService.get(`proj?${queryParams}`);
     // } 
-    return httpService.get('proj');  
+    return httpService.get('proj');
 }
 
 function getById(projId) {
@@ -48,9 +48,9 @@ function _update(proj) {
 
 function getEmptyProj() {
     return {
-        title: utilService.makeLorem(12),
+        title: 'Project name?',
         category: '',
-        description: utilService.makeLorem(80),
+        description: 'Write a few words about your project :)',
         membersNeeded: 1,
         createdBy: {},
         membersApplyed: [],
@@ -60,8 +60,8 @@ function getEmptyProj() {
         position: { txtAddress: '', lat: 33.886917, lng: 9.537499 },
         requirements: {
             // age: { isOn: false, data: { min: 0, max: 120 } },
-            age: [ 0, 120 ],
-            day: [ 0, 1000 ],
+            age: [0, 120],
+            day: [0, 1000],
             // date: { isOn: false, data: { min: 0, max: 365 } },
             languages: [],
             otherSkills: [],
