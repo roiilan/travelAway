@@ -300,9 +300,15 @@ export default {
       }
     } else {
       if (!this.loggedinUser) {
-        this.$store.commit({
-          type: "setMsg",
-          msg: { isShow: true, txt: "You must register first" }
+        // this.$store.commit({
+        //   type: "setMsg",
+        //   msg: { isShow: true, txt: "You must register first" }
+        // });
+        this.$notify({
+          title: 'Warning',
+          message: 'You must register first',
+          type: 'warning',
+          duration: 1500
         });
         this.$router.push("/login");
       }
@@ -325,9 +331,15 @@ export default {
     },
     async save(proj) {
       if (!proj.category) {
-        this.$store.commit({
-          type: "setMsg",
-          msg: { isShow: true, txt: "You must select a category" }
+        // this.$store.commit({
+        //   type: "setMsg",
+        //   msg: { isShow: true, txt: "You must select a category" }
+        // });
+         this.$notify({
+          title: 'Warning',
+          message: 'You must select a category',
+          type: 'warning',
+          duration: 1500
         });
         window.scrollTo(0,0)
         return
