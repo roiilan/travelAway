@@ -15,11 +15,15 @@
       <img :src="category.imgUrl" />
        <div class="img-tag" :class="category.category"> {{category.title}} </div>
       </router-link>
+
+<proj-search></proj-search>
+
   </div>
   </div>
 </template>
 
 <script>
+import projSearch from "../components/proj-search.vue";
 
 // @ is an alias to /src
 export default {
@@ -91,6 +95,7 @@ data(){
 
 },
   components: {
+    
   },
   async created() {
      this.projs = await this.$store.dispatch({type: 'loadProjs'});
