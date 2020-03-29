@@ -17,14 +17,12 @@
           title="Edit Project"
         >
           <img class="btn-img" src="../assets/icon/edit.png" alt />
-          <!-- Edit -->
         </router-link>
       </div>
       <div class="main-content-details">
         <div class="title-proj">{{proj.title}}</div>
         <div class="img-proj-container ratio-16-9">
           <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
-          <!-- <h2 >how can you Help?</h2> -->
         </div>
         <article class="description">
           <span class="strong">Description:</span>
@@ -50,10 +48,10 @@
           ></proj-map>
         </div>
 
-        <review-list class="reviews-container" :reviews="reviews" />
+        <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
 
         <div class="reviews-container">
-          <h2 v-if="!reviews.length">Be the first to give feedback</h2>
+          <h3 v-if="!reviews.length">Be the first to give feedback</h3>
           <h3 v-else>Add Review</h3>
           <review-add :review="review" @save="save" />
         </div>
@@ -103,7 +101,7 @@ export default {
     });
     await this.$store.dispatch({
       type: "loadReviews",
-      id: userId
+      id: projId
     });
     this.averageRate = this.reviews.reduce((a, b) => a + b.rate, 0);
     this.review = this.getEmptyReview();
