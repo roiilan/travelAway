@@ -64,7 +64,7 @@ methods:{
 
   components: {
     projPreview,
-    sideBar
+    sideBar,
     
   },
 

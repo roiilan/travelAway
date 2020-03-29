@@ -110,7 +110,8 @@ function getEmptyUser() {
         password: '',
         fullName: '',
         imgUrl: 'https://image.flaticon.com/icons/svg/1837/1837526.svg',
-        isAdmin: false
+        isAdmin: false,
+        notifications: [],
     }
 }
 

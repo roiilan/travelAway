@@ -35,6 +35,7 @@
         <h5 v-else>{{proj.position.region}},</h5>
         <h5>{{proj.position.country}}</h5>
             </div>
+        <review-avarage-by-id class="review-avarage-for-list" :id="proj._id"/>    
         <h5>{{proj.title}}</h5>
         <h6>{{proj.description.substring(0,80) +'...'}}</h6>
 </router-link>
@@ -45,7 +46,8 @@
 </template>
 
 <script>
-import { utilService } from '../services/util.service.js'
+import { utilService } from '../services/util.service.js';
+import reviewAvarageById from '../components/review-avarage-by-id.vue';
 
 // @ is an alias to /src
 export default {
@@ -145,6 +147,9 @@ computed:{
     })    
     return countriesArr.length
   }
+},
+components: {
+  reviewAvarageById,
 }
 
 }

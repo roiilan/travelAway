@@ -30,7 +30,7 @@ async function remove(reviewId) {
 }
 
 async function save(review) {
-    (review._id)? _updateReview(review): _addReview(review);
+   return (review._id)? _updateReview(review): _addReview(review);
 }
 
 async function _addReview(review) {
@@ -38,6 +38,8 @@ async function _addReview(review) {
 }
 
 async function _updateReview(review){
+    console.log('review in service before:', review);
+
     return httpService.put(`review${review._id}`, review);
 }
 

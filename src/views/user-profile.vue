@@ -12,6 +12,9 @@
         <h3>{{user.karma}} Karma</h3>
         <h3>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h3>
         <review-avarage :reviews="reviews"/>
+        <div v-for="notification in user.notifications" :key="notification">
+          <pre>{{notification}}</pre>
+        </div>
       </div>
       <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="user.position"></proj-map>
     </div>
@@ -32,12 +35,14 @@ import projMap from "../components/proj-map.vue";
 import reviewList from "../components/review-list.cmp.vue";
 import reviewAdd from "../components/review-add.cmp.vue";
 import reviewAvarage from "../components/review-avarage.cmp.vue";
+import { eventBus } from "../services/eventbus-service.js";
+
 
 export default {
   data() {
     return {
       user: null,
-      reviews: [],
+      // reviews: [],
       review: null,
       markers: [],
       zoomSize: 12,
@@ -48,7 +53,8 @@ export default {
   async created() {
     const userId = this.$route.params.id;
     this.user = await userService.getById(userId);
-    this.reviews = await this.$store.dispatch({
+    await this.$store.dispatch({
+    // this.reviews = await this.$store.dispatch({
       type: "loadReviews",
       id: userId
     });
@@ -60,11 +66,13 @@ export default {
   },
   methods: {
     async save(review) {
+      console.log('review in user-profile: ', review);
+      
       var reviews = await this.$store.dispatch({
         type: "save",
         review
       });
-      this.reviews = this.$store.getters.reviews;
+      // this.reviews = this.$store.getters.reviews;
       this.review = this.getEmptyReview();
     },
     getEmptyReview() {
@@ -78,6 +86,16 @@ export default {
           imgUrl: this.user.imgUrl
         }
       };
+    }
+  },
+  mounted() {
+    eventBus.$on("updateReview",async review=>{
+      await this.save(review)
+    });
+  },
+  computed: {
+    reviews(){
+      return this.$store.getters.reviews;
     }
   },
   components: {

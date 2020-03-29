@@ -193,6 +193,13 @@
         }
         ;
     }
+    
+    .review-avarage-for-list {
+        background-color: lighten($clr1, 15%);
+        h4 {
+            font-size: 11px;
+        }
+    }
 }
 
 .walk-ways-details {

@@ -33,7 +33,7 @@
         <span class="strong">Required Dates:</span>
         <span v-if="proj.date">{{proj.date[0]}} - {{proj.date[1]}}</span>
         <span v-else>{{proj.startAt.date}} - {{proj.endsAt.date}}</span>
-        <review-avarage :reviews="reviews" />
+        <review-avarage  :reviews="reviews" />
       </div>
 
       <div class="util-details">
