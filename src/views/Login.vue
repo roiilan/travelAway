@@ -1,7 +1,7 @@
 <template>
     <div class="login-page">
-
-        <form 
+        
+       <form 
         v-if="credentials && !isSignup"
         class="login-card flex col"
         @submit.prevent="login"
@@ -32,7 +32,7 @@
             </label>
             <button >Sign-Up</button>
             <h3 style="display:block; height:5px;" class="flex a-center j-center" >Go back to <span  class="login-link" @click.stop="isSignup = false">Login</span></h3>
-        </form>
+        </form> -->
          <!-- <ul class="login-user" v-if="users">
         <user-list 
         v-for="user in users" :key="user._id" 
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { userService } from '../services/user.service.js'
+// import { userService } from '../services/user.service.js'
 // import userList from '../components/user-list.cmp.vue'
 
 export default {
@@ -68,7 +68,8 @@ export default {
     async created() {
         // this.users = await this.$store.dispatch({ type:'loadUsers' });
         this.credentials = {username: '', password: ''},
-        this.newUserCred = userService.getEmptyUser()        
+        this.newUserCred = userService.getEmptyUser()  
+              
     },
     components: {
         // userList
