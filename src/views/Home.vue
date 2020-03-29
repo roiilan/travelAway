@@ -10,22 +10,51 @@
         <p>“The best way to find yourself is to lose yourself in the service of others.” <br><span class="gandy"> Mahatma Gandhi</span></p>
     </div>
   <div class="category-container">  
-
     <router-link :to="'/projs/' + category.category" v-for="category in categories" :key="category.category" :class="category.category" class="category">
       <img :src="category.imgUrl" />
        <div class="img-tag" :class="category.category"> {{category.title}} </div>
       </router-link>
   </div>
+
+  <div class="walk-ways-details" v-if="projs">
+    <h1>Projs:{{projs.length}} </h1>
+    <h1>Voulnteers:{{users.length}}</h1>
+    <h1>Countries Around The World:{{countriesCount}}</h1>
+    </div>
+
+
+ <ul class="around-the-world-preview">
+      <li v-for="(proj,index) in worldProjs" :key="proj._id" v-if="index < 8 && worldProjs" class="around-the-world-card" >
+<router-link :to="'/proj/' + proj._id">
+        <div class="world-projs-img-conatainer ratio-card">
+        <img :src="proj.imgUrls[0]" class="proj-preview-img" >
+        </div>
+        <div class = "world-prjs-country-details">
+        <img :src="`https://www.countryflags.io/${proj.position.short_country}/shiny/64.png`" v-if="proj.position.short_country" class="world-proj-flag">
+        <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
+        <h5 v-else>{{proj.position.region}},</h5>
+        <h5>{{proj.position.country}}</h5>
+            </div>
+        <h5>{{proj.title}}</h5>
+        <h6>{{proj.description.substring(0,80) +'...'}}</h6>
+</router-link>
+      </li>
+    </ul>
+<router-link to="/projs/aroundTheWorld"> More around the world </router-link>
   </div>
 </template>
 
 <script>
+import { utilService } from '../services/util.service.js'
 
 // @ is an alias to /src
 export default {
   name: 'home',
 data(){
   return{
+    projs:null,
+    worldProjs:null,
+    users:null,
     categories:[
       {
         category:'childcare',
@@ -90,19 +119,41 @@ data(){
   }
 
 },
-  components: {
-  },
+
   async created() {
-     this.projs = await this.$store.dispatch({type: 'loadProjs'});
+            this.users = await this.$store.dispatch({ type:'loadUsers' });
+
+    this.projs = await this.$store.dispatch({type: 'loadProjs'});
+    let worldProjs = JSON.parse(JSON.stringify(this.projs))
+     var randomProjs =[]
+     for(var i = 0; i < 8; i++){
+       var randomNum = utilService.getRandomInt(0,worldProjs.length)
+       randomProjs.unshift(worldProjs[randomNum])
+       worldProjs.splice(randomNum,1)
+       randomNum = 0
+}
+        this.worldProjs = randomProjs        
+        //  window.scrollTo(515,515)
         //  window.scrollTo(0,0)
-         window.scrollTo(515,515)
 
 },
+computed:{
+  countriesCount(){
+    let countriesArr =[]
+    this.projs.forEach(proj=>{
+      (!countriesArr.includes(proj.position.country)) ? countriesArr.push(proj.position.country) : ''
+    })    
+    return countriesArr.length
+  }
+}
 
 }
+
+
+
 </script>
 
-<style>
+<style scoped>
 
 
 
