@@ -49,9 +49,8 @@ export default {
     SocketService.setup();
     SocketService.emit('proj topic', this.topic)
         SocketService.on('send request', request =>{
-          // this.projOwner.notifications.push(request)
+          this.projOwner.notifications.push(request)
           console.log(this.projOwner);
-          
         })
         
 
