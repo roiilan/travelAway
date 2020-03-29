@@ -147,6 +147,7 @@
         <button class="btn-save">Save</button>
       </div>
     </form>
+        <pre>{{loggedinUser}}</pre>
   </div>
 </template>
 
