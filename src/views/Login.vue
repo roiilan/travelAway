@@ -1,7 +1,6 @@
 <template>
-    <div class="login-page">
-        
-       <form 
+  <div class="login-page">
+    <form 
         v-if="credentials && !isSignup"
         class="login-card flex col"
         @submit.prevent="login"
@@ -32,86 +31,100 @@
             </label>
             <button >Sign-Up</button>
             <h3 style="display:block; height:5px;" class="flex a-center j-center" >Go back to <span  class="login-link" @click.stop="isSignup = false">Login</span></h3>
-        </form> -->
+        </form> 
          <!-- <ul class="login-user" v-if="users">
         <user-list 
         v-for="user in users" :key="user._id" 
         :user="user" 
         @removeUser="removeUser" 
         />
-        </ul> -->
-    </div>
+    </ul>-->
+  </div>
 </template>
 
 <script>
-// import { userService } from '../services/user.service.js'
+// import { userService } from "../services/user.service.js";
 // import userList from '../components/user-list.cmp.vue'
 
 export default {
-    name: 'Login',
-    data() {
-        return {
-            users: null,
-            credentials: null,
-            newUserCred: null,
-            isSignup: false,
-            params: {
-                    client_id: "638406108101-fgbubnomg43t3hvbh47v4p26tk7a7ltg.apps.googleusercontent.com"
-                },
-            renderParams: {
-                width: 250,
-                height: 50,
-                longtitle: true
-            }
-        }
+  name: "Login",
+  data() {
+    return {
+      // users: null,
+      credentials: null,
+      newUserCreds: null,
+      isSignup: false,
+      params: {
+        client_id:
+          "638406108101-fgbubnomg43t3hvbh47v4p26tk7a7ltg.apps.googleusercontent.com"
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true
+      }
+    };
+  },
+  async created() {
+    // this.users = await this.$store.dispatch({ type:'loadUsers' });
+    this.credentials = { username: "", password: "" },
+      // this.newUserCred = userService.getEmptyUser()
+      this.newUserCred = {
+        username: "",
+        password: "",
+        fullName: "",
+        imgUrl: "https://image.flaticon.com/icons/svg/1837/1837526.svg",
+        isAdmin: false,
+        notifications: []
+      };
+  },
+  //     components: {
+  //         // userList
+  //     },
+  methods: {
+    async login() {
+      if (
+        this.credentials.password.length < 3 ||
+        this.credentials.username.length < 3
+      )
+        return;
+      var user = await this.$store.dispatch({
+        type: "login",
+        credentials: this.credentials
+      });
+      if (user) {
+        this.$router.push("/");
+      }
     },
-    async created() {
-        // this.users = await this.$store.dispatch({ type:'loadUsers' });
-        this.credentials = {username: '', password: ''},
-        this.newUserCred = userService.getEmptyUser()  
-              
+    async signup() {
+      if (
+        this.newUserCred.password.length < 3 ||
+        this.newUserCred.username.length < 3 ||
+        this.newUserCred.fullName.length < 3
+      )
+        return;
+      var user = await this.$store.dispatch({
+        type: "signup",
+        newUserCred: this.newUserCred
+      });
+      this.$router.push("/");
     },
-    components: {
-        // userList
+    async uploadImg(ev) {
+      var img = await this.$store.dispatch({
+        type: "addImg",
+        imgEv: ev
+      });
+      this.newUserCred.imgUrl = img.url;
     },
-    methods: {
-        async login(){
-            if (this.credentials.password.length < 3 || this.credentials.username.length < 3) return
-            var user = await this.$store.dispatch({ type:'login',  credentials:this.credentials})
-            if (user) {
-                this.$router.push('/')
-            }
-        },
-        async signup(){
-            if (this.newUserCred.password.length < 3 || this.newUserCred.username.length < 3 || this.newUserCred.fullName.length < 3) return
-            var user = await this.$store.dispatch({ type:'signup',  newUserCred:this.newUserCred})
-            console.log('user: ', user);
-            this.$router.push('/')
-        },
-        async uploadImg(ev){
-            var img = await this.$store.dispatch({
-                type:'addImg',
-                imgEv:ev
-            })
-            this.newUserCred.imgUrl = img.url      
-        },
-        async removeUser(userId){
-            var msg = await this.$store.dispatch({ type:'removeUser', userId})
-            console.log('msg: ', msg);
-        },
-    },
-     computed: {
-    loggedinUser(){
+    async removeUser(userId) {
+      var msg = await this.$store.dispatch({ type: "removeUser", userId });
+      console.log("msg: ", msg);
+    }
+  },
+  computed: {
+    loggedinUser() {
       return this.$store.getters.loggedinUser;
     }
   }
-}
+};
 </script>
-
-<style>
-.login-user {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
-</style>

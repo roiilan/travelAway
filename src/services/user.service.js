@@ -1,9 +1,6 @@
-import { utilService } from './util.service.js'
-import { storageService } from './storage.service.js';
 import httpService from './http.service.js';
 import mapService from './map.service.js'
 
-const KEY_USERS = 'users';
 const KEY_LOGGEDIN = 'loggedinUser';
 
 export const userService = {
@@ -81,7 +78,6 @@ function getUsers() {
 }
 
 function getLoggeinUser() {
-
     return JSON.parse(sessionStorage.getItem(KEY_LOGGEDIN))
 }
 
