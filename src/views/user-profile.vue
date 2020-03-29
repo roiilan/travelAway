@@ -42,7 +42,6 @@ export default {
   data() {
     return {
       user: null,
-      // reviews: [],
       review: null,
       markers: [],
       zoomSize: 12,
@@ -54,7 +53,6 @@ export default {
     const userId = this.$route.params.id;
     this.user = await userService.getById(userId);
     await this.$store.dispatch({
-    // this.reviews = await this.$store.dispatch({
       type: "loadReviews",
       id: userId
     });
@@ -66,13 +64,10 @@ export default {
   },
   methods: {
     async save(review) {
-      console.log('review in user-profile: ', review);
-      
       var reviews = await this.$store.dispatch({
         type: "save",
         review
       });
-      // this.reviews = this.$store.getters.reviews;
       this.review = this.getEmptyReview();
     },
     getEmptyReview() {

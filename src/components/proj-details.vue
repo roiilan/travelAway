@@ -33,7 +33,7 @@
         <span class="strong">Required Dates:</span>
         <span v-if="proj.date">{{proj.date[0]}} - {{proj.date[1]}}</span>
         <span v-else>{{proj.startAt.date}} - {{proj.endsAt.date}}</span>
-        <review-avarage  :reviews="reviews" />
+        <review-avarage :reviews="reviews" />
       </div>
 
       <div class="util-details">
@@ -50,11 +50,6 @@
           ></proj-map>
         </div>
 
-        <!-- <div class="reviews-container">
-        <review-list :reviews="reviews" />
-        <review-add :review="review" @save="save"/>
-        </div>-->
-
         <review-list class="reviews-container" :reviews="reviews" />
 
         <div class="reviews-container">
@@ -65,7 +60,12 @@
       </div>
     </div>
     <div @click.stop="stop">
-      <proj-apply :proj="proj" :user="loggedinUser" class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
+      <proj-apply
+        :proj="proj"
+        :user="loggedinUser"
+        class="proj-apply"
+        :class="{'apply-opened':isApplyOpen}"
+      ></proj-apply>
     </div>
     <div
       @click.stop="isApplyOpen = true"
@@ -83,7 +83,6 @@ import reviewAdd from "../components/review-add.cmp.vue";
 import reviewAvarage from "../components/review-avarage.cmp.vue";
 import { eventBus } from "../services/eventbus-service.js";
 
-
 export default {
   data() {
     return {
@@ -91,7 +90,6 @@ export default {
       isApplyOpen: false,
       isEdit: false,
       zoomSize: 14,
-      reviews: [],
       review: null,
       averageRate: null,
       colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"]
@@ -103,9 +101,9 @@ export default {
       type: "loadProj",
       projId
     });
-    this.reviews = await this.$store.dispatch({
+    await this.$store.dispatch({
       type: "loadReviews",
-      id: projId
+      id: userId
     });
     this.averageRate = this.reviews.reduce((a, b) => a + b.rate, 0);
     this.review = this.getEmptyReview();
@@ -120,6 +118,9 @@ export default {
   computed: {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
+    },
+    reviews(){
+      return this.$store.getters.reviews;
     }
   },
   methods: {
@@ -128,13 +129,10 @@ export default {
     },
     stop() {},
     async save(review) {
-      console.log("review in save in details:", review);
-
       var reviews = await this.$store.dispatch({
         type: "save",
         review
       });
-      this.reviews = this.$store.getters.reviews;
       this.review = this.getEmptyReview();
     },
     getEmptyReview() {
@@ -152,8 +150,8 @@ export default {
   },
   mounted() {
     document.addEventListener("click", this.openApply);
-    eventBus.$on("updateReview",async review=>{
-      await this.save(review)
+    eventBus.$on("updateReview", async review => {
+      await this.save(review);
     });
   },
   beforeDestroy() {
