@@ -13,9 +13,10 @@
         flex-direction: row;
         align-items: center;
     }
-    .members-needed img {
+    img {
         width: rem(18px);
-        padding-top: 4px;
+        padding-top: rem(4px);
+        padding-left: rem(4px);
     }
     .proj-txt {
         display: flex;
@@ -33,6 +34,7 @@
         h5,
         h2 {
             margin: 0;
+            width: fit-content;
         }
         h2 {
             font-family: Sen;
@@ -41,5 +43,9 @@
         h5 {
             font-family: Montserrat;
         }
+    }
+    .organiztion-container {
+        display: flex;
+        align-items: center;
     }
 }

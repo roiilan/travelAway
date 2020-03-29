@@ -7,6 +7,7 @@ import userEdit from '../views/user-edit.vue'
 import projEdit from '../views/proj-edit.vue'
 import projListFiltered from '../views/proj-list-filtered.vue'
 import projDetails from '../components/proj-details.vue'
+import projList from '../components/proj-list.vue'
 
 
 Vue.use(VueRouter)
@@ -15,6 +16,11 @@ const routes = [{
         path: '/',
         name: 'projApp',
         component: projApp
+    },
+    {
+        path: '/projs/aroundTheWorld',
+        name: 'aroundTheWorld',
+        component: projList
     },
     {
         path: '/projs/:filter',

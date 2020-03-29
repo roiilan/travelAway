@@ -1,12 +1,25 @@
 <template>
-  <div class="proj-list" v-if="projs">
-   <h1> projs</h1>
-    <ul>
-      <li v-for="(proj,index) in projs" :key="proj._id" v-if="index < 4">
-        <proj-preview :proj="proj"></proj-preview>
+  <div class="proj-list" v-if="projs" >
+   <h1>BE THE CHANGE. BE A GLOBAL VOLUNTEER ABROAD.
+</h1>
+   <ul class="around-the-world-list">
+      <li v-for="proj in projs" :key="proj._id" class="list-card" >
+
+<router-link :to="'/proj/' + proj._id">
+        <div class="list-projs-img-conatainer ratio-card">
+        <img :src="proj.imgUrls[0]" class="proj-preview-img" >
+        </div>
+        <div class = "list-projs-country-details">
+        <img :src="`https://www.countryflags.io/${proj.position.short_country}/shiny/64.png`" v-if="proj.position.short_country" class="world-proj-flag">
+        <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
+        <h5 v-else>{{proj.position.region}},</h5>
+        <h5>{{proj.position.country}}</h5>
+            </div>
+        <h5>{{proj.title}}</h5>
+        <h6>{{proj.description.substring(0,80) +'...'}}</h6>
+</router-link>
       </li>
     </ul>
-    <router-link to='/projs/' >All projs</router-link>
 
 
 
@@ -30,9 +43,19 @@ import projPreview from "./proj-preview";
 
 export default {
   name: "projList",
-    props: {
-    projs: Array,
+  data(){
+    return{
+      projs:null
+    }
   },
+  async created(){
+        this.projs = await this.$store.dispatch({type: 'loadProjs'});
+
+  },
+
+  //   props: {
+  //   projs: Array,
+  // },
 
 
 //   data: () => ({
@@ -45,11 +68,7 @@ export default {
 //   ]
 // }),
 
-  components: {
-    projPreview,
-      // VueperSlides, 
-      // VueperSlide ,
-  },
+
 };
 
 

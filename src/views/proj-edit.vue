@@ -117,6 +117,7 @@
             @click.prevent="searchPosition(proj.position.txtAddress)"
           ></i>
         </el-input>
+      <div>
         <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="proj.position"></proj-map>
       </div>
 
