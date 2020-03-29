@@ -27,7 +27,7 @@
         position: absolute;
         display: flex;
         align-items: center;
-        top: 55%;
+        top: 85%;
         padding-bottom: 5px;
         padding-left: 5px;
         h5 {
@@ -35,6 +35,7 @@
             margin: 0 5px;
             color: white;
             font-family: Montserrat;
+            font-size: rem(12px);
         }
         .world-proj-flag {
             height: 20px;

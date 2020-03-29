@@ -8,13 +8,13 @@
 <router-link :to="'/proj/' + proj._id">
         <div class="list-projs-img-conatainer ratio-card">
         <img :src="proj.imgUrls[0]" class="proj-preview-img" >
-        </div>
         <div class = "list-projs-country-details">
         <img :src="`https://www.countryflags.io/${proj.position.short_country}/shiny/64.png`" v-if="proj.position.short_country" class="world-proj-flag">
         <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
         <h5 v-else>{{proj.position.region}},</h5>
         <h5>{{proj.position.country}}</h5>
             </div>
+        </div>
         <h5>{{proj.title}}</h5>
         <h6>{{proj.description.substring(0,80) +'...'}}</h6>
 </router-link>
