@@ -103,7 +103,7 @@ export default {
     });
     await this.$store.dispatch({
       type: "loadReviews",
-      id: userId
+      id: projId
     });
     this.averageRate = this.reviews.reduce((a, b) => a + b.rate, 0);
     this.review = this.getEmptyReview();

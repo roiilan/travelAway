@@ -44,6 +44,8 @@
 
 <script>
 // import { userService } from "../services/user.service.js";
+// console.log(userService);
+
 // import userList from '../components/user-list.cmp.vue'
 
 export default {
@@ -66,6 +68,8 @@ export default {
     };
   },
   async created() {
+      console.log('createddd');
+      
     // this.users = await this.$store.dispatch({ type:'loadUsers' });
     this.credentials = { username: "", password: "" },
       // this.newUserCred = userService.getEmptyUser()
