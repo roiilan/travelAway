@@ -40,6 +40,7 @@ async function _addReview(review) {
 async function _updateReview(review){
     console.log('review in service before:', review);
 
-    return httpService.put(`review${review._id}`, review);
+    return httpService.put(`review`, review);
+    // return httpService.put(`review${review._id}`, review);
 }
 

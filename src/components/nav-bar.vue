@@ -32,6 +32,11 @@ export default {
       return this.$store.getters.loggedinUser;
     }
   },
+  watch: {
+    'loggedinUser.notifications'() {
+      console.log('hi!!');
+    }
+  },
   methods: {
     async logout() {
       var res = await this.$store.dispatch({ type: "logout" });

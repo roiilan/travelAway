@@ -10,7 +10,7 @@
           v-model="request.freeTxt"
         ></el-input>
         
-   
+   <pre>{{proj.createdBy}}</pre>
     <button> Send request! </button>
     </form>
     <!-- <pre>
@@ -45,12 +45,12 @@ export default {
     }
   },
     created() {
-      console.log(this.projOwner); 
+          console.log('this.projOwner before:', this.projOwner);
     SocketService.setup();
     SocketService.emit('proj topic', this.topic)
         SocketService.on('send request', request =>{
-          // this.projOwner.notifications.push(request)
-          console.log(this.projOwner);
+          this.projOwner.notifications.push(request)
+          console.log('this.projOwner after:', this.projOwner);
           
         })
         
