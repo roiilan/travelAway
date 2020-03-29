@@ -1,0 +1,18 @@
+.review-preview {
+    position: relative;
+
+    
+
+    .review-by {
+        >*:first-child {
+            margin-inline-end: 1ch;
+        }
+
+    }
+
+    >* :first-child {
+        margin-inline-end: 1ch;
+    }
+
+    
+}

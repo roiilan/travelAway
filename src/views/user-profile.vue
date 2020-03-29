@@ -9,39 +9,29 @@
             <span v-if="user.isAdmin">, (Admin)</span>
           </h1>
         </div>
-        <h2>{{user.karma}} Karma</h2>
-        <h2>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h2>
-        <el-rate
-          v-model="averageRate"
-          disabled
-          show-score
-          text-color="#ff9900"
-          score-template="{value} points"
-        ></el-rate>
-        <h2 v-if="reviews.length === 1">One review</h2>
-        <h2 v-else-if="reviews.length > 1">{{reviews.length}} Reviews</h2>
+        <h3>{{user.karma}} Karma</h3>
+        <h3>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h3>
+        <review-avarage :reviews="reviews"/>
       </div>
       <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="user.position"></proj-map>
     </div>
 
     <review-list :reviews="reviews" />
-    <form class="add-review flex col" v-if="review" @submit.prevent="save(review)">
-      <h2>Add Review</h2>
-      <textarea type="text" v-model="review.txt" placeholder="Comment..."></textarea>
-      <el-rate
-        v-model="review.rate"
-        :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
-        show-text
-      >:colors="colors"></el-rate>
-      <button>Add Review</button>
-    </form>
+
+    <div>
+      <h2 v-if="!reviews.length">Be the first to give feedback</h2>
+      <h3 v-else>Add Review</h3>
+      <review-add :review="review" @save="save"/>
+    </div>
+
   </div>
 </template>
 <script>
 import { userService } from "../services/user.service.js";
 import projMap from "../components/proj-map.vue";
 import reviewList from "../components/review-list.cmp.vue";
-import { eventBus } from "../services/eventbus-service.js";
+import reviewAdd from "../components/review-add.cmp.vue";
+import reviewAvarage from "../components/review-avarage.cmp.vue";
 
 export default {
   data() {
@@ -51,8 +41,8 @@ export default {
       review: null,
       markers: [],
       zoomSize: 12,
-      colors: ["#99A9BF", "#F7BA2A", "#FF9900"],
-      averageRate: null,
+      colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"],
+      value: null,
     };
   },
   async created() {
@@ -62,7 +52,7 @@ export default {
       type: "loadReviews",
       id: userId
     });
-    this.averageRate = this.reviews.reduce((a,b) => a + b.rate, 0)
+    this.value = this.reviews.reduce((a,b) => a + b.rate, 0) / (this.reviews.length)
     this.review = this.getEmptyReview();
     this.markers.push({
       position: { lat: this.user.position.lat, lng: this.user.position.lng }
@@ -90,25 +80,11 @@ export default {
       };
     }
   },
-  mounted() {
-    eventBus.$on("removeReview", async reviewId => {
-      const msg = await this.$store.dispatch({
-        type: "removeReview",
-        reviewId
-      });
-      console.log("msg: ", msg);
-      this.reviews = this.$store.getters.reviews;
-    });
-    eventBus.$on("updateReview", async review => {
-      console.log(review);
-      this.save(review);
-      //   var review = await this.$store.dispatch({ type:'addReview', newReview});
-      //   console.log('review: ', review);
-    });
-  },
   components: {
     projMap,
-    reviewList
+    reviewList,
+    reviewAdd,
+    reviewAvarage
   }
 };
 </script>

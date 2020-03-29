@@ -1,10 +1,13 @@
 <template>
     <div class="review-list">
-        <h2 v-if="!reviews.length">Be the first to give feedback</h2>
+        <div v-for="(review, index) in reviews" :key="review._id">
+
         <review-preview
-        v-for="review in reviews" :key="review._id"
+         v-if="index < 4"
         :review="review"
         />
+        <h4 class="read-more" v-if="index >= 4">Read more</h4> 
+        </div>
     </div>
 </template>
 

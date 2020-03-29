@@ -3,8 +3,8 @@
 }
 
 *::selection {
-    background-color: $clr2;
-    color: $clr4;
+    background-color:lighten($clr1, 15%);
+    color: lighten($clr2, 25%);
 }
 
 html {
@@ -19,6 +19,21 @@ body {
     margin: 0;
     background-color: lighten($clr3, 30%);
 }
+
+h1, h2, h3, h4, h5 {
+    font-family: Montserrat;
+}
+
+h1, h2 {
+    text-transform: uppercase;
+}
+
+p {
+    font-family: sen;
+    font-size: 18px;
+
+}
+
 
 ::-webkit-scrollbar {
     display: none;
@@ -40,10 +55,9 @@ a {
 input,
 textarea,
 button,
+.btn-span,
 select {
     font-family: Montserrat;
-    padding: rem(15px);
-    margin: rem(2px);
     border: none;
     border-radius: 3px;
     box-shadow: $shadow1;
@@ -51,19 +65,34 @@ select {
     font-size: rem(20px);
     font-weight: 400;
     transition: background-color .3s;
+
     &:hover {
-        background-color: lighten($clr3, 20%);
+        // background-color: lighten($clr3, 20%);
     }
 }
 
-textarea {
-    resize: none;
+.el-range-input, .el-select__input, .el-picker-panel__icon-btn {
+    background-color: initial;
+    
+    box-shadow: none;
+    &:hover {
+        background-color: initial;
+    }
 }
 
+
+textarea, .el-textarea__inner {
+    resize: none;
+    font-size: rem(16px);
+}
+
+
+
 button,
+.btn-span,
 select {
     cursor: pointer;
-    background-color: lighten($clr3, 25%);
+    background-color: lighten($clr2, 21%);
 }
 
 .img-profile {
@@ -72,4 +101,18 @@ select {
     height: rem(35px);
     border-radius: 50%;
     object-fit: cover
+}
+
+.btn-img {
+    width: 20px;
+    cursor: pointer;
+}
+
+.el-rate-avarage {
+    font-weight: bold;
+}
+
+.total-reviews::before {
+    content: '|';
+    margin: 0 1ch;
 }

@@ -1,141 +1,151 @@
 <template>
   <div class="proj-edit width-container" v-if="proj">
-    <form class="form-proj-edit flex col" @submit.prevent="save(proj)">
-      <div class="flex around">
-        <div class="flex col">
-          <label class="proj-edit-upload-img">
-            <input @input="uploadImg" type="file" hidden />
-            <img src="https://image.flaticon.com/icons/svg/1837/1837526.svg" />
-            <p class="proj-edit-upload-txt">Upload!</p>
-          </label>
-  <pre>{{proj.position}}</pre>
-          <div
-            v-for="(url, index) in proj.imgUrls"
-            :key="url"
-            class="img-proj-container ratio-16-9"
-          >
-            <label>
-              <img :src="url" @click="setCurrImg(index)" class="img-proj" />
-              <input @input="uploadImg" type="file" hidden />
-            </label>
-          </div>
-          <!-- <img v-if="proj._id"
-              class="img-user"
-              :title="proj.createdBy.fullName" 
-          :src="proj.createdBy.imgUrl"/>-->
-          <el-input placeholder="Organization name" v-model="proj.organization"></el-input>
-          <input type="text" v-model="proj.title" />
-          <textarea v-model="proj.description" cols="30" rows="10"></textarea>
-          <input type="date" v-model="proj.startAt.date" />
-          <input type="time" v-model="proj.startAt.time" />
-          <input type="date" v-model="proj.endsAt.date" />
-          <input type="time" v-model="proj.endsAt.time" />
-          <!-- <date-range-picker
-                ref="picker"
-                :opens="opens"
-                :locale-data="{ firstDay: 1, format: 'DD-MM-YYYY HH:mm:ss' }"
-                :minDate="minDate" :maxDate="maxDate"
-                :singleDatePicker="singleDatePicker"
-                :timePicker="timePicker"
-                :timePicker24Hour="timePicker24Hour"
-                :showWeekNumbers="showWeekNumbers"
-                :showDropdowns="showDropdowns"
-                :autoApply="autoApply"
-                v-model="dateRange"
-                @update="updateValues"
-                @toggle="checkOpen"
-                :linkedCalendars="linkedCalendars"
-                :dateFormat="dateFormat">
-                <template v-slot:input="picker" style="min-width: 350px;">
-                    {{ picker.startDate | date }} - {{ picker.endDate | date }}
-                </template>
-          </date-range-picker>-->
-          <!-- <toggle-btn v-model="proj.isAboard" @click.native="emitAboard"></toggle-btn> -->
-          <el-select
-          required
-            v-model="proj.category"
-            filterable
-            allow-create
-            default-first-option
-            placeholder="Category"
-          >
-            <el-option
-              v-for="item in categories"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-
-            ></el-option>
-          </el-select>
-         
-        </div>
-
-        <div class="tags-container">
-          <h2>Requirements</h2>
-          <h3>Age range (in years): Min: {{proj.requirements.age[0]}}, Max: {{proj.requirements.age[1]}}.</h3>
-          <el-slider v-model="proj.requirements.age" range show-input :max="120" :min="0"></el-slider>
-          <h3>Volunteering range (in days): Min: {{proj.requirements.day[0]}}, Max: {{proj.requirements.day[1]}}.</h3>
-          <el-slider v-model="proj.requirements.day" range show-input :max="1000" :min="0"></el-slider>
-          <h3>Language skill</h3>
-          <el-select
-            v-model="proj.requirements.languages"
-            multiple
-            filterable
-            allow-create
-            default-first-option
-            placeholder="Choose language"
-          >
-            <el-option
-              v-for="item in languages"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-<h5> Members Needed </h5>
-  <el-input-number v-model="proj.membersNeeded" :min="1" :max="100"></el-input-number>
-
-
-          <el-select
-            v-model="proj.requirements.otherSkills"
-            multiple
-            filterable
-            allow-create
-            default-first-option
-            placeholder="Add Skills"
-          >
-            <el-option
-              v-for="item in otherSkills"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-
-          <el-cascader
-            v-model="proj.tags"
-            :options="tags"
-            clearable
-            placeholder="What's included"
-            :props="{ multiple: true, checkStrictly: true }"
-            collapse-tags
-            filterable
-          ></el-cascader>
-        </div>
-      </div>
+    <h1><span v-if="proj._id">{{proj.title}}</span> <span v-else>Add a WalkAway project</span> </h1>
+    
+    <form class="form-proj-edit" @submit.prevent="save(proj)">
       <div>
-        <input
-          class="text-location"
-          type="text"
-          placeholder="Address"
-          v-model="proj.position.txtAddress"       
-        /> 
-         <button @click.prevent="searchPosition(proj.position.txtAddress)">Search</button>
+        <h3>Organization name</h3>
+        <el-input placeholder="Organization name?" v-model="proj.organization">
+          <i class="el-icon-edit el-input__icon" slot="suffix"></i>
+        </el-input>
 
+        <h3>Project name</h3>
+        <el-input placeholder="Project name?" v-model="proj.title">
+          <i class="el-icon-edit el-input__icon" slot="suffix"></i>
+        </el-input>
+
+        <h3>Category selection</h3>
+        <el-select
+          required
+          v-model="proj.category"
+          filterable
+          default-first-option
+          placeholder="Category"
+        >
+          <el-option
+            v-for="item in categories"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+
+        <h3>Description about project</h3>
+        <el-input
+          type="textarea"
+          :autosize="{ minRows: 3}"
+          placeholder="Write a few words about your project :)"
+          v-model="proj.description"
+        ></el-input>
+
+        <h3>Choose a date</h3>
+        <el-date-picker
+          v-model="proj.date"
+          type="daterange"
+          unlink-panels
+          range-separator="To"
+          start-placeholder="Start date"
+          end-placeholder="End date"
+        ></el-date-picker>
+      </div>
+
+      <div>
+        <h2>Requirements</h2>
+        <h3>Members Needed</h3>
+        <el-input-number v-model="proj.membersNeeded" :min="1" :max="100"></el-input-number>
+
+        <h3>Minimum Age: {{proj.requirements.minAge}}</h3>
+        <el-input-number v-model="proj.requirements.minAge" :min="14"></el-input-number>
+
+        <h3>Language skill</h3>
+        <el-select
+          v-model="proj.requirements.languages"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+          placeholder="Choose language"
+        >
+          <el-option
+            v-for="item in languages"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+
+        <h3>More skills</h3>
+        <el-select
+          v-model="proj.requirements.otherSkills"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+          placeholder="Add Skills"
+        >
+          <el-option
+            v-for="item in otherSkills"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+
+        <h2>What's included</h2>
+        <el-select
+          v-model="proj.tags"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+          placeholder="What's included"
+        >
+          <el-option v-for="item in tags" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
+      </div>
+
+      <div>
+        <h3>Please enter an address</h3>
+        <el-input
+          placeholder="Please enter an address"
+          v-model="proj.position.txtAddress"
+          @blur.prevent="searchPosition(proj.position.txtAddress)"
+        >
+          <i
+            slot="prefix"
+            class="el-input__icon el-icon-search"
+            @click.prevent="searchPosition(proj.position.txtAddress)"
+          ></i>
+        </el-input>
         <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="proj.position"></proj-map>
       </div>
-      <span v-if="proj._id" @click="remove(proj._id)">Delete</span>
-      <button>Save</button>
+
+      <div class="upload-img-container">
+        <h3>Upload Imgaes</h3>
+        <label v-if="proj.imgUrls.length === 0" class="upload-img" title="Upload Image">
+          <input @input="uploadImg" type="file" hidden />
+          <img class="plus-icon" src="../assets/icon/plus.png" />
+        </label>
+        <label v-else class="upload-add-img" title="Upload Image">
+          <input @input="uploadImg" type="file" hidden />
+          <span class="btn-span">Upload more Images</span>
+        </label>
+        <el-carousel v-if="proj.imgUrls.length" class="fit">
+          <el-carousel-item
+            v-for="(url, index) in proj.imgUrls"
+            :key="url"
+            class="img-proj-container"
+          >
+            <img :src="url" @click="setCurrImg(index)" class="img-proj" />
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+
+      <div class="btn-save-delete-container flex a-center">
+        <span class="btn-span" v-if="proj._id" @click="remove(proj._id)">Delete</span>
+        <span class="btn-span" v-else @click="reset">Reset</span>
+        <button class="btn-save">Save</button>
+      </div>
     </form>
   </div>
 </template>
@@ -151,12 +161,13 @@ import { eventBus } from "../services/eventbus-service.js";
 export default {
   data() {
     return {
+      value1: "",
       proj: null,
       currentImgIdx: null,
       markers: [],
       zoomSize: 2,
       loggedinUser: null,
-      categories:[
+      categories: [
         {
           value: "childcare",
           label: "Childcare"
@@ -200,7 +211,7 @@ export default {
         {
           value: "humanRights",
           label: "Human Rights"
-        },
+        }
       ],
       languages: [
         {
@@ -236,22 +247,20 @@ export default {
       ],
       tags: [
         {
+          value: "Airport Taxi",
+          label: "Airport Taxi"
+        },
+        {
           value: "Housing",
-          label: "Housing",
-          children: [
-            {
-              value: "GuestFamily",
-              label: "GuestFamily"
-            },
-            {
-              value: "SingleBad",
-              label: "SingleBad"
-            },
-            {
-              value: "DubleBad",
-              label: "DubleBad"
-            }
-          ]
+          label: "Housing"
+        },
+        {
+          value: "Single Bad",
+          label: "Single Bad"
+        },
+        {
+          value: "Duble Bad",
+          label: "Duble Bad"
         },
         {
           value: "Food",
@@ -292,6 +301,7 @@ export default {
         this.$router.push("/login");
       }
       this.proj = projService.getEmptyProj();
+      // this.proj.imgUrls.push(this.loggedinUser.imgUrl);
     }
   },
   methods: {
@@ -306,8 +316,23 @@ export default {
       this.currentImgIdx = null;
     },
     async save(proj) {
+      if (!proj.category) {
+        this.$store.commit({
+          type: "setMsg",
+          msg: { isShow: true, txt: "You must select a category" }
+        });
+        window.scrollTo(0,0)
+        return
+      } 
+      // proj.date = this.fixDate(proj.date);
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$router.push("/");
+    },
+    fixDate(dates) {
+      console.log('dates:', dates);
+      var dates = dates.map(date => date.substring(0, 10).split('-').join('/'));
+      console.log('dates:', dates);
+      return dates;
     },
     async remove(projId) {
       var res = await this.$store.dispatch({ type: "removeProj", projId });
@@ -326,12 +351,16 @@ export default {
       });
       if (currPosition) {
         this.proj.position = currPosition;
-        
+
         this.zoomSize = 14;
         this.markers = [
           { position: { lat: currPosition.lat, lng: currPosition.lng } }
         ];
       }
+    },
+    reset() {
+      this.proj = projService.getEmptyProj();
+      window.scrollTo(0, 0);
     }
   },
   components: {

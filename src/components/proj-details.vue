@@ -7,39 +7,39 @@
           :alt="proj.createdBy.fullName"
           :title="proj.createdBy.fullName"/>
       </router-link>-->
-      <router-link
-        v-if="loggedinUser && (loggedinUser._id === proj.createdBy._id || loggedinUser.isAdmin)"
-        :to="'/edit/' + proj._id"
-      >EDIT</router-link>
-       <div class="main-content-details">
-        <div class="title-proj">{{proj.title}}</div>
-      <div class="img-proj-container ratio-16-9">
-        <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
-        <!-- <h2 >how can you Help?</h2> -->
+      <div class="edit-link-container width-container">
+        <router-link
+          v-if="loggedinUser &&
+        (loggedinUser._id === proj.createdBy._id || 
+        loggedinUser.isAdmin)"
+          :to="'/edit/' + proj._id"
+          class="edit-link flex col a-center"
+          title="Edit Project"
+        >
+          <img class="btn-img" src="../assets/icon/edit.png" alt />
+          <!-- Edit -->
+        </router-link>
       </div>
+      <div class="main-content-details">
+        <div class="title-proj">{{proj.title}}</div>
+        <div class="img-proj-container ratio-16-9">
+          <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
+          <!-- <h2 >how can you Help?</h2> -->
+        </div>
         <article class="description">
           <span class="strong">Description:</span>
           {{proj.description}}
         </article>
-          <span class="strong">Required Dates:</span>
-          {{proj.startAt.date}} - {{proj.endsAt.date}}
-          <el-rate
-            v-model="averageRate"
-            disabled
-            show-score
-            text-color="#ff9900"
-            score-template="{value} points"
-          ></el-rate>
-          <h2 v-if="reviews.length === 1">One review</h2>
-          <h2 v-else-if="reviews.length > 1">{{reviews.length}} Reviews</h2>
-       </div>
+        <span class="strong">Required Dates:</span>
+        <span v-if="proj.date">{{proj.date[0]}} - {{proj.date[1]}}</span>
+        <span v-else>{{proj.startAt.date}} - {{proj.endsAt.date}}</span>
+        <review-avarage :reviews="reviews" />
+      </div>
 
       <div class="util-details">
-        <div class="card-deatails">
-        </div>
+        <div class="card-deatails"></div>
 
-        <div>
-        </div>
+        <div></div>
 
         <div class="card-deatails map-container">
           <proj-map
@@ -50,19 +50,18 @@
           ></proj-map>
         </div>
 
-        <!-- <div> -->
+        <!-- <div class="reviews-container">
         <review-list :reviews="reviews" />
-        <form class="add-review flex col" v-if="review" @submit.prevent="save(review)">
-          <h2>Add Review</h2>
-          <textarea type="text" v-model="review.txt" placeholder="Comment..."></textarea>
-          <el-rate
-            v-model="review.rate"
-            :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
-            show-text
-          >:colors="colors"></el-rate>
-          <button>Add Review</button>
-        </form>
-        <!-- </div> -->
+        <review-add :review="review" @save="save"/>
+        </div>-->
+
+        <review-list class="reviews-container" :reviews="reviews" />
+
+        <div class="reviews-container">
+          <h2 v-if="!reviews.length">Be the first to give feedback</h2>
+          <h3 v-else>Add Review</h3>
+          <review-add :review="review" @save="save" />
+        </div>
       </div>
     </div>
     <div @click.stop="stop">
@@ -80,6 +79,8 @@
 import projMap from "./proj-map.vue";
 import projApply from "./proj-apply.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
+import reviewAdd from "../components/review-add.cmp.vue";
+import reviewAvarage from "../components/review-avarage.cmp.vue";
 
 export default {
   data() {
@@ -91,6 +92,7 @@ export default {
       reviews: [],
       review: null,
       averageRate: null,
+      colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"]
     };
   },
   async created() {
@@ -103,13 +105,15 @@ export default {
       type: "loadReviews",
       id: projId
     });
-    this.averageRate = this.reviews.reduce((a,b) => a + b.rate, 0)
+    this.averageRate = this.reviews.reduce((a, b) => a + b.rate, 0);
     this.review = this.getEmptyReview();
   },
   components: {
     projMap,
     projApply,
-    reviewList
+    reviewList,
+    reviewAdd,
+    reviewAvarage
   },
   computed: {
     loggedinUser() {
@@ -122,6 +126,8 @@ export default {
     },
     stop() {},
     async save(review) {
+      console.log("review in save in details:", review);
+
       var reviews = await this.$store.dispatch({
         type: "save",
         review
