@@ -81,6 +81,8 @@ import projApply from "./proj-apply.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
 import reviewAdd from "../components/review-add.cmp.vue";
 import reviewAvarage from "../components/review-avarage.cmp.vue";
+import { eventBus } from "../services/eventbus-service.js";
+
 
 export default {
   data() {
@@ -150,6 +152,9 @@ export default {
   },
   mounted() {
     document.addEventListener("click", this.openApply);
+    eventBus.$on("updateReview",async review=>{
+      await this.save(review)
+    });
   },
   beforeDestroy() {
     document.removeEventListener("click", this.openApply);
