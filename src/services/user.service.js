@@ -65,12 +65,13 @@ async function signup(newUserCred) {
     newUserCred.karma = 5;
     // console.log('newUserCred before: ', newUserCred);
     var pos = await mapService.getPosition()
-    newUserCred.position = {lat: pos.coords.latitude, lng: pos.coords.longitude}
-    // console.log('newUserCred after: ', newUserCred);
-    // users.push(newUserCred)
-    // storageService.store(KEY_USERS, users)
+    newUserCred.position = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+    newUserCred.notifications = []
+        // console.log('newUserCred after: ', newUserCred);
+        // users.push(newUserCred)
+        // storageService.store(KEY_USERS, users)
     sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
-    // return newUserCred;
+        // return newUserCred;
     const user = await httpService.post('auth/signup', newUserCred)
     console.log('userrrr', user)
     return _handleLogin(user)
@@ -79,7 +80,7 @@ async function signup(newUserCred) {
 
 
 async function logout() {
-   const msg =  await httpService.post('auth/logout');
+    const msg = await httpService.post('auth/logout');
     sessionStorage.clear();
     return (msg)
 }
@@ -90,9 +91,10 @@ function getUsers() {
     // return _createUsers();
     return httpService.get('user')
 }
+
 function getLoggeinUser() {
     console.log('hi');
-    
+
     return JSON.parse(sessionStorage.getItem(KEY_LOGGEDIN))
 }
 
@@ -163,7 +165,8 @@ function _createUser(_id, username, password, fullName, imgUrl, karma, position,
         // favorsAsked: [],
         // favorsGivven : [],
         joinAt,
-        isAdmin
+        isAdmin,
+        notifications: []
     }
 }
 

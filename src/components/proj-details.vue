@@ -65,7 +65,7 @@
       </div>
     </div>
     <div @click.stop="stop">
-      <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
+      <proj-apply :proj="proj" :user="loggedinUser" class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
     </div>
     <div
       @click.stop="isApplyOpen = true"

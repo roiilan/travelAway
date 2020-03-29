@@ -279,6 +279,7 @@ export default {
   },
   async created() {
     this.loggedinUser = await this.$store.getters.loggedinUser;
+      // console.log(this.proj.createdBy);
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
@@ -286,6 +287,10 @@ export default {
         projId
       });
       this.proj = JSON.parse(JSON.stringify(proj));
+       this.proj.createdBy = this.loggedinUser
+       
+
+
       if (
         this.loggedinUser._id !== this.proj.createdBy._id &&
         !this.loggedinUser.isAdmin
@@ -301,6 +306,8 @@ export default {
         this.$router.push("/login");
       }
       this.proj = projService.getEmptyProj();
+      
+      
       // this.proj.imgUrls.push(this.loggedinUser.imgUrl);
     }
   },
