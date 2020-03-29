@@ -40,8 +40,6 @@ export default {
         async loadProjs(context, {}) {
 
             const projs = await projService.query()
-            console.log('projs in store proj:', projs);
-            
                 // async loadProjs(context, {filterBy}){       
                 // const projs = await projService.query(filterBy)
             context.commit({ type: 'setProjs', projs })

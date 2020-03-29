@@ -43,8 +43,6 @@ export default {
     },
     created(){
         this.getMarkers()  
-        console.log(this.markers);
-              
     }
 
 }

@@ -9,6 +9,7 @@
     // grid-template-rows: 4fr 2fr 3fr 3fr 3fr;
     gap: 0.8rem;
     margin: 0 auto;
+    padding: 5px;
     margin-top: 20px;
     .scubaDiving {
         grid-row: 1/3;
@@ -64,7 +65,8 @@
             }
             .img-tag {
                 color: $clr4;
-                background-color: lighten($clr1, 10%);
+                // background-color: lighten($clr1, 10%);
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 0%, rgba(74, 74, 74, 1) 100%);
             }
         }
         display: flex;
@@ -73,17 +75,23 @@
         justify-content: center;
         .img-tag {
             // border-radius: 3px;
+            position: absolute;
             width: 100%;
-            color: $clr1;
+            // background-color: lighten($clr4, 100%);
+            // color: $clr1;
+            color: $clr4;
+            // color: $clr4;
             font-family: Sen;
             text-align: center;
             font-size: rem(25px);
             padding: 9px 0;
-            background-color: lighten($clr4, 10%);
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(74, 74, 74, 0.72) 63%, rgba(74, 74, 74, 1) 100%);
+            // background-color: lighten($clr4, 10%);
             transition: 0.5;
-            border-bottom: rem(0.5px) solid lighten($clr1, 10%);
-            border-left: rem(0.5px) solid lighten($clr1, 10%);
-            border-right: rem(0.5px) solid lighten($clr1, 10%);
+            // border-bottom: rem(0.5px) solid lighten($clr1, 10%);
+            // border-left: rem(0.5px) solid lighten($clr1, 10%);
+            // border-right: rem(0.5px) solid lighten($clr1, 10%);
         }
         img {
             width: 100%;
@@ -91,6 +99,7 @@
             flex: 1;
             object-fit: cover;
             border-radius: 3px;
+            position: relative;
             // mix-blend-mode: multiply;
             // filter: grayscale(0.5);
             transition: 0.3s;
@@ -136,4 +145,60 @@
     .gandy {
         font-weight: bolder;
     }
+}
+
+.around-the-world-preview {
+    display: flex;
+    padding: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-content: space-between;
+    // width: 100%;
+    width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    .around-the-world-card {
+        position: relative;
+        width: 25%;
+        padding: 5px;
+        // margin: 5px;
+        list-style: none;
+    }
+    .world-projs-img-conatainer {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 58%, rgba(190, 190, 190, 1) 69%, rgba(74, 74, 74, 1) 89%);
+        /* w3c */
+    }
+    .proj-preview-img {
+        width: 100%;
+        mix-blend-mode: multiply;
+        border-radius: 3px;
+        // margin: 5px;
+    }
+    .world-prjs-country-details {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        top: 190px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        h5 {
+            margin: 0 5px 0 5px;
+            color: white;
+            font-family: Montserrat;
+            font-size: rem(11px);
+        }
+        .world-proj-flag {
+            height: 20px;
+            width: 20px;
+        }
+        ;
+    }
+}
+
+.walk-ways-details {
+    width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    font-family: Sen;
 }

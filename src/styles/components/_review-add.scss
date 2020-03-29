@@ -1,0 +1,13 @@
+.add-review {
+    position: relative;
+
+    >* :first-child {
+        margin-inline-end: 1ch;
+    }
+    
+    .add-rate-container {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+    }
+}

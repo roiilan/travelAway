@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: 7fr 3fr;
     gap: rem(15px);
+
     .proj-details {
         margin-bottom: rem(80px);
         grid-column: 1/3;
@@ -38,7 +39,6 @@
                 .img-proj {
                     width: 100%;
                     mix-blend-mode: multiply;
-                    // filter: grayscale(0.5);
                 }
             }
 
@@ -46,7 +46,6 @@
                 font-family: Montserrat;
                 padding: rem(10px);
                 line-height: 1.5;
-                // background-color: lighten($clr2, 40%);
             }
         }
         .util-details {
@@ -57,21 +56,23 @@
                 font-weight: bold;
             }
             .map-container {
-                // background-color: lighten($clr2, 40%);
                 .map {
                     height: 70vw;                    
                     @include for-normal-layout {
                         height: 45vw;
                     }
-                    // mix-blend-mode: multiply;
-                    // filter: grayscale(0.5);
-                    // width: var(--map-width, 100%);
-                    // height: var(--map-height, 100%);
-                    // z-index: 0;
                 }
             }
         }
     }
+
+    .reviews-container {
+        box-shadow: $shadow1;
+        padding: rem(10px);
+        border-radius: 3px;
+
+    }
+
     .proj-apply {
         top: rem(90px);
         grid-column: 2/3;
@@ -108,6 +109,27 @@
         }
         @include for-normal-layout {
             display: none;
+        }
+    }
+    .edit-link-container {
+        
+        position: fixed;
+        bottom: rem(25px);
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        height: 0;
+        z-index: 10;
+        .edit-link {
+            padding: 20px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: .3s;
+    
+            box-shadow: $shadow2;
+            &:hover {
+                box-shadow: $shadow3;
+            }
         }
     }
 }

@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <nav-bar/> 
-    <router-view/>
+    <nav-bar />
+    <router-view />
     <div class="msg" v-if="msg && msg.isShow">
-        <button class="close-msg-btn" @click="closeMsg">X</button>
-        {{msg.txt}}
+      <button class="close-msg-btn" @click="closeMsg">X</button>
+      {{msg.txt}}
     </div>
   </div>
 </template>
 
 
 <script>
-import navBar from "./components/nav-bar.vue"
+import navBar from "./components/nav-bar.vue";
+import { eventBus } from "./services/eventbus-service.js";
+
 
 export default {
   name:'projApp',
@@ -27,12 +29,25 @@ export default {
   },
     components: {
     navBar,
-    }
+    },
+  mounted() {
+    eventBus.$on("removeReview", async reviewId => {
+      const msg = await this.$store.dispatch({
+        type: "removeReview",
+        reviewId
+      });
+      console.log("msg: ", msg);
+      this.reviews = this.$store.getters.reviews;
+    });
+    eventBus.$on("updateReview", async review => {
+      this.save(review);
+      //   var review = await this.$store.dispatch({ type:'addReview', newReview});
+      //   console.log('review: ', review);
+    });
+  },
 };
 </script>
 
 <style>
-  
-
 </style>
 

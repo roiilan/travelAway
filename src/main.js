@@ -10,7 +10,10 @@ import 'vue-datetime/dist/vue-datetime.css'
 // Settings.defaultLocale = 'he'
 Vue.use(Datetime)
 import ElementUI from 'element-ui';
-Vue.use(ElementUI);
+import locale from 'element-ui/lib/locale/lang/en'
+
+Vue.use(ElementUI, { locale })
+
 
 Vue.component('datetime', Datetime);
 

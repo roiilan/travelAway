@@ -8,10 +8,8 @@ function _getBy() {
         imgUrl: '../assets/icon/login.png'
     }
     
-    console.log('by in store review:', by);
     const user = JSON.parse(sessionStorage.getItem('loggedinUser'))
     // const user = userService.getLoggeinUser()
-    console.log('user in store review:', user);
     
     if (user) {
         by = {

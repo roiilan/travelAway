@@ -5,8 +5,11 @@
     gap: rem(20px);
     
     >* {
+
+      
         font-family: Montserrat;
         box-shadow: $shadow1;
+        border-radius: 3px;
         padding: rem(10px);
         line-height: 1.5;
         // background-color: lighten($clr2, 40%);
@@ -41,8 +44,5 @@
             mix-blend-mode: multiply;
             filter: grayscale(0.5);
         }
-    }
-    .add-review {
-
     }
 }
