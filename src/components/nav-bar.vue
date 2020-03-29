@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import LoginVue from '../views/Login.vue';
 export default {
   data() {
     return {
@@ -65,10 +66,17 @@ export default {
   },
   created() {
     window.addEventListener("scroll", this.handleScroll);
+
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
-  }
+  },
+  watch: {
+    'loggedinUser.notifications'() {
+      // console.log(this.loggedinUser.notifications);
+      console.log('hi!!');
+    }
+  },
 };
 </script>
 
