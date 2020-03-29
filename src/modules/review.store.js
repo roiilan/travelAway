@@ -42,8 +42,6 @@ export default {
             state.reviews.unshift(review)
         },
         updateReview(state, {review}) {
-            console.log('review in miutition in store:', review);
-            
             const idx =  state.reviews.findIndex(reviewInLoop=> reviewInLoop._id === review._id)
             state.reviews.splice(idx, 1, review)
         },
@@ -63,7 +61,6 @@ export default {
             var isEdit = !!review._id;
             
             review = await reviewService.save(review);
-            console.log('review in store after:', review);
             context.commit({type: (isEdit)? 'updateReview': 'addReview', review})
             return review;
         },

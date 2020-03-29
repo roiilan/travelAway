@@ -92,8 +92,6 @@ export default {
                 type:'addImg',
                 imgEv:ev
             })
-            console.log(img.url);
-            
             this.newUserCred.imgUrl = img.url      
         },
         async removeUser(userId){
