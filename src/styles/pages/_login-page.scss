@@ -5,10 +5,15 @@
     transform: translate(-50%, -50%);
     font-family: Sen;
     
+    input {
+        padding: rem(15px) 0;
+        margin-bottom: rem(10px) 0;
+    }
+
     .login-btn {
         font-family: Montserrat;
         padding: rem(15px);
-        margin: rem(2px);
+        margin: rem(20px) 0;
         border: none;
         border-radius: 3px;
         box-shadow: $shadow1;

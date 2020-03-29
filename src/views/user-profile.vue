@@ -19,10 +19,10 @@
       <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="user.position"></proj-map>
     </div>
 
-    <review-list :reviews="reviews" />
+    <review-list v-if="reviews.length" :reviews="reviews" />
 
     <div>
-      <h2 v-if="!reviews.length">Be the first to give feedback</h2>
+      <h3 v-if="!reviews.length">Be the first to give feedback</h3>
       <h3 v-else>Add Review</h3>
       <review-add :review="review" @save="save"/>
     </div>
