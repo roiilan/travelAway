@@ -56,15 +56,10 @@ export default {
      })
      this.projs = filteredProjs
      this.getHeader(filter)
-    window.scrollTo(0,0)
-     
-  
+    window.scrollTo(0,0)       
 },
 
- 
-
-
-};
+ };
 
 
 

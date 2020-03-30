@@ -1,13 +1,12 @@
 <template>
-  <div class="proj-list" v-if="projs" >
-   <h1>BE THE CHANGE. BE A GLOBAL VOLUNTEER ABROAD.
-</h1>
 
 <div>
-     <input type="text" placeholder="project search" title="search project by name, title, organizition"
-     v-model="filterBy.txt" @keyup.enter="emitFilter" />
-  </div>
 
+</div>
+
+  <div class="proj-list" v-if="projs" >
+   <h1>BE THE CHANGE. BE A GLOBAL VOLUNTEER ABROAD.</h1>
+   <h2 v-if="noRes">There is no result</h2>
    <ul class="around-the-world-list">
       <li v-for="proj in projs" :key="proj._id" class="list-card" >
 
@@ -26,17 +25,6 @@
 </router-link>
       </li>
     </ul>
-
-
-
-
-<!-- <vueper-slides
-  class="no-shadow"
-  :visible-slides="3"
-  :slide-ratio="1 / 4"
-  :dragging-distance="10">
-  <vueper-slide v-for="(proj,i) in projs" :key="i" :image="proj.imgUrls[0]" :title="proj.title" :content="proj.description" :link='"#/proj/" + proj._id'/>
-</vueper-slides> -->
   </div>
 </template>
 
@@ -44,56 +32,73 @@
 
 <script>
 import projPreview from "./proj-preview";
-// import { VueperSlides, VueperSlide } from 'vueperslides'
-// import 'vueperslides/dist/vueperslides.css'
+// import projSearch from "./proj-search.vue";
 
 export default {
-  name: "projList",
-   data() {
+  name: "projsListSearch",
+
+  data() {
     return {
-      projs:"",
-    }
+      projs: null,
+      noRes:null
+    };
   },
-//    methods: {
-// //     emitFilter() {      
-// // this.$store.commit({type:'setFilter', filterBy:this.filterBy})
-// //  this.projs = await this.$store.dispatch({type: 'loadProjs', filterBy});
+  async created() {
+  this.projs = await this.$store.dispatch({ type: "loadProjs" });
+  let paramsStr = window.location.href.split('?')[1];
+  let searchParams = new URLSearchParams(paramsStr);
+  var filteredProjs=null;
 
-//     }
-//   },
-//   async created(){
-//         var filterBy=this.$store.getters.filterBy;
-//         // if(filterBy){
+   var categoryFilter = searchParams.get('category')
+   if(categoryFilter==='all'){
+     filteredProjs=this.projs;
+   }
+   else{
+      filteredProjs = this.projs.filter(proj=>{  
+       return proj.category === categoryFilter
+     })
+   }
 
-//         // }
+   var txtFilter = searchParams.get('txt')
+   if(!txtFilter){
+     filteredProjs=this.projs;
+   }
+   else{
+      filteredProjs = this.projs.filter(proj=>{ 
+        if (proj.position.country) {
+        return proj.title.toLowerCase().includes(txtFilter.toLowerCase())||
+               proj.description.toLowerCase().includes(txtFilter.toLowerCase()) || 
+               proj.position.country.toLowerCase().includes(txtFilter.toLowerCase())
+        }       
+         return proj.title.toLowerCase().includes(txtFilter.toLowerCase())||
+                proj.description.toLowerCase().includes(txtFilter.toLowerCase())
+        //      || proj.position.city.toLowerCase().includes(txtFilter.toLowerCase())
 
-//         this.projs = await this.$store.dispatch({type: 'loadProjs', filterBy});
+     })
+   }
+    var minAgeFilter = +searchParams.get('minAge')
+    filteredProjs = this.projs.filter(proj=>{  
+       if (proj.requirements.minAge)  return proj.requirements.minAge > minAgeFilter
+     })
 
-//   },
-
-  //   props: {
-  //   projs: Array,
-  // },
-
-
-//   data: () => ({
-//   slides: [
-//     {
-//       title: 'Slide #1',
-//       content: 'Slide content.',
-//       _id:null
-//     }
-//   ]
-// }),
-
-
+ if(filteredProjs.length===0){
+   this.noRes=true;
+ }
+ else{
+      this.noRes=false;
+ }
+    this.projs = filteredProjs;
+    console.log(this.projs);
+    window.scrollTo(0, 0);
+  },
+    components: {
+    projPreview,
+    // projSearch
+  }
 };
-
-
-
-
-
 </script>
+
+
 
 <style  >
 .proj-list ul{
@@ -113,16 +118,4 @@ export default {
   margin: 5px;
   list-style: none;
 }
-/* 
-        this.projs = await this.$store.dispatch({type: 'loadProjs'});
-
-
-
-// .vueperslide__content-wrapper{
-//   color: white;
-// }
-
-// a{
-//   margin: 5px;
-// } */
  </style>

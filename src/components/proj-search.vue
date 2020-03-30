@@ -1,7 +1,7 @@
 <template>
   <div>
-   <form @submit.prevent="search()">
-     <input type="text" placeholder="organizition name" title="search by name, title, organizition"
+     <form @submit.prevent="search()">
+     <input type="text" placeholder="Free Search" title="search by name, title, organizition, descriptiom or place"
      v-model="filterBy.txt" />
 
        Category<select placeholder="Category" v-model="filterBy.category"  >    
@@ -19,6 +19,9 @@
       <option value="humanRights">Human Rights</option>  
     </select>
    Minimum Age <el-input-number v-model="filterBy.minAge" :min="1" :max="120"></el-input-number>
+
+
+
       <button >Search</button>
     </form>
   </div>
@@ -43,10 +46,14 @@ export default {
   },
    methods: {
     search() { 
-var parm=JSON.stringify(this.filterBy)
-console.log(`/projs/q/${parm}`)
-// router.push(`/projs/q/${parm}`)
-// console.log(JSON.stringify(this.filterBy));
+
+var parm='/projects/?';
+for (const property in this.filterBy) {
+  // console.log(`&${property}=${this.filterBy[property]}`);
+  parm+=(`&${property}=${this.filterBy[property]}`);
+}
+  console.log(`${parm}`)
+  this.$router.push(`${parm}`);
     }
   },
 };

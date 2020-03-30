@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import projApp from '../views/walkways-app.vue'
-import Login from '../views/Login.vue';
+import Login from '../views/Login.vue'
 import userProfile from '../views/user-profile.vue'
 import userEdit from '../views/user-edit.vue'
 import projEdit from '../views/proj-edit.vue'
@@ -30,7 +30,7 @@ const routes = [{
         component: projSearch
     },
     {
-        path: '/projs/q/:filter',
+        path: '/projects/:querys?',
         name: 'projListSearch',
         component: projListSearch
     },
