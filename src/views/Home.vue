@@ -26,10 +26,11 @@
       </router-link>
     </div>
 
+      <h1 class="details-header">WalkWays Activity</h1>
     <div class="walk-ways-details" v-if="projs">
-      <h1>Projs:{{projs.length}}</h1>
-      <h1>Voulnteers:{{users.length}}</h1>
-      <h1>Countries Around The World:{{countriesCount}}</h1>
+      <h1><img src="https://image.flaticon.com/icons/svg/2628/2628442.svg">Projects<span class="space">{{projs.length}}</span></h1>
+      <h1><img src="https://image.flaticon.com/icons/svg/978/978012.svg">Voulnteers<span class="space">{{users.length}}</span></h1>
+      <h1><img src="https://image.flaticon.com/icons/svg/921/921439.svg">Countries<span class="space">{{countriesCount}}</span></h1>
     </div>
 
     <ul class="around-the-world-preview">
@@ -165,13 +166,20 @@ export default {
       // this.projOwner.notifications.push(request)
       console.log(request, "request arrived");
     });
-      this.reviews = await this.$store.dispatch({
-      type: "loadReviews",
-    }); 
+      // this.reviews = await this.$store.dispatch({
+      // type: "loadReviews",
+    // }); 
+// this.users.forEach(puser =>{
+//   user.notificatio
 
+// })
     
-    
-    console.log(this.projs);
+    // this.users.forEach(user =>{
+    //   user.notifications = []
+    //   this.$store.dispatch({ type:'updateUser',  user})
+
+    // })
+    console.log(this.users);
     
     
     //  window.scrollTo(515,515)

@@ -77,7 +77,7 @@ export default {
         username: "",
         password: "",
         fullName: "",
-        imgUrl: "https://image.flaticon.com/icons/svg/1837/1837526.svg",
+        imgUrl: "https://image.flaticon.com/icons/svg/1246/1246351.svg",
         isAdmin: false,
         notifications: []
       };

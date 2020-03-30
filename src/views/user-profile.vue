@@ -93,6 +93,12 @@ export default {
       return this.$store.getters.reviews;
     }
   },
+  // created(){
+  //       eventBus.$on('applyToProj', request =>{
+  //       console.log(request)    
+  //     });
+
+  // },
   components: {
     projMap,
     reviewList,
