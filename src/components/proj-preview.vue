@@ -12,7 +12,7 @@
     <img src="../../img/icon.svg"/>
     </div>
     </div>
-        <review-avarage-by-id class="review-avarage-for-list" :id="proj._id"/>    
+      <review-avarage-by-id class="review-avarage-for-list" :id="proj._id"/>    
     <div class = "members-needed">
      <h5> Members Applied:</h5>
      <h5>{{proj.membersApplyed.length}}/{{proj.membersNeeded}}</h5>

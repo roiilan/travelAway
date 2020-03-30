@@ -27,7 +27,7 @@ export default {
     props: ['review', 'proj'],
     data() {
         return {
-            colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"],
+            colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "#938db1"],
         }
     },
 }

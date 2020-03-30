@@ -17,31 +17,24 @@
             </div>
         </div>
           <h6>rate: {{proj.rate}}</h6>
-        <h5>{{proj.title}}</h5>
+        <span class = "review-container">
+        <review-avarage-by-id class="review-avarage-for-list" :id="proj._id"/>   
+        </span> 
+        <h4>{{proj.title}}</h4>
         <h6>{{proj.description.substring(0,80) +'...'}}</h6>
 </router-link>
       </li>
     </ul>
-
-
-
-
-<!-- <vueper-slides
-  class="no-shadow"
-  :visible-slides="3"
-  :slide-ratio="1 / 4"
-  :dragging-distance="10">
-  <vueper-slide v-for="(proj,i) in projs" :key="i" :image="proj.imgUrls[0]" :title="proj.title" :content="proj.description" :link='"#/proj/" + proj._id'/>
-</vueper-slides> -->
   </div>
 </template>
 
 
 
 <script>
-import projPreview from "./proj-preview";
-// import { VueperSlides, VueperSlide } from 'vueperslides'
-// import 'vueperslides/dist/vueperslides.css'
+// import projPreview from "./proj-preview";
+import reviewAvarageById from './review-avarage-by-id';
+
+
 
 export default {
   name: "projList",
@@ -54,21 +47,9 @@ export default {
         this.projs = await this.$store.dispatch({type: 'loadProjs'});
 
   },
-
-  //   props: {
-  //   projs: Array,
-  // },
-
-
-//   data: () => ({
-//   slides: [
-//     {
-//       title: 'Slide #1',
-//       content: 'Slide content.',
-//       _id:null
-//     }
-//   ]
-// }),
+  components:{
+reviewAvarageById
+  }
 
 
 };
@@ -97,12 +78,8 @@ export default {
   margin: 5px;
   list-style: none;
 }
-/* 
-.vueperslide__content-wrapper{
-  color: white;
-}
 
-a{
-  margin: 5px;
-} */
+
+
+
 </style>

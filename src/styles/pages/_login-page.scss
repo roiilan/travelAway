@@ -4,12 +4,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: Sen;
-    
     input {
         padding: rem(15px) 0;
         margin-bottom: rem(10px) 0;
     }
-
     .login-btn {
         font-family: Montserrat;
         padding: rem(15px);
@@ -17,19 +15,17 @@
         border: none;
         border-radius: 3px;
         box-shadow: $shadow1;
-        background-color: lighten($clr3, 25%);
+        background-color: lighten($clr1, 25%);
         font-size: rem(20px);
         font-weight: 400;
         transition: background-color .3s;
         cursor: pointer;
         &:hover {
-            background-color: lighten($clr3, 20%);
+            background-color: lighten($clr1, 20%);
         }
     }
-    
     .login-link {
         color: rgb(0, 204, 255);
-        
         cursor: pointer;
     }
     .login-card {
