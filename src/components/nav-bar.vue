@@ -6,7 +6,9 @@
           <img class="logo" src="../assets/icon/help.png" alt="Logo" />
         </router-link>
       </div>
+
       <div class="link-container flex a-center j-center">
+        <router-link to="/search">Search</router-link>
         <router-link to="/edit">Add Project</router-link>
         <router-link to="/">Home</router-link>
         <span v-if="loggedinUser" @click="logout">Logout</span>
@@ -31,12 +33,7 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     }
-  },
-  // watch: {
-  //   'loggedinUser.notifications'() {
-  //     console.log('hi!!');
-  //   }
-  // },
+  },  
   methods: {
     async logout() {
       var res = await this.$store.dispatch({ type: "logout" });
