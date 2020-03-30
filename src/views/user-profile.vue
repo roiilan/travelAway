@@ -12,9 +12,16 @@
         <h3>{{user.karma}} Karma</h3>
         <h3>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h3>
         <review-avarage :reviews="reviews"/>
+        <section v-if="user.notifications">
+          <h1>Notifications</h1>
         <div v-for="notification in user.notifications" :key="notification">
-          <pre>{{notification}}</pre>
+          <h4>By:{{notification.member.username}}</h4>
+          <h4>Members intrested:{{notification.memebersApllied}}</h4>
+          <h4>Free txt:{{notification.freeTxt}}</h4>
+          <button @click="approve"> Approve!</button>
+          <button @click="decline"> Decline </button>
         </div>
+        </section>
       </div>
       <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="user.position"></proj-map>
     </div>
@@ -41,12 +48,12 @@ import { eventBus } from "../services/eventbus-service.js";
 export default {
   data() {
     return {
-      user: null,
-      review: null,
-      markers: [],
-      zoomSize: 12,
-      colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"],
-      value: null,
+      user:null,
+      review:null,
+      markers:[],
+      zoomSize:12,
+      colors:["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"],
+      value:null,
     };
   },
   async created() {
@@ -81,6 +88,18 @@ export default {
           imgUrl: this.user.imgUrl
         }
       };
+    },
+    decline(){
+      console.log('declined');
+      this.user.notifications = []
+      userService.update(this.user)
+      console.log(this.user);
+      
+      
+    },
+    approve(){
+      console.log('approoved');
+      
     }
   },
   mounted() {

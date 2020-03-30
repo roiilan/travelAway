@@ -31,6 +31,7 @@ export default {
     return {
       mambersNeeded: this.proj.membersNeeded,
       projOwner: this.proj.createdBy,
+      projId:this.proj._id,
       request: {
         memebersApllied: null,
         member: this.user,

@@ -32,12 +32,13 @@ function remove(userId) {
 }
 
 function update(currUser) {
+
     // var users = getUsers();
     // const idx = users.findIndex(user => user._id === currUser._id);
     // users.splice(idx, 1, currUser);
     // storageService.store(KEY_USERS, users);
     // return currUser;
-    return httpService.put(`user/${user._id}`, currUser)
+    return httpService.put(`user/${currUser._id}`, currUser)
 }
 
 async function login(credentials) {
