@@ -7,7 +7,7 @@
       <el-input
         type="textarea"
         :autosize="{ minRows: 3}"
-        placeholder="Write a few words about your project :)"
+        placeholder="Write something about yourelf :)"
         v-model="request.freeTxt"
       ></el-input>
       <button>Send request!</button>
@@ -18,6 +18,8 @@
 
 <script>
 import SocketService from "../services/socket.service.js";
+import { eventBus } from "../services/eventbus-service.js";
+
 
 export default {
   name: "projApply",
@@ -38,28 +40,20 @@ export default {
       }
     };
   },
-  created() {
-    // console.log('this.projOwner before:', this.projOwner);
-
-
-    // if(!this.$store.getters.loggedinUser) return
-    // this.msg.from = this.$store.getters.loggedinUser.username
-    // SocketService.on('chat addMsg', this.addMsg)
-    // SocketService.on('typing', ({from, topic}) =>{
-    //     if(topic === this.topic){
-    //         this.fromUser = from
-    // setTimeout(() =>{ this.fromUser = null }, 1500)
-
-    //     }else{
-    //         this.fromUser = null
-    //     }
-
-    // })
-  },
   methods: {
     applyToProj() {
       SocketService.emit("applyToProj", this.request);
+      //  eventBus.$emit('applyToProj', this.request);
+      //  this.projOwner.notifications.push(this.request)
+       //TODO update data base
+       console.log(this.request);
+       
+       
     }
+  },
+  created(){
+    console.log(this.proj);
+    
   }
 };
 </script>
