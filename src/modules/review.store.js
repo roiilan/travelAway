@@ -38,21 +38,34 @@ export default {
         setReviews(state, {reviews}) {
             state.reviews = reviews;
         },
-        
+        addReview(state, {review}) {
+            state.reviews.unshift(review)
+        },
+        updateReview(state, {review}) {
+            console.log('review in miutition in store:', review);
+            
+            const idx =  state.reviews.findIndex(reviewInLoop=> reviewInLoop._id === review._id)
+            state.reviews.splice(idx, 1, review)
+        },
         removeReview(state, {reviewId}) {
             state.reviews = state.reviews.filter(review => review._id !== reviewId)
         },
     },
     actions: {
         async loadReviews(context, {id}) {
+            // console.log(id);
+            
             const reviews = await reviewService.getReviews(id);
             context.commit({type: 'setReviews', reviews})
             return reviews;
         },
         async save(context, {review}) {
-            var reviews = await reviewService.save(review);
-            context.commit({type: 'setReviews', reviews})
-            return reviews;
+            var isEdit = !!review._id;
+            
+            review = await reviewService.save(review);
+            console.log('review in store after:', review);
+            context.commit({type: (isEdit)? 'updateReview': 'addReview', review})
+            return review;
         },
         async removeReview(context, {reviewId}) {
             var msg = await reviewService.remove(reviewId);

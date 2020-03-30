@@ -1,4 +1,5 @@
 import { userService } from '../services/user.service.js'
+import SocketService from '../services/socket.service.js';
 
 var localLoggedinUser = null;
 if (sessionStorage.loggedinUser) localLoggedinUser = JSON.parse(sessionStorage.loggedinUser);
@@ -29,13 +30,17 @@ export default {
     },
     actions: {
         async login(context, { credentials }) {
+            SocketService.setup();
             const user = await userService.login(credentials);
             context.commit({ type: 'setUser', user })
+            SocketService.emit('user topic', user._id)
             return user;
         },
         async signup(context, { newUserCred }) {
+            SocketService.setup();
             const user = await userService.signup(newUserCred)
             context.commit({ type: 'setUser', user })
+            SocketService.emit('user topic', user._id)
             return user;
         },
         async logout(context) {

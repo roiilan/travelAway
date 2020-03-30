@@ -39,11 +39,6 @@ export default {
       console.log("msg: ", msg);
       this.reviews = this.$store.getters.reviews;
     });
-    eventBus.$on("updateReview", async review => {
-      this.save(review);
-      //   var review = await this.$store.dispatch({ type:'addReview', newReview});
-      //   console.log('review: ', review);
-    });
   },
 };
 </script>

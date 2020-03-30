@@ -17,14 +17,12 @@
           title="Edit Project"
         >
           <img class="btn-img" src="../assets/icon/edit.png" alt />
-          <!-- Edit -->
         </router-link>
       </div>
       <div class="main-content-details">
         <div class="title-proj">{{proj.title}}</div>
         <div class="img-proj-container ratio-16-9">
           <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
-          <!-- <h2 >how can you Help?</h2> -->
         </div>
         <article class="description">
           <span class="strong">Description:</span>
@@ -50,22 +48,22 @@
           ></proj-map>
         </div>
 
-        <!-- <div class="reviews-container">
-        <review-list :reviews="reviews" />
-        <review-add :review="review" @save="save"/>
-        </div>-->
-
-        <review-list class="reviews-container" :reviews="reviews" />
+        <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
 
         <div class="reviews-container">
-          <h2 v-if="!reviews.length">Be the first to give feedback</h2>
+          <h3 v-if="!reviews.length">Be the first to give feedback</h3>
           <h3 v-else>Add Review</h3>
           <review-add :review="review" @save="save" />
         </div>
       </div>
     </div>
     <div @click.stop="stop">
-      <proj-apply class="proj-apply" :class="{'apply-opened':isApplyOpen}"></proj-apply>
+      <proj-apply
+        :proj="proj"
+        :user="loggedinUser"
+        class="proj-apply"
+        :class="{'apply-opened':isApplyOpen}"
+      ></proj-apply>
     </div>
     <div
       @click.stop="isApplyOpen = true"
@@ -81,6 +79,7 @@ import projApply from "./proj-apply.cmp.vue";
 import reviewList from "../components/review-list.cmp.vue";
 import reviewAdd from "../components/review-add.cmp.vue";
 import reviewAvarage from "../components/review-avarage.cmp.vue";
+import { eventBus } from "../services/eventbus-service.js";
 
 export default {
   data() {
@@ -89,7 +88,6 @@ export default {
       isApplyOpen: false,
       isEdit: false,
       zoomSize: 14,
-      reviews: [],
       review: null,
       averageRate: null,
       colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"]
@@ -101,7 +99,7 @@ export default {
       type: "loadProj",
       projId
     });
-    this.reviews = await this.$store.dispatch({
+    await this.$store.dispatch({
       type: "loadReviews",
       id: projId
     });
@@ -118,6 +116,9 @@ export default {
   computed: {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
+    },
+    reviews(){
+      return this.$store.getters.reviews;
     }
   },
   methods: {
@@ -126,13 +127,10 @@ export default {
     },
     stop() {},
     async save(review) {
-      console.log("review in save in details:", review);
-
       var reviews = await this.$store.dispatch({
         type: "save",
         review
       });
-      this.reviews = this.$store.getters.reviews;
       this.review = this.getEmptyReview();
     },
     getEmptyReview() {
@@ -150,6 +148,9 @@ export default {
   },
   mounted() {
     document.addEventListener("click", this.openApply);
+    eventBus.$on("updateReview", async review => {
+      await this.save(review);
+    });
   },
   beforeDestroy() {
     document.removeEventListener("click", this.openApply);

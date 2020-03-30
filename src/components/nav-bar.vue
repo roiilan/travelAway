@@ -13,7 +13,6 @@
         <router-link to="/">Home</router-link>
         <span v-if="loggedinUser" @click="logout">Logout</span>
         <router-link v-else to="/login">Login</router-link>
-
         <router-link :to="'/user/' + loggedinUser._id" v-if="loggedinUser" class="img-user-link">
           <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
         </router-link>
@@ -23,8 +22,7 @@
 </template>
 
 <script>
-// import projSearch from "../components/proj-search.vue";
-
+import LoginVue from '../views/Login.vue';
 export default {
   data() {
     return {
@@ -35,24 +33,21 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     }
-  },
-   components: {
-    // projSearch,    
-  },
-    methods: {
+  },  
+  methods: {
     async logout() {
       var res = await this.$store.dispatch({ type: "logout" });
       if (res) {
         console.log("res: ", res);
-        this.$store.commit({
-          type: "setMsg",
-          msg: { isShow: true, txt: "The logout operation was successful" }
-        });
-        this.$message({
-          showClose: true,
-          message: 'The logout operation was successful',
-          type: 'success'
-        });
+        // this.$store.commit({
+        //   type: "setMsg",
+        //   msg: { isShow: true, txt: "The logout operation was successful" }
+        // });
+        // this.$message({
+        //   showClose: true,
+        //   message: 'The logout operation was successful',
+        //   type: 'success'
+        // });
         this.$notify({
           title: 'Success',
           message: 'The logout operation was successful',
@@ -72,10 +67,17 @@ export default {
   },
   created() {
     window.addEventListener("scroll", this.handleScroll);
+
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
-  }
+  },
+  // watch: {
+  //   'loggedinUser.notifications'() {
+  //     // console.log(this.loggedinUser.notifications);
+  //     console.log('hi!!');
+  //   }
+  // },
 };
 </script>
 

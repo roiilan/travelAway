@@ -1,6 +1,6 @@
 <template>
   <div class="review-preview flex col">
-    <!-- <form @submit.prevent="updateReview"> -->
+    <form @submit.prevent="updateReview">
     <div class="flex a-center between">
       <h3 class="review-by flex">
         <img class="img-profile" :src="reviewForUpdate.by.imgUrl" alt />
@@ -53,7 +53,7 @@
       </button>
     </div>
     <p v-else>{{reviewForUpdate.txt}}</p>
-    <!-- </form> -->
+    </form>
   </div>
 </template>
 

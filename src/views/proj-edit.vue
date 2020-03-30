@@ -147,6 +147,7 @@
         <button class="btn-save">Save</button>
       </div>
     </form>
+        <pre>{{loggedinUser}}</pre>
   </div>
 </template>
 
@@ -279,6 +280,7 @@ export default {
   },
   async created() {
     this.loggedinUser = await this.$store.getters.loggedinUser;
+      // console.log(this.proj.createdBy);
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
@@ -286,6 +288,10 @@ export default {
         projId
       });
       this.proj = JSON.parse(JSON.stringify(proj));
+       this.proj.createdBy = this.loggedinUser
+       
+
+
       if (
         this.loggedinUser._id !== this.proj.createdBy._id &&
         !this.loggedinUser.isAdmin
@@ -294,13 +300,21 @@ export default {
       }
     } else {
       if (!this.loggedinUser) {
-        this.$store.commit({
-          type: "setMsg",
-          msg: { isShow: true, txt: "You must register first" }
+        // this.$store.commit({
+        //   type: "setMsg",
+        //   msg: { isShow: true, txt: "You must register first" }
+        // });
+        this.$notify({
+          title: 'Warning',
+          message: 'You must register first',
+          type: 'warning',
+          duration: 1500
         });
         this.$router.push("/login");
       }
       this.proj = projService.getEmptyProj();
+      
+      
       // this.proj.imgUrls.push(this.loggedinUser.imgUrl);
     }
   },
@@ -317,9 +331,15 @@ export default {
     },
     async save(proj) {
       if (!proj.category) {
-        this.$store.commit({
-          type: "setMsg",
-          msg: { isShow: true, txt: "You must select a category" }
+        // this.$store.commit({
+        //   type: "setMsg",
+        //   msg: { isShow: true, txt: "You must select a category" }
+        // });
+         this.$notify({
+          title: 'Warning',
+          message: 'You must select a category',
+          type: 'warning',
+          duration: 1500
         });
         window.scrollTo(0,0)
         return

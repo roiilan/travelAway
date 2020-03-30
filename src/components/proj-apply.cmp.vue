@@ -1,29 +1,67 @@
 <template>
-    <div class="proj-apply">
-        <!-- <datetime format="MM/DD/YYYY" width="300px" v-model="val"></datetime> -->
-        <!-- <datetime v-model="date"></datetime> -->
-        <!-- <datetime v-model="date" input-id="startDate">
-  <label for="startDate" slot="before">Field Label</label>
-  <span class="description" slot="after">The field description</span>
-  <template slot="button-cancel">
-    <fa :icon="['far', 'times']"></fa>
-    Cancel
-  </template> -->
-  <!-- <template slot="button-confirm">
-    <fa :icon="['fas', 'check-circle']"></fa>
-    Confirm
-  </template> -->
-  <!-- <template slot="button-confirm" slot-scope="scope">
-  <span v-if='scope.step === "date"'>Next <i class='fas fa-arrow-right' /></span>
-  <span v-else><i class='fas fa-check-circle' /> Publish</span>
-</template> -->
-<!-- </datetime> --> 
-    </div>
+  <div class="proj-apply">
+    <h1>hi</h1>
+    <form @submit.prevent="applyToProj">
+      <el-input-number v-model="request.memebersApllied" :min="1" :max="mambersNeeded"></el-input-number>
+      {{mambersNeeded}}
+      <el-input
+        type="textarea"
+        :autosize="{ minRows: 3}"
+        placeholder="Write a few words about your project :)"
+        v-model="request.freeTxt"
+      ></el-input>
+
+      <!-- <pre>{{proj.createdBy}}</pre> -->
+      <button>Send request!</button>
+    </form>
+  </div>
 </template>
 
 <script>
-// import datetime from 'vuejs-datetimepicker';
+import SocketService from "../services/socket.service.js";
+
 export default {
-    //  components: { datetime }
-}
+  name: "projApply",
+  props: {
+    proj: Object,
+    user: Object
+  },
+  data() {
+    return {
+      mambersNeeded: this.proj.membersNeeded,
+      projOwner: this.proj.createdBy,
+      request: {
+        memebersApllied: null,
+        member: this.user,
+        freeTxt: null,
+        isApproved: false,
+        projOwnerId: this.proj.createdBy._id
+      }
+    };
+  },
+  created() {
+    // console.log('this.projOwner before:', this.projOwner);
+
+
+    // if(!this.$store.getters.loggedinUser) return
+    // this.msg.from = this.$store.getters.loggedinUser.username
+    // SocketService.on('chat addMsg', this.addMsg)
+    // SocketService.on('typing', ({from, topic}) =>{
+    //     if(topic === this.topic){
+    //         this.fromUser = from
+    // setTimeout(() =>{ this.fromUser = null }, 1500)
+
+    //     }else{
+    //         this.fromUser = null
+    //     }
+
+    // })
+  },
+  methods: {
+    applyToProj() {
+      SocketService.emit("applyToProj", this.request);
+    }
+  }
+};
 </script>
+
