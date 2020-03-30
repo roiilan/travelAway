@@ -6,7 +6,7 @@
             disabled
             show-score
             text-color="#0b757d"
-            :score-template="`${value} / ${reviews.length}`"
+            :score-template="`${value} (${reviews.length})`"
             :colors="colors"
           ></el-rate> 
         </div>

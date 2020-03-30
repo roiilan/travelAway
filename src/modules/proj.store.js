@@ -40,6 +40,7 @@ export default {
         async loadProjs(context, {}) {
 
             const projs = await projService.query()
+            
                 // async loadProjs(context, {filterBy}){       
                 // const projs = await projService.query(filterBy)
             context.commit({ type: 'setProjs', projs })

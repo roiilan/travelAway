@@ -13,8 +13,10 @@
         <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
         <h5 v-else>{{proj.position.region}},</h5>
         <h5>{{proj.position.country}}</h5>
+
             </div>
         </div>
+          <h6>rate: {{proj.rate}}</h6>
         <h5>{{proj.title}}</h5>
         <h6>{{proj.description.substring(0,80) +'...'}}</h6>
 </router-link>
