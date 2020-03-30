@@ -9,11 +9,10 @@
             score-template="{value} / 5"
             :colors="colors"
           ></el-rate> 
-            <h4 class="total-reviews">
-            from
-            <span v-if="reviews.length === 1">One review</span>
-            <span v-else-if="reviews.length > 1">{{reviews.length}} Reviews</span>
-            </h4>  
+            <!-- <h4 class="total-reviews"> -->
+            <!-- <span v-if="reviews.length === 1">One review</span> -->
+            <div v-if="reviews.length" class="review-count"><span class="span-reviews">(</span>{{reviews.length}} <span class="span-reviews">)</span></div>
+            <!-- </h4>   -->
         </div>
 </template>
 
@@ -42,3 +41,18 @@ export default {
     },
 }
 </script>
+
+<style scoped> 
+span.span-reviews{
+    margin-left:2px;
+    margin-right:2px;
+    }
+
+    .flex.a-center{
+        font-family: Montserrat;
+    }
+
+    .review-count{
+        font-size: 13px;
+    }
+</style>
