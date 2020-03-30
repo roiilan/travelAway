@@ -6,14 +6,14 @@
             disabled
             show-score
             text-color="#0b757d"
-            score-template="{value} / 5"
+            :score-template="`${value} / ${reviews.length}`"
             :colors="colors"
           ></el-rate> 
-            <h4 class="total-reviews">
+            <!-- <h4 class="total-reviews">
             from
             <span v-if="reviews.length === 1">One review</span>
             <span v-else-if="reviews.length > 1">{{reviews.length}} Reviews</span>
-            </h4>  
+            </h4>   -->
         </div>
 </template>
 

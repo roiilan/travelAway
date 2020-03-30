@@ -48,6 +48,7 @@ function _update(proj) {
 function getEmptyProj() {
 
     return {
+        organization: '',
         title: '',
         category: '',
         description: '',

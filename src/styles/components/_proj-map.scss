@@ -1,11 +1,37 @@
-.img-on-map {
-    position: absolute;
-    z-index: 100;
-    transform: translate(-50%,-50%);
-    width: rem(200px);
-    border-radius: 5px;
-    box-shadow: $shadow3;
+.img-on-map-container {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  z-index: 100;
+  width: rem(300px);
+  border-radius: 5px;
+  box-shadow: $shadow3;
+  background-color: lighten($clr2, 25%);
+  cursor: pointer;
+
+  .img-on-map {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 100%;
   }
+
+  .proj-contnet-for-map {
+    padding: rem(10px);
+    h4 {
+      margin: 0 0 10px;
+    }
+    
+    h5 {
+      margin: 0;
+      padding: 0;
+    }
+
+    .review-avarage-for-map {
+      margin: 10px 0 0;
+    }
+  }
+
+}
+
 
 //   .container-map {
 //       background-color: gray;
