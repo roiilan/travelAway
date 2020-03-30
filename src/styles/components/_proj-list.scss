@@ -8,6 +8,13 @@
     // width: 1080px;
     margin: 0 auto;
     display: flex;
+    h4 {
+        margin: 2px 0
+    }
+    h6 {
+        margin: 4px 0;
+        font-family: Montserrat;
+    }
     .list-card {
         position: relative;
         width: 18%;
@@ -17,6 +24,7 @@
     }
     .list-projs-img-conatainer {
         background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 58%, rgba(190, 190, 190, 1) 69%, rgba(74, 74, 74, 1) 89%);
+        /* w3c */
     }
     .proj-preview-img {
         mix-blend-mode: multiply;

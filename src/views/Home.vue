@@ -41,9 +41,9 @@
 
     <ul class="around-the-world-preview">
       <li
-        v-for="(proj,index) in worldProjs"
+        v-for="proj in worldProjs"
         :key="proj._id"
-        v-if="index < 8 && worldProjs"
+        
         class="around-the-world-card"
       >
         <router-link :to="'/proj/' + proj._id">
@@ -84,6 +84,7 @@ export default {
       projs: null,
       worldProjs: null,
       users: null,
+      reviews:null,
       categories: [
         {
           category: "childcare",
@@ -155,7 +156,6 @@ export default {
 
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
-
     this.projs = await this.$store.dispatch({ type: "loadProjs" });
     let worldProjs = JSON.parse(JSON.stringify(this.projs));
     var randomProjs = [];
@@ -172,6 +172,15 @@ export default {
       // this.projOwner.notifications.push(request)
       console.log(request, "request arrived");
     });
+      this.reviews = await this.$store.dispatch({
+      type: "loadReviews",
+    }); 
+
+    
+    
+    console.log(this.projs);
+    
+    
     //  window.scrollTo(515,515)
     //  window.scrollTo(0,0)
   },

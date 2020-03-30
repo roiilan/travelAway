@@ -3,7 +3,7 @@
 }
 
 *::selection {
-    background-color:lighten($clr1, 15%);
+    background-color: lighten($clr1, 15%);
     color: lighten($clr2, 25%);
 }
 
@@ -17,23 +17,26 @@ html {
 
 body {
     margin: 0;
-    background-color: lighten($clr3, 30%);
+    background-color: lighten($clr2, 20%);
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
     font-family: Montserrat;
 }
 
-h1, h2 {
+h1,
+h2 {
     text-transform: uppercase;
 }
 
 p {
     font-family: sen;
     font-size: 18px;
-
 }
-
 
 ::-webkit-scrollbar {
     display: none;
@@ -61,32 +64,30 @@ select {
     border: none;
     border-radius: 3px;
     box-shadow: $shadow1;
-    background-color: lighten($clr3, 30%);
+    background-color: lighten($clr2, 30%);
     font-size: rem(20px);
     font-weight: 400;
     transition: background-color .3s;
-
     &:hover {
         // background-color: lighten($clr3, 20%);
     }
 }
 
-.el-range-input, .el-select__input, .el-picker-panel__icon-btn {
+.el-range-input,
+.el-select__input,
+.el-picker-panel__icon-btn {
     background-color: initial;
-    
     box-shadow: none;
     &:hover {
         background-color: initial;
     }
 }
 
-
-textarea, .el-textarea__inner {
+textarea,
+.el-textarea__inner {
     resize: none;
     font-size: rem(16px);
 }
-
-
 
 button,
 .btn-span,

@@ -6,14 +6,9 @@
             disabled
             show-score
             text-color="#0b757d"
-            score-template="{value} / 5"
+            :score-template="`${value} (${reviews.length})`"
             :colors="colors"
           ></el-rate> 
-            <h4 class="total-reviews">
-            from
-            <span v-if="reviews.length === 1">One review</span>
-            <span v-else-if="reviews.length > 1">{{reviews.length}} Reviews</span>
-            </h4>  
         </div>
 </template>
 
@@ -23,7 +18,7 @@ export default {
     data() {
         return {
             value: null,
-            colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"],
+            colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "#938db1"],
         }
     },
     watch: {
@@ -42,3 +37,18 @@ export default {
     },
 }
 </script>
+
+<style scoped> 
+span.span-reviews{
+    margin-left:2px;
+    margin-right:2px;
+    }
+
+    .flex.a-center{
+        font-family: Montserrat;
+    }
+
+    .review-count{
+        font-size: 13px;
+    }
+</style>

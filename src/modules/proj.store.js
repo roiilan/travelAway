@@ -67,6 +67,7 @@ export default {
         },
         async saveProj(context, { proj }) {
 
+
             const isEdit = !!proj._id;
             const savedProj = await projService.save(proj)
             context.commit({

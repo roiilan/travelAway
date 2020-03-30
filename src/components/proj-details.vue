@@ -53,7 +53,7 @@
         <div class="reviews-container">
           <h3 v-if="!reviews.length">Be the first to give feedback</h3>
           <h3 v-else>Add Review</h3>
-          <review-add :review="review" @save="save" />
+          <review-add :review="review" :proj="proj" @save="save" />
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@ export default {
       zoomSize: 14,
       review: null,
       averageRate: null,
-      colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"]
+      colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)","#938db1"]
     };
   },
   async created() {
@@ -127,6 +127,7 @@ export default {
     },
     stop() {},
     async save(review) {
+    
       var reviews = await this.$store.dispatch({
         type: "save",
         review

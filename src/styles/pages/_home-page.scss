@@ -64,7 +64,7 @@
                 opacity: 0.8;
             }
             .img-tag {
-                color: $clr4;
+                color: $clr1;
                 // background-color: lighten($clr1, 10%);
                 background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 0%, rgba(74, 74, 74, 1) 100%);
             }
@@ -79,7 +79,7 @@
             width: 100%;
             // background-color: lighten($clr4, 100%);
             // color: $clr1;
-            color: $clr4;
+            color: $clr2;
             // color: $clr4;
             font-family: Sen;
             text-align: center;
@@ -131,7 +131,7 @@
     position: absolute;
     font-family: Sen;
     font-size: rem(80px);
-    color: $clr4;
+    color: lighten($clr2, 10%);
     width: 100%;
     text-align: center;
     opacity: 0.9;
@@ -193,7 +193,6 @@
         }
         ;
     }
-    
     .review-avarage-for-list {
         h4 {
             font-size: 11px;

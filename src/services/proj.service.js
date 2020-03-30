@@ -44,9 +44,11 @@ function _add(proj) {
 function _update(proj) {
     return httpService.put(`proj/${proj._id}`, proj);
 }
+
 function getEmptyProj() {
 
     return {
+        organization: '',
         title: '',
         category: '',
         description: '',
@@ -61,7 +63,8 @@ function getEmptyProj() {
             languages: ['English'],
             otherSkills: [],
         },
-        tags: []
+        tags: [],
+        rate: 0
     }
 }
 
