@@ -2,6 +2,7 @@ import { utilService } from './util.service.js'
 import { storageService } from './storage.service.js';
 import { userService } from './user.service.js';
 import httpService from './http.service.js'
+import { compile } from 'vue-template-compiler';
 
 const KEY_FAVORS = 'projs'
 
@@ -14,17 +15,15 @@ export const projService = {
     getHeaderObj
 }
 
-function query() {
-    // const queryParams = new URLSearchParams();
-    // if(filterBy){
-    // if(filterBy.name) queryParams.set('name', filterBy.name)
-    // queryParams.set('minPrice', filterBy.minPrice);
-    // queryParams.set('maxPrice', filterBy.maxPrice);
-    // queryParams.set('type', filterBy.type);
-    // return httpService.get(`proj?${queryParams}`);
-    // } 
-    return httpService.get('proj');
+function query(filterBy) {   
+    var queryParams = new URLSearchParams(filterBy)
+    console.log(`proj?${queryParams}`)
+    return httpService.get(`proj?${queryParams}`); 
 }
+// function query(filterBy) {
+//     var queryParams = new URLSearchParams(filterBy)
+//     return HttpService.get(`toy?${queryParams}`)
+// }
 
 function getById(projId) {
     return httpService.get(`proj/${projId}`);

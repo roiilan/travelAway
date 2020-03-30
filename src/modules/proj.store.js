@@ -5,9 +5,17 @@ import mapService from '../services/map.service.js'
 export default {
     state: {
         projs: [],
-        // currProj: null
+        filterBy: {
+            txt:"",
+            // title: "",
+            sort: null
+        }
     },
     mutations: {
+        setFilter(state, {filterBy}){
+            console.log('store',filterBy)
+            state.filterBy = filterBy 
+        },
         setProjs(state, { projs }) {
             state.projs = projs
         },
@@ -25,26 +33,27 @@ export default {
         removeProj(state, { projId }) {
             const idx = state.projs.findIndex(currProj => currProj._id === projId)
             state.projs.splice(idx, 1)
-        }
+        },
     },
     getters: {
         projs(state) {
             return state.projs
         },
-
-        //     currProj(state){
-        //     return state.proj
-        //   }
-    },
+        filterBy(state){
+            return state.filterBy 
+               }
+    
+   
+      },
     actions: {
-        async loadProjs(context, {}) {
-
-            const projs = await projService.query()
-                // async loadProjs(context, {filterBy}){       
-                // const projs = await projService.query(filterBy)
+        async loadProjs(context, {filterBy}) {
+            console.log(filterBy,'filterBy')
+            const projs = await projService.query(filterBy)
             context.commit({ type: 'setProjs', projs })
             return projs
+
         },
+ 
 
         async loadProj(context, { projId }) {
             const proj = await projService.getById(projId)

@@ -6,7 +6,9 @@
           <img class="logo" src="../assets/icon/help.png" alt="Logo" />
         </router-link>
       </div>
+
       <div class="link-container flex a-center j-center">
+        <router-link to="/search">Search</router-link>
         <router-link to="/edit">Add Project</router-link>
         <router-link to="/">Home</router-link>
         <span v-if="loggedinUser" @click="logout">Logout</span>
@@ -21,6 +23,8 @@
 </template>
 
 <script>
+// import projSearch from "../components/proj-search.vue";
+
 export default {
   data() {
     return {
@@ -32,7 +36,10 @@ export default {
       return this.$store.getters.loggedinUser;
     }
   },
-  methods: {
+   components: {
+    // projSearch,    
+  },
+    methods: {
     async logout() {
       var res = await this.$store.dispatch({ type: "logout" });
       if (res) {

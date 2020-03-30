@@ -2,6 +2,12 @@
   <div class="proj-list" v-if="projs" >
    <h1>BE THE CHANGE. BE A GLOBAL VOLUNTEER ABROAD.
 </h1>
+
+<div>
+     <input type="text" placeholder="project search" title="search project by name, title, organizition"
+     v-model="filterBy.txt" @keyup.enter="emitFilter" />
+  </div>
+
    <ul class="around-the-world-list">
       <li v-for="proj in projs" :key="proj._id" class="list-card" >
 
@@ -43,25 +49,42 @@ import projPreview from "./proj-preview";
 
 export default {
   name: "projList",
-  data(){
-    return{
-      projs:null
+   data() {
+    return {
+      projs:"",
     }
   },
- async created() {
-    this.projs = await this.$store.dispatch({type: 'loadProjs'})
-     const filter = this.$route.params.filter
-     const filteredProjs = this.projs.filter(proj=>{  
-       return proj.category === filter
-     })
-     this.projs = filteredProjs
-     this.getHeader(filter)
-    window.scrollTo(0,0)
-     
-  
-},
+//    methods: {
+// //     emitFilter() {      
+// // this.$store.commit({type:'setFilter', filterBy:this.filterBy})
+// //  this.projs = await this.$store.dispatch({type: 'loadProjs', filterBy});
 
- 
+//     }
+//   },
+//   async created(){
+//         var filterBy=this.$store.getters.filterBy;
+//         // if(filterBy){
+
+//         // }
+
+//         this.projs = await this.$store.dispatch({type: 'loadProjs', filterBy});
+
+//   },
+
+  //   props: {
+  //   projs: Array,
+  // },
+
+
+//   data: () => ({
+//   slides: [
+//     {
+//       title: 'Slide #1',
+//       content: 'Slide content.',
+//       _id:null
+//     }
+//   ]
+// }),
 
 
 };
@@ -91,11 +114,15 @@ export default {
   list-style: none;
 }
 /* 
-.vueperslide__content-wrapper{
-  color: white;
-}
+        this.projs = await this.$store.dispatch({type: 'loadProjs'});
 
-a{
-  margin: 5px;
-} */
-</style>
+
+
+// .vueperslide__content-wrapper{
+//   color: white;
+// }
+
+// a{
+//   margin: 5px;
+// } */
+ </style>

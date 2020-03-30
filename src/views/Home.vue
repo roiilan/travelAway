@@ -15,8 +15,6 @@
        <div class="img-tag" :class="category.category"> {{category.title}} </div>
       </router-link>
 
-<proj-search></proj-search>
-
   </div>
 
   <div class="walk-ways-details" v-if="projs">
@@ -48,7 +46,7 @@
 </template>
 
 <script>
-import projSearch from "../components/proj-search.vue";
+// import projSearch from "../components/proj-search.vue";
 import { utilService } from '../services/util.service.js'
 
 // @ is an alias to /src
@@ -124,7 +122,7 @@ data(){
 
 },
   components: {
-    
+    // projSearch,    
   },
 
   async created() {
