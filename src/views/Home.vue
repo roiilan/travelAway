@@ -46,6 +46,10 @@
         
         class="around-the-world-card"
       >
+       <!-- <preview-map
+              :proj="proj"
+              title="Click to view project details"
+            /> -->
         <router-link :to="'/proj/' + proj._id">
           <div class="world-projs-img-conatainer ratio-card">
             <img :src="proj.imgUrls[0]" class="proj-preview-img" />
@@ -63,6 +67,7 @@
           <review-avarage-by-id class="review-avarage-for-list" :id="proj._id" />
           <h5>{{proj.title}}</h5>
           <h6>{{proj.description.substring(0,80) +'...'}}</h6>
+          <h6>rate: {{proj.rate}}</h6>
         </router-link>
       </li>
     </ul>
@@ -74,6 +79,7 @@
 import { utilService } from "../services/util.service.js";
 import reviewAvarageById from "../components/review-avarage-by-id.vue";
 import SocketService from "../services/socket.service.js";
+import previewMap from '../components/preview-map.vue';
 
 
 // @ is an alias to /src
@@ -157,6 +163,8 @@ export default {
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     this.projs = await this.$store.dispatch({ type: "loadProjs" });
+    
+    
     let worldProjs = JSON.parse(JSON.stringify(this.projs));
     var randomProjs = [];
     for (var i = 0; i < 8; i++) {
@@ -196,7 +204,8 @@ export default {
     }
   },
   components: {
-    reviewAvarageById
+    reviewAvarageById,
+    previewMap
   }
 };
 </script>

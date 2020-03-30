@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="proj-list-filtered" >
     <div class = "main-content">
         <div class="header ratio-16-9"  v-if="projsHeader" > 
@@ -6,6 +7,22 @@
           <div class="category-header">
          <div class="category-header-title"> {{projsHeader.title}} </div>
         <div class = "category-header-desc">  {{projsHeader.desc}} </div>
+=======
+  <div class="proj-list-filtered">
+    <div class="main-content">
+      <div class="header ratio-16-9" v-if="projsHeader">
+        <img :src="projsHeader.imgUrl" />
+        <div class="category-header">
+          <div class="category-header-title">{{projsHeader.title}}</div>
+          <div class="category-header-desc">{{projsHeader.desc}}</div>
+        </div>
+      </div>
+      <ul>
+        <li v-for="(proj) in projs" :key="proj._id">
+          <div class="proj-preview" @mousemove="log(proj._id)">
+           
+            <proj-preview :proj="proj"></proj-preview>
+>>>>>>> 59f8e89d82f0a9614a8d7621a7cca6e0456db74f
           </div>
     </div>
     <ul>

@@ -46,9 +46,18 @@ export default {
    
       },
     actions: {
+<<<<<<< HEAD
         async loadProjs(context, {filterBy}) {
             console.log(filterBy,'filterBy')
             const projs = await projService.query(filterBy)
+=======
+        async loadProjs(context, {}) {
+
+            const projs = await projService.query()
+            
+                // async loadProjs(context, {filterBy}){       
+                // const projs = await projService.query(filterBy)
+>>>>>>> 59f8e89d82f0a9614a8d7621a7cca6e0456db74f
             context.commit({ type: 'setProjs', projs })
             return projs
 
