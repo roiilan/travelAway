@@ -1,0 +1,14 @@
+.img-on-map {
+    position: absolute;
+    z-index: 100;
+    transform: translate(-50%,-50%);
+    width: rem(200px);
+    border-radius: 5px;
+    box-shadow: $shadow3;
+  }
+
+//   .container-map {
+//       background-color: gray;
+//       mix-blend-mode: multiply;
+//       filter: grayscale(0.8);
+//   }
