@@ -13,8 +13,10 @@
         <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
         <h5 v-else>{{proj.position.region}},</h5>
         <h5>{{proj.position.country}}</h5>
+
             </div>
         </div>
+          <h6>rate: {{proj.rate}}</h6>
         <span class = "review-container">
         <review-avarage-by-id class="review-avarage-for-list" :id="proj._id"/>   
         </span> 

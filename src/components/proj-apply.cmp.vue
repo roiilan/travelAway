@@ -10,8 +10,6 @@
         placeholder="Write something about yourelf :)"
         v-model="request.freeTxt"
       ></el-input>
-
-      <pre>{{proj.createdBy}}</pre>
       <button>Send request!</button>
     </form>
 

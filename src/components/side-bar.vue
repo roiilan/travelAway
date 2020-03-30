@@ -1,8 +1,6 @@
 <template>
   <div class="side-bar">
-    <div class="map">
       <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"></proj-map>
-    </div>
   </div>
 </template>
 
@@ -32,12 +30,10 @@ export default {
     getMarkers() {
       var markers = [];
       this.projs.map(proj => {
-        // var pos = new Object();
-        markers.push({pos: proj.position, url: proj.imgUrls[0], id: proj._id, proj: proj});
+      markers.push({pos: proj.position, proj: proj});
       }),
         markers.map(marker => {
-          // var position = new Object();
-          this.markers.push({ position: { lat: marker.pos.lat, lng: marker.pos.lng }, url: marker.url, id: marker.id, proj: marker.proj });
+        this.markers.push({ position: { lat: marker.pos.lat, lng: marker.pos.lng }, proj: marker.proj });
         });
     }
   },

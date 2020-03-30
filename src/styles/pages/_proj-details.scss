@@ -57,6 +57,9 @@
                 font-weight: bold;
             }
             .map-container {
+                .img-on-map-container {
+                    position: absolute;
+                }
                 .map {
                     height: 70vw;                    
                     @include for-normal-layout {

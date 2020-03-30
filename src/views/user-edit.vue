@@ -11,7 +11,6 @@
             </label>
             <button>Update</button>
         </form>
-        <!-- <pre>{{user}}</pre> -->
     </div>
 </template>
 

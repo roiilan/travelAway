@@ -1,5 +1,7 @@
 <template>
   <div class="proj-details-container width-container" v-if="proj">
+  {{proj.rate}}
+
     <div class="proj-details">
       <!-- <router-link :to="'/user/' + proj.createdBy._id">
           <img class="img-user" 
@@ -40,12 +42,14 @@
         <div></div>
 
         <div class="card-deatails map-container">
-          <proj-map
+      <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"></proj-map>
+
+          <!-- <proj-map
             class="map"
             :zoomSize="zoomSize"
             :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]"
             :position="proj.position"
-          ></proj-map>
+          ></proj-map> -->
         </div>
 
         <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
@@ -90,7 +94,13 @@ export default {
       zoomSize: 14,
       review: null,
       averageRate: null,
-      colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)","#938db1"]
+       colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)","#938db1"],
+      markers: [],
+      position: {
+        txtAdress: null,
+        lat: 33.886917,
+        lng: 9.537499
+      }
     };
   },
   async created() {
@@ -105,6 +115,7 @@ export default {
     });
     this.averageRate = this.reviews.reduce((a, b) => a + b.rate, 0);
     this.review = this.getEmptyReview();
+    this.getMarkers();
   },
   components: {
     projMap,
@@ -117,7 +128,7 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },
-    reviews(){
+    reviews() {
       return this.$store.getters.reviews;
     }
   },
@@ -127,7 +138,6 @@ export default {
     },
     stop() {},
     async save(review) {
-    
       var reviews = await this.$store.dispatch({
         type: "save",
         review
@@ -145,6 +155,15 @@ export default {
           imgUrl: this.proj.imgUrls[0]
         }
       };
+    },
+    getMarkers() {
+      var markers = [{ pos: this.proj.position, proj: this.proj }];
+        markers.forEach(marker => {
+          this.markers.push({
+            position: { lat: marker.pos.lat, lng: marker.pos.lng },
+            proj: marker.proj
+          });
+        });
     }
   },
   mounted() {
