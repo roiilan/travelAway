@@ -1,25 +1,14 @@
-
 // COLOR PALETTE
-
-$clr1: rgb(42, 55, 56);
-$clr2: rgb(146, 238, 245);
-$clr3: rgb(107, 243, 255);
-$clr4: #EAE6E5;
-$clr5: #8F8073;
-
-
+$clr1: #343148FF;
+$clr2: #D7C49EFF;
+// $clr3: rgb(107, 243, 255);
+// $clr4: #EAE6E5;
+// $clr5: #8F8073;
 // BOX-SHADOW
-
 $shadow1: 0px 0px 1px 1px #00000026;
 $shadow2: 0px 0px 3px 1px #00000026;
 $shadow3: 0px 0px 4px 1px #00000026;
-
-
-
 // LAYOUT BREAKPOINTS
-
 $break-narrow: 960px;
 $break-normal: 1080px;
 $break-wide: 1200px;
-
-
