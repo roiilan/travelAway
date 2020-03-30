@@ -15,15 +15,10 @@
     }
     .side-bar {
         flex-basis: 55%;
-        .map {
-            >* {
-                height: calc(100vh - 100px);
-            }
-        }
+        
         padding: 5px;
-        // position: sticky;
-        bottom: 0;
-        /* position: fixed; */
+        position: sticky;
+        top: 80px;
     }
     .category-header {
         display: flex;
