@@ -11,9 +11,10 @@
         v-model="request.freeTxt"
       ></el-input>
 
-      <!-- <pre>{{proj.createdBy}}</pre> -->
+      <pre>{{proj.createdBy}}</pre>
       <button>Send request!</button>
     </form>
+
   </div>
 </template>
 

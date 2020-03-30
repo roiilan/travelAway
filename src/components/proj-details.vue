@@ -53,7 +53,7 @@
         <div class="reviews-container">
           <h3 v-if="!reviews.length">Be the first to give feedback</h3>
           <h3 v-else>Add Review</h3>
-          <review-add :review="review" @save="save" />
+          <review-add :review="review" :proj="proj" @save="save" />
         </div>
       </div>
     </div>
@@ -127,6 +127,7 @@ export default {
     },
     stop() {},
     async save(review) {
+    
       var reviews = await this.$store.dispatch({
         type: "save",
         review
