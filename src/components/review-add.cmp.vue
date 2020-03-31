@@ -16,7 +16,6 @@
           placeholder="Write a few words of review"
           v-model="review.txt"
         ></el-input>
-  
       <button>Send <img class="btn-img" src="../assets/icon/send-1.png" alt=""></button>
     </form>
     

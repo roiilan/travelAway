@@ -7,7 +7,7 @@
           :alt="proj.createdBy.fullName"
           :title="proj.createdBy.fullName"/>
       </router-link>-->
-      
+
       <div class="edit-link-container width-container">
         <router-link
           v-if="loggedinUser &&
@@ -20,37 +20,49 @@
           <img class="btn-img" src="../assets/icon/edit.png" alt />
         </router-link>
       </div>
-      <div class="main-content-details">
+      <div class="main-content-details-contianer">
         <div class="title-proj">{{proj.title}}</div>
         <div class="img-proj-container ratio-16-9">
           <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
         </div>
-        <article class="description">
-          <span class="strong">Description:</span>
-          {{proj.description}}
-        </article>
-        <span class="strong">Required Dates:</span>
-        <span v-if="proj.date">{{proj.date[0]}} - {{proj.date[1]}}</span>
-        <span v-else>{{proj.startAt.date}} - {{proj.endsAt.date}}</span>
-        <review-avarage :reviews="reviews" />
-      </div>
+        <div class="main-content-details">
+          <article class="description">
+            <span class="strong">Description:</span>
+            {{proj.description}}
+          </article>
 
-      <div class="util-details">
-        <div class="card-deatails"></div>
+          <div class="requirements">
+            <h3>Requirements:</h3>
+            <p>
+              <span class="strong">Required Dates:</span>
+              {{proj.date[0]}} - {{proj.date[1]}}
+            </p>
+            <p>
+              <span class="strong">Members needed:</span>
+              {{proj.membersApplyed.length}} / {{proj.membersNeeded}}
+            </p>
+            <p v-if="proj.requirements.languages.length">
+              <span class="strong">Language control: </span>
+              <span v-for="language in proj.requirements.languages" :key="language">{{language}}</span>
+            </p>
+            <p v-if="proj.requirements.otherSkills.length">
+              <span class="strong">Other Skills:</span>
+              <span v-for="skill in proj.requirements.otherSkills" :key="skill">{{skill}}</span>
+            </p>
+            <p>
+              <span class="strong">Minimum Age:</span>
+              {{proj.requirements.minAge}}
+            </p>
+          </div>
 
-        <div></div>
+          <div class="tags" v-if="proj.tags.length">
+            <h3>What is included?</h3>
+            <p v-for="tag in proj.tags" :key="tag">{{tag}}</p>
+          </div>
 
-        <div class="card-deatails map-container">
-      <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"></proj-map>
-
-          <!-- <proj-map
-            class="map"
-            :zoomSize="zoomSize"
-            :markers="[{ position: { lat: proj.position.lat, lng: proj.position.lng } }]"
-            :position="proj.position"
-          ></proj-map> -->
+          <review-avarage :reviews="reviews" />
         </div>
-
+      </div>
         <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
 
         <div class="reviews-container">
@@ -58,7 +70,10 @@
           <h3 v-else>Add Review</h3>
           <review-add :review="review" :proj="proj" @save="save" />
         </div>
-      </div>
+        <div class="card-deatails map-container">
+          <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"></proj-map>
+        </div>
+
     </div>
     <div @click.stop="stop">
       <proj-apply
@@ -137,6 +152,11 @@ export default {
     },
     stop() {},
     async save(review) {
+      review.by = (this.loggedinUser)? this.loggedinUser: {
+        _id: 1,
+        fullName: 'Anonymous',
+        imgUrl: '../assets/icon/login.png'
+    }
       var reviews = await this.$store.dispatch({
         type: "saveReview",
         review
@@ -157,12 +177,12 @@ export default {
     },
     getMarkers() {
       var markers = [{ pos: this.proj.position, proj: this.proj }];
-        markers.forEach(marker => {
-          this.markers.push({
-            position: { lat: marker.pos.lat, lng: marker.pos.lng },
-            proj: marker.proj
-          });
+      markers.forEach(marker => {
+        this.markers.push({
+          position: { lat: marker.pos.lat, lng: marker.pos.lng },
+          proj: marker.proj
         });
+      });
     }
   },
   mounted() {

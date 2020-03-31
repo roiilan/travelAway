@@ -36,8 +36,11 @@ export default {
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user event', user._id)
             socketService.on(user._id, res => {
-                alert('lezahuttttt');
-                console.log(res);
+                this.$notify({
+                    title: "Massage",
+                    message: 'Someone wants to join your project',
+                    duration: 1500
+                });
 
             })
             return user;
@@ -48,8 +51,11 @@ export default {
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user topic', user._id)
             socketService.on(user._id, res => {
-                alert('lezahuttttt');
-                console.log(res);
+                this.$notify({
+                    title: "Massage",
+                    message: 'Someone wants to join your project',
+                    duration: 1500
+                });
             })
             return user;
         },

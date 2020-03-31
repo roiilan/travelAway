@@ -49,6 +49,7 @@
           range-separator="To"
           start-placeholder="Start date"
           end-placeholder="End date"
+          format="yyyy/MM/dd"
         ></el-date-picker>
       </div>
       <div class="input-edit-contianer-3">

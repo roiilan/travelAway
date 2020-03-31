@@ -139,7 +139,22 @@ export default {
   },
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
-    this.projs = await this.$store.dispatch({ type: "loadProjs" });
+      this.projs = await this.$store.dispatch({ type: "loadProjs" });
+    // console.log('projs:', this.projs);
+    
+    // var x  = JSON.parse(JSON.stringify(this.projs));
+    
+    // x.forEach(async y=>{
+    //   delete y.requirements.age
+    //   delete y.requirements.day
+    //   delete y.startAt
+    //   delete y.endsAt
+    //   delete y.givenReviews
+    //    await this.$store.dispatch({ type: "saveProj", proj:y })
+    //   }  
+      
+    //   )
+    //   console.log('projs x:', x);
     let worldProjs = JSON.parse(JSON.stringify(this.projs));
     var randomProjs = [];
     for (var i = 0; i < 6; i++) {

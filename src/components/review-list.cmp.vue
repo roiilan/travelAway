@@ -1,5 +1,6 @@
 <template>
     <div class="review-list">
+        <h3>Reviews:</h3>
         <div v-for="(review, index) in reviews" :key="review._id">
 
         <review-preview
