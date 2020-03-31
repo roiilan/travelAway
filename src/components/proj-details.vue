@@ -105,7 +105,7 @@ export default {
       proj: null,
       isApplyOpen: false,
       isEdit: false,
-      zoomSize: 14,
+      zoomSize: 2,
       review: null,
       averageRate: null,
       colors: this.$store.getters.colors,
