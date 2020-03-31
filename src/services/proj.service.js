@@ -142,7 +142,6 @@ function getHeaderObj(filter) {
         },
 
     }
-    console.log('service', filter);
     return headerObj[filter]
 
 

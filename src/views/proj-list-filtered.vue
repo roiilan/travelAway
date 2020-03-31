@@ -10,10 +10,9 @@
       </div>
       <ul>
         <li v-for="(proj) in projs" :key="proj._id">
-          <div class="proj-preview" @mousemove="log(proj._id)">
            
             <proj-preview :proj="proj"></proj-preview>
-          </div>
+         
         </li>
       </ul>
     </div>

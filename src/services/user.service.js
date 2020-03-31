@@ -31,14 +31,14 @@ function remove(userId) {
     return httpService.delete(`user/${userId}`)
 }
 
-function update(currUser) {
+function update(user) {
 
     // var users = getUsers();
     // const idx = users.findIndex(user => user._id === currUser._id);
     // users.splice(idx, 1, currUser);
     // storageService.store(KEY_USERS, users);
     // return currUser;
-    return httpService.put(`user/${currUser._id}`, currUser)
+    return httpService.put(`user/${user._id}`, user)
 }
 
 async function login(credentials) {
@@ -54,7 +54,6 @@ async function login(credentials) {
 
 
 async function signup(newUserCred) {
-    console.log('signup', newUserCred)
     sessionStorage.clear();
     newUserCred.joinAt = { date: _getValidDate(new Date()), time: _getValidtime(new Date()) };
     newUserCred.karma = 5;
