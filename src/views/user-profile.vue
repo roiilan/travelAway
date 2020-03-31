@@ -109,15 +109,10 @@ export default {
    async approve(){
      const desiredProj = await this.$store.dispatch({ type:'getProjById', id:this.user.notifications[0].projId})
      desiredProj.membersApplyed.push(this.user.notifications[0].member) * this.user.notifications[0].memebersApllied 
-      await this.$store.dispatch({ type: "saveProj",proj: desiredProj });
-      this.user.notifications = []  
-
-
-      console.log('approoved',desiredProj);
+     await this.$store.dispatch({ type: "saveProj",proj: desiredProj });
+     this.user.notifications = []  
+     console.log('approoved',desiredProj);
      
-
-
-      
     }
   },
   mounted() {

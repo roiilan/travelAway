@@ -48,6 +48,7 @@ export default {
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user topic', user._id)
             socketService.on(user._id, res => {
+                alert('lezahuttttt');
                 console.log(res);
             })
             return user;
