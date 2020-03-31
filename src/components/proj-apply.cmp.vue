@@ -1,14 +1,15 @@
 <template>
   <div class="proj-apply">
-    <h1>hi</h1>
-    <form @submit.prevent="applyToProj">
-      <el-input-number v-model="request.memebersApllied" :min="1" :max="this.proj.membersNeeded"></el-input-number>
+    <h1>apply now</h1>
+    <form class="form-apply" @submit.prevent="applyToProj">
       <el-input
+        class="input-txt-apply"
         type="textarea"
         :autosize="{ minRows: 3}"
         placeholder="Write something about yourelf :)"
         v-model="request.freeTxt"
       ></el-input>
+      <el-input-number class="input-number-apply" v-model="request.memebersApllied" :min="1" :max="this.proj.membersNeeded"></el-input-number>
       <button>Send request!</button>
     </form>
   </div>
