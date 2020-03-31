@@ -3,9 +3,6 @@
     <h1>hi</h1>
     <form @submit.prevent="applyToProj">
       <el-input-number v-model="request.memebersApllied" :min="1" :max="this.proj.membersNeeded"></el-input-number>
-      <pre>
-        {{proj}}
-      </pre>
       <el-input
         type="textarea"
         :autosize="{ minRows: 3}"

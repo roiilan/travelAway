@@ -1,6 +1,5 @@
 <template>
   <div class="proj-details-container width-container" v-if="proj">
-  {{proj.rate}}
 
     <div class="proj-details">
       <!-- <router-link :to="'/user/' + proj.createdBy._id">
