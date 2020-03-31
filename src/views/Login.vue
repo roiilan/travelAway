@@ -96,7 +96,7 @@ export default {
         credentials: this.credentials
       });
       if (user) {
-        this.$router.push("/");
+        this.goBack();;
       }
     },
     async signup() {
@@ -110,7 +110,10 @@ export default {
         type: "signup",
         newUserCred: this.newUserCred
       });
-      this.$router.push("/");
+      this.goBack();
+    },
+    goBack() {
+      this.$router.go(-1);
     },
     async uploadImg(ev) {
       var img = await this.$store.dispatch({

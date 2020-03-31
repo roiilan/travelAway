@@ -52,16 +52,19 @@ a {
 }
 
 ul {
+    padding: 0;
 }
 
 li {
-    // padding: 0;
-    // margin: 0;
     list-style: none;
 }
 
 #app {
     min-height: 100vh;
+}
+
+.strong {
+    font-weight: bolder;
 }
 
 input,
