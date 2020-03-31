@@ -24,6 +24,13 @@
         <img :src="category.imgUrl" />
         <div class="img-tag" :class="category.category">{{category.title}}</div>
       </router-link>
+
+  </div>
+
+  <div class="walk-ways-details" v-if="projs">
+    <h1>Projs:{{projs.length}} </h1>
+    <h1>Voulnteers:{{users.length}}</h1>
+    <h1>Countries Around The World:{{countriesCount}}</h1>
     </div>
 
       <h1 class="details-header">WalkWays Activity</h1>
