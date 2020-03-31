@@ -13,18 +13,17 @@
         <h3>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h3>
         <review-avarage :reviews="reviews"/>
         <section v-if="user.notifications">
+        
           <h1>Notifications</h1>
         <div v-for="notification in user.notifications" :key="notification">
-          <h4>Project Name:{{projectName}}</h4>
-          <!-- <pre>
+            <!-- <pre>
           {{notification}}
           </pre> -->
+          <h4>Project Name:{{notification.projTitle}}</h4>
+     
           <h4>By:{{notification.member.username}}</h4>
           <h4>Members intrested:{{notification.memebersApllied}}</h4>
           <h4>Free txt:{{notification.freeTxt}}</h4>
-          <!-- <pre>
-            {{user.notifications}}
-            </pre> -->
           <button @click="approve"> Approve!</button>
           <button @click="decline"> Decline </button>
         </div>
@@ -61,6 +60,7 @@ export default {
       zoomSize: 12,
       colors: this.$store.getters.colors,
       value: null,
+      projApplied:null,
     };
   },
   async created() {
@@ -98,8 +98,7 @@ export default {
     },
      decline(){
       console.log('declined');
-      this.user.notifications = []
-      
+      this.user.notifications = []  
       // userService.update(this.user)
       this.$store.dispatch({ type:'updateUser',  user:this.user})
 
@@ -107,8 +106,16 @@ export default {
       
       
     },
-    approve(){
-      console.log('approoved');
+   async approve(){
+     const desiredProj = await this.$store.dispatch({ type:'getProjById', id:this.user.notifications[0].projId})
+     desiredProj.membersApplyed.push(this.user.notifications[0].member) * this.user.notifications[0].memebersApllied 
+      await this.$store.dispatch({ type: "saveProj",proj: desiredProj });
+      this.user.notifications = []  
+
+
+      console.log('approoved',desiredProj);
+     
+
 
       
     }
@@ -122,11 +129,7 @@ export default {
     reviews(){
       return this.$store.getters.reviews;
     },
-   async projectName(){
-     
-     var projAskedId = await projsService.getById(this.user.notifications[0].projId)
-     return projAskedId
-    }
+
   },
 
 

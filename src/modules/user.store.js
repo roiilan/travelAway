@@ -78,6 +78,8 @@ export default {
             return msg;
         },
         async updateUser(context, { user }) {
+            console.log(user);
+
             user = await userService.update(user);
             // context.commit({ type: 'setUser', user })
             return user;

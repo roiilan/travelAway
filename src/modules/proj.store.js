@@ -40,9 +40,9 @@ export default {
         async loadProjs(context, {}) {
 
             const projs = await projService.query()
-            
-                // async loadProjs(context, {filterBy}){       
-                // const projs = await projService.query(filterBy)
+
+            // async loadProjs(context, {filterBy}){       
+            // const projs = await projService.query(filterBy)
             context.commit({ type: 'setProjs', projs })
             return projs
         },
@@ -58,8 +58,6 @@ export default {
             return msg
         },
         async saveProj(context, { proj }) {
-
-
             const isEdit = !!proj._id;
             const savedProj = await projService.save(proj)
             context.commit({
@@ -70,9 +68,11 @@ export default {
         },
         async getFilteredProjHeader(context, { filter }) {
             const filteredProjsHeader = await projService.getHeaderObj(filter)
-                // context.commit({ type: 'removeProj', projId });
-
             return filteredProjsHeader;
+        },
+        async getProjById(context, { id }) {
+            const proj = await projService.getById(id)
+            return proj;
         }
     },
 }
