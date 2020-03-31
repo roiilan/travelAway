@@ -1,8 +1,4 @@
 <template>
-<<<<<<< HEAD
-=======
-
->>>>>>> a2aa50c148795d006dcbf09e1c7ab6aab2fb7dcd
   <div class="proj-list" v-if="projs" >
    <h1>BE THE CHANGE. BE A GLOBAL VOLUNTEER ABROAD.</h1>
    <h2 v-if="noRes">There is no result</h2>
