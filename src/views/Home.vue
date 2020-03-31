@@ -27,11 +27,7 @@
 
   </div>
 
-  <div class="walk-ways-details" v-if="projs">
-    <h1>Projs:{{projs.length}} </h1>
-    <h1>Voulnteers:{{users.length}}</h1>
-    <h1>Countries Around The World:{{countriesCount}}</h1>
-    </div>
+
 
       <h1 class="details-header">WalkWays Activity</h1>
     <div class="walk-ways-details" v-if="projs">
