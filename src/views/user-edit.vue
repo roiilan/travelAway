@@ -25,14 +25,12 @@ export default {
     },
     async created() {
         const userId = this.$route.params.id;
-        console.log(userId);
           
         this.user = await userService.getById(userId)
     },
     methods: {
         async updateUser(){
             var user = await this.$store.dispatch({ type:'updateUser',  user:this.user})
-            console.log('user: ', user);
             this.$router.push('/login')
         },
         async uploadImg(ev){

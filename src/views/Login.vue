@@ -68,7 +68,6 @@ export default {
     };
   },
   async created() {
-      console.log('createddd');
       
     // this.users = await this.$store.dispatch({ type:'loadUsers' });
     this.credentials = { username: "", password: "" },
@@ -122,7 +121,6 @@ export default {
     },
     async removeUser(userId) {
       var msg = await this.$store.dispatch({ type: "removeUser", userId });
-      console.log("msg: ", msg);
     }
   },
   computed: {

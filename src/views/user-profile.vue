@@ -12,10 +12,25 @@
         <h3>{{user.karma}} Karma</h3>
         <h3>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h3>
         <review-avarage :reviews="reviews"/>
+        <section v-if="user.notifications">
+          <h1>Notifications</h1>
         <div v-for="notification in user.notifications" :key="notification">
+          <h4>Project Name:{{projectName}}</h4>
+          <!-- <pre>
+          {{notification}}
+          </pre> -->
+          <h4>By:{{notification.member.username}}</h4>
+          <h4>Members intrested:{{notification.memebersApllied}}</h4>
+          <h4>Free txt:{{notification.freeTxt}}</h4>
+          <!-- <pre>
+            {{user.notifications}}
+            </pre> -->
+          <button @click="approve"> Approve!</button>
+          <button @click="decline"> Decline </button>
         </div>
+        </section>
       </div>
-      <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="user.position"></proj-map>
+      <!-- <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="user.position"></proj-map> -->
     </div>
 
     <review-list v-if="reviews.length" :reviews="reviews" />
@@ -80,6 +95,22 @@ export default {
           imgUrl: this.user.imgUrl
         }
       };
+    },
+     decline(){
+      console.log('declined');
+      this.user.notifications = []
+      
+      // userService.update(this.user)
+      this.$store.dispatch({ type:'updateUser',  user:this.user})
+
+      console.log(this.user);
+      
+      
+    },
+    approve(){
+      console.log('approoved');
+
+      
     }
   },
   mounted() {
@@ -90,14 +121,16 @@ export default {
   computed: {
     reviews(){
       return this.$store.getters.reviews;
+    },
+   async projectName(){
+     
+     var projAskedId = await projsService.getById(this.user.notifications[0].projId)
+     return projAskedId
     }
   },
-  // created(){
-  //       eventBus.$on('applyToProj', request =>{
-  //       console.log(request)    
-  //     });
 
-  // },
+
+  
   components: {
     projMap,
     reviewList,

@@ -1,5 +1,4 @@
 function uploadImg(ev) {
-    console.log('here for the third time!');
     const CLOUD_NAME = "tamir"
     const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
 

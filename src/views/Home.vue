@@ -151,7 +151,6 @@ export default {
     this.worldProjs = randomProjs;
     SocketService.setup();
     SocketService.on("send request", request => {
-      console.log("here?");
       // this.projOwner.notifications.push(request)
       console.log(request, "request arrived");
     });

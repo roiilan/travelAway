@@ -42,7 +42,6 @@ export default {
     async logout() {
       var res = await this.$store.dispatch({ type: "logout" });
       if (res) {
-        console.log("res: ", res);
         // this.$store.commit({
         //   type: "setMsg",
         //   msg: { isShow: true, txt: "The logout operation was successful" }

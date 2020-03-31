@@ -36,7 +36,6 @@ export default {
         type: "removeReview",
         reviewId
       });
-      console.log("msg: ", msg);
       this.reviews = this.$store.getters.reviews;
     });
   },

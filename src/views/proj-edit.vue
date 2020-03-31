@@ -296,8 +296,6 @@ export default {
         projId
       });
       this.proj = JSON.parse(JSON.stringify(proj));
-      this.proj.createdBy = this.loggedinUser;
-
       if (
         this.loggedinUser._id !== this.proj.createdBy._id &&
         !this.loggedinUser.isAdmin
@@ -340,28 +338,23 @@ export default {
         //   type: "setMsg",
         //   msg: { isShow: true, txt: "You must select a category" }
         // });
-        this.$notify({
-          title: "Warning",
-          message: "You must select a category",
-          type: "warning",
+
+         this.$notify({
+          title: 'Warning',
+          message: 'You must select a category',
+          type: 'warning',
           duration: 1500
         });
         window.scrollTo(0, 0);
         return;
       }
       // proj.date = this.fixDate(proj.date);
+      this.proj.createdBy = this.loggedinUser
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$router.push("/");
     },
     fixDate(dates) {
-      console.log("dates:", dates);
-      var dates = dates.map(date =>
-        date
-          .substring(0, 10)
-          .split("-")
-          .join("/")
-      );
-      console.log("dates:", dates);
+      var dates = dates.map(date => date.substring(0, 10).split('-').join('/'));
       return dates;
     },
     async remove(projId) {
@@ -374,7 +367,6 @@ export default {
     },
     async searchPosition(txt) {
       //  var txt =proj.position.txtAddress
-      console.log(txt, "txt");
       var currPosition = await this.$store.dispatch({
         type: "searchPosition",
         txt
