@@ -6,21 +6,19 @@
           <img class="main-img-profile" :src="user.imgUrl" />
           <h1 class="username">
             {{user.fullName}}
-            <span v-if="user.isAdmin">, (Admin)</span>
+            <!-- <span v-if="user.isAdmin">, (Admin)</span> -->
           </h1>
         </div>
         <h3>{{user.karma}} Karma</h3>
         <h3>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h3>
         <review-avarage :reviews="reviews"/>
         <section v-if="user.notifications">
-        
           <h1>Notifications</h1>
         <div v-for="notification in user.notifications" :key="notification">
             <!-- <pre>
           {{notification}}
           </pre> -->
           <h4>Project Name:{{notification.projTitle}}</h4>
-     
           <h4>By:{{notification.member.username}}</h4>
           <h4>Members intrested:{{notification.memebersApllied}}</h4>
           <h4>Free txt:{{notification.freeTxt}}</h4>
