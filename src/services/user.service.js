@@ -24,8 +24,8 @@ function remove(userId) {
     return httpService.delete(`user/${userId}`)
 }
 
-function update(currUser) {
-    return httpService.put(`user/${user._id}`, currUser)
+function update(user) {
+    return httpService.put(`user/${user._id}`, user)
 }
 
 async function login(credentials) {
