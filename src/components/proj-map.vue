@@ -1,21 +1,16 @@
 <template>
   <div class="container-map">
-        <transition name="fade">
-      <proj-preview-card 
-      :proj="proj" 
-      v-if="isShow" 
-      title="Click to view project details" 
-      @click.native="openDetails(proj._id)" 
-      class="img-on-map-container" 
-      :style="`top:${y}px; left:${x}px`"/>
-        </transition>
-    <GmapMap
-      class="map"
-      v-if="position"
-      :center="position"
-      :zoom="zoomSize"
-      map-type-id="terrain"
-    >
+    <transition name="fade">
+      <proj-preview-card
+        :proj="proj"
+        v-if="isShow"
+        title="Click to view project details"
+        @click.native="openDetails(proj._id)"
+        class="img-on-map-container"
+        :style="`top:${y}px; left:${x}px`"
+      />
+    </transition>
+    <GmapMap class="map" v-if="position" :center="position" :zoom="zoomSize" map-type-id="terrain">
       <GmapMarker
         :key="index"
         v-for="(m, index) in markers"
@@ -30,7 +25,7 @@
   </div>
 </template>
 <script>
-import projPreviewCard from '../components/proj-preview-card.vue';
+import projPreviewCard from "../components/proj-preview-card.vue";
 
 const mapMarker = require("../assets/icon/airport.png");
 
@@ -50,7 +45,7 @@ export default {
       proj: null,
       x: 0,
       y: 0,
-      isShow: false,
+      isShow: false
     };
   },
   created() {},
@@ -82,7 +77,7 @@ export default {
     document.removeEventListener("click", this.closeImg);
   },
   components: {
-    projPreviewCard,
-  },
+    projPreviewCard
+  }
 };
 </script>

@@ -42,7 +42,7 @@
               {{proj.membersApplyed.length}} / {{proj.membersNeeded}}
             </p>
             <p v-if="proj.requirements.languages.length">
-              <span class="strong">Language control: </span>
+              <span class="strong">Language control:</span>
               <span v-for="language in proj.requirements.languages" :key="language">{{language}}</span>
             </p>
             <p v-if="proj.requirements.otherSkills.length">
@@ -63,31 +63,31 @@
           <review-avarage :reviews="reviews" />
         </div>
       </div>
-        <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
+      <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
 
-        <div class="reviews-container">
-          <h3 v-if="!reviews.length">Be the first to give feedback</h3>
-          <h3 v-else>Add Review</h3>
-          <review-add :review="review" :proj="proj" @save="save" />
-        </div>
-        <div class="card-deatails map-container">
-          <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"></proj-map>
-        </div>
-
+      <div class="reviews-container">
+        <h3 v-if="!reviews.length">Be the first to give feedback</h3>
+        <h3 v-else>Add Review</h3>
+        <review-add :review="review" :proj="proj" @save="save" />
+      </div>
+      <div class="card-deatails map-container">
+        <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"></proj-map>
+      </div>
     </div>
     <div @click.stop="stop">
       <proj-apply
+        @onApply="onApply"
         :proj="proj"
         :user="loggedinUser"
         class="proj-apply"
-        :class="{'apply-opened':isApplyOpen}"
+        :class="{'apply-opened':isApplyOpen, 'apply-on':isApplyOn}"
       ></proj-apply>
     </div>
     <div
       @click.stop="isApplyOpen = true"
       class="proj-apply-for-mobile"
       :class="{'apply-opened':isApplyOpen}"
-    >Apply now</div>
+    ><h1>Apply now</h1></div>
   </div>
 </template>
 
@@ -104,8 +104,9 @@ export default {
     return {
       proj: null,
       isApplyOpen: false,
+      isApplyOn: false,
       isEdit: false,
-      zoomSize: 14,
+      zoomSize: 2,
       review: null,
       averageRate: null,
       colors: this.$store.getters.colors,
@@ -152,11 +153,13 @@ export default {
     },
     stop() {},
     async save(review) {
-      review.by = (this.loggedinUser)? this.loggedinUser: {
-        _id: 1,
-        fullName: 'Anonymous',
-        imgUrl: '../assets/icon/login.png'
-    }
+      review.by = this.loggedinUser
+        ? this.loggedinUser
+        : {
+            _id: 1,
+            fullName: "Anonymous",
+            imgUrl: "../assets/icon/login.png"
+          };
       var reviews = await this.$store.dispatch({
         type: "saveReview",
         review
@@ -183,6 +186,9 @@ export default {
           proj: marker.proj
         });
       });
+    },
+    onApply() {
+      this.isApplyOn = true;
     }
   },
   mounted() {
