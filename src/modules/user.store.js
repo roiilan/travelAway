@@ -36,11 +36,14 @@ export default {
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user event', user._id)
             socketService.on(user._id, res => {
-                this.$notify({
-                    title: "Massage",
-                    message: 'Someone wants to join your project',
-                    duration: 1500
-                });
+                if (res) {
+                    this.$notify({
+                        title: "Massage",
+                        message: 'Someone wants to join your project',
+                        duration: 1500
+                    });
+
+                }
 
             })
             return user;
@@ -51,11 +54,14 @@ export default {
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user topic', user._id)
             socketService.on(user._id, res => {
-                this.$notify({
-                    title: "Massage",
-                    message: 'Someone wants to join your project',
-                    duration: 1500
-                });
+                if (res) {
+                    this.$notify({
+                        title: "Massage",
+                        message: 'Someone wants to join your project',
+                        duration: 1500
+                    });
+
+                }
             })
             return user;
         },

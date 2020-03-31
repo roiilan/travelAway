@@ -101,7 +101,6 @@ export default {
       this.user.notifications = []  
       // userService.update(this.user)
       this.$store.dispatch({ type:'updateUser',  user:this.user})
-
       console.log(this.user);
       
       

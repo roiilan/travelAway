@@ -68,7 +68,7 @@
                 opacity: 0.8;
             }
             .img-tag {
-                color: $clr1;
+                color: lighten($clr2, 20%);
                 // background-color: lighten($clr1, 10%);
                 background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 0%, rgba(74, 74, 74, 1) 100%);
             }
@@ -239,4 +239,3 @@
     display: flex;
     justify-content: space-around;
 }
-
