@@ -13,7 +13,7 @@
         <span class="gandy">Mahatma Gandhi</span>
       </p>
     </div>
-    <div class="category-container">
+    <div class="category-container width-container">
       <router-link
         :to="'/projs/' + category.category"
         v-for="category in categories"
@@ -24,13 +24,6 @@
         <img :src="category.imgUrl" />
         <div class="img-tag" :class="category.category">{{category.title}}</div>
       </router-link>
-
-  </div>
-
-  <div class="walk-ways-details" v-if="projs">
-    <h1>Projs:{{projs.length}} </h1>
-    <h1>Voulnteers:{{users.length}}</h1>
-    <h1>Countries Around The World:{{countriesCount}}</h1>
     </div>
 
       <h1 class="details-header">WalkWays Activity</h1>
@@ -40,47 +33,31 @@
       <h1><img src="https://image.flaticon.com/icons/svg/921/921439.svg">Countries<span class="space">{{countriesCount}}</span></h1>
     </div>
 
-    <ul class="around-the-world-preview">
+    <ul class="around-the-world-preview width-container">
       <li
         v-for="proj in worldProjs"
         :key="proj._id"
         
         class="around-the-world-card"
       >
-       <!-- <preview-map
+       <proj-preview-card
               :proj="proj"
-              title="Click to view project details"
-            /> -->
-        <router-link :to="'/proj/' + proj._id">
-          <div class="world-projs-img-conatainer ratio-card">
-            <img :src="proj.imgUrls[0]" class="proj-preview-img" />
-          </div>
-          <div class="world-prjs-country-details">
-            <img
-              :src="`https://www.countryflags.io/${proj.position.short_country}/shiny/64.png`"
-              v-if="proj.position.short_country"
-              class="world-proj-flag"
+              :title="proj.description.substring(0,80) +'... Click to read more!!'"
+              class="proj-preview-card"
+              @click.native="openDetails(proj._id)" 
             />
-            <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
-            <h5 v-else>{{proj.position.region}},</h5>
-            <h5>{{proj.position.country}}</h5>
-          </div>
-          <review-avarage-by-id class="review-avarage-for-list" :id="proj._id" />
-          <h5>{{proj.title}}</h5>
-          <h6>{{proj.description.substring(0,80) +'...'}}</h6>
-          <h6>rate: {{proj.rate}}</h6>
-        </router-link>
       </li>
     </ul>
-    <router-link to="/projs/aroundTheWorld">More around the world</router-link>
+    <div class="width-container flex j-end">
+    <router-link class="show-more" title="Show more about 'around the world'" to="/projs/aroundTheWorld">Show more</router-link>
+    </div>
   </div>
 </template>
 
 <script>
 import { utilService } from "../services/util.service.js";
-import reviewAvarageById from "../components/review-avarage-by-id.vue";
 import SocketService from "../services/socket.service.js";
-import previewMap from '../components/preview-map.vue';
+import projPreviewCard from '../components/proj-preview-card.vue';
 
 
 // @ is an alias to /src
@@ -160,15 +137,12 @@ export default {
       ]
     };
   },
-
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     this.projs = await this.$store.dispatch({ type: "loadProjs" });
-    
-    
     let worldProjs = JSON.parse(JSON.stringify(this.projs));
     var randomProjs = [];
-    for (var i = 0; i < 8; i++) {
+    for (var i = 0; i < 6; i++) {
       var randomNum = utilService.getRandomInt(0, worldProjs.length);
       randomProjs.unshift(worldProjs[randomNum]);
       worldProjs.splice(randomNum, 1);
@@ -181,24 +155,11 @@ export default {
       // this.projOwner.notifications.push(request)
       console.log(request, "request arrived");
     });
-      // this.reviews = await this.$store.dispatch({
-      // type: "loadReviews",
-    // }); 
-// this.users.forEach(puser =>{
-//   user.notificatio
-
-// })
-    
-    // this.users.forEach(user =>{
-    //   user.notifications = []
-    //   this.$store.dispatch({ type:'updateUser',  user})
-
-    // })
-    console.log(this.users);
-    
-    
-    //  window.scrollTo(515,515)
-    //  window.scrollTo(0,0)
+  },
+  methods: {
+    openDetails(id) {
+      this.$router.push("/proj/" + id);
+    },
   },
   computed: {
     countriesCount() {
@@ -212,8 +173,7 @@ export default {
     }
   },
   components: {
-    reviewAvarageById,
-    previewMap
+    projPreviewCard
   }
 };
 </script>

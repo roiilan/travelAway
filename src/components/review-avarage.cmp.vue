@@ -6,7 +6,7 @@
             disabled
             show-score
             text-color="#0b757d"
-            :score-template="`${value} (${reviews.length})`"
+            :score-template="`${value.toFixed(1)} (${reviews.length})`"
             :colors="colors"
           ></el-rate> 
         </div>
@@ -18,7 +18,7 @@ export default {
     data() {
         return {
             value: null,
-            colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "#938db1"],
+            colors: this.$store.getters.colors,
         }
     },
     watch: {

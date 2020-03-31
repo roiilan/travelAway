@@ -7,7 +7,7 @@ const KEY_REVIEWS = 'reviews'
 export const reviewService = {
     getReviews,
     remove,
-    save,
+    saveReview,
 }
 
 async function getReviews(id) {
@@ -31,7 +31,7 @@ async function remove(reviewId) {
     return httpService.delete(`review/${reviewId}`)
 }
 
-async function save(review) {
+async function saveReview(review) {
     return (review._id) ? _updateReview(review) : _addReview(review);
 }
 

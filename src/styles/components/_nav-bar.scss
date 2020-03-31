@@ -1,3 +1,5 @@
+
+
 .nav-bar-container {
     position: static;
     // transition:  .3s;
@@ -22,7 +24,9 @@
             margin: 0;
         }
         .logo-container {
+            
             .logo {
+                position: relative;
                 cursor: pointer;
                 width: rem(80px);
                 margin: 0 rem(10px);

@@ -25,6 +25,7 @@ export default {
     state: {
         reviews: [],
         by: _getBy(),
+        color: ["#a687ec", "#4c207b", "#555076"],
     },
     getters: {
         reviews(state) {
@@ -33,6 +34,9 @@ export default {
         by(state) {
             return state.by;
         },
+        colors(state) {
+            return state.color
+        }
     },
     mutations: {
         setReviews(state, { reviews }) {
@@ -42,8 +46,6 @@ export default {
             state.reviews.unshift(review)
         },
         updateReview(state, { review }) {
-            console.log('review in miutition in store:', review);
-
             const idx = state.reviews.findIndex(reviewInLoop => reviewInLoop._id === review._id)
             state.reviews.splice(idx, 1, review)
         },
@@ -53,18 +55,20 @@ export default {
     },
     actions: {
         async loadReviews(context, { id }) {
-            // console.log(id);
-
             const reviews = await reviewService.getReviews(id);
             context.commit({ type: 'setReviews', reviews })
-
             return reviews;
         },
-        async save(context, { review }) {
+        async saveReview(context, { review }) {
             var isEdit = !!review._id;
-
-            review = await reviewService.save(review);
-            console.log('review in store after:', review);
+            review = await reviewService.saveReview(review);
+            // console.log('review.about._id in store after:', review.about._id);
+            // var user = await userService.getById(review.about._id)
+            // console.log('user1:', user);
+            // const reviews = await reviewService.getReviews(user._id)
+            // user.rate = await reviews.reduce((a,b) => a + b.rate, 0) / (reviews.length)
+            // var user = await userService.update(user)
+            // console.log(user);
             context.commit({ type: (isEdit) ? 'updateReview' : 'addReview', review })
             return review;
         },
@@ -73,10 +77,5 @@ export default {
             context.commit({ type: 'removeReview', reviewId })
             return msg;
         },
-        // async updateReview(context, {review}) {
-        //     review = await reviewService.update(review);
-        //     // context.commit({type: 'setReview', review})
-        //     return review;
-        // },
     }
 }

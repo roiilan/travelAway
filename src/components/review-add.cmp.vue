@@ -2,7 +2,7 @@
     <form class="add-review flex" v-if="review" @submit.prevent="$emit('save', review)">
       <div class="add-rate-container flex a-center j-center">
      
-      <h3>Rate ({{review.rate}}):</h3>
+      <h3>Rate:</h3>
     
         <el-rate
           v-model="review.rate"
@@ -27,7 +27,7 @@ export default {
     props: ['review', 'proj'],
     data() {
         return {
-            colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "#938db1"],
+            colors: this.$store.getters.colors,
         }
     },
 }

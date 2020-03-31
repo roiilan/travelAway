@@ -1,7 +1,7 @@
 <template>
   <div class="container-map">
         <transition name="fade">
-      <preview-map 
+      <proj-preview-card 
       :proj="proj" 
       v-if="isShow" 
       title="Click to view project details" 
@@ -19,7 +19,6 @@
       <GmapMarker
         :key="index"
         v-for="(m, index) in markers"
-        :title="m.proj.title"
         :ref="`marker${index}`"
         :position="m.position"
         :clickable="true"
@@ -31,7 +30,7 @@
   </div>
 </template>
 <script>
-import previewMap from '../components/preview-map.vue';
+import projPreviewCard from '../components/proj-preview-card.vue';
 
 const mapMarker = require("../assets/icon/airport.png");
 
@@ -83,7 +82,7 @@ export default {
     document.removeEventListener("click", this.closeImg);
   },
   components: {
-    previewMap,
+    projPreviewCard,
   },
 };
 </script>

@@ -13,7 +13,6 @@
         <h3>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}.</h3>
         <review-avarage :reviews="reviews"/>
         <div v-for="notification in user.notifications" :key="notification">
-          <pre>{{notification}}</pre>
         </div>
       </div>
       <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="user.position"></proj-map>
@@ -45,7 +44,7 @@ export default {
       review: null,
       markers: [],
       zoomSize: 12,
-      colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "rgb(107, 243, 255)"],
+      colors: this.$store.getters.colors,
       value: null,
     };
   },
@@ -65,7 +64,7 @@ export default {
   methods: {
     async save(review) {
       var reviews = await this.$store.dispatch({
-        type: "save",
+        type: "saveReview",
         review
       });
       this.review = this.getEmptyReview();

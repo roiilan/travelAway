@@ -1,7 +1,5 @@
 <template>
   <div class="proj-details-container width-container" v-if="proj">
-  {{proj.rate}}
-
     <div class="proj-details">
       <!-- <router-link :to="'/user/' + proj.createdBy._id">
           <img class="img-user" 
@@ -9,6 +7,7 @@
           :alt="proj.createdBy.fullName"
           :title="proj.createdBy.fullName"/>
       </router-link>-->
+      
       <div class="edit-link-container width-container">
         <router-link
           v-if="loggedinUser &&
@@ -94,7 +93,7 @@ export default {
       zoomSize: 14,
       review: null,
       averageRate: null,
-       colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)","#938db1"],
+      colors: this.$store.getters.colors,
       markers: [],
       position: {
         txtAdress: null,
@@ -139,7 +138,7 @@ export default {
     stop() {},
     async save(review) {
       var reviews = await this.$store.dispatch({
-        type: "save",
+        type: "saveReview",
         review
       });
       this.review = this.getEmptyReview();

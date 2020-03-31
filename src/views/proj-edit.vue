@@ -1,20 +1,21 @@
 <template>
   <div class="proj-edit width-container" v-if="proj">
-    <h1><span v-if="proj._id">{{proj.title}}</span> <span v-else>Add a WalkAway project</span> </h1>
-    
+    <h2>
+      <span v-if="proj._id">{{proj.title}}</span>
+      <span v-else>Add a WalkAway project</span>
+    </h2>
+
     <form class="form-proj-edit" @submit.prevent="save(proj)">
-      <div>
-        <h3>Organization name</h3>
+      <div class="input-edit-contianer-1">
+        <h5>Organization name</h5>
         <el-input placeholder="Organization name?" v-model="proj.organization">
           <i class="el-icon-edit el-input__icon" slot="suffix"></i>
         </el-input>
-
-        <h3>Project name</h3>
+        <h5>Project name</h5>
         <el-input placeholder="Project name?" v-model="proj.title">
           <i class="el-icon-edit el-input__icon" slot="suffix"></i>
         </el-input>
-
-        <h3>Category selection</h3>
+        <h5>Category selection</h5>
         <el-select
           required
           v-model="proj.category"
@@ -29,16 +30,18 @@
             :value="item.value"
           ></el-option>
         </el-select>
-
-        <h3>Description about project</h3>
+      </div>
+      <div class="input-edit-contianer-6">
+        <h5>Description about project</h5>
         <el-input
           type="textarea"
           :autosize="{ minRows: 3}"
           placeholder="Write a few words about your project :)"
           v-model="proj.description"
         ></el-input>
-
-        <h3>Choose a date</h3>
+      </div>
+      <div class="input-edit-contianer-5">
+        <h5>Choose a date</h5>
         <el-date-picker
           v-model="proj.date"
           type="daterange"
@@ -48,16 +51,16 @@
           end-placeholder="End date"
         ></el-date-picker>
       </div>
-
-      <div>
-        <h2>Requirements</h2>
-        <h3>Members Needed</h3>
+      <div class="input-edit-contianer-3">
+        <h5>Members Needed</h5>
         <el-input-number v-model="proj.membersNeeded" :min="1" :max="100"></el-input-number>
-
-        <h3>Minimum Age: {{proj.requirements.minAge}}</h3>
+      </div>
+      <div class="input-edit-contianer-4">
+        <h5>Minimum Age: {{proj.requirements.minAge}}</h5>
         <el-input-number v-model="proj.requirements.minAge" :min="14"></el-input-number>
-
-        <h3>Language skill</h3>
+      </div>
+      <div class="input-edit-contianer-2">
+        <h5>Language skill</h5>
         <el-select
           v-model="proj.requirements.languages"
           multiple
@@ -74,7 +77,7 @@
           ></el-option>
         </el-select>
 
-        <h3>More skills</h3>
+        <h5>More skills</h5>
         <el-select
           v-model="proj.requirements.otherSkills"
           multiple
@@ -91,7 +94,7 @@
           ></el-option>
         </el-select>
 
-        <h2>What's included</h2>
+        <h5>What's included</h5>
         <el-select
           v-model="proj.tags"
           multiple
@@ -104,8 +107,8 @@
         </el-select>
       </div>
 
-      <div>
-        <h3>Please enter an address</h3>
+      <div class="input-edit-contianer-7">
+        <h5>Please enter an address</h5>
         <el-input
           placeholder="Please enter an address"
           v-model="proj.position.txtAddress"
@@ -120,17 +123,18 @@
         <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="proj.position"></proj-map>
       </div>
 
-      <div class="upload-img-container">
-        <h3>Upload Imgaes</h3>
+      <div class="upload-img-container input-edit-contianer-8">
+        <h5>Upload Imgaes</h5>
+        <label class="upload-img-btn" title="Upload Image">
+          <input @input="uploadImg" type="file" hidden />
+          <span v-if="proj.imgUrls.length" class="btn-span">Upload more Images</span>
+          <span v-else class="btn-span">Upload Image</span>
+        </label>
         <label v-if="proj.imgUrls.length === 0" class="upload-img" title="Upload Image">
           <input @input="uploadImg" type="file" hidden />
           <img class="plus-icon" src="../assets/icon/plus.png" />
         </label>
-        <label v-else class="upload-add-img" title="Upload Image">
-          <input @input="uploadImg" type="file" hidden />
-          <span class="btn-span">Upload more Images</span>
-        </label>
-        <el-carousel v-if="proj.imgUrls.length" class="fit">
+        <el-carousel v-else class="carousel-img">
           <el-carousel-item
             v-for="(url, index) in proj.imgUrls"
             :key="url"
@@ -141,13 +145,12 @@
         </el-carousel>
       </div>
 
-      <div class="btn-save-delete-container flex a-center">
+      <div class="input-edit-contianer-9 btn-save-delete-container ">
         <span class="btn-span" v-if="proj._id" @click="remove(proj._id)">Delete</span>
         <span class="btn-span" v-else @click="reset">Reset</span>
         <button class="btn-save">Save</button>
       </div>
     </form>
-        <pre>{{loggedinUser}}</pre>
   </div>
 </template>
 
@@ -166,6 +169,11 @@ export default {
       proj: null,
       currentImgIdx: null,
       markers: [],
+      position: {
+        txtAdress: null,
+        lat: 33.886917,
+        lng: 9.537499
+      },
       zoomSize: 2,
       loggedinUser: null,
       categories: [
@@ -280,7 +288,7 @@ export default {
   },
   async created() {
     this.loggedinUser = await this.$store.getters.loggedinUser;
-      // console.log(this.proj.createdBy);
+    // console.log(this.proj.createdBy);
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
@@ -288,9 +296,7 @@ export default {
         projId
       });
       this.proj = JSON.parse(JSON.stringify(proj));
-       this.proj.createdBy = this.loggedinUser
-       
-
+      this.proj.createdBy = this.loggedinUser;
 
       if (
         this.loggedinUser._id !== this.proj.createdBy._id &&
@@ -305,16 +311,15 @@ export default {
         //   msg: { isShow: true, txt: "You must register first" }
         // });
         this.$notify({
-          title: 'Warning',
-          message: 'You must register first',
-          type: 'warning',
+          title: "Warning",
+          message: "You must register first",
+          type: "warning",
           duration: 1500
         });
         this.$router.push("/login");
       }
       this.proj = projService.getEmptyProj();
-      
-      
+      this.getMarkers();
       // this.proj.imgUrls.push(this.loggedinUser.imgUrl);
     }
   },
@@ -335,23 +340,28 @@ export default {
         //   type: "setMsg",
         //   msg: { isShow: true, txt: "You must select a category" }
         // });
-         this.$notify({
-          title: 'Warning',
-          message: 'You must select a category',
-          type: 'warning',
+        this.$notify({
+          title: "Warning",
+          message: "You must select a category",
+          type: "warning",
           duration: 1500
         });
-        window.scrollTo(0,0)
-        return
-      } 
+        window.scrollTo(0, 0);
+        return;
+      }
       // proj.date = this.fixDate(proj.date);
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$router.push("/");
     },
     fixDate(dates) {
-      console.log('dates:', dates);
-      var dates = dates.map(date => date.substring(0, 10).split('-').join('/'));
-      console.log('dates:', dates);
+      console.log("dates:", dates);
+      var dates = dates.map(date =>
+        date
+          .substring(0, 10)
+          .split("-")
+          .join("/")
+      );
+      console.log("dates:", dates);
       return dates;
     },
     async remove(projId) {
@@ -378,6 +388,15 @@ export default {
         ];
       }
     },
+    getMarkers() {
+      var markers = [{ pos: this.proj.position, proj: this.proj }];
+        markers.forEach(marker => {
+          this.markers.push({
+            position: { lat: marker.pos.lat, lng: marker.pos.lng },
+            proj: marker.proj
+          });
+        });
+    },
     reset() {
       this.proj = projService.getEmptyProj();
       window.scrollTo(0, 0);
@@ -390,4 +409,3 @@ export default {
   }
 };
 </script>
-

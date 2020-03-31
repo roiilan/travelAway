@@ -1,15 +1,10 @@
 <template>
-
-<div>
-
-</div>
-
   <div class="proj-list" v-if="projs" >
    <h1>BE THE CHANGE. BE A GLOBAL VOLUNTEER ABROAD.</h1>
    <h2 v-if="noRes">There is no result</h2>
    <ul class="around-the-world-list">
       <li v-for="proj in projs" :key="proj._id" class="list-card" >
-
+​
 <router-link :to="'/proj/' + proj._id">
         <div class="list-projs-img-conatainer ratio-card">
         <img :src="proj.imgUrls[0]" class="proj-preview-img" >
@@ -27,16 +22,16 @@
     </ul>
   </div>
 </template>
-
-
-
+​
+​
+​
 <script>
 import projPreview from "./proj-preview";
 // import projSearch from "./proj-search.vue";
-
+​
 export default {
   name: "projsListSearch",
-
+​
   data() {
     return {
       projs: null,
@@ -48,7 +43,7 @@ export default {
   let paramsStr = window.location.href.split('?')[1];
   let searchParams = new URLSearchParams(paramsStr);
   var filteredProjs=null;
-
+​
    var categoryFilter = searchParams.get('category')
    if(categoryFilter==='all'){
      filteredProjs=this.projs;
@@ -58,7 +53,7 @@ export default {
        return proj.category === categoryFilter
      })
    }
-
+​
    var txtFilter = searchParams.get('txt')
    if(!txtFilter){
      filteredProjs=this.projs;
@@ -73,14 +68,14 @@ export default {
          return proj.title.toLowerCase().includes(txtFilter.toLowerCase())||
                 proj.description.toLowerCase().includes(txtFilter.toLowerCase())
         //      || proj.position.city.toLowerCase().includes(txtFilter.toLowerCase())
-
+​
      })
    }
     var minAgeFilter = +searchParams.get('minAge')
     filteredProjs = this.projs.filter(proj=>{  
        if (proj.requirements.minAge)  return proj.requirements.minAge > minAgeFilter
      })
-
+​
  if(filteredProjs.length===0){
    this.noRes=true;
  }
@@ -97,9 +92,9 @@ export default {
   }
 };
 </script>
-
-
-
+​
+​
+​
 <style  >
 .proj-list ul{
   display: flex;
@@ -107,7 +102,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-
+​
 .proj-list li{
   width: 20%;
   margin: 5px;

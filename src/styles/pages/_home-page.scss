@@ -1,3 +1,7 @@
+.home {
+    margin-bottom: rem(50px);
+}
+
 .category-container {
     /* Temporary */
     width: 1080px;
@@ -148,20 +152,22 @@
 }
 
 .around-the-world-preview {
-    display: flex;
-    padding: 0;
-    flex-wrap: wrap;
-    justify-content: center;
-    justify-content: space-between;
-    // width: 100%;
-    width: 1080px;
-    margin: 0 auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: rem(20px);
+    // padding: 12px;
+    margin-bottom: 25px;
+    // display: flex;
+    // padding: 0;
+    // flex-wrap: wrap;
+    // justify-content: center;
+    // justify-content: space-between;
+    // margin: 0 auto;
+    // display: flex;
     .around-the-world-card {
         position: relative;
-        width: 25%;
-        padding: 5px;
-        // margin: 5px;
+        // width: 25%;
+        // padding: 5px;
         list-style: none;
     }
     .world-projs-img-conatainer {
@@ -174,7 +180,7 @@
         border-radius: 3px;
         // margin: 5px;
     }
-    .world-prjs-country-details {
+    .world-projs-country-details {
         position: absolute;
         display: flex;
         align-items: center;
@@ -228,8 +234,9 @@
         margin-left: 10px;
         margin-bottom: 25px
     }
-    width: 1080px;
-    margin: 0 auto;
+    // width: 1080px;
+    // margin: 0 auto;
     display: flex;
     justify-content: space-around;
 }
+

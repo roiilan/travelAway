@@ -8,8 +8,7 @@
       </h3>
       <div class="flex a-center">
         <div v-if="isEdit" class="add-rate-container flex a-center j-center">
-          <h3>Rate ({{reviewForUpdate.rate}}):</h3>
-          <el-rate v-model="reviewForUpdate.rate" text-color="#0b757d" :colors="colors"></el-rate>
+          <el-rate v-model="reviewForUpdate.rate" show-score text-color="#0b757d" :colors="colors"></el-rate>
         </div>
         <el-rate
           v-else
@@ -17,7 +16,6 @@
           disabled
           show-score
           text-color="rgb(85, 136, 139)"
-          score-template="{value} / 5"
           :colors="colors"
         ></el-rate>
 
@@ -66,7 +64,7 @@ export default {
     return {
       reviewForUpdate: null,
       isEdit: false,
-      colors: ["rgb(42, 55, 56)", "rgb(85, 136, 139)", "#938db1"]
+      colors: this.$store.getters.colors
     };
   },
   created() {

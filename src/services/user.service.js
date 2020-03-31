@@ -17,43 +17,24 @@ export const userService = {
 }
 
 async function getById(userId) {
-    // var users = getUsers();
-    // return users.find(user => user._id === userId);
     return httpService.get(`user/${userId}`)
 }
 
 function remove(userId) {
-    // var users = getUsers();
-    // const idx = users.findIndex(user => user._id === userId);
-    // users.splice(idx, 1);
-    // storageService.store(KEY_USERS, users);
-    // return ('Deletion of the browser successfully completed!!');
     return httpService.delete(`user/${userId}`)
 }
 
 function update(currUser) {
-    // var users = getUsers();
-    // const idx = users.findIndex(user => user._id === currUser._id);
-    // users.splice(idx, 1, currUser);
-    // storageService.store(KEY_USERS, users);
-    // return currUser;
     return httpService.put(`user/${user._id}`, currUser)
 }
 
 async function login(credentials) {
-    // var users = getUsers();
-    // var user = users.find(user => user.username.toUpperCase() === credentials.username.toUpperCase() && user.password === credentials.password);
-    // if (user) {
-    //     sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(user))
-    //     return user
-    // } else return ('User Not Found')
     const user = await httpService.post('auth/login', credentials)
     return _handleLogin(user)
 }
 
 
 async function signup(newUserCred) {
-    console.log('signup', newUserCred)
     sessionStorage.clear();
     newUserCred.joinAt = { date: _getValidDate(new Date()), time: _getValidtime(new Date()) };
     newUserCred.karma = 5;

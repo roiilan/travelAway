@@ -51,6 +51,15 @@ a {
     color: initial;
 }
 
+ul {
+}
+
+li {
+    // padding: 0;
+    // margin: 0;
+    list-style: none;
+}
+
 #app {
     min-height: 100vh;
 }
@@ -116,4 +125,76 @@ select {
 .total-reviews::before {
     content: '|';
     margin: 0 1ch;
+}
+
+
+.proj-preview-card {
+    border-radius: 5px;
+    // box-shadow: $shadow1;
+    background-color: lighten($clr2, 25%);
+    cursor: pointer;
+
+
+    .proj-img {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        width: 100%;
+    }
+
+    .proj-contnet {
+        padding: rem(10px);
+        height: 150px;
+
+        h4 {
+          margin: 0 0 10px;
+        }
+        
+        h5 {
+          margin: 0;
+          padding: 0;
+        }
+    
+        .review-avarage {
+          margin: 10px 0 0;
+        }
+    }
+
+    .world-details {
+        margin: 10px 0 0;
+        display: flex;
+        align-items: center;
+        height: 25px;
+        img {
+            width: rem(18px);
+        }
+
+        :nth-child(2) {
+            margin: 0 1ch;
+        }
+    }
+    
+}
+
+
+
+// READ & SHOW MORE
+.show-more {
+    cursor: pointer;
+    width: fit-content;
+    padding: rem(10px);
+    border-radius: 100vh;
+    box-shadow: $shadow1;
+    transition: color .3s, background-color .3s;
+    &::after {
+        content: '⇨';
+        visibility: hidden;
+        margin-inline-start: 2ch;
+    }
+    &:hover {
+        color: lighten($clr2, 25%);
+        background-color: lighten($clr1, 15%);
+        &::after {
+            visibility: visible;
+        }
+    }
 }
