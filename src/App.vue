@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="screen"></div>
     <nav-bar />
     <router-view />
     <div class="msg" v-if="msg && msg.isShow">

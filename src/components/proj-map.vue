@@ -53,8 +53,12 @@ export default {
   methods: {
     openImg(m, index, $event) {
       setTimeout(() => {
-        this.x = $event.tb.pageX;
-        this.y = $event.tb.pageY;
+        // console.log($event.rb);
+        console.log($event.rb.pageX);
+        console.log($event.rb.pageY);
+        
+        this.x = $event.rb.pageX;
+        this.y = $event.rb.pageY;
         this.isShow = true;
         this.proj = m.proj;
       }, 1);
