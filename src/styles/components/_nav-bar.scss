@@ -20,10 +20,25 @@
                     display: none;
                 }
             }
-            .accodion-categories {
-                a {
-                    padding: 10px;
-                    font-size: 16px;
+            .categories-contianer {
+                box-shadow: inset 0px 1px 0px 0px $clr3;
+                >a {
+                    &.active {
+                        box-shadow: inset 0px 1px 0px 0px $clr3;
+                        background-color: $clr1;
+                    }
+                }
+                .accordion-categories {
+                    a {
+                        padding: 10px;
+                        font-size: 16px;
+                    }
+                }
+                img {
+                    transition: .3s;
+                    &.arrow-down {
+                        transform: rotate(-180deg);
+                    }
                 }
             }
             width: 0;
@@ -32,7 +47,7 @@
             transition: width .5s;
             &.open-menu {
                 visibility: visible;
-                background-color: #38335d;
+                background-color: #595386;
                 box-shadow: 0px 0px 6px 3px black;
                 // width: fit-content;
                 width: rem(230px);
@@ -43,10 +58,14 @@
                 right: 0;
                 a {
                     height: auto;
+                    // background-color: #38335d;
+                    &.active {
+                        background-color: #38335d;
+                    }
                 }
             }
             @include for-mobile-layout {
-                width: 30%;
+                width: 72%;
                 height: auto;
                 visibility: visible;
                 flex-direction: row;
@@ -57,6 +76,9 @@
                     height: auto;
                     position: initial;
                 }
+            }
+            @include for-normal-layout {
+                width: 58%;
             }
             a {
                 width: 100%;
@@ -76,8 +98,10 @@
                     background-color: lighten( $clr1, 40%);
                 }
                 &.active {
-                    color: lighten($clr1, 85%);
-                    background-color: darken($clr2, 5%);
+                    background-color: lighten( $clr1, 30%);
+                    @include for-mobile-layout {
+                        background-color: lighten( $clr1, 20%);
+                    }
                 }
                 span {
                     display: inline-block;
@@ -87,7 +111,7 @@
                     font-size: 22px;
                     font-weight: 900;
                     @include for-mobile-layout {
-                        display: none;
+                        // display: none;
                     }
                 }
             }
