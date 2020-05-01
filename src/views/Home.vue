@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <div class="video-bcg">
-      <video autoplay muted loop id="myVideo">
+      <video autoplay muted loop id="myVideo" width="100%">
         <source src="../../video/heroHeader.mp4" type="video/mp4" />
       </video>
     </div>
-    <div class="overlayText">
+    <!-- <div class="overlayText">
       <h3 id="welcom-txt">WalkWays</h3>
       <p>
         “The best way to find yourself is to lose yourself in the service of others.”
         <br />
         <span class="gandy">Mahatma Gandhi</span>
       </p>
-    </div>
+    </div> -->
     <div class="category-container width-container">
       <router-link
         :to="'/projs/' + category.category"
@@ -26,12 +26,12 @@
       </router-link>
     </div>
 
-      <h1 class="details-header">WalkWays Activity</h1>
+      <!-- <h1 class="details-header">WalkWays Activity</h1>
     <div class="walk-ways-details width-container" v-if="projs">
       <h1><img src="https://image.flaticon.com/icons/svg/2628/2628442.svg">Projects<span class="space">{{projs.length}}</span></h1>
       <h1><img src="https://image.flaticon.com/icons/svg/978/978012.svg">Voulnteers<span class="space">{{users.length}}</span></h1>
       <h1><img src="https://image.flaticon.com/icons/svg/921/921439.svg">Countries<span class="space">{{countriesCount}}</span></h1>
-    </div>
+    </div> -->
 
     <ul class="around-the-world-preview width-container">
       <li
@@ -56,6 +56,7 @@
 
 <script>
 import { utilService } from "../services/util.service.js";
+import { projService } from "../services/proj.service.js";
 import SocketService from "../services/socket.service.js";
 import projPreviewCard from '../components/proj-preview-card.vue';
 
@@ -69,77 +70,13 @@ export default {
       worldProjs: null,
       users: null,
       reviews:null,
-      categories: [
-        {
-          category: "childcare",
-          title: "Child Care",
-          imgUrl:
-            "https://s23916.pcdn.co/wp-content/uploads/2019/03/why-your-kids-need-boy-girl-relationships.jpg"
-        },
-        {
-          category: "education",
-          title: "Education",
-          imgUrl:
-            "https://cdn.shopify.com/s/files/1/1151/8374/articles/smaller_lead_photo_2048x.jpg?v=1523044466"
-        },
-        {
-          category: "animalsAndWildlife",
-          title: "Animals & Wildlife",
-          imgUrl:
-            "https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg"
-        },
-        {
-          category: "environmentalProtection",
-          title: "Environmental Protection",
-          imgUrl:
-            "https://beaches.lacounty.gov/wp-content/uploads/2016/10/BeachCleaning.jpg"
-        },
-        {
-          category: "farming",
-          title: "Farming",
-          imgUrl:
-            "https://www.thebalancesmb.com/thmb/zLMhuQKCL24jIckZmKqw6E4n2hI=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-585859259-57997e215f9b589aa94c4243.jpg"
-        },
-        {
-          category: "scubaDiving",
-          title: "Scuba Diving",
-          imgUrl:
-            "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720,f_auto/w_80,x_15,y_15,g_south_west,l_klook_water/activities/i8v1v92sfkikn0ro47ba/ScubaDivingLessonsinGuambyJNSDives.webp"
-        },
-        {
-          category: "humanitarian",
-          title: "Humanitarian",
-          imgUrl:
-            "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/387-mj-5779.jpg?auto=format&bg=transparent&con=3&cs=srgb&dpr=1&fm=jpg&ixlib=php-3.1.0&mark=rawpixel-watermark.png&markalpha=90&markpad=13&markscale=10&markx=25&q=75&usm=15&vib=3&w=1400&s=19310451bd014a0ee3714a2fc0bc90b3"
-        },
-        {
-          category: "healthcare",
-          title: "Health Care",
-          imgUrl:
-            "https://mikedanneskjold.files.wordpress.com/2013/01/sickness-3rd-world-doctor.jpg"
-        },
-        {
-          category: "sports",
-          title: "Sports",
-          imgUrl: "https://www.om.org/img/l23630.jpg"
-        },
-        {
-          category: "art",
-          title: "Art",
-          imgUrl:
-            "https://levlalev.com/wp-content/uploads/2019/06/Art-Projec-to-benefit-orphans.jpg"
-        },
-        {
-          category: "humanRights",
-          title: "Human Rigths",
-          imgUrl: "https://i.ytimg.com/vi/fmT2soVvyLA/maxresdefault.jpg"
-        }
-      ]
+      categories: null
     };
   },
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
       this.projs = await this.$store.dispatch({ type: "loadProjs" });
+      this.categories = projService.loadCategoties()
     // console.log('projs:', this.projs);
     
     // var x  = JSON.parse(JSON.stringify(this.projs));

@@ -53,18 +53,22 @@ export default {
   methods: {
     openImg(m, index, $event) {
       setTimeout(() => {
-        // console.log($event.rb);
-        console.log($event.rb.pageX);
-        console.log($event.rb.pageY);
-        
-        this.x = $event.rb.pageX;
-        this.y = $event.rb.pageY;
+        this.x = $event.tb.pageX || $event.rb.pageX;
+        this.y = $event.tb.pageY || $event.rb.pageY;
         this.isShow = true;
         this.proj = m.proj;
       }, 1);
     },
     holdImg() {
       this.isShow = true;
+    },
+    handlePress(event) {
+      if (event.keyCode === 27 || event.keyCode === 32) {
+        this.closeImg();
+      }
+      if (event.keyCode === 13) {
+        this.openDetails(this.proj._id)
+      }
     },
     closeImg() {
       if (!this.isShow) return;
@@ -76,9 +80,11 @@ export default {
   },
   mounted() {
     document.addEventListener("click", this.closeImg);
+    document.addEventListener("keydown", this.handlePress);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.closeImg);
+    document.removeEventListener("keydown", this.handlePress);
   },
   components: {
     projPreviewCard

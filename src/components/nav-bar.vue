@@ -6,16 +6,19 @@
       </router-link>
       <div class="nav-link-container flex col" :class="{'open-menu':openMenu}">
         <!-- <router-link to="/search">Search</router-link> -->
-        <!-- <router-link to="/">Home</router-link> -->
-        <router-link to="/edit" title="Let's Publish">
+        <router-link active-class="active" to="/" title="Home" exact="">
+          <img src="../assets/svg/homepage.svg" alt />
+          <span>Home</span>
+        </router-link>
+        <router-link active-class="active" to="/edit" title="Let's Publish">
           <img src="../assets/svg/project.svg" alt />
           <span>Publish</span>
         </router-link>
-        <a v-if="loggedinUser" @click="logout" title="Logout">
+        <a v-if="loggedinUser" active-class="active" @click="logout" title="Logout">
           <img src="../assets/svg/log-in.svg" alt />
           <span>Logout</span>
         </a>
-        <router-link v-else to="/login" title="Login">
+        <router-link v-else to="/login" active-class="active" title="Login">
           <img src="../assets/svg/log-in.svg" alt />
           <span>Login</span>
         </router-link>
@@ -23,18 +26,18 @@
           <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
         </router-link>-->
         <section class="categories-contianer">
-          <a href="#" @click.stop="toglleActive">
+          <a href="#" @click.stop="toglleActive" :class="{'active': isActive}">
             <img src="../assets/svg/tool.svg" alt />
             <span>Categories</span>
-          <img :class="{'arrow-down': isActive}" src="../assets/svg/downloading.svg" alt />
+            <img :class="{'arrow-down': isActive}" src="../assets/svg/downloading.svg" alt />
           </a>
           <transition name="fade">
-            <div class="accodion-categories" v-if="isActive">
+            <div class="accordion-categories" v-if="isActive">
               <router-link
                 v-for="category in categories"
                 :key="category.category"
                 :to="'/projs/' + category.category"
-              > - {{category.title}}</router-link>
+              >- {{category.title}}</router-link>
             </div>
           </transition>
         </section>
@@ -73,6 +76,7 @@
 <script>
 import LoginVue from "../views/Login.vue";
 import accordionItem from "./accordion-item.cmp.vue";
+import { projService } from "../services/proj.service.js";
 
 export default {
   data() {
@@ -81,52 +85,7 @@ export default {
       openMenu: false,
       offLine: false,
       isActive: false,
-      categories: [
-        {
-          category: "childcare",
-          title: "Child Care"
-        },
-        {
-          category: "education",
-          title: "Education"
-        },
-        {
-          category: "animalsAndWildlife",
-          title: "Animals & Wildlife"
-        },
-        {
-          category: "environmentalProtection",
-          title: "Environmental Protection"
-        },
-        {
-          category: "farming",
-          title: "Farming"
-        },
-        {
-          category: "scubaDiving",
-          title: "Scuba Diving"
-        },
-        {
-          category: "humanitarian",
-          title: "Humanitarian"
-        },
-        {
-          category: "healthcare",
-          title: "Health Care"
-        },
-        {
-          category: "sports",
-          title: "Sports"
-        },
-        {
-          category: "art",
-          title: "Art"
-        },
-        {
-          category: "humanRights",
-          title: "Human Rigths"
-        }
-      ]
+      categories: null
     };
   },
   computed: {
@@ -173,6 +132,8 @@ export default {
     }
   },
   created() {
+      this.categories = projService.loadCategoties()
+
     window.addEventListener("scroll", this.handleScroll);
     document.addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
