@@ -6,14 +6,14 @@
  />
       </video>
     </div>
-    <!-- <div class="overlayText">
+    <div class="overlayText">
       <h3 id="welcom-txt">WalkWays</h3>
       <p>
         “The best way to find yourself is to lose yourself in the service of others.”
         <br />
         <span class="gandy">Mahatma Gandhi</span>
       </p>
-    </div> -->
+    </div>
     <div class="category-container width-container">
       <router-link
         :to="'/projs/' + category.category"
