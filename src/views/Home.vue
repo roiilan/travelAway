@@ -2,17 +2,18 @@
   <div class="home">
     <div class="video-bcg">
       <video autoplay muted loop id="myVideo">
-        <source src="../../video/heroHeader.mp4" type="video/mp4" />
+        <source src="../../video/heroHeader.mp4" type="video/mp4"  
+ />
       </video>
     </div>
-    <div class="overlayText">
+    <!-- <div class="overlayText">
       <h3 id="welcom-txt">WalkWays</h3>
       <p>
         “The best way to find yourself is to lose yourself in the service of others.”
         <br />
         <span class="gandy">Mahatma Gandhi</span>
       </p>
-    </div>
+    </div> -->
     <div class="category-container width-container">
       <router-link
         :to="'/projs/' + category.category"
@@ -26,12 +27,12 @@
       </router-link>
     </div>
 
-      <h1 class="details-header">WalkWays Activity</h1>
+      <!-- <h1 class="details-header">WalkWays Activity</h1>
     <div class="walk-ways-details width-container" v-if="projs">
       <h1><img src="https://image.flaticon.com/icons/svg/2628/2628442.svg">Projects<span class="space">{{projs.length}}</span></h1>
       <h1><img src="https://image.flaticon.com/icons/svg/978/978012.svg">Voulnteers<span class="space">{{users.length}}</span></h1>
       <h1><img src="https://image.flaticon.com/icons/svg/921/921439.svg">Countries<span class="space">{{countriesCount}}</span></h1>
-    </div>
+    </div> -->
 
     <ul class="around-the-world-preview width-container">
       <li
