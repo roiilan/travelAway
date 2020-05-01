@@ -29,5 +29,6 @@ async created() {
 </script>
 
 
-<style >
+<style scoped >
+
 </style>

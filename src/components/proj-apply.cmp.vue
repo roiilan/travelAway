@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     applyToProj() {
-      // SocketService.emit("applyToProj", this.request);
+      SocketService.emit("applyToProj", this.request);
       this.$emit("onApply");
       //  eventBus.$emit('applyToProj', this.request);
       //  this.projOwner.notifications.push(this.request)
