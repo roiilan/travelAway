@@ -28,6 +28,4 @@ async created() {
 };
 </script>
 
-
-<style >
-</style>
+\
