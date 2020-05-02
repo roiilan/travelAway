@@ -1,7 +1,7 @@
 <template>
-  <div class="side-bar">
+  <!-- <div class="side-bar"> -->
       <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"></proj-map>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>

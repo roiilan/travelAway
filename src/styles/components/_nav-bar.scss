@@ -17,34 +17,7 @@
     .nav-bar {
         padding: 0;
         .nav-link-container {
-            .categories-contianer {
-                display: grid;
-                @include for-mobile-layout {
-                    display: none;
-                }
-            }
-            .categories-contianer {
-                box-shadow: inset 0px 1px 0px 0px $clr3;
-                >a {
-                    &.active {
-                        box-shadow: inset 0px 1px 0px 0px $clr3;
-                        background-color: $clr1;
-                    }
-                }
-                .accordion-categories {
-                    a {
-                        padding: 10px;
-                        font-size: 16px;
-                    }
-                }
-                img {
-
-                    transition: .3s;
-                    &.arrow-down {
-                        transform: rotate(-180deg);
-                    }  
-                }
-            }         
+            
             width: 0;
             height: 0;
             visibility: hidden;
@@ -119,7 +92,35 @@
                     }
                 }
             }
-           
+            .categories-contianer {
+                display: grid;
+                @include for-mobile-layout {
+                    display: none;
+                }
+            }
+            .categories-contianer {
+                box-shadow: inset 0px 1px 0px 0px $clr3;
+                >a {
+                    &.active {
+                        box-shadow: inset 0px 1px 0px 0px $clr3;
+                        background-color: $clr1;
+                    }
+                }
+                overflow:auto;
+                .accordion-categories {
+                    a {
+                        padding: 10px;
+                        font-size: 16px;
+                    }
+                }
+                img {
+
+                    transition: .3s;
+                    &.arrow-down {
+                        transform: rotate(-180deg);
+                    }  
+                }
+            }         
         }
         .hamburger {
             text-align: center;

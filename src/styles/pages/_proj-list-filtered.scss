@@ -1,7 +1,9 @@
 .proj-list-filtered {
     margin: 0 auto;
-    display: flex;
-    align-items: flex-start;
+    @include for-narrow-layout {
+        flex-direction: row;
+        align-items: flex-start;
+    }
     position: relative;
     .main-content {
         flex-basis: 45%;
@@ -14,11 +16,21 @@
         padding: 0;
     }
     .side-bar {
-        flex-basis: 55%;
-        
-        padding: 5px;
-        position: sticky;
-        top: 80px;
+        .map {
+            height: 90vw;
+            @include for-mobile-layout {
+                height: 60vw;
+            }
+            @include for-narrow-layout {
+                height: 45vw;
+            }
+        }
+        @include for-narrow-layout {
+            position: sticky;
+            flex-basis: 55%; 
+            padding: 5px;
+            top: 80px;
+        }
     }
     .category-header {
         display: flex;

@@ -37,7 +37,7 @@
                 v-for="category in categories"
                 :key="category.category"
                 :to="'/projs/' + category.category"
-              >- {{category.title}}</router-link>
+              > {{category.title}}</router-link>
             </div>
           </transition>
         </section>
@@ -51,26 +51,6 @@
       />
     </nav>
   </div>
-  <!-- <div class="nav-bar-container" :class="{'scrollering': isScrollering}">
-    <div class="nav-bar width-container flex a-center between">
-      <div class="logo-container flex a-center j-center">
-        <router-link to="/">
-          <img class="logo" src="../assets/icon/help.png" alt="Logo" />
-        </router-link>
-      </div>
-      <div class="nav-link-container flex col" :class="{'open-menu':openMenu}">
-        <router-link to="/search">Search</router-link>
-        <router-link to="/edit">Add Project</router-link>
-        <router-link to="/">Home</router-link>
-        <a v-if="loggedinUser" @click="logout">Logout</a>
-        <router-link v-else to="/login">Login</router-link>
-        <router-link :to="'/user/' + loggedinUser._id" v-if="loggedinUser" class="img-user-link">
-          <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
-        </router-link>
-      </div>
-      <img @click="toogleMemu" class="hamburger" :class="{'open-menu':openMenu}" src="../assets/svg/menu.svg" alt="">
-    </div>
-  </div>-->
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
-  <div class="proj-list-filtered">
-    <div class="main-content">
+  <div class="proj-list-filtered flex col">
+    <div class="main-content ">
       <div class="header ratio-16-9" v-if="projsHeader">
         <img :src="projsHeader.imgUrl" />
         <div class="category-header">
