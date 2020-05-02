@@ -1,8 +1,5 @@
-
-
 .nav-bar-container {
-    // position: sticky;
-
+    overflow: hidden;
     position: static;
     &.scrollering {
         position: sticky;
@@ -11,7 +8,7 @@
     }
     background-color: lighten($clr1, 35%);
     box-shadow: $shadow2;
-    width: 100vw;
+    width: 100%;
     z-index: 5;
     font-family: Sen;
     .nav-bar {
@@ -45,18 +42,17 @@
                 width: 72%;
                 height: auto;
                 visibility: visible;
-                flex-direction: row;  
+                flex-direction: row;
                 &.open-menu {
                     z-index: auto;
                     background-color: initial;
                     width: 100%;
                     height: auto;
                     position: initial;
-                }              
+                }
             }
             @include for-normal-layout {
                 width: 58%;
-            
             }
             a {
                 width: 100%;
@@ -70,7 +66,8 @@
                     justify-content: center;
                 }
                 padding: 20px;
-                transition: background-color .3s, color .3s;
+                transition: background-color .3s,
+                color .3s;
                 &:hover {
                     background-color: lighten( $clr1, 40%);
                 }
@@ -130,21 +127,19 @@
             padding: 10px 20px;
             display: block;
             transition: background-color .3s, color .3s;
-
             span {
                 display: none;
                 font-size: 20px;
             }
             &.open-menu {
-                display: none;                
+                display: none;
             }
             &:hover {
                 background-color: lighten( $clr1, 40%);
             }
-            
             &.active {
                 color: lighten($clr1, 85%);
-                background-color: darken($clr2, 5%) ;
+                background-color: darken($clr2, 5%);
             }
             @include for-mini-mobile-layout {
                 span {
@@ -156,25 +151,22 @@
                 display: none;
             }
         }
-            
-            .logo {
-                // height: 64px;
-                position: relative;
-                cursor: pointer;
-                width: rem(80px);
-                margin: 0 rem(10px);
-                @include for-normal-layout {
-                    margin: 0;
-                }
-                &:hover {
-                    box-shadow: unset;
-                }
+        .logo {
+            // height: 64px;
+            position: relative;
+            cursor: pointer;
+            width: rem(80px);
+            margin: 0 rem(10px);
+            @include for-normal-layout {
+                margin: 0;
             }
-      
+            &:hover {
+                box-shadow: unset;
+            }
+        }
         .img-user-link {
             height: 0;
             padding: 0;
-
             .img-user {
                 margin: 0;
                 cursor: pointer;
@@ -185,4 +177,9 @@
             }
         }
     }
+}
+
+.arrow-down {
+    transition: .3s;
+    transform: rotate(-180deg);
 }
