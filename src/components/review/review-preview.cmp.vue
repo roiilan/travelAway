@@ -24,7 +24,7 @@
             :colors="colors"
           ></el-rate>
 
-          <div v-if="review.by._id === loggedinUser._id || loggedinUser.isAdmin">
+          <div v-if="loggedinUser && (review.by._id === loggedinUser._id || loggedinUser.isAdmin)">
             <img
               class="btn-img"
               title="Delete"

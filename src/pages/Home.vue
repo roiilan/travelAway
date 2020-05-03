@@ -110,7 +110,7 @@ export default {
     });
   },
   methods: {
-    openDetails(id) {
+    openDetails(id) {      
       this.$router.push("/proj/" + id);
     }
   },
