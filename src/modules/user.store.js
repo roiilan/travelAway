@@ -1,6 +1,8 @@
 import { userService } from '../services/user.service.js'
 // import SocketService from '../services/socket.service.js';
 import socketService from '../services/socket.service.js';
+import Swal from "sweetalert2"
+
 
 var localLoggedinUser = null;
 if (sessionStorage.loggedinUser) localLoggedinUser = JSON.parse(sessionStorage.loggedinUser);
@@ -36,14 +38,7 @@ export default {
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user event', user._id)
             socketService.on(user._id, res => {
-                if (res) {
-                    this.$notify({
-                        title: "Massage",
-                        message: 'Someone wants to join your project',
-                        duration: 1500
-                    });
-
-                }
+                Swal.fire('Someone is intrested in one of your projects!')
 
             })
             return user;
@@ -54,14 +49,8 @@ export default {
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user topic', user._id)
             socketService.on(user._id, res => {
-                if (res) {
-                    this.$notify({
-                        title: "Massage",
-                        message: 'Someone wants to join your project',
-                        duration: 1500
-                    });
+                Swal.fire('Someone is intrested in one of your projects!')
 
-                }
             })
             return user;
         },

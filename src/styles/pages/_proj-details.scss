@@ -52,6 +52,9 @@
         }
        
         .map-container {
+                background-color:lighten($clr1, 55%);
+                mix-blend-mode: multiply;
+                filter: grayscale(0.8);
             .img-on-map-container {
                 position: absolute;
             }
@@ -91,12 +94,25 @@
             left: 50%;
             width: rem(400px);
             transform: translate(-50%, -50%);
+            &.apply-on {
+                display: none;
+            }
         }
         @include for-normal-layout {
             display: block;
+            &.apply-on {
+                display: none;
+            }
         }
     }
+
+    
     .proj-apply-for-mobile {
+       
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         position: fixed;
         bottom: 0;
         background-color: lighten($clr1, 20%);

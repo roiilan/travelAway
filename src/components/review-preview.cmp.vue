@@ -1,7 +1,7 @@
 <template>
   <div class="review-preview flex col">
     <form @submit.prevent="updateReview">
-    <div class="flex a-center between">
+    <div class="flex a-center bet">
       <h3 class="review-by flex">
         <img class="img-profile" :src="reviewForUpdate.by.imgUrl" alt />
         {{reviewForUpdate.by.fullName}}:
