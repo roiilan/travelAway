@@ -8,8 +8,8 @@ import projEdit from '../views/proj-edit.vue'
 import projListFiltered from '../views/proj-list-filtered.vue'
 import projDetails from '../components/proj-details.vue'
 import projList from '../components/proj-list.vue'
-// import projSearch from '../components/proj-search.vue'
-// import projListSearch from '../components/proj-list-search.vue'
+import projSearch from '../components/proj-search.vue'
+import projListSearch from '../components/proj-list-search.vue'
 
 Vue.use(VueRouter)
 
@@ -23,11 +23,11 @@ const routes = [{
         name: 'aroundTheWorld',
         component: projList
     },
-    // {
-    //     path: '/search',
-    //     name: 'projSearch',
-    //     component: projSearch
-    // },
+    {
+        path: '/search',
+        name: 'projSearch',
+        component: projSearch
+    },
     // {
     //     path: '/projects/:querys?',
     //     name: 'projListSearch',

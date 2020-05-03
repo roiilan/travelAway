@@ -5,7 +5,7 @@
         <img class="logo" src="../assets/icon/help.png" alt="Logo" />
       </router-link>
       <div class="nav-link-container flex col" :class="{'open-menu':openMenu}">
-        <!-- <router-link to="/search">Search</router-link> -->
+        <router-link to="/search">Search</router-link>
         <router-link active-class="active" to="/" title="Home" exact="">
           <img src="../assets/svg/homepage.svg" alt />
           <span>Home</span>
