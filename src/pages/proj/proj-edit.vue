@@ -169,13 +169,13 @@ export default {
       value1: "",
       proj: null,
       currentImgIdx: null,
-      markers: [],
-      position: {
-        txtAdress: null,
-        lat: 33.886917,
-        lng: 9.537499
-      },
-      zoomSize: 2,
+      // markers: [],
+      // position: {
+      //   txtAdress: null,
+      //   lat: 33.886917,
+      //   lng: 9.537499
+      // },
+      // zoomSize: 2,
       loggedinUser: null,
       categories: [
         {
@@ -375,10 +375,10 @@ export default {
       if (currPosition) {
         this.proj.position = currPosition;
 
-        this.zoomSize = 14;
-        this.markers = [
-          { position: { lat: currPosition.lat, lng: currPosition.lng } }
-        ];
+        // this.zoomSize = 14;
+        // this.markers = [
+        //   { position: { lat: currPosition.lat, lng: currPosition.lng } }
+        // ];
       }
     },
     getMarkers() {
