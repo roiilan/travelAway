@@ -88,9 +88,7 @@
         </div>
       </div>
       <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
-
-        
-        <review-add v-if="loggedinUser._id !== proj.createdBy._id" :reviews="reviews" :review="review" :proj="proj" @save="save" />
+        <review-add v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id" :reviews="reviews" :review="review" :proj="proj" @save="save" />
       <div class="card-deatails map-container">
         <map-preview :array="[proj]" ></map-preview>
       </div>
@@ -145,6 +143,8 @@ export default {
   },
   async created() {
     const projId = this.$route.params.id;
+    console.log(projId);
+    
     this.proj = await this.$store.dispatch({
       type: "loadProj",
       projId
