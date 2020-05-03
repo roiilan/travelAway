@@ -1,5 +1,16 @@
 .home {
     margin-bottom: rem(50px);
+    
+    .loading-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;    
+        img {
+            margin: 0 auto;
+            height: 300px;
+        }
+    }
+    
 }
 
 .category-container {
@@ -194,8 +205,9 @@
     // margin: 0 auto;
     // display: flex;
     .around-the-world-card {
+
         position: relative;
-        // width: 25%;
+        width: 100%;
         // padding: 5px;
         list-style: none;
     }
@@ -204,7 +216,7 @@
         /* w3c */
     }
     .proj-preview-img {
-        width: 100%;
+        // width: 100%;
         mix-blend-mode: multiply;
         border-radius: 3px;
         // margin: 5px;

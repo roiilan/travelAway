@@ -7,7 +7,7 @@
         >
             <h2>Log in to your account</h2>
             <h3>Username:</h3>
-            <input type="text" v-model="credentials.username" required>
+            <input class="my-form" type="text" v-model="credentials.username" required>
             <h3>Password:</h3>
             <input type="password" v-model="credentials.password" required>
             <button class="login-btn" type="submit">Login</button>

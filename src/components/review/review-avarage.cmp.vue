@@ -1,12 +1,22 @@
 <template>
     <div class="flex a-center" v-if="reviews && reviews.length">
           <el-rate
+            v-if="reviews && reviews.length"
             class="el-rate-avarage"
             v-model="value"
             disabled
             show-score
             text-color="#0b757d"
             :score-template="`${value.toFixed(1)} (${reviews.length})`"
+            :colors="colors"
+          ></el-rate> 
+          <el-rate
+            v-else
+            class="el-rate-avarage"
+            disabled
+            show-score
+            text-color="#0b757d"
+            :score-template="0"
             :colors="colors"
           ></el-rate> 
         </div>

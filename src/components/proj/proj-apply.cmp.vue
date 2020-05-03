@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import SocketService from "../services/socket.service.js";
-import { eventBus } from "../services/eventbus-service.js";
+import SocketService from "../../services/socket.service.js";
+import { eventBus } from "../../services/eventbus-service.js";
 
 export default {
   name: "projApply",

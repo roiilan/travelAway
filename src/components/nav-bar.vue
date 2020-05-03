@@ -2,7 +2,7 @@
   <div class="nav-bar-container" :class="{'scrollering': isScrollering, 'off-line':offLine}">
     <nav class="nav-bar width-container flex bet">
       <router-link to="/">
-        <img class="logo" src="../assets/icon/help.png" alt="Logo" />
+        <img class="logo" src="../assets/svg/help.svg" alt="Logo" />
       </router-link>
       <div class="nav-link-container flex col" :class="{'open-menu':openMenu}">
         <!-- <router-link to="/search">Search</router-link> -->
@@ -22,17 +22,18 @@
           <img src="../assets/svg/log-in.svg" alt />
           <span>Login</span>
         </router-link>
-        <!-- <router-link :to="'/user/' + loggedinUser._id" v-if="loggedinUser" class="img-user-link">
+        <router-link :to="'/user/' + loggedinUser._id" v-if="loggedinUser" class="img-user-link" active-class="active">
           <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
-        </router-link>-->
+          <span>My Profile</span>
+        </router-link>
         <section class="categories-contianer">
-          <a href="#" @click.stop="toglleActive" :class="{'active': isActive}">
+          <a href="#" @click.stop="toglleActive" :class="{'active': isActive}" title="Categories">
             <img src="../assets/svg/tool.svg" alt />
             <span>Categories</span>
             <img :class="{'arrow-down': isActive}" src="../assets/svg/downloading.svg" alt />
           </a>
           <transition name="fade">
-            <div class="accordion-categories" v-if="isActive">
+            <div class="accordion-categories" v-if="isActive" @click="isActive = !isActive">
               <router-link
                 v-for="category in categories"
                 :key="category.category"
@@ -54,8 +55,7 @@
 </template>
 
 <script>
-import LoginVue from "../views/Login.vue";
-import accordionItem from "./accordion-item.cmp.vue";
+import LoginVue from "../pages/Login.vue";
 import { projService } from "../services/proj.service.js";
 
 export default {
@@ -93,12 +93,12 @@ export default {
     },
     toogleMemu() {
       setTimeout(() => {
-        console.log("hi");
         this.openMenu = !this.openMenu;
         document.body.classList.toggle("menu-open");
       }, 1);
     },
     handleClick(event) {
+      if (this.isActive) this.isActive = false
       if (!this.openMenu) return;
       this.toogleMemu();
     },
@@ -123,9 +123,6 @@ export default {
     document.removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
   },
-  components: {
-    accordionItem
-  }
   // watch: {
   //   'loggedinUser.notifications'() {
   //     // console.log(this.loggedinUser.notifications);

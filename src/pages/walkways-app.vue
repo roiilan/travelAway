@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import projList from "@/components/proj-list.vue";
-import home from "@/views/Home.vue";
+import projList from "../pages/proj/proj-list.vue";
+import home from "./Home.vue";
 
 export default {
   name: "projApp",

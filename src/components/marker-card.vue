@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="proj">
           <el-carousel class="ratio-16-9">
           <el-carousel-item
             v-for="url in proj.imgUrls"
@@ -23,10 +23,14 @@
         <review-avarage-by-id class="review-avarage" :id="proj._id" />
         </div>
     </div>
+    <div v-else>
+            <img around-the-world-card  src="../assets/svg/loading.svg" alt="">
+
+    </div>
 </template>
 
 <script>
-import reviewAvarageById from '../components/review-avarage-by-id.vue';
+import reviewAvarageById from './review/review-avarage-by-id.vue';
 
 export default {
     props: ['proj'],

@@ -8,12 +8,17 @@
     .main-content {
         flex-basis: 45%;
     }
-    li {
-        list-style: none;
-    }
     ul {
-        margin: 0;
-        padding: 0;
+        padding: rem(5px);
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: rem(15px);
+        @include for-normal-layout {
+        grid-template-columns: 1fr;
+           
+            // display: flex;
+            // flex-direction: column;
+        }
     }
     .side-bar {
         .map {
@@ -22,7 +27,7 @@
                 height: 60vw;
             }
             @include for-narrow-layout {
-                height: 45vw;
+                height: 500px;
             }
         }
         @include for-narrow-layout {

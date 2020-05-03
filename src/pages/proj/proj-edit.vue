@@ -121,7 +121,7 @@
             @click.prevent="searchPosition(proj.position.txtAddress)"
           ></i>
         </el-input>
-        <proj-map class="map" :zoomSize="zoomSize" :markers="markers" :position="proj.position"></proj-map>
+        <map-preview :markers="[proj]"></map-preview>
       </div>
 
       <div class="upload-img-container input-edit-contianer-8">
@@ -133,7 +133,7 @@
         </label>
         <label v-if="proj.imgUrls.length === 0" class="upload-img" title="Upload Image">
           <input @input="uploadImg" type="file" hidden />
-          <img class="plus-icon" src="../assets/icon/plus.png" />
+          <img class="plus-icon" src="../../assets/png/plus.png" />
         </label>
         <el-carousel v-else class="carousel-img">
           <el-carousel-item
@@ -158,10 +158,10 @@
 <script>
 import DateRangePicker from "vue2-daterange-picker";
 import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
-import { projService } from "../services/proj.service.js";
+import { projService } from "../../services/proj.service.js";
 import toggleBtn from "@/components/toggle-btn.vue";
-import projMap from "../components/proj-map.vue";
-import { eventBus } from "../services/eventbus-service.js";
+import mapPreview from "../../components/map-preview.vue";
+import { eventBus } from "../../services/eventbus-service.js";
 
 export default {
   data() {
@@ -397,7 +397,7 @@ export default {
   },
   components: {
     toggleBtn,
-    projMap,
+    mapPreview,
     DateRangePicker
   }
 };

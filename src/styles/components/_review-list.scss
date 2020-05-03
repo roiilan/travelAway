@@ -1,8 +1,6 @@
 .review-list {
     >*:not(:last-child){
-        padding-bottom: rem(20px);
-        border-bottom: 1px dashed;
-    }
-
-    
+        font-size: 22px;
+        font-weight: 900;
+    }  
 }

@@ -36,24 +36,61 @@
                 padding: rem(10px);
              }
             .img-proj-container {
-                margin: 0 0 rem(10px);
+                // margin: 0 0 rem(10px);
                 width: 100%;
                 .img-proj {
                     width: 100%;
-                    mix-blend-mode: multiply;
+                    // mix-blend-mode: multiply;
                 }
             }
 
             .main-content-details {
                 font-family: Montserrat;
-                padding: rem(10px);
                 line-height: 1.5;
+                display: grid;
+                gap: 0px;
+                > * {
+                    // min-height: 75px;
+                    box-shadow:0px 0px 11px -6px #00000026;;
+                    // border-radius: 3px;
+                    &.review-avarage {
+                        padding: rem(20px) rem(30px) rem(20px) rem(15px);
+                    }
+
+                    p {
+                        padding: rem(7px) rem(30px) rem(7px) rem(15px);
+                        max-width: 40ch;
+                        overflow-wrap: break-word;
+                    }
+                    h3 {
+                        font-size: 20px;
+                        font-weight: 900;
+                        margin: 0;
+                        padding: rem(20px) rem(30px) rem(20px) rem(15px);
+                        cursor: pointer;
+                        width: 100%;
+                        transition: opacity .3s;
+                        &:hover {
+                            opacity: .5;
+                            img {
+                                transform: rotate(30deg);
+                            }
+                        }
+                            img {
+                                transition: .3s;
+                                &.arrow-down {
+                                    transform: rotate(180deg);
+                                }  
+                            }
+                        }
+
+                }
             }
         }
        
         .map-container {
                 background-color:lighten($clr1, 55%);
-                mix-blend-mode: multiply;
+                // mix-blend-mode: multiply;
                 filter: grayscale(0.8);
             .img-on-map-container {
                 position: absolute;

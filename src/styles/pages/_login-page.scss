@@ -1,12 +1,15 @@
 .login-page {
+
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: Sen;
     input {
-        padding: rem(15px) 0;
+        padding: rem(15px);
         margin-bottom: rem(10px) 0;
+        -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+
     }
     .login-btn {
         font-family: Montserrat;

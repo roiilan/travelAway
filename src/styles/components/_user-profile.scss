@@ -1,48 +1,41 @@
 .user-profile {
+    margin-top: 65px;
     padding: rem(10px);
-    // background-color: lighten($clr2, 20%);
     display: grid;
     gap: rem(20px);
     
-    >* {
-
-      
-        font-family: Montserrat;
-        box-shadow: $shadow1;
-        border-radius: 3px;
-        padding: rem(10px);
-        line-height: 1.5;
-        // background-color: lighten($clr2, 40%);
-        color: darken($clr2, 50%);
-            }
+    .user-profile-inside-container {
+        img {
+            margin-inline-end: 2ch;
+        }
+        p {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.6ch;
+            margin: 0;
+        }
+        p:first-child{
+            font-size: 40px;
+            font-weight: 900;
+            line-height: 2.6ch;
+            margin-bottom: 12px;    
+        }
+        @include for-mobile-layout {
+            flex-direction: row;
+        }
+    }
 
     .main-content {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: rem(50px);
-        .map {
-            grid-row: 1/2;
-            grid-column: 2/3;
-            height: 100%;
+        @include for-normal-layout {
+            grid-template-columns: 6fr 4fr;
+            .map {
+                grid-row: 1/2;
+                grid-column: 2/3;
+                height: 100%;
+            }
         }
+        gap: rem(50px);
     }
 
-    .main-img-profile-contianer {
-        margin: 0 0 rem(10px);
-        width: 100%;
-        background-color: lighten($clr2, 20%);
-        .username {
-            font-family: Sen;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: rem(40px);
-            color: #fff;
-        }
-        .main-img-profile {
-            width: 100%;
-            mix-blend-mode: multiply;
-            filter: grayscale(0.5);
-        }
-    }
 }

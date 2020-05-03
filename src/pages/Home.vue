@@ -2,8 +2,7 @@
   <div class="home">
     <div class="video-bcg">
       <video autoplay muted loop id="myVideo">
-        <source src="../../video/heroHeader.mp4" type="video/mp4"  
- />
+        <source src="../../video/heroHeader.mp4" type="video/mp4" />
       </video>
     </div>
     <div class="overlayText">
@@ -27,30 +26,32 @@
       </router-link>
     </div>
 
-      <!-- <h1 class="details-header">WalkWays Activity</h1>
+    <!-- <h1 class="details-header">WalkWays Activity</h1>
     <div class="walk-ways-details width-container" v-if="projs">
       <h1><img src="https://image.flaticon.com/icons/svg/2628/2628442.svg">Projects<span class="space">{{projs.length}}</span></h1>
       <h1><img src="https://image.flaticon.com/icons/svg/978/978012.svg">Voulnteers<span class="space">{{users.length}}</span></h1>
       <h1><img src="https://image.flaticon.com/icons/svg/921/921439.svg">Countries<span class="space">{{countriesCount}}</span></h1>
-    </div> -->
+    </div>-->
 
-    <ul class="around-the-world-preview width-container">
-      <li
-        v-for="proj in worldProjs"
-        :key="proj._id"
-        
-        class="around-the-world-card"
-      >
-       <proj-preview-card
-              :proj="proj"
-              :title="proj.description.substring(0,80) +'... Click to read more!!'"
-              class="proj-preview-card"
-              @click.native="openDetails(proj._id)" 
-            />
+    <ul v-if="worldProjs" class="around-the-world-preview width-container">
+      <li v-for="proj in worldProjs" :key="proj._id" class="around-the-world-card">
+        <marker-card
+          :proj="proj"
+          :title="proj.description.substring(0,80) +'... Click to read more!!'"
+          class="proj-preview-card"
+          @click.native="openDetails(proj._id)"
+        />
       </li>
     </ul>
-    <div class="width-container flex j-end">
-    <router-link class="show-more" title="Show more about 'around the world'" to="/projs/aroundTheWorld">Show more</router-link>
+    <section v-else class="loading-container width-container">
+      <img v-for="i in 6" :key="i"  src="../assets/svg/loading.svg" alt />
+    </section>
+    <div class="proj-preview-card">
+      <router-link
+        class="show-more"
+        title="Show more about 'around the world'"
+        to="/projs/aroundTheWorld"
+      >Show more</router-link>
     </div>
   </div>
 </template>
@@ -59,8 +60,7 @@
 import { utilService } from "../services/util.service.js";
 import { projService } from "../services/proj.service.js";
 import SocketService from "../services/socket.service.js";
-import projPreviewCard from '../components/proj-preview-card.vue';
-
+import markerCard from "../components/marker-card.vue";
 
 // @ is an alias to /src
 export default {
@@ -70,18 +70,19 @@ export default {
       projs: null,
       worldProjs: null,
       users: null,
-      reviews:null,
-      categories: null
+      reviews: null,
+      categories: null,
+      x: false
     };
   },
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
-      this.projs = await this.$store.dispatch({ type: "loadProjs" });
-      this.categories = projService.loadCategoties()
+    this.projs = await this.$store.dispatch({ type: "loadProjs" });
+    this.categories = projService.loadCategoties();
     // console.log('projs:', this.projs);
-    
+
     // var x  = JSON.parse(JSON.stringify(this.projs));
-    
+
     // x.forEach(async y=>{
     //   delete y.requirements.age
     //   delete y.requirements.day
@@ -89,8 +90,8 @@ export default {
     //   delete y.endsAt
     //   delete y.givenReviews
     //    await this.$store.dispatch({ type: "saveProj", proj:y })
-    //   }  
-      
+    //   }
+
     //   )
     //   console.log('projs x:', x);
     let worldProjs = JSON.parse(JSON.stringify(this.projs));
@@ -111,7 +112,7 @@ export default {
   methods: {
     openDetails(id) {
       this.$router.push("/proj/" + id);
-    },
+    }
   },
   computed: {
     countriesCount() {
@@ -125,7 +126,7 @@ export default {
     }
   },
   components: {
-    projPreviewCard
+    markerCard
   }
 };
 </script>

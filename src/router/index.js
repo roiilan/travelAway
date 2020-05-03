@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import projApp from '../views/walkways-app.vue'
-import Login from '../views/Login.vue';
-import userProfile from '../views/user-profile.vue'
-import userEdit from '../views/user-edit.vue'
-import projEdit from '../views/proj-edit.vue'
-import projListFiltered from '../views/proj-list-filtered.vue'
-import projDetails from '../components/proj-details.vue'
-import projList from '../components/proj-list.vue'
+import projApp from '../pages/walkways-app.vue'
+import Login from '../pages/Login.vue';
+import userProfile from '../pages/user/user-profile.vue'
+import userEdit from '../pages/user/user-edit.vue'
+import projEdit from '../pages/proj/proj-edit.vue'
+import projListFiltered from '../pages/proj/proj-list-filtered.vue'
+import projDetails from '../pages/proj/proj-details.vue'
+import projList from '../pages/proj/proj-list.vue'
 // import projSearch from '../components/proj-search.vue'
 // import projListSearch from '../components/proj-list-search.vue'
 
