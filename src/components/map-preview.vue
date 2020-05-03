@@ -17,7 +17,7 @@
           :proj="object"
           v-if="isShow"
           title="Click to view project details"
-          @click.native="openDetails(proj._id)"
+          @click.native="openDetails(object._id)"
           class="img-on-map-container"
           :style="`top:${y}px; left:${x}px`"
         />
