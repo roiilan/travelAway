@@ -2,7 +2,7 @@
   <div class="proj-list width-container" v-if="projs">
     <h2>Be the change, Be a global volunteer abroad</h2>
     <div class="around-the-world-list">
-        <proj-preview-card
+        <marker-card
           v-for="proj in projs" 
           :key="proj._id"
           :proj="proj"
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import projPreviewCard from "../components/proj-preview-card.vue";
+import markerCard from "../../components/marker-card.vue";
 
 export default {
   name: "projList",
@@ -33,7 +33,7 @@ export default {
     },
   },
   components: {
-    projPreviewCard
+    markerCard
   }
 };
 </script>

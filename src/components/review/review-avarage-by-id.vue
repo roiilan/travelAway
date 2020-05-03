@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import reviewAvarage from "../components/review-avarage.cmp.vue";
+import reviewAvarage from "./review-avarage.cmp.vue";
 
 export default {
     props: ['id'],

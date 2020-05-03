@@ -6,7 +6,7 @@
 
     // &::after {
     //     content: "";
-    //     background-image: url('../assets/icon/help.png');
+    //     background-image: url('../../assets/png/help.png');
     //     background-repeat: no-repeat;
     //     background-position: center;
     //     background-size:80%;
@@ -51,10 +51,9 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin: 0 auto;
-        width: 95vw;
         @include for-narrow-layout {
-            // max-width: 600px;
-            // grid-template-columns: 1fr 1fr;
+            max-width: 600px;
+            grid-template-columns: 1fr 1fr;
         }
         gap: rem(20px);
 

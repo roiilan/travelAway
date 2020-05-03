@@ -1,6 +1,6 @@
 <template>
-  <div class="proj-list-filtered">
-    <div class="main-content">
+  <div class="proj-list-filtered flex col">
+    <div class="main-content ">
       <div class="header ratio-16-9" v-if="projsHeader">
         <img :src="projsHeader.imgUrl" />
         <div class="category-header">
@@ -17,15 +17,20 @@
         </li>
       </ul>
     </div>
-    <side-bar :projs="projs" class="side-bar" v-if="projs"></side-bar>
+    <div  class="side-bar">
+
+      <map-preview :array="projs"></map-preview>
+    </div>
+
+    <!-- <side-bar :projs="projs" class="side-bar" v-if="projs"></side-bar> -->
   </div>
 </template>
 
 
 
 <script>
-import projPreview from "../components/proj-preview.vue";
-import sideBar from "../components/side-bar.vue";
+import projPreview from "../../components/proj/proj-preview.vue";
+import mapPreview from "../../components/map-preview.vue";
 
 export default {
   name: "projsListFiltered",
@@ -65,7 +70,7 @@ export default {
 
   components: {
     projPreview,
-    sideBar
+    mapPreview
   }
 };
 </script>

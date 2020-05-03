@@ -5,7 +5,7 @@ function _getBy() {
     var by = {
         _id: 1,
         fullName: 'Anonymous',
-        imgUrl: '../assets/icon/login.png'
+        imgUrl: '../../assets/png/login.png'
     }
 
     const user = JSON.parse(sessionStorage.getItem('loggedinUser'))

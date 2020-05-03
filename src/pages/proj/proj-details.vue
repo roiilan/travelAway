@@ -17,61 +17,82 @@
           class="edit-link flex col a-center"
           title="Edit Project"
         >
-          <img class="btn-img" src="../assets/icon/edit.png" alt />
+          <img class="btn-img" src="../../assets/png/edit.png" alt />
         </router-link>
       </div>
+
       <div class="main-content-details-contianer">
         <div class="title-proj">{{proj.title}}</div>
         <div class="img-proj-container ratio-16-9">
           <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
         </div>
         <div class="main-content-details">
-          <article class="description">
-            <span class="strong">Description:</span>
-            {{proj.description}}
-          </article>
-
-          <div class="requirements">
-            <h3>Requirements:</h3>
-            <p>
-              <span class="strong">Required Dates:</span>
-              {{proj.date[0]}} - {{proj.date[1]}}
-            </p>
-            <p>
-              <span class="strong">Members needed:</span>
-              {{proj.membersApplyed.length}} / {{proj.membersNeeded}}
-            </p>
-            <p v-if="proj.requirements.languages.length">
-              <span class="strong">Language control:</span>
-              <span v-for="language in proj.requirements.languages" :key="language">{{language}}</span>
-            </p>
-            <p v-if="proj.requirements.otherSkills.length">
-              <span class="strong">Other Skills:</span>
-              <span v-for="skill in proj.requirements.otherSkills" :key="skill">{{skill}}</span>
-            </p>
-            <p>
-              <span class="strong">Minimum Age:</span>
-              {{proj.requirements.minAge}}
-            </p>
-          </div>
-
-          <div class="tags" v-if="proj.tags.length">
-            <h3>What is included?</h3>
-            <p v-for="tag in proj.tags" :key="tag">{{tag}}</p>
-          </div>
-
-          <review-avarage :reviews="reviews" />
+          <!-- <section v-for="item in items" :key="item" class="accodion-item"> -->
+          <section>
+            <div @click="setActive('description')" class="flex a-center bet">
+              <h3 class="flex bet">
+                Description
+                <img :class="{'arrow-down': active === 'description'}" src="../../assets/svg/downloading2.svg" alt />
+              </h3>
+            </div>
+            <transition name="fade">
+              <p v-if="active === 'description'">{{proj.description}}</p>
+            </transition>
+          </section>
+          <section>
+            <div @click="setActive('requirements')" class="flex a-center bet">
+               <h3 class="flex bet">
+                Requirements
+                <img :class="{'arrow-down': active === 'requirements'}" src="../../assets/svg/downloading2.svg" alt />
+              </h3>
+            </div>
+            <transition name="fade">
+              <div v-if="active === 'requirements'">
+                <p>
+                  <span class="strong">Required Dates:</span>
+                  {{proj.date[0]}} - {{proj.date[1]}}
+                </p>
+                <p>
+                  <span class="strong">Members needed:</span>
+                  {{proj.membersApplyed.length}} / {{proj.membersNeeded}}
+                </p>
+                <p v-if="proj.requirements.languages.length">
+                  <span class="strong">Language control:</span>
+                  <span v-for="language in proj.requirements.languages" :key="language">{{language}}</span>
+                </p>
+                <p v-if="proj.requirements.otherSkills.length">
+                  <span class="strong">Other Skills:</span>
+                  <span v-for="skill in proj.requirements.otherSkills" :key="skill">{{skill}}</span>
+                </p>
+                <p>
+                  <span class="strong">Minimum Age:</span>
+                  {{proj.requirements.minAge}}
+                </p>
+              </div>
+            </transition>
+          </section>
+          <section>
+            <div @click="setActive('tags')" class="flex a-center bet">
+                <h3 class="flex bet">
+                What is included
+                <img :class="{'arrow-down': active === 'tags'}" src="../../assets/svg/downloading2.svg" alt />
+              </h3>
+            </div>
+            <transition name="fade">
+              <ul v-if="active === 'tags'">
+                <p v-for="tag in proj.tags" :key="tag">{{tag}}</p>
+              </ul>
+            </transition>
+          </section>
+          <review-avarage class="review-avarage" :reviews="reviews" />
         </div>
       </div>
       <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
 
-      <div class="reviews-container">
-        <h3 v-if="!reviews.length">Be the first to give feedback</h3>
-        <h3 v-else>Add Review</h3>
-        <review-add :review="review" :proj="proj" @save="save" />
-      </div>
+        
+        <review-add v-if="loggedinUser._id !== proj.createdBy._id" :reviews="reviews" :review="review" :proj="proj" @save="save" />
       <div class="card-deatails map-container">
-        <proj-map :zoomSize="zoomSize" :markers="markers" :position="position"></proj-map>
+        <map-preview :array="[proj]" ></map-preview>
       </div>
     </div>
     <div @click.stop="stop">
@@ -87,17 +108,19 @@
       @click.stop="isApplyOpen = true"
       class="proj-apply-for-mobile"
       :class="{'apply-opened':isApplyOpen}"
-    ><h1>Apply now</h1></div>
+    >
+      <h1>Apply now</h1>
+    </div>
   </div>
 </template>
 
 <script>
-import projMap from "./proj-map.vue";
-import projApply from "./proj-apply.cmp.vue";
-import reviewList from "../components/review-list.cmp.vue";
-import reviewAdd from "../components/review-add.cmp.vue";
-import reviewAvarage from "../components/review-avarage.cmp.vue";
-import { eventBus } from "../services/eventbus-service.js";
+import mapPreview from "../../components/map-preview.vue";
+import projApply from "../../components/proj/proj-apply.cmp.vue";
+import reviewList from "../../components/review/review-list.cmp.vue";
+import reviewAdd from "../../components/review/review-add.cmp.vue";
+import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
+import { eventBus } from "../../services/eventbus-service.js";
 
 export default {
   data() {
@@ -115,7 +138,9 @@ export default {
         txtAdress: null,
         lat: 33.886917,
         lng: 9.537499
-      }
+      },
+      active: "",
+      items: ["Co-Founder", "Co-President", "CEO", "Coordinator", "marketing"]
     };
   },
   async created() {
@@ -133,11 +158,11 @@ export default {
     this.getMarkers();
   },
   components: {
-    projMap,
+    mapPreview,
     projApply,
     reviewList,
     reviewAdd,
-    reviewAvarage
+    reviewAvarage,
   },
   computed: {
     loggedinUser() {
@@ -158,7 +183,7 @@ export default {
         : {
             _id: 1,
             fullName: "Anonymous",
-            imgUrl: "../assets/icon/login.png"
+            imgUrl: "../../assets/png/login.png"
           };
       var reviews = await this.$store.dispatch({
         type: "saveReview",
@@ -189,6 +214,9 @@ export default {
     },
     onApply() {
       this.isApplyOn = true;
+    },
+    setActive(value) {
+      this.active = this.active === value ? "" : value;
     }
   },
   mounted() {
