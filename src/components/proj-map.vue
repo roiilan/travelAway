@@ -24,7 +24,7 @@
         :clickable="true"
         :draggable="false"
         :icon="markerOptions"
-        @click="openImg(m, index, $event)"
+        @click="openImg(m, index, $event)" 
       />
     </GmapMap>
   </div>
