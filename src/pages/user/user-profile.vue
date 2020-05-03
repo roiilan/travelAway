@@ -23,7 +23,7 @@
           </div>
         </section>
       </div>
-      <map-preview class="map" :array="[user]"></map-preview>
+      <map-preview class="map" :array="[user]" :tempZoom="zoomSize"></map-preview>
     </div>
 
     <review-list v-if="reviews.length" :reviews="reviews" />
@@ -48,8 +48,8 @@ export default {
     return {
       user: null,
       review: null,
-      markers: [],
-      zoomSize: 12,
+      // markers: [],
+      zoomSize: 11,
       colors: this.$store.getters.colors,
       value: null,
       projApplied: null
@@ -65,9 +65,9 @@ export default {
     this.value =
       this.reviews.reduce((a, b) => a + b.rate, 0) / this.reviews.length;
     this.review = this.getEmptyReview();
-    this.markers.push({
-      position: { lat: this.user.position.lat, lng: this.user.position.lng }
-    });
+    // this.markers.push({
+    //   position: { lat: this.user.position.lat, lng: this.user.position.lng }
+    // });
   },
   methods: {
     async save(review) {
