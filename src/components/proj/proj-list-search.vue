@@ -21,15 +21,15 @@
     </ul>
   </div>
 </template>
-​
-​
-​
+
+
+
 <script>
 import projPreview from "./proj-preview.vue";
 
 export default {
   name: "projsListSearch",
-​
+
   data() {
     return {
       projs: null,
@@ -41,7 +41,7 @@ export default {
   let paramsStr = window.location.href.split('?')[1];
   let searchParams = new URLSearchParams(paramsStr);
   var filteredProjs=null;
-​
+
    var categoryFilter = searchParams.get('category')
    if(categoryFilter==='all'){
      filteredProjs=this.projs;
@@ -51,7 +51,7 @@ export default {
        return proj.category === categoryFilter
      })
    }
-​
+
    var txtFilter = searchParams.get('txt')
    if(!txtFilter){
      filteredProjs=this.projs;
@@ -73,7 +73,7 @@ export default {
     filteredProjs = this.projs.filter(proj=>{  
        if (proj.requirements.minAge)  return proj.requirements.minAge > minAgeFilter
      })
-​
+
  if(filteredProjs.length===0){
    this.noRes=true;
  }
@@ -89,9 +89,9 @@ export default {
   }
 };
 </script>
-​
-​
-​
+
+
+
 <style  >
 .proj-list ul{
   display: flex;
@@ -99,7 +99,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-​
+
 .proj-list li{
   width: 20%;
   margin: 5px;

@@ -8,6 +8,7 @@
       {{msg.txt}}
     </div>
   </div>
+  
 </template>
 
 

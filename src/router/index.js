@@ -11,6 +11,7 @@ import projList from '../pages/proj/proj-list.vue'
 // import projSearch from '../components/proj-search.vue'
 // import projListSearch from '../components/proj-list-search.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -58,11 +59,11 @@ const routes = [{
         name: 'projEdit',
         component: projEdit
     },
-    {
-        path: '/proj/:id?',
-        name: 'projDetails',
-        component: projDetails
-    },
+    // {
+    //     path: '/proj/:id?',
+    //     name: 'projDetails',
+    //     component: projDetails
+    // },
 ]
 
 const router = new VueRouter({

@@ -23,9 +23,7 @@ async created() {
      this.projs = await this.$store.dispatch({type: 'loadProjs'});
 },
 
-
-
-};
+ };
 </script>
 
 
