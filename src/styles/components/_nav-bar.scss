@@ -16,6 +16,11 @@
     .nav-bar {
         padding: 0;
         .nav-link-container {
+            .filter-in-nav-bar {
+                order: -1;
+                // display: none;
+            }
+            // more scss of filter found in _filter-by.scss 
             transition: width .5s;
             
             width: 0;
@@ -40,12 +45,13 @@
                     }
                 }
             }
-            @include for-mobile-layout {
+            @include for-narrow-layout {
 
-                width: 80%;
+                width: fit-content;
                 height: auto;
                 visibility: visible;
                 flex-direction: row;
+                justify-content: flex-end;
                 &.open-menu {
                     z-index: auto;
                     background-color: initial;
@@ -64,12 +70,12 @@
                 display: flex;
                 align-items: center;
                 cursor: pointer;
-                @include for-mobile-layout {
+                @include for-narrow-layout {
                     justify-content: center;
-                    width: 100%;
+                    min-width: 105px;
                 }
                 @include for-normal-layout {
-                    width: fit-content;
+                    // width: fit-content;
                 }
                 padding: 20px;
                 transition: background-color .3s,
@@ -83,7 +89,7 @@
                     background-color: lighten( $clr1, 30%);
                     mix-blend-mode: luminosity;
 
-                    @include for-mobile-layout {
+                    @include for-narrow-layout {
                         background-color: lighten( $clr1, 20%);
                     }
                 }
@@ -94,7 +100,7 @@
                     color: $clr3;
                     font-size: 18px;
                     font-weight: 900;
-                    @include for-mobile-layout {
+                    @include for-narrow-layout {
                         display: none;
                     }
                     @include for-normal-layout {
@@ -104,9 +110,9 @@
             }
             .categories-contianer {
                 display: grid;
-                @include for-mobile-layout {
+                @include for-narrow-layout {
                     // order: -1;
-                    width: 100%;
+                    // width: 100%;
                     img {
                         margin-inline-end: 1.2ch;
                     }
@@ -121,14 +127,14 @@
                 >a {
                     &.active {
                         box-shadow: inset 0px 1px 0px 0px $clr3;
-                        @include for-mobile-layout {
+                        @include for-narrow-layout {
                             box-shadow: inset 0px 0px 0px 0px $clr3;
                         }
                     }
                 }
                 overflow:auto;
                 .accordion-categories {
-                    @include for-mobile-layout {
+                    @include for-narrow-layout {
 
                         position: fixed;
                         z-index: 101;
@@ -160,12 +166,12 @@
             } 
             .img-user-link {
                 order: -1;
-                @include for-mobile-layout {
-                    width: 20%;
+                @include for-narrow-layout {
+                    // width: 20%;
                     order: 1;
                 }
                 @include for-normal-layout {
-                    width: 100%;
+                    // width: 100%;
                 }
                 .img-user {
                     border-radius: 50%;
@@ -205,7 +211,7 @@
                     font-size: 20px;
                 }
             }
-            @include for-mobile-layout {
+            @include for-narrow-layout {
                 display: none;
             }
         }

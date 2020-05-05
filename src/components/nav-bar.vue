@@ -4,9 +4,14 @@
       <router-link to="/">
         <img class="logo" src="../assets/svg/help.svg" alt="Logo" />
       </router-link>
+        <!-- <filter-By v-if="!isProjListOpen" @click.native.stop class="filter-in-nav-bar" /> -->
+        <filter-By2 v-if="!isProjListOpen" @click.native.stop="" class="filter-in-nav-bar" />
       <div class="nav-link-container flex col" :class="{'open-menu':openMenu}">
         <!-- <router-link to="/search">Search</router-link> -->
-        <router-link active-class="active" to="/" title="Home" exact="">
+        <!-- <a href="#"> -->
+
+        <filter-By2 v-if="!isProjListOpen" @click.native.stop="" class="filter-in-nav-bar"/>
+        <router-link active-class="active" to="/" title="Home" exact>
           <img src="../assets/svg/homepage.svg" alt />
           <span>Home</span>
         </router-link>
@@ -22,7 +27,12 @@
           <img src="../assets/svg/log-in.svg" alt />
           <span>Login</span>
         </router-link>
-        <router-link :to="'/user/' + loggedinUser._id" v-if="loggedinUser" class="img-user-link" active-class="active">
+        <router-link
+          :to="'/user/' + loggedinUser._id"
+          v-if="loggedinUser"
+          class="img-user-link"
+          active-class="active"
+        >
           <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
           <span>My Profile</span>
         </router-link>
@@ -38,7 +48,7 @@
                 v-for="category in categories"
                 :key="category.category"
                 :to="'/projs/' + category.category"
-              > {{category.title}}</router-link>
+              >{{category.title}}</router-link>
             </div>
           </transition>
         </section>
@@ -55,6 +65,8 @@
 </template>
 
 <script>
+// import filterBy from "./filter/filter-by.vue";
+import filterBy2 from "./filter/filter-by2.vue";
 import LoginVue from "../pages/Login.vue";
 import { projService } from "../services/proj.service.js";
 
@@ -65,7 +77,8 @@ export default {
       openMenu: false,
       offLine: false,
       isActive: false,
-      categories: null
+      categories: null,
+      isProjListOpen: false
     };
   },
   computed: {
@@ -98,7 +111,7 @@ export default {
       }, 1);
     },
     handleClick(event) {
-      if (this.isActive) this.isActive = false
+      if (this.isActive) this.isActive = false;
       if (!this.openMenu) return;
       this.toogleMemu();
     },
@@ -112,8 +125,10 @@ export default {
     }
   },
   created() {
-      this.categories = projService.loadCategoties()
-
+    this.categories = projService.loadCategoties();
+    //  if (this.$route.path === "/projs/aroundTheWorld") {
+    //       this.isProjListOpen = true;
+    //     }
     window.addEventListener("scroll", this.handleScroll);
     document.addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
@@ -123,12 +138,29 @@ export default {
     document.removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
   },
-  // watch: {
-  //   'loggedinUser.notifications'() {
-  //     // console.log(this.loggedinUser.notifications);
-  //     console.log('hi!!');
-  //   }
-  // },
+  components: {
+    // filterBy
+    filterBy2
+  },
+  watch: {
+    // "$route.path": {
+    //   handler() {
+    //     if (this.$route.path === "/projs/aroundTheWorld") {
+    //       this.isProjListOpen = true;
+    //       // this.handleClick();
+          
+    //     } else {
+          
+    //     }
+    //     this.isProjListOpen = false;
+    //   },
+    //   deep: true
+    // }
+    // 'loggedinUser.notifications'() {
+    //   // console.log(this.loggedinUser.notifications);
+    //   console.log('hi!!');
+    // }
+  }
 };
 </script>
 

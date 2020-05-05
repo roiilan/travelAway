@@ -5,20 +5,58 @@
     gap: rem(20px);
     
     .user-profile-inside-container {
+        // .container-img {
+        //     width: 300px;
+        //     height: 300px;
+        //     background-color: $clr1;
+        //     border-radius: 50%;
+        // }
         img {
             margin-inline-end: 2ch;
+        }
+        label {
+            img {
+                // mix-blend-mode: luminosity;
+                // transition: mix-blend-mode .3s;
+                transition: opacity .3s;
+                opacity: 1;
+                &:hover {
+                    opacity: .8;
+                    // mix-blend-mode: normal;
+                }    
+            }
+        }
+        .container-details-user  {
+            max-width: 360px;
+        }
+        .input-fullname {
+            font-size: 40px;
+            font-weight: 900;
+            line-height: 2.6ch;
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            background-color: initial;
+            max-width: 100%;
+            transition: box-shadow .3s;
+            &:hover, &:focus {
+                box-shadow: inset 0px -0.5px 0px 0px $clr1;
+            }
         }
         p {
             font-size: 18px;
             font-weight: 400;
             line-height: 1.6ch;
             margin: 0;
+            width: 100%;
         }
         p:first-child{
             font-size: 40px;
             font-weight: 900;
             line-height: 2.6ch;
             margin-bottom: 12px;    
+            width: 100%;
         }
         @include for-mobile-layout {
             flex-direction: row;

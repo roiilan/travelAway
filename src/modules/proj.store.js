@@ -37,19 +37,19 @@ export default {
         //   }
     },
     actions: {
-        async loadProjs(context, {}) {
+        // async loadProjs(context, {}) {
 
-            const projs = await projService.query()
+        //     const projs = await projService.query()
 
-            // async loadProjs(context, {filterBy}){       
-            // const projs = await projService.query(filterBy)
+        async loadProjs(context, { filterBy }) {
+            const projs = await projService.query(filterBy)
             context.commit({ type: 'setProjs', projs })
             return projs
         },
 
         async loadProj(context, { projId }) {
             const proj = await projService.getById(projId)
-                // context.commit({type: 'setProj', proj})
+            // context.commit({type: 'setProj', proj})
             return proj
         },
         async removeProj(context, { projId }) {

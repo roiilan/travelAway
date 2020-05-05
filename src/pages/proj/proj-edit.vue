@@ -51,6 +51,9 @@
           end-placeholder="End date"
           format="yyyy/MM/dd"
         ></el-date-picker>
+        <pre>{{proj.date}}</pre>
+        <pre>{{proj.startAt}}</pre>
+        <pre>{{proj.endsAt}}</pre>
       </div>
       <div class="input-edit-contianer-3">
         <h5>Members Needed</h5>
@@ -146,7 +149,7 @@
         </el-carousel>
       </div>
 
-      <div class="input-edit-contianer-9 btn-save-delete-container ">
+      <div class="input-edit-contianer-9 btn-save-delete-container">
         <span class="btn-span" v-if="proj._id" @click="remove(proj._id)">Delete</span>
         <span class="btn-span" v-else @click="reset">Reset</span>
         <button class="btn-save">Save</button>
@@ -340,23 +343,34 @@ export default {
         //   msg: { isShow: true, txt: "You must select a category" }
         // });
 
-         this.$notify({
-          title: 'Warning',
-          message: 'You must select a category',
-          type: 'warning',
+        this.$notify({
+          title: "Warning",
+          message: "You must select a category",
+          type: "warning",
           duration: 1500
         });
         window.scrollTo(0, 0);
         return;
       }
-      // proj.date = this.fixDate(proj.date);
-      this.proj.createdBy = this.loggedinUser
+      proj.startAt = this.toTimestamp(proj.date[0]);
+      proj.endsAt = this.toTimestamp(proj.date[1]);
+      proj.date = this.fixDate(proj.date);
+      proj.createdBy = this.loggedinUser;
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$router.push("/");
     },
+    toTimestamp(strDate) {
+      return Date.parse(strDate) / 1000;
+    },
     fixDate(dates) {
-      var dates = dates.map(date => date.substring(0, 10).split('-').join('/'));
-      return dates;
+      return dates.map(date => {
+        return date.length > 10
+          ? date
+              .substring(0, 10)
+              .split("-")
+              .join("/")
+          : date;
+      });
     },
     async remove(projId) {
       var res = await this.$store.dispatch({ type: "removeProj", projId });
@@ -383,12 +397,12 @@ export default {
     },
     getMarkers() {
       var markers = [{ pos: this.proj.position, proj: this.proj }];
-        markers.forEach(marker => {
-          this.markers.push({
-            position: { lat: marker.pos.lat, lng: marker.pos.lng },
-            proj: marker.proj
-          });
+      markers.forEach(marker => {
+        this.markers.push({
+          position: { lat: marker.pos.lat, lng: marker.pos.lng },
+          proj: marker.proj
         });
+      });
     },
     reset() {
       this.proj = projService.getEmptyProj();

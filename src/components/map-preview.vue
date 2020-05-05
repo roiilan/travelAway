@@ -23,14 +23,7 @@
         />
       </transition>
     </section>
-    <GmapMap
-      class="map"
-      :center="{
-        lat: 33.886917,
-        lng: 9.537499}"
-      :zoom="1.5"
-      map-type-id="terrain"
-    >
+    <GmapMap ref="mapRef" class="map" :center="center" :zoom="zoom" map-type-id="terrain">
       <!-- <GmapMap class="map" v-if="position" :center="position" :zoom="zoomSize" map-type-id="terrain"> -->
       <GmapMarker
         :key="index"
@@ -64,6 +57,8 @@ export default {
   props: {
     array: Array
   },
+  center: {},
+  zoom: null,
   // props: {
   //   position: null,
   //   markers: Array,
@@ -82,19 +77,59 @@ export default {
       isShow: false
     };
   },
-  created() {},
-
+  created() {
+    this.center = {
+      lat: 33.886917,
+      lng: 9.537499
+    };
+    this.zoom = 1.5;
+    // this.setZoomAndCenter();
+  },
   methods: {
+    setZoomAndCenter() {
+      if (this.array) {
+        if (this.array.length > 1) {
+          this.center = {
+            lat: 33.886917,
+            lng: 9.537499
+          };
+          this.zoom = 1.5;
+        } else {
+          this.center = {
+            lat: this.array[0].position.lat,
+            lng: this.array[0].position.lng
+          };
+          this.zoom = 12;
+        }
+        this.$refs.mapRef.$mapPromise.then(map => {
+          map.panTo(this.center);
+          map.setZoom(this.zoom);
+        });
+      }
+    },
     openImg(m, index, $event) {
+      this.$refs.mapRef.$mapPromise.then(map => {
+        map.panTo({ lat: m.position.lat, lng: m.position.lng });
+      });
+      if (this.zoom < 12) {
+        var x = setInterval(() => {
+          this.updateZoom();
+          if (this.zoom >= 12) clearInterval(x);
+        }, 40);
+      }
+
       setTimeout(() => {
-        this.x = $event.tb.screenX || $event.rb.screenX;
-        this.y = $event.tb.screenY || $event.rb.screenY;
+        this.x = $event.tb.screenX;
+        this.y = $event.tb.screenY;
         this.isShow = true;
-        console.log(m, 'm');
-        
         this.object = m;
-        // this.proj = m.proj;
       }, 1);
+    },
+    updateZoom() {
+      this.zoom = this.zoom + 0.5;
+      this.$refs.mapRef.$mapPromise.then(map => {
+        map.setZoom(this.zoom);
+      });
     },
     holdImg() {
       this.isShow = true;
@@ -109,6 +144,7 @@ export default {
     },
     closeImg() {
       if (!this.isShow) return;
+      this.setZoomAndCenter();
       this.isShow = false;
     },
     openDetails(id) {
@@ -118,6 +154,9 @@ export default {
   mounted() {
     document.addEventListener("click", this.closeImg);
     document.addEventListener("keydown", this.handlePress);
+    // At this point, the child GmapMap has been mounted, but
+    // its map has not been initialized.
+    // Therefore we need to write mapRef.$mapPromise.then(() => ...)
   },
   beforeDestroy() {
     document.removeEventListener("click", this.closeImg);
@@ -125,6 +164,15 @@ export default {
   },
   components: {
     markerCard
+  },
+  watch: {
+    array: {
+      handler() {
+        if (this.isShow) return
+        this.setZoomAndCenter();
+      },
+     deep: true
+    }
   }
 };
 </script>

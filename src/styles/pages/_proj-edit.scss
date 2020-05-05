@@ -157,7 +157,7 @@
             width: 95vw;
             margin: 0 auto;
             
-            @include for-mini-mobile-layout {
+            @include for-medium-mobile-layout {
                 width: 300px;
             }
             
@@ -192,7 +192,7 @@
             margin: 0 auto;
             width: 95vw;            
             
-            @include for-mini-mobile-layout {
+            @include for-medium-mobile-layout {
                 width: 300px;
             }
             

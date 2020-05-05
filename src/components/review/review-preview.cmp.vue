@@ -3,7 +3,7 @@
     <form @submit.prevent="updateReview">
       <div class="flex col bet">
         <h3 class="review-by flex a-center">
-          <img class="avatar" :src="reviewForUpdate.by.imgUrl" alt />
+          <img @click="$router.push(`/user/${reviewForUpdate.by._id}`)" class="avatar pointer" :src="reviewForUpdate.by.imgUrl" alt />
           {{reviewForUpdate.by.fullName}}
         </h3>
         <div class="flex a-center bet">

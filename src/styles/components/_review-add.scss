@@ -1,4 +1,8 @@
 .add-review {
+    h5 {
+        margin: 0 0 10px 0;
+        font-size: 14px;
+    }
         div:first-child{
             margin-bottom: 10px;
             @include for-mini-mobile-layout {
@@ -9,10 +13,10 @@
     h3 {
         font-size: 22px;
         font-weight: 900;
-        margin-bottom: 15px;
+        margin: 0 0 8px 0;
         @include for-mini-mobile-layout {
             font-size: 20px;
-            margin: 0;
+            // margin: 0;
         }
         @include for-mobile-layout {
             font-size: 22px;

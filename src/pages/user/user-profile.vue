@@ -3,9 +3,22 @@
     <div class="main-content">
       <div>
         <div class="user-profile-inside-container flex col a-center">
-          <img class="avatar avatar-l" :src="user.imgUrl" />
-          <div class="flex col a-center j-center">
-            <p>{{user.fullName}}</p>
+          <label class="pointer container-img" v-if="loggedinUser._id === user._id">
+            <input @change="uploadImg" type="file" hidden />
+            <img class="avatar avatar-l" :src="user.imgUrl" title="Replace your profile picture" />
+          </label>
+          <div v-else class="container-img">
+            <img class="avatar avatar-l" :src="user.imgUrl" />
+          </div>
+          <div class="container-details-user flex col a-center j-center">
+            <input
+              class="input-fullname"
+              type="text"
+              v-if="loggedinUser._id === user._id"
+              v-model="fullName"
+            />
+            <p v-else>{{user.fullName}}</p>
+            <!-- <pre>{{user}}</pre> -->
             <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
             <review-avarage :reviews="reviews" />
           </div>
@@ -28,11 +41,7 @@
 
     <review-list v-if="reviews.length" :reviews="reviews" />
 
-    <div v-if="loggedinUser._id !== user._id">
-      <h3 v-if="!reviews.length">Be the first to give feedback</h3>
-      <h3 v-else>Add Review</h3>
-      <review-add :review="review" @save="save" />
-    </div>
+    <review-add v-if="loggedinUser && loggedinUser._id !== user._id" :review="review" @save="save" />
   </div>
 </template>
 <script>
@@ -46,28 +55,31 @@ import { eventBus } from "../../services/eventbus-service.js";
 export default {
   data() {
     return {
+      timeOut: null,
+      fullName: null,
       user: null,
       review: null,
-      markers: [],
+      // markers: [],
       zoomSize: 12,
-      colors: this.$store.getters.colors,
-      value: null,
+      // colors: this.$store.getters.colors,
+      // value: null,
       projApplied: null
     };
   },
   async created() {
     const userId = this.$route.params.id;
-    this.user = await userService.getById(userId);
+    const user = await userService.getById(userId);
     await this.$store.dispatch({
       type: "loadReviews",
       id: userId
     });
-    this.value =
+    this.user = JSON.parse(JSON.stringify(user));
+    // this.value =
       this.reviews.reduce((a, b) => a + b.rate, 0) / this.reviews.length;
     this.review = this.getEmptyReview();
-    this.markers.push({
-      position: { lat: this.user.position.lat, lng: this.user.position.lng }
-    });
+    // this.markers.push({
+    //   position: { lat: this.user.position.lat, lng: this.user.position.lng }
+    // });
   },
   methods: {
     async save(review) {
@@ -76,6 +88,17 @@ export default {
         review
       });
       this.review = this.getEmptyReview();
+    },
+    async uploadImg(ev) {
+      var img = await this.$store.dispatch({
+        type: "addImg",
+        imgEv: ev
+      });
+      this.user.imgUrl = img.url;
+      await this.updateUser()
+    },
+    async updateUser() {
+      await this.$store.dispatch({ type: "updateUser", user: this.user });
     },
     getEmptyReview() {
       return {
@@ -129,9 +152,22 @@ export default {
   },
   watch: {
     loggedinUser() {
-      if (!this.loggedinUser){
-         this.$router.push('/')
+      if (!this.loggedinUser) {
+        this.$router.push("/");
       }
+    },
+    fullName: {
+      handler() {
+        if (this.timeOut) {
+          clearTimeout(this.timeOut);
+          this.timeOut = null;
+        }
+        this.timeOut = setTimeout(() => {
+          this.user.fullName = this.fullName
+          this.updateUser();
+        }, 3000);
+      },
+      deep: true
     }
   }
 };

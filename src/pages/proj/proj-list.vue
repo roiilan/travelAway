@@ -1,5 +1,7 @@
 <template>
   <div class="proj-list width-container" v-if="projs">
+        <filter-By class="filter-in-proj-list" />
+
     <h2>Be the change, Be a global volunteer abroad</h2>
     <div class="around-the-world-list">
         <marker-card
@@ -15,17 +17,24 @@
 </template>
 
 <script>
+import filterBy from "../../components/filter/filter-by.vue";
 import markerCard from "../../components/marker-card.vue";
+import {eventBus} from '../../services/eventbus-service.js';
 
 export default {
   name: "projList",
-  data() {
-    return {
-      projs: null
-    };
+ computed:{
+    projs(){
+      return this.$store.getters.projs
+    }
   },
   async created() {
     this.projs = await this.$store.dispatch({ type: "loadProjs" });
+  },
+  async mounted() {
+    eventBus.$on('setFilter', filterBy=>{
+            this.$store.dispatch({type:'loadProjs', filterBy})
+    })    
   },
   methods: {
     openDetails(id) {
@@ -33,7 +42,8 @@ export default {
     },
   },
   components: {
-    markerCard
+    markerCard,
+    filterBy
   }
 };
 </script>

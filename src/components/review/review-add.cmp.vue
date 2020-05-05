@@ -1,8 +1,7 @@
 <template>
   <form class="add-review flex col" v-if="review" @submit.prevent="save">
     <div class="flex col bet">
-      <h3 v-if="!reviews.length">Be the first to give feedback</h3>
-      <h3 v-else>Add Review</h3>
+      <h3>Add Review</h3>
       <div class="add-rate-container flex a-center">
         <p>Rate:</p>
 
@@ -26,7 +25,7 @@
 
 <script>
 export default {
-  props: ["reviews", "review", "proj"],
+  props: ["reviews", "review"],
   data() {
     return {
       colors: this.$store.getters.colors
