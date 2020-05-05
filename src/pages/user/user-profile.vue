@@ -36,7 +36,8 @@
           </div>
         </section>
       </div>
-      <map-preview class="map" :array="[user]" :tempZoom="zoomSize"></map-preview>
+      <map-preview class="map" :array="[user]"></map-preview>
+      <!-- <map-preview class="map" :array="[user]" :tempZoom="zoomSize"></map-preview> -->
     </div>
 
     <review-list v-if="reviews.length" :reviews="reviews" />
