@@ -27,6 +27,7 @@
 
 <script>
 import SocketService from "../../services/socket.service.js";
+import {utilService} from "../../services/util.service.js"
 import { eventBus } from "../../services/eventbus-service.js";
 
 export default {
@@ -38,6 +39,7 @@ export default {
   data() {
     return {
       request: {
+        _id:utilService.makeId() ,
         proj: {
           _id: this.proj._id,
           title: this.title, 
@@ -68,6 +70,7 @@ export default {
   },
   methods: {
     applyToProj() {
+      SocketService.setup()
       SocketService.emit("applyToProj", this.request);
       this.$emit("onApply");
       //  eventBus.$emit('applyToProj', this.request);

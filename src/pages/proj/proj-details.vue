@@ -55,7 +55,7 @@
                 </p>
                 <p>
                   <span class="strong">Members needed:</span>
-                  {{proj.membersApplyed.length}} / {{proj.membersNeeded}}
+                  {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
                 </p>
                 <p v-if="proj.requirements.languages.length">
                   <span class="strong">Language control:</span>
@@ -136,6 +136,7 @@ export default {
     };
   },
   async created() {
+    
     const projId = this.$route.params.id;
     console.log(projId);
     
@@ -143,6 +144,7 @@ export default {
       type: "loadProj",
       projId
     });
+    console.log(this.proj);
     await this.$store.dispatch({
       type: "loadReviews",
       id: projId
