@@ -4,13 +4,11 @@
       <router-link to="/">
         <img class="logo" src="../assets/svg/help.svg" alt="Logo" />
       </router-link>
-        <!-- <filter-By v-if="!isProjListOpen" @click.native.stop class="filter-in-nav-bar" /> -->
-        <filter-By2 v-if="!isProjListOpen" @click.native.stop="" class="filter-in-nav-bar" />
+        <filter-By v-if="!isProjListOpen" @click.native.stop class="filter-in-nav-bar" />
       <div class="nav-link-container flex col" :class="{'open-menu':openMenu}">
         <!-- <router-link to="/search">Search</router-link> -->
         <!-- <a href="#"> -->
 
-        <filter-By2 v-if="!isProjListOpen" @click.native.stop="" class="filter-in-nav-bar"/>
         <router-link active-class="active" to="/" title="Home" exact>
           <img src="../assets/svg/homepage.svg" alt />
           <span>Home</span>
@@ -65,8 +63,7 @@
 </template>
 
 <script>
-// import filterBy from "./filter/filter-by.vue";
-import filterBy2 from "./filter/filter-by2.vue";
+import filterBy from "./filter/filter-by.vue";
 import LoginVue from "../pages/Login.vue";
 import { projService } from "../services/proj.service.js";
 
@@ -139,8 +136,7 @@ export default {
     document.removeEventListener("keydown", this.handlePress);
   },
   components: {
-    // filterBy
-    filterBy2
+    filterBy
   },
   watch: {
     // "$route.path": {
