@@ -11,6 +11,10 @@
   box-shadow: $shadow3;
   background-color: lighten($clr2, 25%);
   cursor: pointer;
+  .not-allowed {
+    cursor: not-allowed;
+
+  }
 
   .proj-img {
     border-top-left-radius: 5px;

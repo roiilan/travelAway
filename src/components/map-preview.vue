@@ -1,6 +1,6 @@
 <template>
   <div class="container-map">
-    <section v-if="object && object.username">
+    <!-- <section v-if="object && object.username">
       <transition name="fade">
         <img
           v-if="isShow"
@@ -10,8 +10,9 @@
           alt
         />
       </transition>
-    </section>
-    <section v-else-if="object">
+    </section> -->
+    <!-- <section v-else-if="object"> -->
+    <section v-if="array.length > 1">
       <transition name="fade">
         <marker-card
           :proj="object"
@@ -26,6 +27,7 @@
     <GmapMap ref="mapRef" class="map" :center="center" :zoom="zoom" map-type-id="terrain">
       <!-- <GmapMap class="map" v-if="position" :center="position" :zoom="zoomSize" map-type-id="terrain"> -->
       <GmapMarker
+        :class="{'not-allowed': array.length === 1}"
         :key="index"
         v-for="(m, index) in array"
         :ref="`marker${index}`"
@@ -46,6 +48,7 @@
         @click="openImg(m, index, $event)"
       />-->
     </GmapMap>
+    {{array.length}}
   </div>
 </template>
 <script>
