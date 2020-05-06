@@ -1,0 +1,20 @@
+.my-video {
+    // margin-top: 500px;
+    // position: fixed;
+    // top:50%;
+    // left: 50%;
+    // transform: translate(-50%,-50%);
+
+    .container-canvas-video {
+        // width: 400px;
+        // height: 300px;
+        >* {
+            // width: 100%;
+            // height: 100%;
+            // border-radius: 50%;
+        }
+        canvas {
+            display: none;
+        }
+    }
+}

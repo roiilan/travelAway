@@ -37,12 +37,8 @@ export default {
         //   }
     },
     actions: {
-        // async loadProjs(context, {}) {
-
-        //     const projs = await projService.query()
-
-        async loadProjs(context, { filterBy }) {
-            const projs = await projService.query(filterBy)
+        async loadProjs(context, { filterBy, limit }) {
+            const projs = await projService.query(filterBy, limit)
             context.commit({ type: 'setProjs', projs })
             return projs
         },

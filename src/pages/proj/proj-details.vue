@@ -22,7 +22,8 @@
       </div>
 
       <div class="main-content-details-contianer">
-        <div class="title-proj">{{proj.title}}</div>
+        <h1 class="title-proj">{{proj.title}}</h1>
+        <h5>{{proj.createdBy.fullName}}</h5>
         <div class="img-proj-container ratio-16-9">
           <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
         </div>
@@ -93,7 +94,7 @@
         <map-preview :array="[proj]" ></map-preview>
       </div>
     </div>
-    <div @click.stop="stop">
+    <div v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id" @click.stop="stop">
       <proj-apply
         @onApply="onApply"
         :proj="proj"
@@ -103,6 +104,7 @@
       ></proj-apply>
     </div>
     <div
+    v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id"
       @click.stop="isApplyOpen = true"
       class="proj-apply-for-mobile"
       :class="{'apply-opened':isApplyOpen}"
@@ -127,18 +129,10 @@ export default {
       isApplyOpen: false,
       isApplyOn: false,
       isEdit: false,
-      zoomSize: 2,
       review: null,
       averageRate: null,
       colors: this.$store.getters.colors,
-      markers: [],
-      position: {
-        txtAdress: null,
-        lat: 33.886917,
-        lng: 9.537499
-      },
       active: "",
-      items: ["Co-Founder", "Co-President", "CEO", "Coordinator", "marketing"]
     };
   },
   async created() {
@@ -155,7 +149,6 @@ export default {
     });
     this.averageRate = this.reviews.reduce((a, b) => a + b.rate, 0);
     this.review = this.getEmptyReview();
-    this.getMarkers();
   },
   components: {
     mapPreview,
@@ -202,15 +195,6 @@ export default {
           imgUrl: this.proj.imgUrls[0]
         }
       };
-    },
-    getMarkers() {
-      var markers = [{ pos: this.proj.position, proj: this.proj }];
-      markers.forEach(marker => {
-        this.markers.push({
-          position: { lat: marker.pos.lat, lng: marker.pos.lng },
-          proj: marker.proj
-        });
-      });
     },
     onApply() {
       this.isApplyOn = true;

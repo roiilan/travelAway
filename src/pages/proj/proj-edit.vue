@@ -51,9 +51,6 @@
           end-placeholder="End date"
           format="yyyy/MM/dd"
         ></el-date-picker>
-        <pre>{{proj.date}}</pre>
-        <pre>{{proj.startAt}}</pre>
-        <pre>{{proj.endsAt}}</pre>
       </div>
       <div class="input-edit-contianer-3">
         <h5>Members Needed</h5>
@@ -292,7 +289,6 @@ export default {
   },
   async created() {
     this.loggedinUser = await this.$store.getters.loggedinUser;
-    // console.log(this.proj.createdBy);
     const projId = this.$route.params.id;
     if (projId) {
       var proj = await this.$store.dispatch({
@@ -321,7 +317,7 @@ export default {
         this.$router.push("/login");
       }
       this.proj = projService.getEmptyProj();
-      this.getMarkers();
+      // this.getMarkers();
       // this.proj.imgUrls.push(this.loggedinUser.imgUrl);
     }
   },
@@ -395,15 +391,15 @@ export default {
         // ];
       }
     },
-    getMarkers() {
-      var markers = [{ pos: this.proj.position, proj: this.proj }];
-      markers.forEach(marker => {
-        this.markers.push({
-          position: { lat: marker.pos.lat, lng: marker.pos.lng },
-          proj: marker.proj
-        });
-      });
-    },
+    // getMarkers() {
+    //   var markers = [{ pos: this.proj.position, proj: this.proj }];
+    //   markers.forEach(marker => {
+    //     this.markers.push({
+    //       position: { lat: marker.pos.lat, lng: marker.pos.lng },
+    //       proj: marker.proj
+    //     });
+    //   });
+    // },
     reset() {
       this.proj = projService.getEmptyProj();
       window.scrollTo(0, 0);

@@ -29,7 +29,7 @@ export default {
     }
   },
   async created() {
-    this.projs = await this.$store.dispatch({ type: "loadProjs" });
+    await this.$store.dispatch({ type: "loadProjs" });
   },
   async mounted() {
     eventBus.$on('setFilter', filterBy=>{

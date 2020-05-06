@@ -3,7 +3,8 @@
     <form @submit.prevent="updateReview">
       <div class="flex col bet">
         <h3 class="review-by flex a-center">
-          <img @click="$router.push(`/user/${reviewForUpdate.by._id}`)" class="avatar pointer" :src="reviewForUpdate.by.imgUrl" alt />
+          <img v-if="review.by.fullName === 'Anonymous'" class="avatar not-allowed" src="../../assets/svg/user-profile.svg" alt title=""/>
+          <img v-else @click="$router.push(`/user/${review.by._id}`)" class="avatar pointer" :src="review.by.imgUrl" alt />
           {{reviewForUpdate.by.fullName}}
         </h3>
         <div class="flex a-center bet">

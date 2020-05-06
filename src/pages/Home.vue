@@ -33,8 +33,8 @@
       <h1><img src="https://image.flaticon.com/icons/svg/921/921439.svg">Countries<span class="space">{{countriesCount}}</span></h1>
     </div>-->
 
-    <ul v-if="worldProjs" class="around-the-world-preview width-container">
-      <li v-for="proj in worldProjs" :key="proj._id" class="around-the-world-card">
+    <ul v-if="projs" class="around-the-world-preview width-container">
+      <li v-for="proj in projs" :key="proj._id" class="around-the-world-card">
         <marker-card
           :proj="proj"
           :title="proj.description.substring(0,80) +'... Click to read more!!'"
@@ -43,8 +43,18 @@
         />
       </li>
     </ul>
+    <!-- <ul v-if="worldProjs" class="around-the-world-preview width-container">
+      <li v-for="proj in worldProjs" :key="proj._id" class="around-the-world-card">
+        <marker-card
+          :proj="proj"
+          :title="proj.description.substring(0,80) +'... Click to read more!!'"
+          class="proj-preview-card"
+          @click.native="openDetails(proj._id)"
+        />
+      </li>
+    </ul> -->
     <section v-else class="loading-container width-container">
-      <img v-for="i in 6" :key="i"  src="../assets/svg/loading.svg" alt />
+      <img v-for="i in 6" :key="i" src="../assets/svg/loading.svg" alt />
     </section>
     <div class="proj-preview-card">
       <router-link
@@ -68,41 +78,25 @@ export default {
   data() {
     return {
       projs: null,
-      worldProjs: null,
-      users: null,
+      // worldProjs: null,
+      // users: null,
       reviews: null,
       categories: null,
-      x: false
+      // x: false
     };
   },
   async created() {
-    this.users = await this.$store.dispatch({ type: "loadUsers" });
-    this.projs = await this.$store.dispatch({ type: "loadProjs" });
+    this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
     this.categories = projService.loadCategoties();
-    // console.log('projs:', this.projs);
-
-    // var x  = JSON.parse(JSON.stringify(this.projs));
-
-    // x.forEach(async y=>{
-    //   delete y.requirements.age
-    //   delete y.requirements.day
-    //   delete y.startAt
-    //   delete y.endsAt
-    //   delete y.givenReviews
-    //    await this.$store.dispatch({ type: "saveProj", proj:y })
-    //   }
-
-    //   )
-    //   console.log('projs x:', x);
-    let worldProjs = JSON.parse(JSON.stringify(this.projs));
-    var randomProjs = [];
-    for (var i = 0; i < 6; i++) {
-      var randomNum = utilService.getRandomInt(0, worldProjs.length);
-      randomProjs.unshift(worldProjs[randomNum]);
-      worldProjs.splice(randomNum, 1);
-      randomNum = 0;
-    }
-    this.worldProjs = randomProjs;
+    // this.worldProjs = JSON.parse(JSON.stringify(this.projs));
+    // var randomProjs = [];
+    // for (var i = 0; i < 6; i++) {
+    //   var randomNum = utilService.getRandomInt(0, worldProjs.length);
+    //   randomProjs.unshift(worldProjs[randomNum]);
+    //   worldProjs.splice(randomNum, 1);
+    //   randomNum = 0;
+    // }
+    // this.worldProjs = randomProjs;
     SocketService.setup();
     SocketService.on("send request", request => {
       // this.projOwner.notifications.push(request)
@@ -110,7 +104,7 @@ export default {
     });
   },
   methods: {
-    openDetails(id) {      
+    openDetails(id) {
       this.$router.push("/proj/" + id);
     }
   },

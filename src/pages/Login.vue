@@ -18,6 +18,8 @@
         class="login-card flex col"
         @submit.prevent="signup" 
         >
+            <myVideo v-model="newUserCred.imgUrl"></myVideo>
+
             <h3>Full-Name:</h3>
             <input type="text" v-model="newUserCred.fullName" placeholder="FullName" required>
             <h3>Username:</h3>
@@ -38,12 +40,13 @@
         :user="user" 
         @removeUser="removeUser" 
         />
-    </ul>-->
+    </ul> -->
   </div>
 </template>
 
 <script>
 // import { userService } from "../services/user.service.js";
+import  myVideo from "../components/video/my-video.vue";
 // console.log(userService);
 
 // import userList from '../components/user-list.cmp.vue'
@@ -130,6 +133,9 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     }
+  },
+  components: {
+    myVideo
   }
 };
 </script>

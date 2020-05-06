@@ -38,6 +38,8 @@ export default {
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user event', user._id)
             socketService.on(user._id, res => {
+                console.log(res, 'res in user.store');
+                
                 Swal.fire('Someone is intrested in one of your projects!')
 
             })

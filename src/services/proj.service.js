@@ -17,7 +17,7 @@ export const projService = {
 }
 
 
-function query(filterBy) {
+function query(filterBy, limit = null) {
     // const queryParams = new URLSearchParams();
     // if(filterBy){
     // if(filterBy.name) queryParams.set('name', filterBy.name)
@@ -27,16 +27,20 @@ function query(filterBy) {
     // return httpService.get(`proj?${queryParams}`);
     // }
     const queryParams = new URLSearchParams();
-
     if (filterBy) {
-            queryParams.set('name', filterBy.name)
-            queryParams.set('categories', filterBy.categories);
-            queryParams.set('tags', filterBy.tags);
-            queryParams.set('startAt', filterBy.startAt);
-            queryParams.set('endsAt', filterBy.endsAt);
-            return httpService.get(`proj?${queryParams}`);
+        queryParams.set('name', filterBy.name)
+        queryParams.set('categories', filterBy.categories);
+        queryParams.set('tags', filterBy.tags);
+        queryParams.set('startAt', filterBy.startAt);
+        queryParams.set('endsAt', filterBy.endsAt);
+        return httpService.get(`proj?${queryParams}`);
     }
 
+    if (limit) {
+        queryParams.set('limit', limit);
+        console.log(queryParams, 'queryParams');
+        return httpService.get(`proj?${queryParams}`);
+    }
     return httpService.get('proj');
 }
 
