@@ -59,11 +59,11 @@ const routes = [{
         name: 'projEdit',
         component: projEdit
     },
-    // {
-    //     path: '/proj/:id?',
-    //     name: 'projDetails',
-    //     component: projDetails
-    // },
+    {
+        path: '/proj/:id?',
+        name: 'projDetails',
+        component: projDetails
+    },
 ]
 
 const router = new VueRouter({

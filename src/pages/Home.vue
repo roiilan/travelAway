@@ -26,12 +26,12 @@
       </router-link>
     </div>
 
-    <!-- <h1 class="details-header">WalkWays Activity</h1>
+    <h1 class="details-header">Our community Activity</h1>
     <div class="walk-ways-details width-container" v-if="projs">
-      <h1><img src="https://image.flaticon.com/icons/svg/2628/2628442.svg">Projects<span class="space">{{projs.length}}</span></h1>
-      <h1><img src="https://image.flaticon.com/icons/svg/978/978012.svg">Voulnteers<span class="space">{{users.length}}</span></h1>
-      <h1><img src="https://image.flaticon.com/icons/svg/921/921439.svg">Countries<span class="space">{{countriesCount}}</span></h1>
-    </div>-->
+      <h1 class="divider"><img src="https://image.flaticon.com/icons/svg/2628/2628442.svg">Projects<span class="space">{{projs.length}}</span></h1>
+      <h1 class="divider"><img src="https://image.flaticon.com/icons/svg/978/978012.svg">Voulnteers<span class="space">{{users.length}}</span></h1>
+      <h1 class="divider"><img src="https://image.flaticon.com/icons/svg/921/921439.svg">Countries<span class="space">{{countriesCount}}</span></h1>
+    </div>
 
     <ul v-if="worldProjs" class="around-the-world-preview width-container">
       <li v-for="proj in worldProjs" :key="proj._id" class="around-the-world-card">

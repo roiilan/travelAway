@@ -23,7 +23,7 @@ import searchCmp from "./search-cmp.vue";
 import selectCmp from "./select-cmp.vue";
 
 export default {
-  name: "filter-by",
+  name: "filterBy",
   data() {
     return {
       isFiltersOpen: false,
@@ -40,6 +40,8 @@ export default {
     };
   },
   created() {
+    console.log('woke up');
+    
     this.categories = projService.loadCategoties();
     this.categories = this.categories.map(category => category.category);
     this.tags = projService.loadTags();
