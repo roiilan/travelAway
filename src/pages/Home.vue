@@ -43,16 +43,6 @@
         />
       </li>
     </ul>
-    <!-- <ul v-if="worldProjs" class="around-the-world-preview width-container">
-      <li v-for="proj in worldProjs" :key="proj._id" class="around-the-world-card">
-        <marker-card
-          :proj="proj"
-          :title="proj.description.substring(0,80) +'... Click to read more!!'"
-          class="proj-preview-card"
-          @click.native="openDetails(proj._id)"
-        />
-      </li>
-    </ul> -->
     <section v-else class="loading-container width-container">
       <img v-for="i in 6" :key="i" src="../assets/svg/loading.svg" alt />
     </section>
@@ -78,25 +68,13 @@ export default {
   data() {
     return {
       projs: null,
-      // worldProjs: null,
-      // users: null,
       reviews: null,
       categories: null,
-      // x: false
     };
   },
   async created() {
     this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
     this.categories = projService.loadCategoties();
-    // this.worldProjs = JSON.parse(JSON.stringify(this.projs));
-    // var randomProjs = [];
-    // for (var i = 0; i < 6; i++) {
-    //   var randomNum = utilService.getRandomInt(0, worldProjs.length);
-    //   randomProjs.unshift(worldProjs[randomNum]);
-    //   worldProjs.splice(randomNum, 1);
-    //   randomNum = 0;
-    // }
-    // this.worldProjs = randomProjs;
     SocketService.setup();
     SocketService.on("send request", request => {
       // this.projOwner.notifications.push(request)
