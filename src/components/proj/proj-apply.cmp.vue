@@ -8,7 +8,7 @@
           type="textarea"
           :autosize="{ minRows: 3}"
           placeholder="Write something about yourelf :)"
-          v-model="request.freeTxt"
+          v-model="request.txt"
         ></el-input>
         <el-input-number
           class="input-number-apply"
@@ -18,6 +18,9 @@
         ></el-input-number>
         <button>Send request!</button>
       </form>
+      <!-- <pre>{{request}}</pre> -->
+      <pre>{{user}}</pre>
+
     </div>
   </transition>
 </template>
@@ -35,16 +38,32 @@ export default {
   data() {
     return {
       request: {
-        mambersNeeded: this.proj.membersNeeded,
-        projOwner: this.proj.createdBy,
-        projTitle: this.proj.title,
-        projId: this.proj._id,
+        proj: {
+          _id: this.proj._id,
+          title: this.title, 
+        }, 
+        from: {
+          _id: this.user._id,
+          fullName: this.user.fullName
+        }, 
+        to: {
+          _id: this.proj.createdBy._id,
+        }, 
         memebersApllied: null,
-        member: this.user,
-        freeTxt: null,
+        txt: null,
         isApproved: false,
-        projOwnerId: this.proj.createdBy._id
       }
+      // request: {
+      //   projOwner: this.proj.createdBy,
+      //   projOwnerId: this.proj.createdBy._id,
+      //   projTitle: this.proj.title,
+      //   projId: this.proj._id,
+      //   member: this.user,
+      //   mambersNeeded: this.proj.membersNeeded,
+      //   memebersApllied: null,
+      //   freeTxt: null,
+      //   isApproved: false,
+      // }
     };
   },
   methods: {
@@ -54,7 +73,6 @@ export default {
       //  eventBus.$emit('applyToProj', this.request);
       //  this.projOwner.notifications.push(this.request)
       //TODO update data base
-      console.log(this.request);
     }
   }
 };
