@@ -35,14 +35,16 @@ export default {
         async login(context, { credentials }) {
             socketService.setup();
             const user = await userService.login(credentials);
-            context.commit({ type: 'setUser', user })
-                // SocketService.emit('user event', user._id)
-            socketService.on(user._id, res => {
-                console.log(res, 'res in user.store');
-                
-                Swal.fire('Someone is intrested in one of your projects!')
-
-            })
+            if (user !== 'err') {
+                context.commit({ type: 'setUser', user })
+                    // SocketService.emit('user event', user._id)
+                socketService.on(user._id, res => {
+                    console.log(res, 'res in user.store');
+                    
+                    Swal.fire('Someone is intrested in one of your projects!')
+    
+                })
+            }
             return user;
         },
         async signup(context, { newUserCred }) {

@@ -11,20 +11,23 @@
         -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 
     }
+    .avatar {
+        background-color: initial;
+    }
     .login-btn {
         font-family: Montserrat;
         padding: rem(15px);
         margin: rem(20px) 0;
         border: none;
         border-radius: 3px;
-        box-shadow: $shadow1;
-        background-color: lighten($clr1, 25%);
+        // box-shadow: $shadow1;
+        // background-color: lighten($clr1, 25%);
         font-size: rem(20px);
         font-weight: 400;
         transition: background-color .3s;
         cursor: pointer;
         &:hover {
-            background-color: lighten($clr1, 20%);
+            // background-color: lighten($clr1, 20%);
         }
     }
     .login-link {
@@ -38,7 +41,7 @@
         box-shadow: $shadow1;
         margin-top: 100px;
         img {
-            width: rem(30px);
+            // width: rem(30px);
         }
     }
 }
