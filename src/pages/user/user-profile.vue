@@ -37,7 +37,7 @@
             <button @click="decline">Decline</button>
           </div>
         </section>
-          <p v-else>No notifications yet</p>
+        <p v-else>No notifications yet</p>
       </div>
       <map-preview class="map" :array="[user]"></map-preview>
       <!-- <map-preview class="map" :array="[user]" :tempZoom="zoomSize"></map-preview> -->
@@ -50,6 +50,7 @@
 </template>
 <script>
 import { userService } from "../../services/user.service.js";
+import SocketService from "../../services/socket.service.js";
 import mapPreview from "../../components/map-preview.vue";
 import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
@@ -80,12 +81,19 @@ export default {
     this.user = JSON.parse(JSON.stringify(user));
     // this.user.notifications = []
     // this.updateUser()
-    this.fullName = this.user.fullName
+    this.fullName = this.user.fullName;
     // this.value =
-      this.reviews.reduce((a, b) => a + b.rate, 0) / this.reviews.length;
+    this.reviews.reduce((a, b) => a + b.rate, 0) / this.reviews.length;
     this.review = this.getEmptyReview();
     // this.markers.push({
     //   position: { lat: this.user.position.lat, lng: this.user.position.lng }
+    // });
+    // SocketService.setup();
+    // SocketService.on(user._id, request => {
+    //   this.user.notifications.push(request);
+    //   this.updateUser();
+    //   // this.projOwner.notifications.push(request)
+    //   console.log(request, "request arrived");
     // });
   },
   methods: {
@@ -102,7 +110,7 @@ export default {
         imgEv: ev
       });
       this.user.imgUrl = img.url;
-      await this.updateUser()
+      await this.updateUser();
     },
     async updateUser() {
       await this.$store.dispatch({ type: "updateUser", user: this.user });
@@ -124,22 +132,22 @@ export default {
       this.updateUser();
     },
     async approve() {
-      const nutifiction = this.user.notifications[0]
+      const nutifiction = this.user.notifications[0];
       const proj = await this.$store.dispatch({
         type: "getProjById",
         id: nutifiction.proj._id
       });
-      for (let i = 0; i < nutifiction.memebersApllied; i++){
-        proj.membersApplyed.push(nutifiction.from) 
+      for (let i = 0; i < nutifiction.memebersApllied; i++) {
+        proj.membersApplyed.push(nutifiction.from);
       }
-        await this.$store.dispatch({ type: "saveProj", proj});
-        this.decline();
+      await this.$store.dispatch({ type: "saveProj", proj });
+      this.decline();
       // const desiredProj = await this.$store.dispatch({
       //   type: "getProjById",
       //   id: nutifiction.projId
       // });
       // desiredProj.membersApplyed.push(nutifiction.member) *
-        // nutifiction.memebersApllied;
+      // nutifiction.memebersApllied;
       // await this.$store.dispatch({ type: "saveProj", proj: desiredProj });
     }
   },
@@ -168,9 +176,8 @@ export default {
         this.$router.push("/");
       }
     },
-    user(){
-      console.log('I\'m watch on user');
-      
+    user() {
+      console.log("I'm watch on user");
     },
     fullName: {
       handler() {
@@ -179,7 +186,7 @@ export default {
           this.timeOut = null;
         }
         this.timeOut = setTimeout(() => {
-          this.user.fullName = this.fullName
+          this.user.fullName = this.fullName;
           this.updateUser();
         }, 3000);
       },
