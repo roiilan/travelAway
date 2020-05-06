@@ -25,7 +25,7 @@
         </div>
         <section v-if="user.notifications.length">
           <p>Notifications</p>
-          <div v-for="notification in user.notifications" :key="notification">
+          <div v-for="notification in user.notifications" :key="notification._id">
             <!-- <p>Project Name:{{notification.projTitle}}</p> -->
             <!-- <p>By:{{notification.member.username}}</p> -->
             <!-- <p>Free txt:{{notification.freeTxt}}</p> -->
@@ -33,8 +33,8 @@
             <p>By:{{notification.from.fullName}}</p>
             <p>Members intrested:{{notification.memebersApllied}}</p>
             <p>Free txt:{{notification.txt}}</p>
-            <button @click="approve">Approve!</button>
-            <button @click="decline">Decline</button>
+            <button @click="approve(notification)">Approve!</button>
+            <button @click="decline(notification)">Decline</button>
           </div>
         </section>
         <p v-else>No notifications yet</p>
@@ -50,12 +50,12 @@
 </template>
 <script>
 import { userService } from "../../services/user.service.js";
-import SocketService from "../../services/socket.service.js";
 import mapPreview from "../../components/map-preview.vue";
 import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
 import { eventBus } from "../../services/eventbus-service.js";
+import socketService from "../../services/socket.service.js";
 
 export default {
   data() {
@@ -74,11 +74,21 @@ export default {
   async created() {
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
+    socketService.setup();
+     console.log(user);
+     
     await this.$store.dispatch({
       type: "loadReviews",
       id: userId
     });
     this.user = JSON.parse(JSON.stringify(user));
+    socketService.on(userId, request => {
+      console.log(user);
+
+      user.notifications.push(request);
+      this.user = user;
+      // this.updateUser(user)
+    });
     // this.user.notifications = []
     // this.updateUser()
     this.fullName = this.user.fullName;
@@ -88,8 +98,8 @@ export default {
     // this.markers.push({
     //   position: { lat: this.user.position.lat, lng: this.user.position.lng }
     // });
-    // SocketService.setup();
-    // SocketService.on(user._id, request => {
+    // socketService.setup();
+    // socketService.on(user._id, request => {
     //   this.user.notifications.push(request);
     //   this.updateUser();
     //   // this.projOwner.notifications.push(request)
@@ -127,28 +137,22 @@ export default {
         }
       };
     },
-    decline() {
-      this.user.notifications = [];
+    decline(notification) {
+      console.log("im on the way", notification);
+      const idx = this.user.notifications.findIndex(currProj => currProj._id === notification._id);
+      this.user.notifications.splice(idx, 1);
       this.updateUser();
     },
-    async approve() {
-      const nutifiction = this.user.notifications[0];
+    async approve(notification) {
       const proj = await this.$store.dispatch({
         type: "getProjById",
-        id: nutifiction.proj._id
+        id: notification.proj._id
       });
-      for (let i = 0; i < nutifiction.memebersApllied; i++) {
-        proj.membersApplyed.push(nutifiction.from);
-      }
+      console.log( notification.proj._id);
+      proj.membersApplyed.push(notification.from)
+      proj.membersNeeded -= notification.memebersApllied
       await this.$store.dispatch({ type: "saveProj", proj });
-      this.decline();
-      // const desiredProj = await this.$store.dispatch({
-      //   type: "getProjById",
-      //   id: nutifiction.projId
-      // });
-      // desiredProj.membersApplyed.push(nutifiction.member) *
-      // nutifiction.memebersApllied;
-      // await this.$store.dispatch({ type: "saveProj", proj: desiredProj });
+      this.decline(notification);
     }
   },
   mounted() {

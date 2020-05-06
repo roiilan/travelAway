@@ -38,7 +38,6 @@ function query(filterBy, limit = null) {
 
     if (limit) {
         queryParams.set('limit', limit);
-        console.log(queryParams, 'queryParams');
         return httpService.get(`proj?${queryParams}`);
     }
     return httpService.get('proj');
