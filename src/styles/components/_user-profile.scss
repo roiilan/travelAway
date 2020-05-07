@@ -4,6 +4,10 @@
     display: grid;
     gap: rem(20px);
     
+    
+    .container-img {
+        margin-inline-end: 2ch;
+    }
     .user-profile-inside-container {
         // .container-img {
         //     width: 300px;
@@ -12,7 +16,7 @@
         //     border-radius: 50%;
         // }
         img {
-            margin-inline-end: 2ch;
+            // margin-inline-end: 2ch;
         }
         label {
             img {

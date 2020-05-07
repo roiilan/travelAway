@@ -16,6 +16,16 @@
     .nav-bar {
         padding: 0;
         .nav-link-container {
+            .container-notification-icon {
+                position: relative;
+                span {
+                    position: absolute;
+                    top: -1%;
+                    left: 64.5%;
+                    font-size: 11px;
+                    color: #ff1a1a;
+                    font-weight: 900;                }
+            }
             .filter-in-nav-bar {
                 order: -1;
                 // display: none;
@@ -93,7 +103,7 @@
                         background-color: lighten( $clr1, 20%);
                     }
                 }
-                span {
+                > span {
                     display: inline-block;
                     margin-inline-start: 1.2ch;
                     margin-inline-end: 1ch;

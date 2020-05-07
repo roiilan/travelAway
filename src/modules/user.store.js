@@ -33,29 +33,32 @@ export default {
     },
     actions: {
         async login(context, { credentials }) {
-            socketService.setup();
+            // socketService.setup();
             const user = await userService.login(credentials);
             if (user !== 'err') {
                 context.commit({ type: 'setUser', user })
                     // SocketService.emit('user event', user._id)
-                socketService.on(user._id, res => {
-                    console.log(res, 'res in user.store');
-                    
-                    Swal.fire('Someone is intrested in one of your projects!')
+                // socketService.on(user._id, async res => {
+                //     console.log(res, 'res in user.store');
+                //     // user.notifications.push(res);
+                //     // await userService.update(user)
+                //     // context.commit({ type: 'setUser', updatedUser })
+
+                //     Swal.fire('Someone is intrested in one of your projects!')
     
-                })
+                // })
             }
             return user;
         },
         async signup(context, { newUserCred }) {
-            socketService.setup();
+            // socketService.setup();
             const user = await userService.signup(newUserCred)
             context.commit({ type: 'setUser', user })
                 // SocketService.emit('user topic', user._id)
-            socketService.on(user._id, res => {
-                Swal.fire('Someone is intrested in one of your projects!')
+            // socketService.on(user._id, res => {
+            //     Swal.fire('Someone is intrested in one of your projects!')
 
-            })
+            // })
             return user;
         },
         async logout(context) {
@@ -78,7 +81,7 @@ export default {
         },
         async updateUser(context, { user }) {   
             const updatedUser = await userService.update(user);
-            // context.commit({ type: 'setUser', updatedUser })
+            context.commit({ type: 'setUser', user: updatedUser })
             return updatedUser;
         },
 

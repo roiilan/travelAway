@@ -1,81 +1,84 @@
 <template>
   <div class="login-page">
     <!-- <login-form  v-if="credentials && !isSignup" :credentials="credentials" @login="login" @goToSignup="goToSignup" /> -->
-    <form v-if="credentials && !isSignup" class="flex col" @submit.prevent="login">
-      <h1>Log-in</h1>
-      <input ref="username" class="my-form" type="text" v-model="credentials.username" required />
-      <input type="password" v-model="credentials.password" required />
-      <button class="login-btn" type="submit">Login</button>
-      <h3>
-        Don't have an account?
-        <span class="login-link" @click.stop="isSignup = true">Signup</span>
-      </h3>
-    </form>
+    <!-- <transition name="fade"> -->
+      <form v-if="credentials && !isSignup" class="flex col" @submit.prevent="login">
+        <h1>Log-in</h1>
+        <input ref="username" class="my-form" type="text" v-model="credentials.username" required />
+        <input type="password" v-model="credentials.password" required />
+        <button class="login-btn" type="submit">Login</button>
+        <h3>
+          Don't have an account?
+          <span class="login-link" @click.stop="isSignup = true">Signup</span>
+        </h3>
+      </form>
+    <!-- </transition> -->
+    <!-- <transition name="fade"> -->
+      <form v-if="newUserCred && isSignup" class="flex col" @submit.prevent="signup">
+        <transition name="fade">
+          <myVideo v-if="playVideo" v-model="newUserCred.imgUrl" @stopVideo="toggleVideo"></myVideo>
+        </transition>
+        <h1>Sign-UP</h1>
+        <section class="signup-form flex col">
+          <section class="flex col">
+            <input
+              ref="fullName"
+              type="text"
+              v-model="newUserCred.fullName"
+              placeholder="FullName"
+              required
+            />
+            <input
+              ref="username"
+              type="text"
+              v-model="newUserCred.username"
+              placeholder="Username"
+              required
+            />
+            <input
+              ref="password"
+              type="password"
+              v-model="newUserCred.password"
+              placeholder="Password"
+              required
+            />
 
-    <form v-if="newUserCred && isSignup" class="flex col" @submit.prevent="signup">
-      <transition name="fade">
-        <myVideo v-if="playVideo" v-model="newUserCred.imgUrl" @stopVideo="playVideo = false"></myVideo>
-      </transition>
-      <h1>Sign-UP</h1>
-      <section class="signup-form flex col">
-        <section class="flex col">
-          <input
-            ref="fullName"
-            type="text"
-            v-model="newUserCred.fullName"
-            placeholder="FullName"
-            required
-          />
-          <input
-            ref="username"
-            type="text"
-            v-model="newUserCred.username"
-            placeholder="Username"
-            required
-          />
-          <input
-            ref="password"
-            type="password"
-            v-model="newUserCred.password"
-            placeholder="Password"
-            required
-          />
-
-          <button>Sign-Up</button>
-          <h3 style="display:block; height:5px;" class="flex a-center j-center">
-            Go back to
-            <span class="login-link" @click.stop="isSignup = false">Login</span>
-          </h3>
+            <button>Sign-Up</button>
+            <h3 style="display:block; height:5px;" class="flex a-center j-center">
+              Go back to
+              <span class="login-link" @click.stop="isSignup = false">Login</span>
+            </h3>
+          </section>
+          <section
+            @click.stop="openSelect = !openSelect"
+            :class="{'open-select':openSelect}"
+            class="container-img-profile pointer flex j-center"
+          >
+            <img
+              v-if="newUserCred.imgUrl"
+              class="avatar avatar-m"
+              :src="newUserCred.imgUrl"
+              title="Replace profile picture"
+            />
+            <img
+              v-else
+              class="avatar avatar-m"
+              src="../assets/svg/user-profile.svg"
+              title="Set profile picture"
+            />
+            <transition name="fade">
+              <section class="select" @click="openSelect = !openSelect" v-if="openSelect">
+                <label>
+                  <input @change="uploadImg" type="file" hidden />
+                  <li class="upload">Upload a photo</li>
+                </label>
+                <li @click="toggleVideo">Turn on camera</li>
+              </section>
+            </transition>
+          </section>
         </section>
-        <section
-          @click.stop="openSelect = !openSelect"
-          :class="{'open-select':openSelect}"
-          class="container-img-profile pointer flex j-center"
-        >
-          <img
-            v-if="newUserCred.imgUrl"
-            class="avatar avatar-m"
-            :src="newUserCred.imgUrl"
-            title="Replace profile picture"
-          />
-          <img
-            v-else
-            class="avatar avatar-m"
-            src="../assets/svg/user-profile.svg"
-            title="Set profile picture"
-          />
-          <transition name="fade">
-            <section class="select" @click="openSelect = !openSelect" v-if="openSelect">
-              <label>
-                <input @change="uploadImg" type="file" hidden />
-                <p class="upload">Upload a photo</p>
-              </label>
-              <p @click="playVideo = !playVideo">Turn on camera</p>
-            </section>
-          </transition>
-        </section>
-      </section>
-    </form>
+      </form>
+    <!-- </transition> -->
   </div>
 </template>
 
@@ -133,6 +136,10 @@ export default {
       if (event.keyCode === 27) {
         this.handleClick();
       }
+    },
+    toggleVideo(){
+      this.playVideo = !this.playVideo
+      document.body.classList.toggle("vidoe-open");
     },
     async login() {
       var user = await this.$store.dispatch({

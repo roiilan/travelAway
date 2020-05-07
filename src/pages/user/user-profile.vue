@@ -3,18 +3,14 @@
     <div class="main-content">
       <div>
         <div class="user-profile-inside-container flex col a-center">
-          <!-- <label class="pointer container-img" v-if="loggedinUser._id === user._id">
-            <input @change="uploadImg" type="file" hidden />
-            <img class="avatar avatar-l" :src="user.imgUrl" title="Replace your profile picture" />
-          </label>-->
           <transition name="fade">
             <myVideo v-if="playVideo" v-model="user.imgUrl" @stopVideo="playVideo = false"></myVideo>
           </transition>
           <section
-            v-if="loggedinUser._id === user._id"
+            v-if="loggedinUser && loggedinUser._id === user._id"
             @click.stop="openSelect = !openSelect"
             :class="{'open-select':openSelect}"
-            class="container-img-profile pointer flex j-center"
+            class="container-img container-img-profile pointer flex j-center"
           >
             <img
               v-if="user.imgUrl"
@@ -32,9 +28,9 @@
               <section class="select" @click="openSelect = !openSelect" v-if="openSelect">
                 <label>
                   <input @change="uploadImg" type="file" hidden />
-                  <p class="upload">Upload a photo</p>
+                  <li class="upload">Upload a photo</li>
                 </label>
-                <p @click="playVideo = !playVideo">Turn on camera</p>
+                <li @click="playVideo = !playVideo">Turn on camera</li>
               </section>
             </transition>
           </section>
@@ -45,21 +41,18 @@
             <input
               class="input-fullname"
               type="text"
-              v-if="loggedinUser._id === user._id"
+              v-if="loggedinUser && loggedinUser._id === user._id"
               v-model="fullName"
             />
             <p v-else>{{user.fullName}}</p>
-            <!-- <pre>{{user}}</pre> -->
             <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
             <review-avarage :reviews="reviews" />
           </div>
         </div>
+        <h3>count notifications: {{user.notifications.length}}</h3>
         <section v-if="user.notifications.length">
           <p>Notifications</p>
           <div v-for="notification in user.notifications" :key="notification._id">
-            <!-- <p>Project Name:{{notification.projTitle}}</p> -->
-            <!-- <p>By:{{notification.member.username}}</p> -->
-            <!-- <p>Free txt:{{notification.freeTxt}}</p> -->
             <p>Project Name:{{notification.proj.title}}</p>
             <p>By:{{notification.from.fullName}}</p>
             <p>Members intrested:{{notification.memebersApllied}}</p>
@@ -71,7 +64,6 @@
         <p v-else>No notifications yet</p>
       </div>
       <map-preview class="map" :array="[user]"></map-preview>
-      <!-- <map-preview class="map" :array="[user]" :tempZoom="zoomSize"></map-preview> -->
     </div>
 
     <review-list v-if="reviews.length" :reviews="reviews" />
@@ -89,7 +81,6 @@ import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
 import myVideo from "../../components/video/my-video.vue";
 
-
 export default {
   data() {
     return {
@@ -99,40 +90,29 @@ export default {
       fullName: null,
       user: null,
       review: null,
-      // markers: [],
-      zoomSize: 12,
-      // colors: this.$store.getters.colors,
-      // value: null,
-      projApplied: null
+      projApplied: null,
+      audioNotification: null
     };
   },
   async created() {
+    this.audioNotification = new Audio(require('../../assets/audio/notification.mp3'))
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
     socketService.setup();
-    console.log(user);
-
     await this.$store.dispatch({
       type: "loadReviews",
       id: userId
     });
     this.user = JSON.parse(JSON.stringify(user));
     socketService.on(userId, request => {
-      console.log(user);
-
       user.notifications.push(request);
       this.user = user;
-      // this.updateUser(user)
+      this.audioNotification.play()
+      this.updateUser();
     });
-    // this.user.notifications = []
-    // this.updateUser()
     this.fullName = this.user.fullName;
-    // this.value =
     this.reviews.reduce((a, b) => a + b.rate, 0) / this.reviews.length;
     this.review = this.getEmptyReview();
-    // this.markers.push({
-    //   position: { lat: this.user.position.lat, lng: this.user.position.lng }
-    // });
     // socketService.setup();
     // socketService.on(user._id, request => {
     //   this.user.notifications.push(request);
@@ -140,6 +120,12 @@ export default {
     //   // this.projOwner.notifications.push(request)
     //   console.log(request, "request arrived");
     // });
+    document.addEventListener("click", this.handleClick);
+    document.addEventListener("keydown", this.handlePress);
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.handleClick);
+    document.removeEventListener("keydown", this.handlePress);
   },
   methods: {
     async save(review) {
@@ -169,11 +155,10 @@ export default {
           _id: this.user._id,
           fullName: this.user.fullName,
           imgUrl: this.user.imgUrl
-        }
+        },
       };
     },
     decline(notification) {
-      console.log("im on the way", notification);
       const idx = this.user.notifications.findIndex(
         currProj => currProj._id === notification._id
       );
@@ -185,12 +170,20 @@ export default {
         type: "getProjById",
         id: notification.proj._id
       });
-      console.log(notification.proj._id);
       proj.membersApplyed.push(notification.from);
       proj.membersNeeded -= notification.memebersApllied;
       await this.$store.dispatch({ type: "saveProj", proj });
       this.decline(notification);
-    }
+    },
+
+    handleClick(event) {
+      if (this.openSelect) this.openSelect = false;
+    },
+    handlePress(event) {
+      if (event.keyCode === 27) {
+        this.handleClick();
+      }
+    },
   },
   mounted() {
     eventBus.$on("updateReview", async review => {
@@ -214,6 +207,8 @@ export default {
   },
   watch: {
     loggedinUser() {
+      
+      document.title = `(${this.loggedinUser.notifications.length}) Walkways`;
       if (!this.loggedinUser) {
         this.$router.push("/");
       }

@@ -32,6 +32,10 @@
           active-class="active"
         >
           <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
+          <section class="container-notification-icon">
+            <img src="../assets/svg/notification.svg" alt="">
+            <span>{{loggedinUser.notifications.length}}</span>
+          </section>
           <span>My Profile</span>
         </router-link>
         <section class="categories-contianer">
@@ -105,6 +109,7 @@ export default {
       setTimeout(() => {
         this.openMenu = !this.openMenu;
         document.body.classList.toggle("menu-open");
+        
       }, 1);
     },
     handleClick(event) {
@@ -123,9 +128,6 @@ export default {
   },
   created() {
     this.categories = projService.loadCategoties();
-    //  if (this.$route.path === "/projs/aroundTheWorld") {
-    //       this.isProjListOpen = true;
-    //     }
     window.addEventListener("scroll", this.handleScroll);
     document.addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
@@ -138,7 +140,13 @@ export default {
   components: {
     filterBy
   },
-  watch: {
+   watch: {
+    loggedinUser() {
+      console.log("I'm watch on loggedinUser in nav-bar");
+      // if (!this.loggedinUser) {
+        // this.$router.push("/");
+      // }
+    },
     // "$route.path": {
     //   handler() {
     //     if (this.$route.path === "/projs/aroundTheWorld") {
