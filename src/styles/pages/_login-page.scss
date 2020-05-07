@@ -1,47 +1,180 @@
 .login-page {
+    background-image: url("https://www.thebalancesmb.com/thmb/zLMhuQKCL24jIckZmKqw6E4n2hI=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-585859259-57997e215f9b589aa94c4243.jpg");
+    background-size: cover;
+    // position: fixed;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    // font-family: Sen;
+    
+    form {
+        padding: 35px;
+        // padding: 30px;
+        width: fit-content;
+        height: 100vh;
+        color: #4c2b00;
+        h3 {
+            color: #513456;
+            @include for-mobile-layout {
+                font-size: 21px;
+            }
+        }
+        
+        
+        h2 {
+            font-size: 22px;
+        }
 
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: Sen;
-    input {
-        padding: rem(15px);
-        margin-bottom: rem(10px) 0;
-        -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-
-    }
-    .avatar {
-        background-color: initial;
-    }
-    .login-btn {
-        font-family: Montserrat;
-        padding: rem(15px);
-        margin: rem(20px) 0;
-        border: none;
-        border-radius: 3px;
-        // box-shadow: $shadow1;
-        // background-color: lighten($clr1, 25%);
-        font-size: rem(20px);
-        font-weight: 400;
-        transition: background-color .3s;
-        cursor: pointer;
-        &:hover {
-            // background-color: lighten($clr1, 20%);
+        input,
+        input:-webkit-autofill {
+            padding: rem(15px);
+            font-family: Montserrat;
+            margin-bottom: rem(10px);
+            color: rgb(243, 234, 250);
+            -webkit-box-shadow: 0 0 0px 30px #a794b3 inset !important;
+            -webkit-text-fill-color: rgb(243, 234, 250) !important;
+            transition: -webkit-box-shadow .3s;
+            &::placeholder {
+                color: rgb(243, 234, 250);
+                opacity: 0.6;
+            }
+            &:hover, &:focus, &:active {
+                -webkit-box-shadow: 0 0 0px 30px #d2c2db inset !important;
+            }
+        }
+     
+        button  {
+            padding: rem(15px);
+            margin-top: rem(5px);
+            font-size: 22px;
+            font-weight: 900;
+            font-family: Montserrat;
+            background-color: #aa6a1ca6;
+            color: rgb(243, 234, 250);
+            &:hover {
+                background-color: #aa6a1cde;     
+            }
+            
+           
+            // -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    
+        }
+        .signup-form {
+            @include for-mobile-layout {
+                width: 100%;
+                flex-direction: row;
+            }
+            h3 {
+                font-size: 18px;
+                color: white;
+                @include for-mobile-layout {
+                    color: #513456;
+                    font-size: 21px;
+                }
+            }
+            button {
+                background-color: #ffefdbd1;
+                color: #0c0a06;
+                &:hover {
+                    background-color: #de963fa6;     
+                }
+                @include for-mobile-layout {
+                    background-color: #aa6a1ca6;
+                    color: rgb(243, 234, 250);
+                    &:hover {
+                        background-color: #aa6a1cbd;     
+                    }
+                }
+            }
         }
     }
+   
+    
+
+    
     .login-link {
-        color: rgb(0, 204, 255);
-        cursor: pointer;
+        color: #76caff;
+    font-weight: 900;
+    cursor: pointer;
+    font-size: 21px;
+}
+    
+   
+
+}
+
+.container-img-profile {
+    margin: 20px 0;
+    order: -1;
+    height: fit-content;
+    @include for-mobile-layout {
+        order: 1;
+        margin: 0px 0 0 40px;
     }
-    .login-card {
-        // margin: rem(12px);
-        padding: rem(20px);
-        border-radius: 3px;
-        box-shadow: $shadow1;
-        margin-top: 100px;
+    .avatar {
+        background-color: #626262;
+        width: 200px;
+        height: 200px;
+    }
+    img {
+        transition: opacity .3s;
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+    &:hover {
+        background-image: url('~@/assets/svg/camera-regular.svg');
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    &.open-select {
+        background-image: url('~@/assets/svg/camera-regular.svg');
+        background-position: center center;
+        background-repeat: no-repeat;
         img {
-            // width: rem(30px);
+            opacity: 0.5;
+
+        }
+    }
+    position: relative;
+    .select {
+        background-color: #fff;
+        width: fit-content;
+        position: absolute;
+        top: 70%;
+        border-radius: 3px;
+        box-shadow: $shadow3;
+        left: 72%;
+        transform: translate(-50%);
+        &::after{
+            z-index: 11;
+            content: "";
+            position: absolute;
+            top: -16%;
+            left: 15%;
+            margin-left: -5px;
+            border-width: 7px;
+            border-style: solid;
+            // border-color:  transparent transparent lighten($clr1, 35%) transparent;
+            border-color:  transparent transparent #fff transparent;
+        } 
+        p {
+            margin: 0;
+            padding: 9px;
+            font-size: 22px;
+            transition: background-color .3s, color .3s;
+            border-radius: 3px;
+            cursor: pointer;
+            &.upload {
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            &:hover {
+                background-color: rgb(59, 43, 90);
+                color: rgb(233, 223, 255);
+            }
         }
     }
 }

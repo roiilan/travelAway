@@ -30,7 +30,8 @@
     <div class="walk-ways-details width-container" v-if="projs">
       <h1 class="divider">
         <img src="https://image.flaticon.com/icons/svg/2628/2628442.svg" />Projects
-        <span class="space">{{projs.length}}</span>
+        <span class="space">{{count}}</span>
+        <!-- <span class="space">{{projs.length}}</span> -->
       </h1>
       <h1 class="divider">
         <img src="https://image.flaticon.com/icons/svg/978/978012.svg" />Voulnteers
@@ -79,12 +80,15 @@ export default {
       projs: null,
       reviews: null,
       categories: null,
-      users: null
+      users: null,
+      count: null
     };
   },
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
-    this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
+    const res = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
+    this.projs = res.projs
+    this.count = res.count
     this.categories = projService.loadCategoties();
     SocketService.setup();
     SocketService.on("send request", request => {

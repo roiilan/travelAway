@@ -3,10 +3,41 @@
     <div class="main-content">
       <div>
         <div class="user-profile-inside-container flex col a-center">
-          <label class="pointer container-img" v-if="loggedinUser._id === user._id">
+          <!-- <label class="pointer container-img" v-if="loggedinUser._id === user._id">
             <input @change="uploadImg" type="file" hidden />
             <img class="avatar avatar-l" :src="user.imgUrl" title="Replace your profile picture" />
-          </label>
+          </label>-->
+          <transition name="fade">
+            <myVideo v-if="playVideo" v-model="user.imgUrl" @stopVideo="playVideo = false"></myVideo>
+          </transition>
+          <section
+            v-if="loggedinUser._id === user._id"
+            @click.stop="openSelect = !openSelect"
+            :class="{'open-select':openSelect}"
+            class="container-img-profile pointer flex j-center"
+          >
+            <img
+              v-if="user.imgUrl"
+              class="avatar avatar-m"
+              :src="user.imgUrl"
+              title="Replace profile picture"
+            />
+            <img
+              v-else
+              class="avatar avatar-m"
+              src="../../assets/svg/user-profile.svg"
+              title="Set profile picture"
+            />
+            <transition name="fade">
+              <section class="select" @click="openSelect = !openSelect" v-if="openSelect">
+                <label>
+                  <input @change="uploadImg" type="file" hidden />
+                  <p class="upload">Upload a photo</p>
+                </label>
+                <p @click="playVideo = !playVideo">Turn on camera</p>
+              </section>
+            </transition>
+          </section>
           <div v-else class="container-img">
             <img class="avatar avatar-l" :src="user.imgUrl" />
           </div>
@@ -49,17 +80,21 @@
   </div>
 </template>
 <script>
+import { eventBus } from "../../services/eventbus-service.js";
 import { userService } from "../../services/user.service.js";
+import socketService from "../../services/socket.service.js";
 import mapPreview from "../../components/map-preview.vue";
 import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
-import { eventBus } from "../../services/eventbus-service.js";
-import socketService from "../../services/socket.service.js";
+import myVideo from "../../components/video/my-video.vue";
+
 
 export default {
   data() {
     return {
+      playVideo: false,
+      openSelect: false,
       timeOut: null,
       fullName: null,
       user: null,
@@ -75,8 +110,8 @@ export default {
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
     socketService.setup();
-     console.log(user);
-     
+    console.log(user);
+
     await this.$store.dispatch({
       type: "loadReviews",
       id: userId
@@ -139,7 +174,9 @@ export default {
     },
     decline(notification) {
       console.log("im on the way", notification);
-      const idx = this.user.notifications.findIndex(currProj => currProj._id === notification._id);
+      const idx = this.user.notifications.findIndex(
+        currProj => currProj._id === notification._id
+      );
       this.user.notifications.splice(idx, 1);
       this.updateUser();
     },
@@ -148,9 +185,9 @@ export default {
         type: "getProjById",
         id: notification.proj._id
       });
-      console.log( notification.proj._id);
-      proj.membersApplyed.push(notification.from)
-      proj.membersNeeded -= notification.memebersApllied
+      console.log(notification.proj._id);
+      proj.membersApplyed.push(notification.from);
+      proj.membersNeeded -= notification.memebersApllied;
       await this.$store.dispatch({ type: "saveProj", proj });
       this.decline(notification);
     }
@@ -172,7 +209,8 @@ export default {
     mapPreview,
     reviewList,
     reviewAdd,
-    reviewAvarage
+    reviewAvarage,
+    myVideo
   },
   watch: {
     loggedinUser() {
