@@ -70,6 +70,7 @@
 import filterBy from "./filter/filter-by.vue";
 import LoginVue from "../pages/Login.vue";
 import { projService } from "../services/proj.service.js";
+import { eventBus } from '../services/eventbus-service';
 
 export default {
   data() {
@@ -89,6 +90,7 @@ export default {
   },
   methods: {
     async logout() {
+    eventBus.$emit('disconnectSockets')
       var res = await this.$store.dispatch({ type: "logout" });
       if (res) {
         this.$notify({
@@ -142,6 +144,7 @@ export default {
   },
    watch: {
     loggedinUser() {
+      document.title = this.loggedinUser? `(${this.loggedinUser.notifications.length}) Walkways`: 'Walkways';
       console.log("I'm watch on loggedinUser in nav-bar");
       // if (!this.loggedinUser) {
         // this.$router.push("/");

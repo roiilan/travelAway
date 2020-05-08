@@ -57,8 +57,8 @@
             <p>By:{{notification.from.fullName}}</p>
             <p>Members intrested:{{notification.memebersApllied}}</p>
             <p>Free txt:{{notification.txt}}</p>
-            <button @click="approve(notification)">Approve!</button>
-            <button @click="decline(notification)">Decline</button>
+            <button @click="onApprove(notification)">Approve!</button>
+            <button @click="onDecline(notification)">Decline</button>
           </div>
         </section>
         <p v-else>No notifications yet</p>
@@ -95,39 +95,65 @@ export default {
     };
   },
   async created() {
-    this.audioNotification = new Audio(require('../../assets/audio/notification.mp3'))
+    this.audioNotification = new Audio(
+      require("../../assets/audio/notification.mp3")
+    );
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
-    socketService.setup();
+    this.user = JSON.parse(JSON.stringify(user));
     await this.$store.dispatch({
       type: "loadReviews",
       id: userId
     });
-    this.user = JSON.parse(JSON.stringify(user));
-    socketService.on(userId, request => {
-      user.notifications.push(request);
-      this.user = user;
-      this.audioNotification.play()
-      this.updateUser();
-    });
-    this.fullName = this.user.fullName;
-    this.reviews.reduce((a, b) => a + b.rate, 0) / this.reviews.length;
-    this.review = this.getEmptyReview();
-    // socketService.setup();
-    // socketService.on(user._id, request => {
-    //   this.user.notifications.push(request);
-    //   this.updateUser();
-    //   // this.projOwner.notifications.push(request)
-    //   console.log(request, "request arrived");
-    // });
-    document.addEventListener("click", this.handleClick);
-    document.addEventListener("keydown", this.handlePress);
+  //   socketService.setup();
+  //   socketService.on(`apply ${userId}`, this.addRequest);
+  //   socketService.on(`decline ${userId}`, this.decline);
+  //   socketService.on(`approve ${userId}`,this.approve);
   },
+  mounted() {
+      eventBus.$on('addRequest', request => {
+        this.user.notifications.push(request);
+        this.audioNotification.play();
+        this.updateUser();
+    })
+      eventBus.$on('decline', notification => {
+        const idx = this.user.notifications.findIndex(
+        currProj => currProj._id === notification._id
+      );
+      this.user.notifications.splice(idx, 1);
+      this.audioNotification.play();
+      this.updateUser();
+      })
+      eventBus.$on('approve', async notification => {
+   const proj = await this.$store.dispatch({
+        type: "getProjById",
+        id: notification.proj._id
+      });
+      proj.membersApplyed.push(notification.from);
+      proj.membersNeeded -= notification.memebersApllied;
+      await this.$store.dispatch({ type: "saveProj", proj });
+       const idx = this.user.notifications.findIndex(
+        currProj => currProj._id === notification._id
+      );
+      this.user.notifications.splice(idx, 1);
+      this.audioNotification.play();
+      this.updateUser();
+})
+
+   
+  },
+  // destroyed() {
+  //   socketService.off(`apply ${userId}`, this.addRequest);
+  //   socketService.off(`decline ${userId}`, this.decline);
+  //   socketService.off(`approve ${userId}`,this.approve);
+  //   socketService.terminate();
+  // },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
   },
   methods: {
+  
     async save(review) {
       var reviews = await this.$store.dispatch({
         type: "saveReview",
@@ -144,7 +170,11 @@ export default {
       await this.updateUser();
     },
     async updateUser() {
-      await this.$store.dispatch({ type: "updateUser", user: this.user });
+      var updatedUser = await this.$store.dispatch({
+        type: "updateUser",
+        user: this.user
+      });
+      console.log(updatedUser, " updatedUser");
     },
     getEmptyReview() {
       return {
@@ -155,27 +185,57 @@ export default {
           _id: this.user._id,
           fullName: this.user.fullName,
           imgUrl: this.user.imgUrl
-        },
+        }
       };
     },
-    decline(notification) {
-      const idx = this.user.notifications.findIndex(
-        currProj => currProj._id === notification._id
-      );
-      this.user.notifications.splice(idx, 1);
-      this.updateUser();
+    //   addRequest(request) {
+    //   this.user.notifications.push(request);
+    //   this.audioNotification.play();
+    //   this.updateUser();
+    // },
+    onDecline(notification) {
+      socketService.emit("decline", notification);
+      // const idx = this.user.notifications.findIndex(
+      //   currProj => currProj._id === notification._id
+      // );
+      // this.user.notifications.splice(idx, 1);
+      // this.updateUser();
     },
-    async approve(notification) {
-      const proj = await this.$store.dispatch({
-        type: "getProjById",
-        id: notification.proj._id
-      });
-      proj.membersApplyed.push(notification.from);
-      proj.membersNeeded -= notification.memebersApllied;
-      await this.$store.dispatch({ type: "saveProj", proj });
-      this.decline(notification);
-    },
+    // decline(notification){
+    //   const idx = this.user.notifications.findIndex(
+    //     currProj => currProj._id === notification._id
+    //   );
+    //   this.user.notifications.splice(idx, 1);
+    //   this.audioNotification.play();
+    //   this.updateUser();
+    // },
+    onApprove(notification) {
+      socketService.emit("approve", notification);
 
+      // const proj = await this.$store.dispatch({
+      //   type: "getProjById",
+      //   id: notification.proj._id
+      // });
+      // proj.membersApplyed.push(notification.from);
+      // proj.membersNeeded -= notification.memebersApllied;
+      // await this.$store.dispatch({ type: "saveProj", proj });
+      // this.decline(notification);
+    },
+    // async approve(notification){
+    //   const proj = await this.$store.dispatch({
+    //     type: "getProjById",
+    //     id: notification.proj._id
+    //   });
+    //   proj.membersApplyed.push(notification.from);
+    //   proj.membersNeeded -= notification.memebersApllied;
+    //   await this.$store.dispatch({ type: "saveProj", proj });
+    //    const idx = this.user.notifications.findIndex(
+    //     currProj => currProj._id === notification._id
+    //   );
+    //   this.user.notifications.splice(idx, 1);
+    //   this.audioNotification.play();
+    //   this.updateUser();
+    // },
     handleClick(event) {
       if (this.openSelect) this.openSelect = false;
     },
@@ -183,13 +243,9 @@ export default {
       if (event.keyCode === 27) {
         this.handleClick();
       }
-    },
+    }
   },
-  mounted() {
-    eventBus.$on("updateReview", async review => {
-      await this.save(review);
-    });
-  },
+
   computed: {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
@@ -207,8 +263,7 @@ export default {
   },
   watch: {
     loggedinUser() {
-      
-      document.title = `(${this.loggedinUser.notifications.length}) Walkways`;
+      // document.title = `(${this.loggedinUser.notifications.length}) Walkways`;
       if (!this.loggedinUser) {
         this.$router.push("/");
       }

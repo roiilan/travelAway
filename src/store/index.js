@@ -4,6 +4,7 @@ import projStore from '../modules/proj.store.js'
 import mapStore from '../modules/map.store.js'
 import userStore from '../modules/user.store.js';
 import reviewStore from '../modules/review.store.js';
+import socketStore from '../modules/socket.store.js';
 import cloudinaryService from '../services/cloudinary.service.js'
 
 
@@ -50,6 +51,7 @@ export default new Vuex.Store({
     projStore,
     userStore,
     reviewStore,
-    mapStore
+    mapStore,
+    socketStore
   }
 })

@@ -85,6 +85,7 @@
 <script>
 // import { userService } from "../services/user.service.js";
 import myVideo from "../components/video/my-video.vue";
+import {eventBus} from '../services/eventbus-service.js'
 
 export default {
   name: "Login",
@@ -154,6 +155,7 @@ export default {
           duration: 2500
         });
         this.goBack();
+        eventBus.$emit('connectSockets')
       } else {
         this.$notify({
           title: "Warning",
@@ -201,6 +203,7 @@ export default {
         newUserCred: this.newUserCred
       });
       this.goBack();
+      eventBus.$emit('connectSockets')
     },
     reset() {
       this.credentials.username = "";

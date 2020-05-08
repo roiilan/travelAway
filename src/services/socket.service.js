@@ -1,4 +1,6 @@
 import io from 'socket.io-client';
+import {storageService} from './storage.service.js'
+
 const BASE_URL = process.env.NODE_ENV === 'production' ?
     '/' :
     '//localhost:3030'
@@ -9,7 +11,9 @@ export default {
     terminate,
     on,
     off,
-    emit
+    emit,
+    loadMsg,
+    pushMsg
 }
 
 function setup() {
@@ -29,8 +33,15 @@ function off(eventName, cb) {
 }
 
 function emit(eventName, data) {
-    // console.log(eventName, 'eventName');
-    // console.log(data, 'data');
-    
     socket.emit(eventName, data)
+}
+
+function loadMsg(topic){
+    return storageService.load(topic)
+}
+function pushMsg(msg){
+    var msgs = storageService.load(msg.topic)
+    msgs ? msgs.push(msg): msgs = [msg] 
+    storageService.store(msg.topic, msgs)
+    return msgs;
 }

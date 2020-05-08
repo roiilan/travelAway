@@ -62,8 +62,8 @@ export default {
             return user;
         },
         async logout(context) {
-            socketService.setup();
-            socketService.off(context.state.loggedinUser._id)
+            // socketService.setup();
+            // socketService.off(context.state.loggedinUser._id)
             var res = await userService.logout()
                 // context.commit({type: 'setUsers', users: []})
             context.commit({ type: 'setUser', user: null })
@@ -84,6 +84,10 @@ export default {
             context.commit({ type: 'setUser', user: updatedUser })
             return updatedUser;
         },
-
+        // async addRequest(context, {request}) {
+        //     const user = context.getters.loggedinUser;
+        //     user.notifications.push(request);
+        //     return await context.dispatch({type:'updateUser', user})
+        // }
     }
 }

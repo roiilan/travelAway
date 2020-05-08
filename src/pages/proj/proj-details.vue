@@ -103,6 +103,7 @@
         :class="{'apply-opened':isApplyOpen, 'apply-on':isApplyOn}"
       ></proj-apply>
     </div>
+    <popap-chat :proj="proj"/>
     <div
     v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id"
       @click.stop="isApplyOpen = true"
@@ -115,12 +116,13 @@
 </template>
 
 <script>
+import { eventBus } from "../../services/eventbus-service.js";
 import mapPreview from "../../components/map-preview.vue";
 import projApply from "../../components/proj/proj-apply.cmp.vue";
 import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
-import { eventBus } from "../../services/eventbus-service.js";
+import popapChat from '../../components/socket/popap-chat.vue';
 
 export default {
   data() {
@@ -158,6 +160,7 @@ export default {
     reviewList,
     reviewAdd,
     reviewAvarage,
+    popapChat,
   },
   computed: {
     loggedinUser() {

@@ -18,11 +18,18 @@
         .nav-link-container {
             .container-notification-icon {
                 position: relative;
+                img {
+                    position: absolute;
+                    top: 10px;
+                    left: -9px;
+                }
                 span {
                     position: absolute;
-                    top: -1%;
-                    left: 64.5%;
-                    font-size: 11px;
+                    // top: -1%;
+                    // left: 64.5%;
+                    top: 8.5px;
+                    left: 6px;
+                    font-size: 9px;
                     color: #ff1a1a;
                     font-weight: 900;                }
             }

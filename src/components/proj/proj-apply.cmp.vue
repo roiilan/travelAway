@@ -20,14 +20,13 @@
       </form>
       <!-- <pre>{{request}}</pre> -->
       <pre>{{user}}</pre>
-
     </div>
   </transition>
 </template>
 
 <script>
-import SocketService from "../../services/socket.service.js";
-import {utilService} from "../../services/util.service.js"
+import socketService from "../../services/socket.service.js";
+import { utilService } from "../../services/util.service.js";
 import { eventBus } from "../../services/eventbus-service.js";
 
 export default {
@@ -39,21 +38,21 @@ export default {
   data() {
     return {
       request: {
-        _id:utilService.makeId() ,
+        _id: utilService.makeId(),
         proj: {
           _id: this.proj._id,
-          title: this.title, 
-        }, 
+          title: this.title
+        },
         from: {
           _id: this.user._id,
           fullName: this.user.fullName
-        }, 
+        },
         to: {
-          _id: this.proj.createdBy._id,
-        }, 
+          _id: this.proj.createdBy._id
+        },
         memebersApllied: null,
         txt: null,
-        isApproved: false,
+        isApproved: false
       }
       // request: {
       //   projOwner: this.proj.createdBy,
@@ -68,10 +67,16 @@ export default {
       // }
     };
   },
+  created() {
+    // socketService.setup();
+  },
+  destroyed() {
+    // socketService.terminate();
+  },
   methods: {
     applyToProj() {
-      SocketService.setup()
-      SocketService.emit("applyToProj", this.request);
+      // socketService.setup();
+      socketService.emit("applyToProj", this.request);
       this.$emit("onApply");
       //  eventBus.$emit('applyToProj', this.request);
       //  this.projOwner.notifications.push(this.request)

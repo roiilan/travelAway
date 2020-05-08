@@ -69,7 +69,7 @@
 <script>
 import { utilService } from "../services/util.service.js";
 import { projService } from "../services/proj.service.js";
-import SocketService from "../services/socket.service.js";
+import socketService from "../services/socket.service.js";
 import markerCard from "../components/marker-card.vue";
 
 // @ is an alias to /src
@@ -87,12 +87,15 @@ export default {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
     this.categories = projService.loadCategoties();
-    SocketService.setup();
-    SocketService.on("send request", request => {
-      // this.projOwner.notifications.push(request)
-      console.log(request, "request arrived");
-    });
+    // socketService.setup();
+    // socketService.on("send request", request => {
+    //   // this.projOwner.notifications.push(request)
+    //   console.log(request, "request arrived");
+    // });
   },
+  // destroyed() {
+  //   socketService.terminate();
+  // },
   methods: {
     openDetails(id) {
       this.$router.push("/proj/" + id);
