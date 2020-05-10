@@ -10,17 +10,19 @@ import home from "./Home.vue";
 
 export default {
   name: "projApp",
-  data(){
-    return{
-      projs:null,
-    }
-  },
+  // data(){
+  //   return{
+  //     projs:null,
+  //   }
+  // },
   components: {
     projList,
     home
   },
 async created() {
-    //  this.projs = await this.$store.dispatch({type: 'loadProjs'});
+    await this.$store.dispatch({type: 'loadProjs'});
+    await this.$store.dispatch({type: 'loadReviews'});
+     
 },
 
  };

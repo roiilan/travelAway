@@ -52,16 +52,31 @@
         <!-- <h3>count notifications: {{user.notifications.length}}</h3> -->
         <section class="notification-container" v-if="user.notifications.length">
           <!-- <p>Notifications</p> -->
-          <div class="notification-preview"  v-for="notification in user.notifications" :key="notification._id">
-            <p>{{notification.from.fullName}}: {{notification.txt || 'I heard about your project and I really like it, can I sign up for it?'}}</p>
-            <p>About the project: {{notification.proj.title}}</p>
-            <p v-if="notification.proj.createdById === user._id">Members intrested:{{notification.memebersApllied}}</p>
-            <section v-if="notification.proj.createdById === user._id">
-              <!-- notification:<pre>{{notification}}</pre>
-              user:<pre>{{user}}</pre> -->
-              <button @click="onApprove(notification)">Approve!</button>
-              <button @click="onDecline(notification)">Decline</button>
-            </section>
+          <div
+            class="notification-preview"
+            v-for="notification in user.notifications"
+            :key="notification._id"
+          >
+            <div class="notification-header">
+              <p>{{notification.from.fullName}}: {{notification.txt || 'I heard about your project and I really like it, can I sign up for it?'}}</p>
+              <img
+                src="https://image.flaticon.com/icons/svg/39/39220.svg"
+                alt
+                @click.prevent="deleteNotification(notification)"
+              />
+            </div>
+            <div class="notification-details">
+              <p>About the project: {{notification.proj.title}}</p>
+              <p
+                v-if="notification.proj.createdById === user._id"
+              >Members intrested:{{notification.memebersApllied}}</p>
+              <section v-if="notification.proj.createdById === user._id">
+                <!-- notification:<pre>{{notification}}</pre>
+                user:<pre>{{user}}</pre>-->
+                <button @click="onApprove(notification)">Approve!</button>
+                <button @click="onDecline(notification)">Decline</button>
+              </section>
+            </div>
           </div>
         </section>
         <p v-else>No notifications yet</p>
@@ -103,53 +118,51 @@ export default {
     );
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
-    this.user = JSON.parse(JSON.stringify(user));
+    this.user = JSON.parse(JSON.stringify(user));    
     // this.user.notifications = []
     // this.updateUser()
     await this.$store.dispatch({
       type: "loadReviews",
       id: userId
     });
-    this.fullName = this.user.fullName
-  //   socketService.setup();
-  //   socketService.on(`apply ${userId}`, this.addRequest);
-  //   socketService.on(`decline ${userId}`, this.decline);
-  //   socketService.on(`approve ${userId}`,this.approve);
+    this.fullName = this.user.fullName;
+    //   socketService.setup();
+    //   socketService.on(`apply ${userId}`, this.addRequest);
+    //   socketService.on(`decline ${userId}`, this.decline);
+    //   socketService.on(`approve ${userId}`,this.approve);
   },
   mounted() {
-    eventBus.$on('updateUser', user=> {
-      this.user = user
-    })
-//       eventBus.$on('addRequest', request => {
-//         this.user.notifications.push(request);
-//         this.audioNotification.play();
-//         this.updateUser();
-//     })
-//       eventBus.$on('decline', notification => {
-//         const idx = this.user.notifications.findIndex(
-//         currProj => currProj._id === notification._id
-//       );
-//       this.user.notifications.splice(idx, 1);
-//       this.audioNotification.play();
-//       this.updateUser();
-//       })
-//       eventBus.$on('approve', async notification => {
-//    const proj = await this.$store.dispatch({
-//         type: "getProjById",
-//         id: notification.proj._id
-//       });
-//       proj.membersApplyed.push(notification.from);
-//       proj.membersNeeded -= notification.memebersApllied;
-//       await this.$store.dispatch({ type: "saveProj", proj });
-//        const idx = this.user.notifications.findIndex(
-//         currProj => currProj._id === notification._id
-//       );
-//       this.user.notifications.splice(idx, 1);
-//       this.audioNotification.play();
-//       this.updateUser();
-// })
-
-   
+    eventBus.$on("updateUser", user => {
+      this.user = user;
+    });
+    //       eventBus.$on('addRequest', request => {
+    //         this.user.notifications.push(request);
+    //         this.audioNotification.play();
+    //         this.updateUser();
+    //     })
+    //       eventBus.$on('decline', notification => {
+    //         const idx = this.user.notifications.findIndex(
+    //         currProj => currProj._id === notification._id
+    //       );
+    //       this.user.notifications.splice(idx, 1);
+    //       this.audioNotification.play();
+    //       this.updateUser();
+    //       })
+    //       eventBus.$on('approve', async notification => {
+    //    const proj = await this.$store.dispatch({
+    //         type: "getProjById",
+    //         id: notification.proj._id
+    //       });
+    //       proj.membersApplyed.push(notification.from);
+    //       proj.membersNeeded -= notification.memebersApllied;
+    //       await this.$store.dispatch({ type: "saveProj", proj });
+    //        const idx = this.user.notifications.findIndex(
+    //         currProj => currProj._id === notification._id
+    //       );
+    //       this.user.notifications.splice(idx, 1);
+    //       this.audioNotification.play();
+    //       this.updateUser();
+    // })
   },
   // destroyed() {
   //   socketService.off(`apply ${userId}`, this.addRequest);
@@ -162,7 +175,6 @@ export default {
     document.removeEventListener("keydown", this.handlePress);
   },
   methods: {
-  
     async save(review) {
       var reviews = await this.$store.dispatch({
         type: "saveReview",
@@ -204,14 +216,9 @@ export default {
     // },
     onDecline(notification) {
       socketService.emit("decline", notification);
-      // this.decline(notification)
-    //   const idx = this.user.notifications.findIndex(
-    //     currProj => currProj._id === notification._id
-    //   );
-    //   this.user.notifications.splice(idx, 1);
-    //   this.updateUser();
+   
     },
-    decline(notification){
+    decline(notification) {
       const idx = this.user.notifications.findIndex(
         currProj => currProj._id === notification._id
       );
@@ -219,9 +226,17 @@ export default {
       this.audioNotification.play();
       this.updateUser();
     },
+    deleteNotification(notification) {
+      console.log("notification",notification);
+        const idx = this.user.notifications.findIndex(
+          currProj => currProj._id === notification._id
+        );
+        this.user.notifications.splice(idx, 1);
+        this.updateUser();
+    },
     onApprove(notification) {
       socketService.emit("approve", notification);
-  // this.approve()
+      // this.approve()
       // const proj = await this.$store.dispatch({
       //   type: "getProjById",
       //   id: notification.proj._id
@@ -231,21 +246,21 @@ export default {
       // await this.$store.dispatch({ type: "saveProj", proj });
       // this.decline(notification);
     },
-    async approve(notification){
-      const proj = await this.$store.dispatch({
-        type: "getProjById",
-        id: notification.proj._id
-      });
-      proj.membersApplyed.push(notification.from);
-      proj.membersNeeded -= notification.memebersApllied;
-      await this.$store.dispatch({ type: "saveProj", proj });
-       const idx = this.user.notifications.findIndex(
-        currProj => currProj._id === notification._id
-      );
-      this.user.notifications.splice(idx, 1);
-      this.audioNotification.play();
-      this.updateUser();
-    },
+    // async approve(notification){
+    //   const proj = await this.$store.dispatch({
+    //     type: "getProjById",
+    //     id: notification.proj._id
+    //   });
+    //   proj.membersApplyed.push(notification.from);
+    //   proj.membersNeeded -= notification.memebersApllied;
+    //   await this.$store.dispatch({ type: "saveProj", proj });
+    //    const idx = this.user.notifications.findIndex(
+    //     currProj => currProj._id === notification._id
+    //   );
+    //   this.user.notifications.splice(idx, 1);
+    //   this.audioNotification.play();
+    //   this.updateUser();
+    // },
     handleClick(event) {
       if (this.openSelect) this.openSelect = false;
     },

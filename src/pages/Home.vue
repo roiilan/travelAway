@@ -31,7 +31,12 @@
       <h1 class="divider">
         <img src="https://image.flaticon.com/icons/svg/2628/2628442.svg" />Projects
         <!-- <span class="space">{{count}}</span> -->
-        <span class="space">{{projs.length}}</span>
+        <span class="space">{{allProjsLength}}</span>
+      </h1>
+      <h1 class="divider">
+        <img src="https://image.flaticon.com/icons/svg/1162/1162344.svg" />Feedbacks
+        <!-- <span class="space">{{count}}</span> -->
+        <span class="space">{{allFeedbackLength}}</span>
       </h1>
       <h1 class="divider">
         <img src="https://image.flaticon.com/icons/svg/978/978012.svg" />Voulnteers
@@ -95,6 +100,7 @@ export default {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
     this.categories = projService.loadCategoties();
+    // this.$store.getters.loggedinUser;
     // socketService.setup();
     // socketService.on("send request", request => {
     //   // this.projOwner.notifications.push(request)
@@ -111,13 +117,15 @@ export default {
   },
   computed: {
     countriesCount() {
-      let countriesArr = [];
-      this.projs.forEach(proj => {
-        !countriesArr.includes(proj.position.country)
-          ? countriesArr.push(proj.position.country)
-          : "";
-      });
-      return countriesArr.length;
+          return  this.$store.getters.countries
+    },
+    allProjsLength(){
+          return  this.$store.getters.projs.length;
+
+    },
+    allFeedbackLength(){
+     return  this.$store.getters.reviews.length;
+
     }
   },
   components: {

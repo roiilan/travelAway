@@ -132,7 +132,7 @@ export default {
     this.categories = projService.loadCategoties();
     window.addEventListener("scroll", this.handleScroll);
     document.addEventListener("click", this.handleClick);
-    document.addEventListener("keydown", this.handlePress);
+    document.addEventListener("keydown", this.handlePress);    
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -145,7 +145,6 @@ export default {
    watch: {
     loggedinUser() {
       document.title = this.loggedinUser? `(${this.loggedinUser.notifications.length}) Walkways`: 'Walkways';
-      console.log("I'm watch on loggedinUser in nav-bar");
       // if (!this.loggedinUser) {
         // this.$router.push("/");
       // }

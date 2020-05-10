@@ -13,6 +13,10 @@
             object-fit: cover;
             height: 12rem;
         }
+
+        .fully-booked{
+            position: absolute;
+        }
         @media screen and (max-width: 1080px) {
             width: 100%;
             position: relative;
@@ -33,6 +37,14 @@
             > img {
               height: 100%;
               width: 100%;
+            }
+            > .fully-booked{
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                z-index: 1;
+
+
             }
         }       
     }

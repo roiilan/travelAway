@@ -80,4 +80,18 @@
         gap: rem(50px);
     }
 
+    .notification-preview{
+        display: flex;
+        flex-direction: column;
+        .notification-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            img{
+                height: rem(30px);
+                cursor: pointer;
+            }
+        }
+    }
+
 }

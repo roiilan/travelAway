@@ -32,9 +32,19 @@ export default {
             return state.projs
         },
 
-        //     currProj(state){
-        //     return state.proj
-        //   }
+            currProj(state){
+            return state.proj
+          },
+          countries(state){
+            let countriesArr = [];
+            state.projs.forEach(proj => {
+              !countriesArr.includes(proj.position.country)
+                ? countriesArr.push(proj.position.country)
+                : "";
+            });
+            return countriesArr.length;
+          }
+
     },
     actions: {
         async loadProjs(context, { filterBy, limit }) {

@@ -81,6 +81,7 @@ export default {
     };
   },
   created() {
+    
     this.center = {
       lat: 33.886917,
       lng: 9.537499
@@ -90,6 +91,8 @@ export default {
   },
   methods: {
     setZoomAndCenter() {
+          console.log(this.$refs.$mapref);
+
       if (this.array) {
         if (this.array.length > 1) {
           this.center = {
@@ -104,10 +107,13 @@ export default {
           };
           this.zoom = 12;
         }
+      setTimeout(() => { 
         this.$refs.mapRef.$mapPromise.then(map => {
           map.panTo(this.center);
           map.setZoom(this.zoom);
         });
+       }, 1);
+
       }
     },
     openImg(m, index, $event) {
@@ -169,7 +175,7 @@ export default {
     markerCard
   },
   watch: {
-    array: {
+   array: {
       handler() {
         if (this.array && this.isShow) return
         this.setZoomAndCenter();
