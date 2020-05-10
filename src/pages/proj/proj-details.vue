@@ -1,6 +1,6 @@
 <template>
   <div class="proj-details-container width-container" v-if="proj">
-    <popap-chat :proj="proj"/>
+    <!-- <popap-chat :proj="proj"/> -->
 
     <div class="proj-details">
       <!-- <router-link :to="'/user/' + proj.createdBy._id">
@@ -9,19 +9,6 @@
           :alt="proj.createdBy.fullName"
           :title="proj.createdBy.fullName"/>
       </router-link>-->
-
-      <div class="edit-link-container width-container">
-        <router-link
-          v-if="loggedinUser &&
-        (loggedinUser._id === proj.createdBy._id || 
-        loggedinUser.isAdmin)"
-          :to="'/edit/' + proj._id"
-          class="edit-link flex col a-center"
-          title="Edit Project"
-        >
-          <img class="btn-img" src="../../assets/png/edit.png" alt />
-        </router-link>
-      </div>
 
       <div class="main-content-details-contianer">
         <h1 class="title-proj">{{proj.title}}</h1>
@@ -35,7 +22,11 @@
             <div @click="setActive('description')" class="flex a-center bet">
               <h3 class="flex bet">
                 Description
-                <img :class="{'arrow-down': active === 'description'}" src="../../assets/svg/downloading2.svg" alt />
+                <img
+                  :class="{'arrow-down': active === 'description'}"
+                  src="../../assets/svg/downloading2.svg"
+                  alt
+                />
               </h3>
             </div>
             <transition name="fade">
@@ -44,9 +35,13 @@
           </section>
           <section>
             <div @click="setActive('requirements')" class="flex a-center bet">
-               <h3 class="flex bet">
+              <h3 class="flex bet">
                 Requirements
-                <img :class="{'arrow-down': active === 'requirements'}" src="../../assets/svg/downloading2.svg" alt />
+                <img
+                  :class="{'arrow-down': active === 'requirements'}"
+                  src="../../assets/svg/downloading2.svg"
+                  alt
+                />
               </h3>
             </div>
             <transition name="fade">
@@ -76,9 +71,13 @@
           </section>
           <section>
             <div @click="setActive('tags')" class="flex a-center bet">
-                <h3 class="flex bet">
+              <h3 class="flex bet">
                 What is included
-                <img :class="{'arrow-down': active === 'tags'}" src="../../assets/svg/downloading2.svg" alt />
+                <img
+                  :class="{'arrow-down': active === 'tags'}"
+                  src="../../assets/svg/downloading2.svg"
+                  alt
+                />
               </h3>
             </div>
             <transition name="fade">
@@ -91,25 +90,53 @@
         </div>
       </div>
       <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
-        <review-add v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id" :review="review" @save="save" />
+      <review-add
+        v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id"
+        :review="review"
+        @save="save"
+      />
       <div class="card-deatails map-container">
-        <map-preview :array="[proj]" ></map-preview>
+        <map-preview :array="[proj]"></map-preview>
       </div>
     </div>
-    <div v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id" @click.stop="stop">
-      <proj-apply
-        @onApply="onApply"
-        :proj="proj"
-        :user="loggedinUser"
-        class="proj-apply"
-        :class="{'apply-opened':isApplyOpen, 'apply-on':isApplyOn}"
-      ></proj-apply>
+
+    <div class="edit-link-container width-container">
+      <router-link
+        v-if="loggedinUser &&
+        (loggedinUser._id === proj.createdBy._id || 
+        loggedinUser.isAdmin)"
+        :to="'/edit/' + proj._id"
+        class="edit-link flex col a-center"
+        title="Edit Project"
+      >
+        <img class="btn-img" src="../../assets/png/edit.png" alt />
+      </router-link>
+      <span
+        v-else-if="loggedinUser &&
+        (loggedinUser._id !== proj.createdBy._id || 
+        loggedinUser.isAdmin)"
+        @click.stop="toggleApply"
+        :class="{'apply-open':isApplyOpen}"
+      >Apply now</span>
     </div>
+
+    <!-- <div v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id" @click.stop="stop"> -->
+    <!-- v-if="isApplyOpen" -->
+    <proj-apply
+      @toggleApply="toggleApply"
+      :proj="proj"
+      :user="loggedinUser"
+      class="proj-apply"
+      :class="{'apply-open':isApplyOpen}"
+    ></proj-apply>
+    <!-- </div> -->
     <div
-    v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id"
-      @click.stop="isApplyOpen = true"
+      v-if="loggedinUser &&
+        (loggedinUser._id !== proj.createdBy._id || 
+        loggedinUser.isAdmin)"
+      @click.stop="toggleApply"
       class="proj-apply-for-mobile"
-      :class="{'apply-opened':isApplyOpen}"
+      :class="{'apply-open':isApplyOpen}"
     >
       <h1>Apply now</h1>
     </div>
@@ -123,26 +150,25 @@ import projApply from "../../components/proj/proj-apply.cmp.vue";
 import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
-import popapChat from '../../components/socket/popap-chat.vue';
+import popapChat from "../../components/socket/popap-chat.vue";
 
 export default {
   data() {
     return {
       proj: null,
       isApplyOpen: false,
-      isApplyOn: false,
+      // isApplyOn: false,
       isEdit: false,
       review: null,
       averageRate: null,
       colors: this.$store.getters.colors,
-      active: "",
+      active: ""
     };
   },
   async created() {
-    
     const projId = this.$route.params.id;
     console.log(projId);
-    
+
     this.proj = await this.$store.dispatch({
       type: "loadProj",
       projId
@@ -161,7 +187,7 @@ export default {
     reviewList,
     reviewAdd,
     reviewAvarage,
-    popapChat,
+    popapChat
   },
   computed: {
     loggedinUser() {
@@ -172,10 +198,6 @@ export default {
     }
   },
   methods: {
-    openApply() {
-      this.isApplyOpen = false;
-    },
-    stop() {},
     async save(review) {
       review.by = this.loggedinUser
         ? this.loggedinUser
@@ -202,21 +224,42 @@ export default {
         }
       };
     },
-    onApply() {
-      this.isApplyOn = true;
-    },
     setActive(value) {
       this.active = this.active === value ? "" : value;
+    },
+    toggleApply() {
+      this.isApplyOpen = !this.isApplyOpen;
+      document.body.classList.toggle("apply-open");
+    },
+    closeApply() {
+      this.isApplyOpen = false;
+      document.body.classList.remove("apply-open");
+    },
+    handlePress() {
+      if (event.keyCode === 27 || event.keyCode === 32) {
+        this.closeApply();
+      }
     }
   },
   mounted() {
-    document.addEventListener("click", this.openApply);
+    console.log("document", document);
+    document
+      .querySelector(".screen")
+      .addEventListener("click", this.closeApply);
+    document.addEventListener("keydown", this.handlePress);
+
+    // document.addEventListener("click", this.closeApply);
     eventBus.$on("updateReview", async review => {
       await this.save(review);
     });
   },
   beforeDestroy() {
-    document.removeEventListener("click", this.openApply);
+    document
+      .querySelector(".screen")
+      .removeEventListener("click", this.closeApply);
+    document.removeEventListener("keydown", this.handlePress);
+
+    // document.removeEventListener("click", this.closeApply);
   }
 };
 </script>

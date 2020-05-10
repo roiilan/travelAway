@@ -1,5 +1,5 @@
 <template>
-  <div class="container-map">
+  <div class="container-map" v-if="array">
     <!-- <section v-if="object && object.username">
       <transition name="fade">
         <img
@@ -171,7 +171,7 @@ export default {
   watch: {
     array: {
       handler() {
-        if (this.isShow) return
+        if (this.array && this.isShow) return
         this.setZoomAndCenter();
       },
      deep: true

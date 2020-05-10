@@ -42,27 +42,34 @@
         <span class="space">{{countriesCount}}</span>
       </h1>
     </div>
-
-    <ul v-if="projs" class="around-the-world-preview width-container">
-      <li v-for="proj in projs" :key="proj._id" class="around-the-world-card">
-        <marker-card
-          :proj="proj"
-          :title="proj.description.substring(0,80) +'... Click to read more!!'"
-          class="proj-preview-card"
-          @click.native="openDetails(proj._id)"
-        />
-      </li>
-    </ul>
-    <section v-else class="loading-container width-container">
-      <img v-for="i in 6" :key="i" src="../assets/svg/loading.svg" alt />
+    <section class="carousel-for-desctop">
+      <ul v-if="projs" class="around-the-world-preview width-container">
+        <li v-for="proj in projs" :key="proj._id" class="around-the-world-card">
+          <marker-card
+            :proj="proj"
+            :title="proj.description.substring(0,80) +'... Click to read more!!'"
+            class="proj-preview-card"
+            @click.native="openDetails(proj._id)"
+          />
+        </li>
+      </ul>
+      <section v-else class="loading-container width-container">
+        <img v-for="i in 6" :key="i" src="../assets/svg/loading.svg" alt />
+      </section>
     </section>
-    <div class="proj-preview-card">
+
+  <section class="carousel-for-mobile">
+    <proj-list-carousel v-if="projs" :projs="projs" />
+    <img v-else src="../assets/svg/loading.svg" alt />
+  </section>
+
+    <!-- <div class="proj-preview-card">
       <router-link
         class="show-more"
         title="Show more about 'around the world'"
         to="/projs/aroundTheWorld"
       >Show more</router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -71,6 +78,7 @@ import { utilService } from "../services/util.service.js";
 import { projService } from "../services/proj.service.js";
 import socketService from "../services/socket.service.js";
 import markerCard from "../components/marker-card.vue";
+import projListCarousel from "../components/proj/proj-list-carousel.vue";
 
 // @ is an alias to /src
 export default {
@@ -80,7 +88,7 @@ export default {
       projs: null,
       reviews: null,
       categories: null,
-      users: null,
+      users: null
     };
   },
   async created() {
@@ -113,10 +121,8 @@ export default {
     }
   },
   components: {
-    markerCard
+    markerCard,
+    projListCarousel
   }
 };
 </script>
-
-<style scoped>
-</style>

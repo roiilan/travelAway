@@ -56,7 +56,7 @@
         </section>
       </div>
       <img
-        @click="toogleMemu"
+        @click.stop="toogleMemu"
         class="hamburger"
         :class="{'open-menu':openMenu}"
         src="../assets/svg/menu.svg"

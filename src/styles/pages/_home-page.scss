@@ -10,7 +10,21 @@
             height: 300px;
         }
     }
-    
+    .carousel-for-mobile {
+        display: block;
+        @include for-mobile-layout {
+            display: none;
+        }
+        .el-carousel__container {
+            height: 450px;
+        }
+    }
+    .carousel-for-desctop {
+        display: none;
+        @include for-mobile-layout {
+            display: block;
+        }
+    }
 }
 
 .category-container {

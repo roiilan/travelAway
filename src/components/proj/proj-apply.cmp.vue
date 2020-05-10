@@ -1,7 +1,15 @@
 <template>
   <transition name="fade">
     <div class="proj-apply">
-      <h1>apply now</h1>
+      <section class="container-title flex bet">
+        <img
+          src="../../assets/svg/close.svg"
+          @click.stop="$emit('toggleApply')"
+          title="Close"
+          class="close-popap-img pointer"
+        />
+        <h1>apply now</h1>
+      </section>
       <form class="form-apply" @submit.prevent="applyToProj">
         <el-input
           class="input-txt-apply"
@@ -18,8 +26,6 @@
         ></el-input-number>
         <button>Send request!</button>
       </form>
-      <!-- <pre>{{request}}</pre> -->
-      <pre>{{user}}</pre>
     </div>
   </transition>
 </template>

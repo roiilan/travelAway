@@ -6,7 +6,8 @@
         top: 0;
         // height: rem(0px);
     }
-    background-color: lighten($clr1, 35%);
+    background-color: #68667a;
+    // background-color: lighten($clr1, 35%);
     // background-image: linear-gradient(-180deg, #1b141a 0%, #644c64 100%);
 
     box-shadow: $shadow2;
@@ -27,8 +28,8 @@
                     position: absolute;
                     // top: -1%;
                     // left: 64.5%;
-                    top: 8.5px;
-                    left: 6px;
+                    top: 10px;
+                    left: 6.3px;
                     font-size: 9px;
                     color: #ff1a1a;
                     font-weight: 900;                }
