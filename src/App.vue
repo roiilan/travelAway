@@ -73,13 +73,11 @@ export default {
   },
   methods: {
     connectSockets() {
-      console.log("connectSockets");
       socketService.on(`apply ${this.loggedinUser._id}`, this.pushNotification);
       socketService.on(`decline ${this.loggedinUser._id}`, this.decline);
       socketService.on(`approve ${this.loggedinUser._id}`, this.approve);
     },
     disconnectSockets() {
-      console.log("disconnectSockets");
       socketService.off(
         `apply ${this.loggedinUser._id}`,
         this.pushNotification

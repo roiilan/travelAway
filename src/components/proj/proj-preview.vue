@@ -2,6 +2,7 @@
   <div class="proj-preview">
     <router-link :to="'/proj/' + proj._id" class="proj-card flex col">
     <div class="details-img">
+      <img src="../../assets/png/fully-booked.png" v-if="proj.membersApplyed.length === proj.membersNeeded" class = "fully-booked"/>
       <img v-bind:src="proj.imgUrls[0]" v-if="proj.imgUrls" class="" />
     </div>
       <div class="proj-txt">

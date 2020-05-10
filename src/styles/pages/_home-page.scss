@@ -247,19 +247,13 @@
     }
 }
 
-.details-header {
-    font-family: Sen;
-    text-align: center;
-    font-size: rem(40px);
-    margin: 10px 0 10px 0;
-}
 
 .walk-ways-details {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
+    
     .space {
         margin: 0 10px
     }
@@ -268,32 +262,48 @@
         margin-left: 5px;
         margin-bottom: 10px
     }
-
+    
     .divider{
         font-family: Montserrat;
         display: flex;
         padding: 0 10px 0 10px;
         align-items: center;
         margin: 0;
-        font-size: rem(15px);
+        font-size: rem(10px);
         flex-direction: column;
     }
-   
- 
+    @include for-mobile-layout {
+        justify-content: center;
+        flex-direction: row; 
+        .space {
+            margin: 0 10px
+        }
+        .divider {
+            font-size: rem(20px);
+            flex-direction: column;
+            
+        }
+        img {
+            width: rem(50px);
+            margin-left: 10px;
+            margin-bottom: 20px
+        }
+        justify-content: space-around;
 
-
+    }
+    
     @include for-normal-layout {
-        height: 200px;
+        height: rem(200px);
         justify-content: center;
         flex-direction: row;
-
+        
         .space {
             margin: 0 10px
         }
         .divider {
             font-size: rem(25px);
             flex-direction: column;
-
+            
         }
         img {
             width: rem(55px);
@@ -307,10 +317,21 @@
     }
     
 }
+// .details-header {
+//     font-family: Sen;
+//     font-size: rem(40px);
+//     margin: 10px 0 10px 0;
+// }
 
 .details-header{
     font-size: rem(20px);
+        text-align: center;
     font-weight: lighter;
+    @include for-mobile-layout {
+        font-size: rem(40px);
+
+    }
+
     @include for-normal-layout {
         font-size: rem(50px);
     }

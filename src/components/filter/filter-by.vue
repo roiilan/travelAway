@@ -39,9 +39,7 @@ export default {
       dates: []
     };
   },
-  created() {
-    console.log('woke up');
-    
+  created() {    
     this.categories = projService.loadCategoties();
     this.categories = this.categories.map(category => category.category);
     this.tags = projService.loadTags();
