@@ -2,7 +2,7 @@
   <div class="home">
     <div class="video-bcg">
       <video autoplay muted loop id="myVideo">
-        <source src="../../video/heroHeader.mp4" type="video/mp4" />
+        <source src="../assets/video/heroHeader.mp4" type="video/mp4" />
       </video>
     </div>
     <div class="overlayText">

@@ -1,5 +1,7 @@
 <template>
   <div class="proj-details-container width-container" v-if="proj">
+    <popap-chat :proj="proj"/>
+
     <div class="proj-details">
       <!-- <router-link :to="'/user/' + proj.createdBy._id">
           <img class="img-user" 
@@ -103,7 +105,6 @@
         :class="{'apply-opened':isApplyOpen, 'apply-on':isApplyOn}"
       ></proj-apply>
     </div>
-    <popap-chat :proj="proj"/>
     <div
     v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id"
       @click.stop="isApplyOpen = true"

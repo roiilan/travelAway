@@ -41,14 +41,16 @@ export default {
         _id: utilService.makeId(),
         proj: {
           _id: this.proj._id,
-          title: this.title
+          createdById: this.proj.createdBy._id,
+          title: this.proj.title
         },
         from: {
           _id: this.user._id,
           fullName: this.user.fullName
         },
         to: {
-          _id: this.proj.createdBy._id
+          _id: this.proj.createdBy._id,
+          fullName: this.proj.createdBy.fullName
         },
         memebersApllied: null,
         txt: null,

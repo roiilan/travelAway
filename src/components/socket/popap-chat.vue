@@ -15,7 +15,7 @@
       <li v-for="(msg, idx) in msgs" :key="idx">{{msg.from}}: {{msg.txt}}</li>
       <h6 v-if="fromUser">{{fromUser}} is typing...</h6>
     </ul>
-    {{msg}}
+    <pre>{{msg}}</pre>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      msg: { from: "", txt: "", topic: this.proj._id },
+      msg: {},
       // msgs: [],
       fromUser: null,
       topic: this.proj._id,
@@ -38,7 +38,14 @@ export default {
     };
   },
   async created() {
+    this.msg = {
+      from: "",
+      txt: "",
+      // topic: this.proj._id + '-' +  this.loggedinUser._id
+      topic: this.proj._id
+    };
     await this.$store.dispatch({ type: "loadMsg", topic: this.topic });
+    // await this.$store.dispatch({ type: "loadMsg", topic: this.msg.topic });
     // socketService.setup();
     socketService.emit("chat topic", this.topic);
     if (!this.$store.getters.loggedinUser) return;
@@ -98,6 +105,9 @@ export default {
   computed: {
     msgs() {
       return this.$store.getters.msgs;
+    },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
     }
   },
   watch: {

@@ -1,7 +1,8 @@
 <template>
   <div class="login-page">
-    <!-- <login-form  v-if="credentials && !isSignup" :credentials="credentials" @login="login" @goToSignup="goToSignup" /> -->
-    <!-- <transition name="fade"> -->
+    <!-- <div class="width-container">  -->
+      <!-- <login-form  v-if="credentials && !isSignup" :credentials="credentials" @login="login" @goToSignup="goToSignup" /> -->
+      <!-- <transition name="fade"> -->
       <form v-if="credentials && !isSignup" class="flex col" @submit.prevent="login">
         <h1>Log-in</h1>
         <input ref="username" class="my-form" type="text" v-model="credentials.username" required />
@@ -12,8 +13,8 @@
           <span class="login-link" @click.stop="isSignup = true">Signup</span>
         </h3>
       </form>
-    <!-- </transition> -->
-    <!-- <transition name="fade"> -->
+      <!-- </transition> -->
+      <!-- <transition name="fade"> -->
       <form v-if="newUserCred && isSignup" class="flex col" @submit.prevent="signup">
         <transition name="fade">
           <myVideo v-if="playVideo" v-model="newUserCred.imgUrl" @stopVideo="toggleVideo"></myVideo>
@@ -78,14 +79,15 @@
           </section>
         </section>
       </form>
-    <!-- </transition> -->
+      <!-- </transition> -->
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
 // import { userService } from "../services/user.service.js";
 import myVideo from "../components/video/my-video.vue";
-import {eventBus} from '../services/eventbus-service.js'
+import { eventBus } from "../services/eventbus-service.js";
 
 export default {
   name: "Login",
@@ -138,8 +140,8 @@ export default {
         this.handleClick();
       }
     },
-    toggleVideo(){
-      this.playVideo = !this.playVideo
+    toggleVideo() {
+      this.playVideo = !this.playVideo;
       document.body.classList.toggle("vidoe-open");
     },
     async login() {
@@ -155,7 +157,7 @@ export default {
           duration: 2500
         });
         this.goBack();
-        eventBus.$emit('connectSockets')
+        eventBus.$emit("connectSockets");
       } else {
         this.$notify({
           title: "Warning",
@@ -203,7 +205,7 @@ export default {
         newUserCred: this.newUserCred
       });
       this.goBack();
-      eventBus.$emit('connectSockets')
+      eventBus.$emit("connectSockets");
     },
     reset() {
       this.credentials.username = "";

@@ -74,6 +74,9 @@ export default {
             context.commit({ type: 'setUsers', users })
             return users;
         },
+        async getById(context, {userId}) {
+           return await userService.getById(userId)
+        },
         async removeUser(context, { userId }) {
             var msg = await userService.remove(userId);
             context.commit({ type: 'removeUser', userId })
@@ -88,6 +91,26 @@ export default {
         //     const user = context.getters.loggedinUser;
         //     user.notifications.push(request);
         //     return await context.dispatch({type:'updateUser', user})
-        // }
+        // },
+        // async decline (context, {notification}) {
+        //     const user = context.getters.loggedinUser;
+        //     const idx = user.notifications.findIndex(
+        //         currProj => currProj._id === notification._id
+        //       );
+        //     user.notifications.splice(idx, 1);
+        //     return await context.dispatch({type:'updateUser', user})
+        // },
+        // async approve (context, {notification}) {
+        //     const proj = await projService.getById(notification.proj._id)
+        //     proj.membersApplyed.push(notification.from);
+        //     proj.membersNeeded -= notification.memebersApllied;
+        //     await context.dispatch({ type: "saveProj", proj });
+        //        const idx = this.user.notifications.findIndex(
+        //         currProj => currProj._id === notification._id
+        //       );
+        //     const user = context.getters.loggedinUser;
+        //       user.notifications.splice(idx, 1);
+        //       return await context.dispatch({type:'updateUser', user})
+        //     }
     }
 }

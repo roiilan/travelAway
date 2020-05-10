@@ -49,16 +49,19 @@
             <review-avarage :reviews="reviews" />
           </div>
         </div>
-        <h3>count notifications: {{user.notifications.length}}</h3>
-        <section v-if="user.notifications.length">
-          <p>Notifications</p>
-          <div v-for="notification in user.notifications" :key="notification._id">
-            <p>Project Name:{{notification.proj.title}}</p>
-            <p>By:{{notification.from.fullName}}</p>
-            <p>Members intrested:{{notification.memebersApllied}}</p>
-            <p>Free txt:{{notification.txt}}</p>
-            <button @click="onApprove(notification)">Approve!</button>
-            <button @click="onDecline(notification)">Decline</button>
+        <!-- <h3>count notifications: {{user.notifications.length}}</h3> -->
+        <section class="notification-container" v-if="user.notifications.length">
+          <!-- <p>Notifications</p> -->
+          <div class="notification-preview"  v-for="notification in user.notifications" :key="notification._id">
+            <p>{{notification.from.fullName}}: {{notification.txt || 'I heard about your project and I really like it, can I sign up for it?'}}</p>
+            <p>About the project: {{notification.proj.title}}</p>
+            <p v-if="notification.proj.createdById === user._id">Members intrested:{{notification.memebersApllied}}</p>
+            <section v-if="notification.proj.createdById === user._id">
+              <!-- notification:<pre>{{notification}}</pre>
+              user:<pre>{{user}}</pre> -->
+              <button @click="onApprove(notification)">Approve!</button>
+              <button @click="onDecline(notification)">Decline</button>
+            </section>
           </div>
         </section>
         <p v-else>No notifications yet</p>
@@ -101,44 +104,50 @@ export default {
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
     this.user = JSON.parse(JSON.stringify(user));
+    // this.user.notifications = []
+    // this.updateUser()
     await this.$store.dispatch({
       type: "loadReviews",
       id: userId
     });
+    this.fullName = this.user.fullName
   //   socketService.setup();
   //   socketService.on(`apply ${userId}`, this.addRequest);
   //   socketService.on(`decline ${userId}`, this.decline);
   //   socketService.on(`approve ${userId}`,this.approve);
   },
   mounted() {
-      eventBus.$on('addRequest', request => {
-        this.user.notifications.push(request);
-        this.audioNotification.play();
-        this.updateUser();
+    eventBus.$on('updateUser', user=> {
+      this.user = user
     })
-      eventBus.$on('decline', notification => {
-        const idx = this.user.notifications.findIndex(
-        currProj => currProj._id === notification._id
-      );
-      this.user.notifications.splice(idx, 1);
-      this.audioNotification.play();
-      this.updateUser();
-      })
-      eventBus.$on('approve', async notification => {
-   const proj = await this.$store.dispatch({
-        type: "getProjById",
-        id: notification.proj._id
-      });
-      proj.membersApplyed.push(notification.from);
-      proj.membersNeeded -= notification.memebersApllied;
-      await this.$store.dispatch({ type: "saveProj", proj });
-       const idx = this.user.notifications.findIndex(
-        currProj => currProj._id === notification._id
-      );
-      this.user.notifications.splice(idx, 1);
-      this.audioNotification.play();
-      this.updateUser();
-})
+//       eventBus.$on('addRequest', request => {
+//         this.user.notifications.push(request);
+//         this.audioNotification.play();
+//         this.updateUser();
+//     })
+//       eventBus.$on('decline', notification => {
+//         const idx = this.user.notifications.findIndex(
+//         currProj => currProj._id === notification._id
+//       );
+//       this.user.notifications.splice(idx, 1);
+//       this.audioNotification.play();
+//       this.updateUser();
+//       })
+//       eventBus.$on('approve', async notification => {
+//    const proj = await this.$store.dispatch({
+//         type: "getProjById",
+//         id: notification.proj._id
+//       });
+//       proj.membersApplyed.push(notification.from);
+//       proj.membersNeeded -= notification.memebersApllied;
+//       await this.$store.dispatch({ type: "saveProj", proj });
+//        const idx = this.user.notifications.findIndex(
+//         currProj => currProj._id === notification._id
+//       );
+//       this.user.notifications.splice(idx, 1);
+//       this.audioNotification.play();
+//       this.updateUser();
+// })
 
    
   },
@@ -174,7 +183,7 @@ export default {
         type: "updateUser",
         user: this.user
       });
-      console.log(updatedUser, " updatedUser");
+      console.log(updatedUser, "updatedUser");
     },
     getEmptyReview() {
       return {
@@ -195,23 +204,24 @@ export default {
     // },
     onDecline(notification) {
       socketService.emit("decline", notification);
-      // const idx = this.user.notifications.findIndex(
-      //   currProj => currProj._id === notification._id
-      // );
-      // this.user.notifications.splice(idx, 1);
-      // this.updateUser();
-    },
-    // decline(notification){
+      // this.decline(notification)
     //   const idx = this.user.notifications.findIndex(
     //     currProj => currProj._id === notification._id
     //   );
     //   this.user.notifications.splice(idx, 1);
-    //   this.audioNotification.play();
     //   this.updateUser();
-    // },
+    },
+    decline(notification){
+      const idx = this.user.notifications.findIndex(
+        currProj => currProj._id === notification._id
+      );
+      this.user.notifications.splice(idx, 1);
+      this.audioNotification.play();
+      this.updateUser();
+    },
     onApprove(notification) {
       socketService.emit("approve", notification);
-
+  // this.approve()
       // const proj = await this.$store.dispatch({
       //   type: "getProjById",
       //   id: notification.proj._id
@@ -221,21 +231,21 @@ export default {
       // await this.$store.dispatch({ type: "saveProj", proj });
       // this.decline(notification);
     },
-    // async approve(notification){
-    //   const proj = await this.$store.dispatch({
-    //     type: "getProjById",
-    //     id: notification.proj._id
-    //   });
-    //   proj.membersApplyed.push(notification.from);
-    //   proj.membersNeeded -= notification.memebersApllied;
-    //   await this.$store.dispatch({ type: "saveProj", proj });
-    //    const idx = this.user.notifications.findIndex(
-    //     currProj => currProj._id === notification._id
-    //   );
-    //   this.user.notifications.splice(idx, 1);
-    //   this.audioNotification.play();
-    //   this.updateUser();
-    // },
+    async approve(notification){
+      const proj = await this.$store.dispatch({
+        type: "getProjById",
+        id: notification.proj._id
+      });
+      proj.membersApplyed.push(notification.from);
+      proj.membersNeeded -= notification.memebersApllied;
+      await this.$store.dispatch({ type: "saveProj", proj });
+       const idx = this.user.notifications.findIndex(
+        currProj => currProj._id === notification._id
+      );
+      this.user.notifications.splice(idx, 1);
+      this.audioNotification.play();
+      this.updateUser();
+    },
     handleClick(event) {
       if (this.openSelect) this.openSelect = false;
     },
