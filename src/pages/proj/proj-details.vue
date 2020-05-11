@@ -14,7 +14,7 @@
         </div>
         <review-avarage class="review-avarage" :reviews="reviews" />
 
-        <user-profile-for-details :user="proj.createdBy" />
+        <!-- <user-profile-for-details :user="proj.createdBy" /> -->
         <div class="main-content-details">
           <!-- <section v-for="item in items" :key="item" class="accodion-item"> -->
           <!-- <h5>{{proj.createdBy.fullName}}</h5> -->
@@ -195,7 +195,6 @@ export default {
     },
     reviews() {
       console.log(this.$store.getters.currReviews);
-      
       return this.$store.getters.currReviews;
     }
   },

@@ -87,6 +87,11 @@
     <review-list v-if="reviews.length" :reviews="reviews" />
 
     <review-add v-if="loggedinUser && loggedinUser._id !== user._id" :review="review" @save="save" />
+<pre>
+    {{loggedinUser}}
+
+    {{user}}
+</pre>
   </div>
 </template>
 <script>
@@ -116,14 +121,17 @@ export default {
     this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
     );
+
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
+    
     this.user = JSON.parse(JSON.stringify(user));    
     // this.user.notifications = []
     // this.updateUser()
     await this.$store.dispatch({
       type: "loadReviews",
-      id: userId
+      id: userId,
+      // isUser:true
     });
     this.fullName = this.user.fullName;
     //   socketService.setup();
@@ -276,7 +284,7 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     reviews() {
-      return this.$store.getters.reviews;
+      return this.$store.getters.currReviewsForUser;
     }
   },
   components: {

@@ -11,6 +11,7 @@ export const reviewService = {
 }
 
 async function getReviews(id) {
+    
     // var reviews = storageService.load(KEY_REVIEWS)
     // if (!reviews){
     //     reviews = _createReviews()
