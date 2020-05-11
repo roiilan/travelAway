@@ -26,7 +26,7 @@ export default {
         reviews: [],
         by: _getBy(),
         color: ["#a687ec", "#4c207b", "#555076"],
-        currReviews: []
+        currReviews: [],
     },
     getters: {
         reviews(state) {

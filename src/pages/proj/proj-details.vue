@@ -1,5 +1,5 @@
 <template>
-  <div class="proj-details-container width-container" v-if="proj">
+  <div class="proj-details-container width-container" v-if="proj && reviews">
     <!-- <popap-chat :proj="proj"/> -->
 
     <div class="proj-details">
@@ -94,7 +94,7 @@
         :review="review"
         @save="save"
       />
-      <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
+      <review-list v-if="reviews" class="reviews-container" :reviews="reviews" />
       <div class="card-deatails map-container">
         <map-preview :array="[proj]"></map-preview>
       </div>
@@ -194,6 +194,8 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     reviews() {
+      console.log(this.$store.getters.currReviews);
+      
       return this.$store.getters.currReviews;
     }
   },
