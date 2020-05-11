@@ -1,4 +1,5 @@
 import { projService } from '../services/proj.service.js'
+import {utilService} from '../services/util.service.js'
 import mapService from '../services/map.service.js'
 
 
@@ -43,13 +44,14 @@ export default {
                 : "";
             });
             return countriesArr.length;
-          }
+          },
+
 
     },
     actions: {
         async loadProjs(context, { filterBy, limit }) {
             const projs = await projService.query(filterBy, limit)
-            context.commit({ type: 'setProjs', projs })
+            context.commit({ type: 'setProjs', projs })            
             return projs
         },
 

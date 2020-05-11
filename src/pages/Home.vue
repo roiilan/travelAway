@@ -49,7 +49,7 @@
     </div>
     <section class="carousel-for-desctop">
       <ul v-if="projs" class="around-the-world-preview width-container">
-        <li v-for="proj in projs" :key="proj._id" class="around-the-world-card">
+        <li v-for="proj in projsForDisplay" :key="proj._id" class="around-the-world-card">
           <marker-card
             :proj="proj"
             :title="proj.description.substring(0,80) +'... Click to read more!!'"
@@ -63,11 +63,11 @@
       </section>
     </section>
 
-  <section class="carousel-for-mobile width-container ">
-    <proj-list-carousel v-if="projs" :projs="projs" />
-    <img v-else src="../assets/svg/loading.svg" alt />
-    <!-- <img   class="flex a-center j-center" src="../assets/svg/loading.svg" alt /> -->
-  </section>
+    <section class="carousel-for-mobile width-container">
+      <proj-list-carousel v-if="projs" :projs="projs" />
+      <img v-else src="../assets/svg/loading.svg" alt />
+      <!-- <img   class="flex a-center j-center" src="../assets/svg/loading.svg" alt /> -->
+    </section>
 
     <!-- <div class="proj-preview-card">
       <router-link
@@ -75,7 +75,7 @@
         title="Show more about 'around the world'"
         to="/projs/aroundTheWorld"
       >Show more</router-link>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -99,7 +99,10 @@ export default {
   },
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
-    this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
+
+    this.projs = await this.$store.dispatch({ type: "loadProjs" });
+
+
     this.categories = projService.loadCategoties();
     // this.$store.getters.loggedinUser;
     // socketService.setup();
@@ -118,16 +121,31 @@ export default {
   },
   computed: {
     countriesCount() {
-          return  this.$store.getters.countries
+      return this.$store.getters.countries;
     },
-    allProjsLength(){
-          return  this.$store.getters.projs.length;
-
+    allProjsLength() {
+      return this.$store.getters.projs.length;
     },
-    allFeedbackLength(){
-     return  this.$store.getters.reviews.length;
+       allFeedbackLength() {
+      return this.$store.getters.reviews.length;
+    },
+  
 
-    }
+    projsForDisplay() {
+      var projToDisplay = [];
+      let projsCopy = JSON.parse(JSON.stringify(this.projs));
+      for (let i = 0; i < 6; i++) {
+        let ranNum = utilService.getRandomInt(1, projsCopy.length);
+        let proj = projsCopy[ranNum];
+        let idx = projsCopy.findIndex(currProj => {
+          return currProj._id === proj._id;
+        });
+        projToDisplay.push(proj);
+        projsCopy.splice(idx, 1);
+      }
+      return projToDisplay;
+    },
+
   },
   components: {
     markerCard,

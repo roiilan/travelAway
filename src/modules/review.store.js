@@ -26,9 +26,15 @@ export default {
         reviews: [],
         by: _getBy(),
         color: ["#a687ec", "#4c207b", "#555076"],
+        currReviews:[]
     },
     getters: {
         reviews(state) {
+            console.log(state.reviews.length);   
+            return state.reviews;
+        },
+        currReviews(state) {
+            console.log(state.reviews.length);   
             return state.reviews;
         },
         by(state) {
@@ -41,6 +47,9 @@ export default {
     mutations: {
         setReviews(state, { reviews }) {
             state.reviews = reviews;
+        },
+        setCurrReviews(state, {reviews}){
+            state.currReviews = reviews;
         },
         addReview(state, { review }) {
             state.reviews.unshift(review)
@@ -55,8 +64,9 @@ export default {
     },
     actions: {
         async loadReviews(context, { id }) {
+            var isId = !!id;
             const reviews = await reviewService.getReviews(id);
-            context.commit({ type: 'setReviews', reviews })
+            context.commit({ type: isId ?  'setCurrReviews': 'setReviews'  , reviews })            
             return reviews;
         },
         async saveReview(context, { review }) {
