@@ -13,7 +13,7 @@
       <section>
         <p>{{user.fullName}}</p>
         <p>Join: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
-        <review-avarage-by-id class="review-avarage" :id="user._id" />
+        <review-avarage-by-id class="review-avarage" :id="user._id" :isUser="true" />
       </section>
     </section>
   </section>

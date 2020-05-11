@@ -9,7 +9,8 @@ import reviewAvarage from "./review-avarage.cmp.vue";
 
 export default {
     props: {
-        id: String
+        id: String,
+        isUser: Boolean
     },
     data() {
         return {
@@ -19,7 +20,8 @@ export default {
     async created(){
         this.reviews = await this.$store.dispatch({
       type: "loadReviews",
-      id: this.id
+      id: this.id,
+      isUser: this.isUser
     });
     },
     components: {
