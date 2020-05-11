@@ -8,7 +8,9 @@
 import reviewAvarage from "./review-avarage.cmp.vue";
 
 export default {
-    props: ['id'],
+    props: {
+        id: String
+    },
     data() {
         return {
             reviews: [],

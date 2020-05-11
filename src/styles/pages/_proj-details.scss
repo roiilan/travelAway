@@ -14,7 +14,7 @@
         }
         min-height: 100vh;
         >* {
-            margin-bottom: rem(120px);
+            margin-bottom: rem(80px);
             border-radius: 3px;
         }
         .img-user {
@@ -27,7 +27,7 @@
 
         .main-content-details-contianer {
             color: darken($clr2, 50%);
-            box-shadow: $shadow1;
+            // box-shadow: $shadow1;
             margin: rem(10px) 0;
             
             .title-proj {
@@ -36,11 +36,20 @@
                 padding: rem(10px);
              }
             .img-proj-container {
-                // margin: 0 0 rem(10px);
-                width: 100%;
-                .img-proj {
+                .el-carousel__container {
+                    height: 93%;
+                    border-radius: 5px;
+                }
+                img {
+                    border-radius: 5px;
                     width: 100%;
-                    // mix-blend-mode: multiply;
+                }
+                .el-carousel__arrow {
+                    background-color: #ffffffa3;
+                    color: #000;
+                    box-shadow: $shadow3;
+                    width: 60px;
+                    height: 60px;
                 }
             }
 
