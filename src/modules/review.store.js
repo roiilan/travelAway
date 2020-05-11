@@ -34,6 +34,8 @@ export default {
             return state.reviews;
         },
         currReviews(state) {
+            console.log(state.reviews.length);
+
             return state.currReviews;
         },
         currReviewsForUser(state) {
@@ -50,7 +52,7 @@ export default {
         setReviews(state, { reviews }) {
             state.reviews = reviews;
         },
-        setCurrReviews(state, {reviews}){
+        setCurrReviews(state, { reviews }) {
             state.currReviews = reviews;
         },
         setCurrReviewsForUser(state, {reviews}){
@@ -71,7 +73,7 @@ export default {
         async loadReviews(context, { id, isUser }) {
             var isId = !!id;
             console.log(isId, 'isId');
-            
+
             const reviews = await reviewService.getReviews(id);
             context.commit({ type: !isId ?  'setReviews': !isUser? 'setCurrReviews' : 'setCurrReviewsForUser' , reviews })            
             return reviews;
