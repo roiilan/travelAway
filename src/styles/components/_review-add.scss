@@ -3,30 +3,90 @@
         margin: 0 0 10px 0;
         font-size: 14px;
     }
-        div:first-child{
-            margin-bottom: 10px;
-            @include for-mini-mobile-layout {
-                flex-direction: row;
-                align-items: center;
-            }
-        }
-    h3 {
-        font-size: 22px;
-        font-weight: 900;
-        margin: 0 0 8px 0;
-        @include for-mini-mobile-layout {
-            font-size: 20px;
-            // margin: 0;
-        }
-        @include for-mobile-layout {
-            font-size: 22px;
-            margin: 0;
-        }
+    .container-title{
+        margin-bottom: 10px;
     }
+    
     p {
         font-size: 18px;
         font-weight: 500;
         margin: 0;
 
+    }
+}
+
+.review {
+
+    button {
+        flex-basis: 25%;
+        font-size: 25px;
+        font-weight: 900;
+        margin-inline-start: 7.5px;
+        background-color: #68667a;
+        color: #ffedb8;
+        &:hover {
+            // mix-blend-mode: luminosity;
+            background-color: #85849b;
+            box-shadow: $shadow3;
+        }
+    }
+    
+    .el-textarea__inner {
+        background-color: #dad1df;
+        box-shadow: none;
+        color: #85849b;
+        transition: background-color .3s ;
+        &:hover, &:focus {
+            box-shadow: none;
+            border: none;
+            background-color: #f0e4f7;
+        }
+        font-size: 18px;
+        &::placeholder {
+            color: #85849b;
+            font-family: Montserrat;
+            font-size: 18px;
+        }
+    }
+
+}    
+
+.el-rate {
+    height: fit-content;
+    margin-bottom: 12px;
+    .el-rate__icon {
+        font-size: 50px;
+    }
+}
+
+.container-link-img {
+    // &h3 {
+        font-size: 30px;
+        padding-bottom: 15px;
+        margin-bottom: 40px;
+        box-shadow: 0px 0.2px 0px 0px #574457;                
+    // }
+    
+    span {
+        // margin-inline-start: -8px;
+    }
+    // position: relative;
+    .link-img {
+        // margin-inline-start: -62px;
+        padding: 0 2px;
+        visibility: hidden;
+        // position: absolute;
+        cursor: pointer;
+        // top: 10px;
+        // left: -5%;
+    }
+    &:hover {
+        .link-img {
+            visibility: visible;
+            &:hover {
+                mix-blend-mode: color-burn;
+            }
+        }
+        
     }
 }

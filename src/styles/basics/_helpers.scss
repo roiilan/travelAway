@@ -61,6 +61,24 @@
     cursor: not-allowed;
 }
 
+// POSITIONS
+
+.relative {
+    position: relative;
+}
+.fixed {
+    position: fixed;
+}
+.absolute {
+    position: absolute;
+}
+.static {
+    position: static;
+}
+.sticky {
+    position: sticky;
+}
+
 // AVATAR
 
 .avatar {

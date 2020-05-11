@@ -3,7 +3,7 @@
     <el-carousel-item
       v-for="proj in projs"
       :key="proj._id"
-      @click="openDetails"
+      @click.native="openDetails(proj._id)"
       :title="proj.description.substring(0,80) +'... Click to read more!!'"
       class="proj-preview-card flex col"
     >

@@ -3,6 +3,7 @@
     <div class="screen"></div>
     <nav-bar />
     <router-view />
+    <main-footer/>
     <div class="msg" v-if="msg && msg.isShow">
       <button class="close-msg-btn" @click="closeMsg">X</button>
       {{msg.txt}}
@@ -13,6 +14,7 @@
 
 <script>
 import navBar from "./components/nav-bar.vue";
+import mainFooter from "./components/footer/main-footer.vue";
 import { eventBus } from "./services/eventbus-service.js";
 import { utilService } from "./services/util.service.js";
 import socketService from "./services/socket.service.js";
@@ -40,7 +42,8 @@ export default {
     }
   },
   components: {
-    navBar
+    navBar,
+    mainFooter
   },
   created() {
     socketService.setup();

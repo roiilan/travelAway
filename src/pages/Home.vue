@@ -63,9 +63,10 @@
       </section>
     </section>
 
-  <section class="carousel-for-mobile">
+  <section class="carousel-for-mobile width-container ">
     <proj-list-carousel v-if="projs" :projs="projs" />
     <img v-else src="../assets/svg/loading.svg" alt />
+    <!-- <img   class="flex a-center j-center" src="../assets/svg/loading.svg" alt /> -->
   </section>
 
     <!-- <div class="proj-preview-card">

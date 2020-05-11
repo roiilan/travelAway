@@ -1,23 +1,30 @@
 <template>
-  <form class="add-review flex col" v-if="review" @submit.prevent="save">
-    <div class="flex col bet">
-      <h3>Add Review</h3>
-      <div class="add-rate-container flex a-center">
-        <p>Rate:</p>
+  <form class="add-review review flex col" v-if="review" @submit.prevent="save">
+    <div class="container-title flex col bet">
+      <h3 class="container-link-img">
+        <transition name="fade">
+          <img @click="scrolleTo" class="link-img" src="../../assets/svg/link.svg" alt />
+        </transition>
+        <span>
 
+        Add Review
+        </span>
+      </h3>
+      <div class="add-rate-container flex a-center">
         <el-rate v-model="review.rate" text-color="#0b757d" :colors="colors"></el-rate>
       </div>
     </div>
     <div class="flex row">
       <el-input
+        ref="my-ref"
         type="textarea"
         :autosize="{ minRows: 3}"
         placeholder="Write a few words of review"
         v-model="review.txt"
       ></el-input>
-      <button>
+      <button class="flex a-center j-center pointer">
         Send
-        <img class="btn-img" src="../../assets/png/send-1.png" alt />
+        <img src="../../assets/svg/send.svg" alt />
       </button>
     </div>
   </form>
@@ -43,6 +50,10 @@ export default {
         return;
       }
       this.$emit("save", this.review);
+    },
+    scrolleTo(ev){
+      window.scrollTo(0, ev.target.offsetTop - 200)
+      this.$refs['my-ref'].focus()
     }
   }
 };

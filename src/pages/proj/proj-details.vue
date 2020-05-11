@@ -89,12 +89,13 @@
           <review-avarage class="review-avarage" :reviews="reviews" />
         </div>
       </div>
-      <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
+
       <review-add
         v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id"
         :review="review"
         @save="save"
       />
+      <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
       <div class="card-deatails map-container">
         <map-preview :array="[proj]"></map-preview>
       </div>
@@ -155,6 +156,7 @@ import popapChat from "../../components/socket/popap-chat.vue";
 export default {
   data() {
     return {
+      ref: null,
       proj: null,
       isApplyOpen: false,
       // isApplyOn: false,
@@ -228,6 +230,7 @@ export default {
       this.active = this.active === value ? "" : value;
     },
     toggleApply() {
+      // window.scrollTo(0, 0);
       this.isApplyOpen = !this.isApplyOpen;
       document.body.classList.toggle("apply-open");
     },
@@ -239,6 +242,12 @@ export default {
       if (event.keyCode === 27 || event.keyCode === 32) {
         this.closeApply();
       }
+    },
+    setRef(val){
+      this.ref = val;
+      console.log(this.$refs[val]);
+      this.$refs[val]
+      
     }
   },
   mounted() {
