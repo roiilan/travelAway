@@ -1,5 +1,5 @@
 <template>
-  <div class="proj-details-container width-container" v-if="proj">
+  <div class="proj-details-container width-container" v-if="proj && reviews">
     <!-- <popap-chat :proj="proj"/> -->
 
     <div class="proj-details">
