@@ -97,7 +97,7 @@
         :review="review"
         @save="save"
       />
-      <review-list v-if="reviews.length" class="reviews-container" :reviews="reviews" />
+      <review-list v-if="reviews" class="reviews-container" :reviews="reviews" />
       <div class="card-deatails map-container">
         <map-preview :array="[proj]"></map-preview>
       </div>
