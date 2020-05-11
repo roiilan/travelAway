@@ -5,6 +5,7 @@ import httpService from "./http.service.js";
 const KEY_REVIEWS = 'reviews'
 
 export const reviewService = {
+    getReviewsCount,
     getReviews,
     remove,
     saveReview,
@@ -27,6 +28,10 @@ async function getReviews(id) {
 
 }
 
+async function getReviewsCount(){
+   return httpService.get('review/count');
+}
+
 async function remove(reviewId) {
     return httpService.delete(`review/${reviewId}`)
 }
@@ -40,8 +45,6 @@ async function _addReview(review) {
 }
 
 async function _updateReview(review) {
-    console.log('review in service before:', review);
-
     return httpService.put(`review`, review);
     // return httpService.put(`review${review._id}`, review);
 }

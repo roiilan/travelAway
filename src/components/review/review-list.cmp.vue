@@ -1,9 +1,7 @@
 <template>
   <div class="review-list review">
     <h3 class="container-link-img">
-      <transition name="fade">
-        <img @click="scrolleTo" class="link-img" src="../../assets/svg/link.svg" alt />
-      </transition>
+      <img @click="scrollTo" class="link-img" src="../../assets/svg/link.svg" alt />
       <span>Reviews</span>
     </h3>
     <div v-for="(review, index) in reviews" :key="review._id">
@@ -29,12 +27,10 @@ export default {
     };
   },
   methods: {
-      scrolleTo(ev){
-          console.log(ev.y);
-          
-          window.scrollTo(0, ev.target.offsetTop - 200)
-      }
-  },
+    scrollTo(ev) {
+      window.scrollTo(0, ev.target.offsetTop - 200);
+    }
+  }
 };
 </script>
 

@@ -91,7 +91,6 @@ export default {
   },
   methods: {
     setZoomAndCenter() {
-          console.log(this.$refs.$mapref);
 
       if (this.array) {
         if (this.array.length > 1) {

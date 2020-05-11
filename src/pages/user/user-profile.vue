@@ -123,7 +123,8 @@ export default {
     // this.updateUser()
     await this.$store.dispatch({
       type: "loadReviews",
-      id: userId
+      id: userId,
+      isSetReviews: true
     });
     this.fullName = this.user.fullName;
     //   socketService.setup();
@@ -195,7 +196,6 @@ export default {
         type: "updateUser",
         user: this.user
       });
-      console.log(updatedUser, "updatedUser");
     },
     getEmptyReview() {
       return {
@@ -227,7 +227,6 @@ export default {
       this.updateUser();
     },
     deleteNotification(notification) {
-      console.log("notification",notification);
         const idx = this.user.notifications.findIndex(
           currProj => currProj._id === notification._id
         );

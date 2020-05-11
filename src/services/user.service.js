@@ -42,7 +42,6 @@ async function signup(newUserCred) {
     newUserCred.position = { lat: pos.coords.latitude, lng: pos.coords.longitude }
     sessionStorage.setItem(KEY_LOGGEDIN, JSON.stringify(newUserCred))
     const user = await httpService.post('auth/signup', newUserCred)
-    console.log('userrrr', user)
     return _handleLogin(user)
 }
 

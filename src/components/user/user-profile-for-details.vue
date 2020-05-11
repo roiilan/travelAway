@@ -1,9 +1,7 @@
 <template>
   <section class="user-profile-for-details">
     <h3 class="container-link-img">
-      <transition name="fade">
-        <img @click="scrolleTo" class="link-img" src="../../assets/svg/link.svg" alt />
-      </transition>
+      <img @click="scrollTo" class="link-img" src="../../assets/svg/link.svg" alt />
       <span>Created by</span>
     </h3>
     <section class="flex">
@@ -13,26 +11,27 @@
       <section>
         <p>{{user.fullName}}</p>
         <p>Join: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
-        <review-avarage-by-id class="review-avarage" :id="user._id" :isUser="true" />
+        <review-avarage-by-id class="review-avarage" :id="user._id" />
+        <!-- <review-avarage-by-id class="review-avarage" :id="user._id" :isUser="true" /> -->
       </section>
     </section>
   </section>
 </template>
 
 <script>
-import reviewAvarageById from '../review/review-avarage-by-id.vue';
+import reviewAvarageById from "../review/review-avarage-by-id.vue";
 
 export default {
   props: {
     user: Object
   },
   methods: {
-    scrolleTo(ev) {
+    scrollTo(ev) {
       window.scrollTo(0, ev.target.offsetTop - 200);
     }
   },
-   components: {
-       reviewAvarageById
-   }
+  components: {
+    reviewAvarageById
+  }
 };
 </script>
