@@ -20,9 +20,7 @@ export default {
     home
   },
 async created() {
-    await this.$store.dispatch({type: 'loadProjs'});
-    await this.$store.dispatch({type: 'loadReviews'});
-     
+  await this.$store.dispatch({type: 'loadReviews'});  
 },
 
  };
