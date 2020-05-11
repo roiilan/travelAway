@@ -34,17 +34,8 @@ export default {
         reviews(state) {
             return state.reviews;
         },
-<<<<<<< HEAD
-        currReviews(state) {
-            
-            return state.currReviews;
-        },
-        currReviewsForUser(state) {
-            return state.currReviewsForUser;
-=======
         reviewsCount(state) {
             return state.reviewsCount;
->>>>>>> 4de4e80ce396cfefd98b0804d87b3afaca275164
         },
         // currReviews(state) {
         //     console.log(state.reviews.length);
@@ -85,13 +76,6 @@ export default {
         },
     },
     actions: {
-<<<<<<< HEAD
-        async loadReviews(context, { id, isUser }) {
-            
-            var isId = !!id;       
-            const reviews = await reviewService.getReviews();       
-            context.commit({ type: !isId ?  'setReviews': !isUser? 'setCurrReviews' : 'setCurrReviewsForUser' , reviews })                        
-=======
         async loadReviewsCount(context) {
             const reviewsCount = await reviewService.getReviewsCount();
             context.commit({ type: 'setReviewsCount' , reviewsCount })            
@@ -106,7 +90,6 @@ export default {
             if (isSetReviews) {
                 console.log(id, reviews, 'id, reviews');
             }
->>>>>>> 4de4e80ce396cfefd98b0804d87b3afaca275164
             return reviews;
         },
         async saveReview(context, { review }) {

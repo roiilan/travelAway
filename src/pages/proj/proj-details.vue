@@ -199,12 +199,7 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     reviews() {
-<<<<<<< HEAD
-      console.log(this.$store.getters.currReviews);
-      return this.$store.getters.currReviews;
-=======
       return this.$store.getters.reviews;
->>>>>>> 4de4e80ce396cfefd98b0804d87b3afaca275164
     }
   },
   methods: {

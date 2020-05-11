@@ -1,5 +1,5 @@
 <template>
-  <div class="user-profile width-container" v-if="user && reviews">
+  <div class="user-profile width-container" v-if="user">
     <div class="main-content">
       <div>
         <div class="user-profile-inside-container flex col a-center">
@@ -84,7 +84,7 @@
       <map-preview class="map" :array="[user]"></map-preview>
     </div>
 
-    <review-list v-if="reviews.length" :reviews="reviews" />
+    <!-- <review-list v-if="reviews.length" :reviews="reviews" /> -->
 
     <review-add v-if="loggedinUser && loggedinUser._id !== user._id" :review="review" @save="save" />
 <pre>
