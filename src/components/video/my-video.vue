@@ -65,9 +65,6 @@ export default {
     this.stop();
   },
   methods: {
-    log() {
-      console.log("hi");
-    },
     stop() {
       this.video.srcObject.getTracks().forEach(track => track.stop());
     },

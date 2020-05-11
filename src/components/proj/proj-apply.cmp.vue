@@ -43,7 +43,22 @@ export default {
   },
   data() {
     return {
-      request: {
+      request: {}
+      // request: {
+      //   projOwner: this.proj.createdBy,
+      //   projOwnerId: this.proj.createdBy._id,
+      //   projTitle: this.proj.title,
+      //   projId: this.proj._id,
+      //   member: this.user,
+      //   mambersNeeded: this.proj.membersNeeded,
+      //   memebersApllied: null,
+      //   freeTxt: null,
+      //   isApproved: false,
+      // }
+    };
+  },
+  created() {
+    this.request = {
         _id: utilService.makeId(),
         proj: {
           _id: this.proj._id,
@@ -62,20 +77,6 @@ export default {
         txt: null,
         isApproved: false
       }
-      // request: {
-      //   projOwner: this.proj.createdBy,
-      //   projOwnerId: this.proj.createdBy._id,
-      //   projTitle: this.proj.title,
-      //   projId: this.proj._id,
-      //   member: this.user,
-      //   mambersNeeded: this.proj.membersNeeded,
-      //   memebersApllied: null,
-      //   freeTxt: null,
-      //   isApproved: false,
-      // }
-    };
-  },
-  created() {
     // socketService.setup();
   },
   destroyed() {

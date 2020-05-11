@@ -84,10 +84,7 @@ export default {
       this.$store.dispatch({ type: "pushMsg", msg });
     },
     sendMsg() {
-      console.log("hi sendMsg before");
-
       if (!this.$store.getters.loggedinUser) return;
-      console.log("hi sendMsg after");
       socketService.emit("chat newMsg", JSON.parse(JSON.stringify(this.msg)));
       this.msg.txt = "";
     },

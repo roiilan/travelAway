@@ -19,9 +19,10 @@
           <!-- <section v-for="item in items" :key="item" class="accodion-item"> -->
           <!-- <h5>{{proj.createdBy.fullName}}</h5> -->
           <section>
-            <div @click="setActive('description')" class="flex a-center bet">
-              <h3 class="flex bet">
-                Description
+            <div @click="setActive('description', $event)" class="flex a-center bet">
+              <h3 class="container-link-img">
+                <img class="link-img" src="../../assets/svg/link.svg" alt />
+                <span>Description</span>
                 <img
                   :class="{'arrow-down': active === 'description'}"
                   src="../../assets/svg/downloading2.svg"
@@ -34,9 +35,10 @@
             </transition>
           </section>
           <section>
-            <div @click="setActive('requirements')" class="flex a-center bet">
-              <h3 class="flex bet">
-                Requirements
+            <div @click="setActive('requirements', $event)" class="flex a-center bet">
+              <h3 class="container-link-img">
+                <img class="link-img" src="../../assets/svg/link.svg" alt />
+                <span>Requirements</span>
                 <img
                   :class="{'arrow-down': active === 'requirements'}"
                   src="../../assets/svg/downloading2.svg"
@@ -70,9 +72,10 @@
             </transition>
           </section>
           <section>
-            <div @click="setActive('tags')" class="flex a-center bet">
-              <h3 class="flex bet">
-                What is included
+            <div @click="setActive('tags', $event)" class="flex a-center bet">
+              <h3 class="container-link-img">
+                <img class="link-img" src="../../assets/svg/link.svg" alt />
+                <span>What is included</span>
                 <img
                   :class="{'arrow-down': active === 'tags'}"
                   src="../../assets/svg/downloading2.svg"
@@ -123,6 +126,7 @@
     <!-- <div v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id" @click.stop="stop"> -->
     <!-- v-if="isApplyOpen" -->
     <proj-apply
+      v-if="loggedinUser"
       @toggleApply="toggleApply"
       :proj="proj"
       :user="loggedinUser"
@@ -175,7 +179,8 @@ export default {
     });
     await this.$store.dispatch({
       type: "loadReviews",
-      id: projId
+      id: projId,
+      isSetReviews: true
     });
     this.averageRate = this.reviews.reduce((a, b) => a + b.rate, 0);
     this.review = this.getEmptyReview();
@@ -194,8 +199,12 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     reviews() {
+<<<<<<< HEAD
       console.log(this.$store.getters.currReviews);
       return this.$store.getters.currReviews;
+=======
+      return this.$store.getters.reviews;
+>>>>>>> 4de4e80ce396cfefd98b0804d87b3afaca275164
     }
   },
   methods: {
@@ -225,7 +234,8 @@ export default {
         }
       };
     },
-    setActive(value) {
+    setActive(value, ev) {
+      this.active? this.scrollTo(ev, 350): this.scrollTo(ev, 150);
       this.active = this.active === value ? "" : value;
     },
     toggleApply() {
@@ -242,14 +252,11 @@ export default {
         this.closeApply();
       }
     },
-    setRef(val) {
-      this.ref = val;
-      console.log(this.$refs[val]);
-      this.$refs[val];
+    scrollTo(ev, dif = 150) {
+      window.scrollTo(0, ev.target.offsetTop - dif);
     }
   },
   mounted() {
-    console.log("document", document);
     document
       .querySelector(".screen")
       .addEventListener("click", this.closeApply);

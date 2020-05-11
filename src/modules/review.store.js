@@ -24,8 +24,9 @@ function _getBy() {
 export default {
     state: {
         reviews: [],
-        currReviews:[],
-        currReviewsForUser:[],
+        reviewsCount: null,
+        // currReviews:[],
+        // currReviewsForUser:[],
         by: _getBy(),
         color: ["#a687ec", "#4c207b", "#555076"],
     },
@@ -33,13 +34,25 @@ export default {
         reviews(state) {
             return state.reviews;
         },
+<<<<<<< HEAD
         currReviews(state) {
             
             return state.currReviews;
         },
         currReviewsForUser(state) {
             return state.currReviewsForUser;
+=======
+        reviewsCount(state) {
+            return state.reviewsCount;
+>>>>>>> 4de4e80ce396cfefd98b0804d87b3afaca275164
         },
+        // currReviews(state) {
+        //     console.log(state.reviews.length);
+        //     return state.currReviews;
+        // },
+        // currReviewsForUser(state) {
+        //     return state.currReviewsForUser;
+        // },
         by(state) {
             return state.by;
         },
@@ -51,12 +64,15 @@ export default {
         setReviews(state, { reviews }) {
             state.reviews = reviews;
         },
-        setCurrReviews(state, { reviews }) {
-            state.currReviews = reviews;
+        setReviewsCount(state, { reviewsCount }){
+            state.reviewsCount = reviewsCount;
         },
-        setCurrReviewsForUser(state, {reviews}){
-            state.currReviewsForUser = reviews;
-        },
+        // setCurrReviews(state, { reviews }) {
+        //     state.currReviews = reviews;
+        // },
+        // setCurrReviewsForUser(state, {reviews}){
+        //     state.currReviewsForUser = reviews;
+        // },
         addReview(state, { review }) {
             state.reviews.unshift(review)
         },
@@ -69,11 +85,28 @@ export default {
         },
     },
     actions: {
+<<<<<<< HEAD
         async loadReviews(context, { id, isUser }) {
             
             var isId = !!id;       
             const reviews = await reviewService.getReviews();       
             context.commit({ type: !isId ?  'setReviews': !isUser? 'setCurrReviews' : 'setCurrReviewsForUser' , reviews })                        
+=======
+        async loadReviewsCount(context) {
+            const reviewsCount = await reviewService.getReviewsCount();
+            context.commit({ type: 'setReviewsCount' , reviewsCount })            
+            return reviewsCount;
+        },
+        async loadReviews(context, { id, isSetReviews = false }) {
+            
+            const reviews = await reviewService.getReviews(id);
+            if (isSetReviews){
+                context.commit({ type: 'setReviews', reviews })            
+            }
+            if (isSetReviews) {
+                console.log(id, reviews, 'id, reviews');
+            }
+>>>>>>> 4de4e80ce396cfefd98b0804d87b3afaca275164
             return reviews;
         },
         async saveReview(context, { review }) {

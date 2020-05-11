@@ -63,9 +63,6 @@ export default {
         this.projsHeader = headerObj;
       }
     },
-    log(projId) {
-      console.log(projId);
-    }
   },
 
   components: {

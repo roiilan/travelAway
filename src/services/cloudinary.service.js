@@ -15,7 +15,6 @@ function uploadImg(ev) {
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res)
             return res
         })
         .catch(err => console.error(error))

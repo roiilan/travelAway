@@ -91,6 +91,10 @@ export default {
   },
   methods: {
     setZoomAndCenter() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4de4e80ce396cfefd98b0804d87b3afaca275164
       if (this.array) {
         if (this.array.length > 1) {
           this.center = {

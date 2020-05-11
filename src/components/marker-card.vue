@@ -23,10 +23,6 @@
         <review-avarage-by-id class="review-avarage" :id="proj._id" />
         </div>
     </div>
-    <div v-else>
-            <img around-the-world-card  src="../assets/svg/loading.svg" alt="">
-
-    </div>
 </template>
 
 <script>

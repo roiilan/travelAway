@@ -127,7 +127,8 @@ export default {
       return this.$store.getters.projs.length;
     },
        allFeedbackLength() {
-      return this.$store.getters.reviews.length;
+      return this.$store.getters.reviewsCount;
+      // return this.$store.getters.reviews.length;
     },
   
 

@@ -2,9 +2,7 @@
   <form class="add-review review flex col" v-if="review" @submit.prevent="save">
     <div class="container-title flex col bet">
       <h3 class="container-link-img">
-        <transition name="fade">
-          <img @click="scrolleTo" class="link-img" src="../../assets/svg/link.svg" alt />
-        </transition>
+        <img @click="scrollTo" class="link-img" src="../../assets/svg/link.svg" alt />
         <span>Add Review</span>
       </h3>
       <div class="add-rate-container flex a-center">
@@ -48,7 +46,7 @@ export default {
       }
       this.$emit("save", this.review);
     },
-    scrolleTo(ev) {
+    scrollTo(ev) {
       window.scrollTo(0, ev.target.offsetTop - 200);
       this.$refs["my-ref"].focus();
     }
