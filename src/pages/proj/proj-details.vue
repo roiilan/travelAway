@@ -93,7 +93,7 @@
       </div>
 
       <review-add
-        v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id"
+        v-if="(loggedinUser && loggedinUser._id !== proj.createdBy._id) || !loggedinUser"
         :review="review"
         @save="save"
       />

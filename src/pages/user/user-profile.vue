@@ -1,5 +1,5 @@
 <template>
-  <div class="user-profile width-container" v-if="user && reviews">
+  <div class="user-profile width-container" v-if="user">
     <div class="main-content">
       <div>
         <div class="user-profile-inside-container flex col a-center">
