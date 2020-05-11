@@ -35,7 +35,8 @@ export default {
         },
         currReviews(state) {
             console.log(state.reviews.length);   
-            return state.reviews;
+            
+            return state.currReviews;
         },
         by(state) {
             return state.by;

@@ -196,7 +196,7 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     reviews() {
-      return this.$store.getters.reviews;
+      return this.$store.getters.currReviews;
     }
   },
   methods: {
