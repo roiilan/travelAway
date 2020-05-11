@@ -13,7 +13,7 @@
           </el-carousel>
         </div>
         <review-avarage class="review-avarage" :reviews="reviews" />
-        
+
         <user-profile-for-details :user="proj.createdBy" />
         <div class="main-content-details">
           <!-- <section v-for="item in items" :key="item" class="accodion-item"> -->
@@ -169,13 +169,10 @@ export default {
   },
   async created() {
     const projId = this.$route.params.id;
-    console.log(projId);
-
     this.proj = await this.$store.dispatch({
       type: "loadProj",
       projId
     });
-    console.log(this.proj);
     await this.$store.dispatch({
       type: "loadReviews",
       id: projId
@@ -197,7 +194,7 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     reviews() {
-      return this.$store.getters.reviews;
+      return this.$store.getters.currReviews;
     }
   },
   methods: {

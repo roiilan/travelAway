@@ -64,7 +64,7 @@ export default {
         type: "removeReview",
         reviewId
       });
-      this.reviews = this.$store.getters.reviews;
+      this.reviews = this.$store.getters.currReviews;
     });
     document.title = this.loggedinUser
       ? `(${this.loggedinUser.notifications.length}) Walkways`

@@ -30,12 +30,10 @@ export default {
     },
     getters: {
         reviews(state) {
-            console.log(state.reviews.length);   
             return state.reviews;
         },
         currReviews(state) {
-            console.log(state.reviews.length);   
-            return state.reviews;
+            return state.currReviews;
         },
         by(state) {
             return state.by;
@@ -65,6 +63,8 @@ export default {
     actions: {
         async loadReviews(context, { id }) {
             var isId = !!id;
+            console.log(isId, 'isId');
+            
             const reviews = await reviewService.getReviews(id);
             context.commit({ type: isId ?  'setCurrReviews': 'setReviews'  , reviews })            
             return reviews;
