@@ -5,10 +5,7 @@
         <transition name="fade">
           <img @click="scrolleTo" class="link-img" src="../../assets/svg/link.svg" alt />
         </transition>
-        <span>
-
-        Add Review
-        </span>
+        <span>Add Review</span>
       </h3>
       <div class="add-rate-container flex a-center">
         <el-rate v-model="review.rate" text-color="#0b757d" :colors="colors"></el-rate>
@@ -51,9 +48,9 @@ export default {
       }
       this.$emit("save", this.review);
     },
-    scrolleTo(ev){
-      window.scrollTo(0, ev.target.offsetTop - 200)
-      this.$refs['my-ref'].focus()
+    scrolleTo(ev) {
+      window.scrollTo(0, ev.target.offsetTop - 200);
+      this.$refs["my-ref"].focus();
     }
   }
 };

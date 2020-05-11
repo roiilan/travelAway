@@ -3,21 +3,21 @@
     <!-- <popap-chat :proj="proj"/> -->
 
     <div class="proj-details">
-      <!-- <router-link :to="'/user/' + proj.createdBy._id">
-          <img class="img-user" 
-          :src="proj.createdBy.imgUrl" 
-          :alt="proj.createdBy.fullName"
-          :title="proj.createdBy.fullName"/>
-      </router-link>-->
-
       <div class="main-content-details-contianer">
         <h1 class="title-proj">{{proj.title}}</h1>
-        <h5>{{proj.createdBy.fullName}}</h5>
         <div class="img-proj-container ratio-16-9">
-          <img class="img-proj" :src="proj.imgUrls[0]" alt="proj picture" />
+          <el-carousel indicator-position="outside">
+            <el-carousel-item v-for="(imgUrl, i) in proj.imgUrls" :key="i">
+              <img :src="imgUrl" />
+            </el-carousel-item>
+          </el-carousel>
         </div>
+        <review-avarage class="review-avarage" :reviews="reviews" />
+
+        <user-profile-for-details :user="proj.createdBy" />
         <div class="main-content-details">
           <!-- <section v-for="item in items" :key="item" class="accodion-item"> -->
+          <!-- <h5>{{proj.createdBy.fullName}}</h5> -->
           <section>
             <div @click="setActive('description')" class="flex a-center bet">
               <h3 class="flex bet">
@@ -86,7 +86,6 @@
               </ul>
             </transition>
           </section>
-          <review-avarage class="review-avarage" :reviews="reviews" />
         </div>
       </div>
 
@@ -152,6 +151,7 @@ import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
 import popapChat from "../../components/socket/popap-chat.vue";
+import userProfileForDetails from "../../components/user/user-profile-for-details.vue";
 
 export default {
   data() {
@@ -169,13 +169,10 @@ export default {
   },
   async created() {
     const projId = this.$route.params.id;
-    console.log(projId);
-
     this.proj = await this.$store.dispatch({
       type: "loadProj",
       projId
     });
-    console.log(this.proj);
     await this.$store.dispatch({
       type: "loadReviews",
       id: projId
@@ -189,7 +186,8 @@ export default {
     reviewList,
     reviewAdd,
     reviewAvarage,
-    popapChat
+    popapChat,
+    userProfileForDetails
   },
   computed: {
     loggedinUser() {
@@ -243,11 +241,10 @@ export default {
         this.closeApply();
       }
     },
-    setRef(val){
+    setRef(val) {
       this.ref = val;
       console.log(this.$refs[val]);
-      this.$refs[val]
-      
+      this.$refs[val];
     }
   },
   mounted() {
