@@ -180,6 +180,7 @@ export default {
     };
   },
   async created() {
+    window.scrollTo(0, 0);
     const projId = this.$route.params.id;
     this.proj = await this.$store.dispatch({
       type: "loadProj",

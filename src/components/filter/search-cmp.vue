@@ -48,14 +48,14 @@ export default {
       input: this.value
     };
   },
-  // created() {
-  //   if (this.$refs.inputRef){
-  //     this.$refs.inputRef.focus()
+  created() {
+    if (this.$refs.inputRef){
+      this.$refs.inputRef.focus()
 
-  //   }
+    }
   //   console.log(this.$refs.inputRef);
     
-  // },
+  },
   methods: {
     search() {
       this.$emit("input", this.input);

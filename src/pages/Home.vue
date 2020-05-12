@@ -41,7 +41,7 @@
         </h1>
         <h1 v-if="users && users.length" class="divider">
           <img src="https://image.flaticon.com/icons/svg/978/978012.svg" />Voulnteers
-          <span class="space">{{users.length}}</span>
+          <span class="space" v-if="users && users.length">{{users.length}}</span>
         </h1>
         <h1  class="divider">
           <img src="https://image.flaticon.com/icons/svg/921/921439.svg" />Countries
@@ -105,8 +105,13 @@ export default {
     };
   },
   async created() {
+    console.log(this.projs);
+        window.scrollTo(0, 0);
+
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     // this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
+    // this.projs = await this.$store.dispatch({ type: "loadProjs" });
+
 
     this.categories = projService.loadCategoties();
     // this.$store.getters.loggedinUser;
@@ -141,7 +146,7 @@ export default {
       for (let i = 0; i < 6; i++) {
         let ranNum = utilService.getRandomInt(1, projsCopy.length);
         let proj = projsCopy[ranNum];
-        let idx = projsCopy.findIndex(currProj => {
+        let idx = projsCopy.findIndex(currProj => {          
           return currProj._id === proj._id;
         });
         projToDisplay.push(proj);
