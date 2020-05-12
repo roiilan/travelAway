@@ -4,12 +4,19 @@
       <router-link to="/">
         <img class="logo" src="../assets/svg/help.svg" alt="Logo" />
       </router-link>
-        <filter-By v-if="!isProjListOpen" @click.native.stop class="filter-in-nav-bar" />
+      <!-- <search-cmp
+      class="search-cmp-in-navbar"
+        v-model="txtSearch"
+      ></search-cmp> -->
+
+      <filter-By v-if="!isProjListOpen" @click.native.stop class="filter-in-nav-bar" />
       <div class="nav-link-container flex col" :class="{'open-menu':openMenu}">
         <!-- <router-link to="/search">Search</router-link> -->
         <!-- <a href="#"> -->
 
+      <filter-By v-if="!isProjListOpen" @click.native.stop class="filter-in-nav-bar" />
         <router-link active-class="active" to="/" title="Home" exact>
+
           <img src="../assets/svg/homepage.svg" alt />
           <span>Home</span>
         </router-link>
@@ -33,7 +40,7 @@
         >
           <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
           <section class="container-notification-icon">
-            <img src="../assets/svg/notification.svg" alt="">
+            <img src="../assets/svg/notification.svg" alt />
             <span>{{loggedinUser.notifications.length}}</span>
           </section>
           <span>My Profile</span>
@@ -70,7 +77,8 @@
 import filterBy from "./filter/filter-by.vue";
 import LoginVue from "../pages/Login.vue";
 import { projService } from "../services/proj.service.js";
-import { eventBus } from '../services/eventbus-service';
+import { eventBus } from "../services/eventbus-service";
+import searchCmp from './filter/search-cmp.vue' 
 
 export default {
   data() {
@@ -80,7 +88,8 @@ export default {
       offLine: false,
       isActive: false,
       categories: null,
-      isProjListOpen: false
+      isProjListOpen: false,
+      txtSearch: '',
     };
   },
   computed: {
@@ -89,8 +98,12 @@ export default {
     }
   },
   methods: {
+    goToSearch(){
+      this.$router.push('/projs/aroundTheWorld')
+      eventBus.$emit('sendTxtSearch', this.txtSearch)
+    },
     async logout() {
-    eventBus.$emit('disconnectSockets')
+      eventBus.$emit("disconnectSockets");
       var res = await this.$store.dispatch({ type: "logout" });
       if (res) {
         this.$notify({
@@ -111,7 +124,6 @@ export default {
       setTimeout(() => {
         this.openMenu = !this.openMenu;
         document.body.classList.toggle("menu-open");
-        
       }, 1);
     },
     handleClick(event) {
@@ -132,7 +144,7 @@ export default {
     this.categories = projService.loadCategoties();
     window.addEventListener("scroll", this.handleScroll);
     document.addEventListener("click", this.handleClick);
-    document.addEventListener("keydown", this.handlePress);    
+    document.addEventListener("keydown", this.handlePress);
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -140,23 +152,32 @@ export default {
     document.removeEventListener("keydown", this.handlePress);
   },
   components: {
-    filterBy
+    filterBy,
+    searchCmp
   },
-   watch: {
+  watch: {
     loggedinUser() {
-      document.title = this.loggedinUser? `(${this.loggedinUser.notifications.length}) Walkways`: 'Walkways';
+      document.title = this.loggedinUser
+        ? `(${this.loggedinUser.notifications.length}) Walkways`
+        : "Walkways";
       // if (!this.loggedinUser) {
-        // this.$router.push("/");
+      // this.$router.push("/");
       // }
     },
+    // txtSearch:{
+    //   handler(){
+    //     this.goToSearch()        
+    //   },
+    //   deep:true
+    // }
     // "$route.path": {
     //   handler() {
     //     if (this.$route.path === "/projs/aroundTheWorld") {
     //       this.isProjListOpen = true;
     //       // this.handleClick();
-          
+
     //     } else {
-          
+
     //     }
     //     this.isProjListOpen = false;
     //   },

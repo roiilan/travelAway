@@ -15,8 +15,19 @@
         @include for-mobile-layout {
             display: none;
         }
+
+        .proj-content {
+            padding: 20px;
+            height: 50%;
+        }
+
         .el-carousel__container {
-            height: 100vw;
+            // height: 400px;
+            // height: 125vw;
+            
+            @include for-medium-mobile-layout {
+                height: 85vw;
+            }
         }
         > img {
             height: 500px;
@@ -27,13 +38,59 @@
             color: #000;
             box-shadow: $shadow3;
         }
+        .el-rate {
+            height: fit-content;
+            margin-bottom: 12px;
+            .el-rate__icon {
+                font-size: 20px;
+                @include for-mini-mobile-layout {
+                    font-size: 30px;
+                }
+                @include for-medium-mobile-layout {
+                    font-size: 50px;
+                }
+            }
+            .el-rate__text {
+                display: none;
+                @include for-mini-mobile-layout {
+                    display: inline-block;
+                }
+            }
+        }
+        h4 {
+            font-size: 14px;
+            @include for-mini-mobile-layout {
+                font-size: 20px;
+            }
+            @include for-medium-mobile-layout {
+                font-size: 26px;
+            }
+        }
+       
+        h5 {
+            font-size: 12px;
+            @include for-mini-mobile-layout {
+                font-size: 14px;
+            }
+            @include for-medium-mobile-layout {
+                font-size: 18px;
+            }
+        }
     }
     .carousel-for-desctop {
         display: none;
         @include for-mobile-layout {
             display: block;
         }
+        .el-rate {
+            height: fit-content;
+            margin-bottom: 12px;
+            .el-rate__icon {
+                font-size: 30px;
+            }
+        }
     }
+   
 }
 
 .category-container {

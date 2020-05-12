@@ -1,7 +1,6 @@
 import { userService } from '../services/user.service.js'
-// import SocketService from '../services/socket.service.js';
-import socketService from '../services/socket.service.js';
-import Swal from "sweetalert2"
+// import socketService from '../services/socket.service.js';
+// import Swal from "sweetalert2"
 
 
 var localLoggedinUser = null;
@@ -10,7 +9,15 @@ if (sessionStorage.loggedinUser) localLoggedinUser = JSON.parse(sessionStorage.l
 export default {
     state: {
         loggedinUser: localLoggedinUser,
-        users: []
+        users: [],
+        newUserCred: {
+            username: "",
+            password: "",
+            fullName: "",
+            imgUrl: "",
+            isAdmin: false,
+            notifications: []
+        }
     },
     getters: {
         users(state) {
@@ -18,6 +25,9 @@ export default {
         },
         loggedinUser(state) {
             return state.loggedinUser
+        },
+        newUserCred(state) {
+            return state.newUserCred
         }
     },
     mutations: {
@@ -30,42 +40,25 @@ export default {
         removeUser(state, { userId }) {
             state.users = state.users.filter(user => user._id !== userId)
         },
+        setNewUserCred(state, {newUserCred}){
+            state.newUserCred = newUserCred
+        }
     },
     actions: {
         async login(context, { credentials }) {
-            // socketService.setup();
             const user = await userService.login(credentials);
             if (user !== 'err') {
                 context.commit({ type: 'setUser', user })
-                    // SocketService.emit('user event', user._id)
-                // socketService.on(user._id, async res => {
-                //     console.log(res, 'res in user.store');
-                //     // user.notifications.push(res);
-                //     // await userService.update(user)
-                //     // context.commit({ type: 'setUser', updatedUser })
-
-                //     Swal.fire('Someone is intrested in one of your projects!')
-    
-                // })
             }
             return user;
         },
         async signup(context, { newUserCred }) {
-            // socketService.setup();
             const user = await userService.signup(newUserCred)
             context.commit({ type: 'setUser', user })
-                // SocketService.emit('user topic', user._id)
-            // socketService.on(user._id, res => {
-            //     Swal.fire('Someone is intrested in one of your projects!')
-
-            // })
             return user;
         },
         async logout(context) {
-            // socketService.setup();
-            // socketService.off(context.state.loggedinUser._id)
             var res = await userService.logout()
-                // context.commit({type: 'setUsers', users: []})
             context.commit({ type: 'setUser', user: null })
             return res
         },
@@ -89,30 +82,5 @@ export default {
             }
             return updatedUser;
         },
-        // async addRequest(context, {request}) {
-        //     const user = context.getters.loggedinUser;
-        //     user.notifications.push(request);
-        //     return await context.dispatch({type:'updateUser', user})
-        // },
-        // async decline (context, {notification}) {
-        //     const user = context.getters.loggedinUser;
-        //     const idx = user.notifications.findIndex(
-        //         currProj => currProj._id === notification._id
-        //       );
-        //     user.notifications.splice(idx, 1);
-        //     return await context.dispatch({type:'updateUser', user})
-        // },
-        // async approve (context, {notification}) {
-        //     const proj = await projService.getById(notification.proj._id)
-        //     proj.membersApplyed.push(notification.from);
-        //     proj.membersNeeded -= notification.memebersApllied;
-        //     await context.dispatch({ type: "saveProj", proj });
-        //        const idx = this.user.notifications.findIndex(
-        //         currProj => currProj._id === notification._id
-        //       );
-        //     const user = context.getters.loggedinUser;
-        //       user.notifications.splice(idx, 1);
-        //       return await context.dispatch({type:'updateUser', user})
-        //     }
     }
 }

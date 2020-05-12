@@ -33,24 +33,52 @@
                     height: 60px;
                 }
             }
-
+            .user-profile-for-details {
+                .avatar {
+                    margin-inline-start: 40px;
+                    margin-inline-end: 2ch;
+                    transition: opacity .3s;
+                    &:hover {
+                        opacity: 0.6;
+                    }
+                }
+                p {
+                    font-size: 25px;
+                    margin: 10px 0 0;
+                    opacity: 0.6;
+                }
+                p:first-child {
+                    font-size: 40px;
+                    margin: 0;
+                    opacity: 1;
+                }
+            }
             .main-content-details {
                 font-family: Montserrat;
                 line-height: 1.5;
                 display: grid;
                 gap: 0px;
                 > * {
-                    // min-height: 75px;
-                    // box-shadow:0px 0px 11px -6px #00000026;;
-                    // border-radius: 3px;
                     &.review-avarage {
                         padding: rem(20px) rem(30px) rem(20px) rem(15px);
                     }
-
+                    
                     p {
-                        padding: rem(7px) rem(30px) rem(7px) rem(15px);
-                        // max-width: 90vw;
-                        overflow-wrap: break-word;
+                            margin-inline-start: 30px;
+                            padding: rem(7px) rem(30px) rem(7px) rem(15px);
+                            overflow-wrap: break-word;
+                            font-size: 22px;
+                        }
+                        ul {
+                            margin-inline-start: 38px;
+                        li {
+                            span {
+                                padding: 15px 0;
+                                margin-inline-start: 2ch;
+                                font-size: 22px;
+                                font-weight: 600;
+                            }
+                        }
                     }
                     h3 {
                         // font-size: 20px;

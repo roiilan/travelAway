@@ -103,7 +103,7 @@ function _padNum(num) {
 
 
 function loadTags() {
-    return ["Airport Taxi", "Housing", "Single Bad", "Duble Bad", "Food", "Wifi", "HotWater"]
+    return ["Airport Taxi", "Housing", "Single Bed", "Double Bed", "Food", "Wifi", "Hot Water"]
 }
 
 function loadCategoties() {

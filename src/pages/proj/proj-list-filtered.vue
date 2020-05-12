@@ -1,29 +1,30 @@
 <template>
-  <div class="proj-list-filtered flex col">
-    <div class="main-content ">
-      <div class="header ratio-16-9" v-if="projsHeader">
-        <img :src="projsHeader.imgUrl" />
-        <div class="category-header">
-          <div class="category-header-title">{{projsHeader.title}}</div>
-          <div class="category-header-desc">{{projsHeader.desc}}</div>
+  <transition name="fade">
+    <div class="proj-list-filtered flex col">
+      <div class="main-content">
+        <div class="header ratio-16-9" v-if="projsHeader">
+          <img :src="projsHeader.imgUrl" />
+          <div class="category-header">
+            <div class="category-header-title">{{projsHeader.title}}</div>
+            <div class="category-header-desc">{{projsHeader.desc}}</div>
+          </div>
         </div>
-      </div>
-      <ul>
-        <li v-for="(proj) in projs" :key="proj._id">
-          <!-- <div class="proj-preview" @mousemove="log(proj._id)"> -->
-           
+        <ul>
+          <li v-for="(proj) in projs" :key="proj._id">
+            <!-- <div class="proj-preview" @mousemove="log(proj._id)"> -->
+
             <proj-preview :proj="proj"></proj-preview>
-          <!-- </div> -->
-        </li>
-      </ul>
-    </div>
-    <div  class="side-bar">
+            <!-- </div> -->
+          </li>
+        </ul>
+      </div>
+      <div class="side-bar">
+        <map-preview :array="projs"></map-preview>
+      </div>
 
-      <map-preview :array="projs"></map-preview>
+      <!-- <side-bar :projs="projs" class="side-bar" v-if="projs"></side-bar> -->
     </div>
-
-    <!-- <side-bar :projs="projs" class="side-bar" v-if="projs"></side-bar> -->
-  </div>
+  </transition>
 </template>
 
 
@@ -62,7 +63,7 @@ export default {
       if (headerObj) {
         this.projsHeader = headerObj;
       }
-    },
+    }
   },
 
   components: {

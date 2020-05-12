@@ -48,7 +48,6 @@
         @click="openImg(m, index, $event)"
       />-->
     </GmapMap>
-    {{array.length}}
   </div>
 </template>
 <script>

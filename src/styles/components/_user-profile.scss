@@ -11,24 +11,16 @@
         margin-inline-end: 2ch;
     }
     .user-profile-inside-container {
-        // .container-img {
-        //     width: 300px;
-        //     height: 300px;
-        //     background-color: $clr1;
-        //     border-radius: 50%;
-        // }
-        img {
-            // margin-inline-end: 2ch;
+        align-items: flex-start;
+        .container-img-profile {
+            margin: 0 3ch 80px 0;
         }
         label {
             img {
-                // mix-blend-mode: luminosity;
-                // transition: mix-blend-mode .3s;
                 transition: opacity .3s;
                 opacity: 1;
                 &:hover {
                     opacity: .8;
-                    // mix-blend-mode: normal;
                 }    
             }
         }
@@ -51,11 +43,12 @@
             }
         }
         p {
-            font-size: 18px;
+            font-size: 25px;
             font-weight: 400;
             line-height: 1.6ch;
             margin: 0;
             width: 100%;
+            opacity: 0.6;
         }
         p:first-child{
             font-size: 40px;
@@ -63,6 +56,7 @@
             line-height: 2.6ch;
             margin-bottom: 12px;    
             width: 100%;
+            opacity: 1;
         }
         @include for-mobile-layout {
             flex-direction: row;

@@ -1,150 +1,158 @@
 <template>
-  <div class="proj-details-container width-container" v-if="proj && reviews">
-    <!-- <popap-chat :proj="proj"/> -->
+  <transition name="fade">
+    <div class="proj-details-container width-container" v-if="proj && reviews">
+      <!-- <popap-chat :proj="proj"/> -->
 
-    <div class="proj-details">
-      <div class="main-content-details-contianer">
-        <h1 class="title-proj">{{proj.title}}</h1>
-        <div class="img-proj-container ratio-16-9">
-          <el-carousel indicator-position="outside">
-            <el-carousel-item v-for="(imgUrl, i) in proj.imgUrls" :key="i">
-              <img :src="imgUrl" />
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-        <review-avarage class="review-avarage" :reviews="reviews" />
+      <div class="proj-details">
+        <div class="main-content-details-contianer">
+          <h1 class="title-proj">{{proj.title}}</h1>
+          <div class="img-proj-container ratio-16-9">
+            <el-carousel indicator-position="outside">
+              <el-carousel-item v-for="(imgUrl, i) in proj.imgUrls" :key="i">
+                <img :src="imgUrl" />
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+          <review-avarage class="review-avarage review" :reviews="reviews" />
 
-        <user-profile-for-details :user="proj.createdBy" />
-        <div class="main-content-details">
-          <!-- <section v-for="item in items" :key="item" class="accodion-item"> -->
-          <!-- <h5>{{proj.createdBy.fullName}}</h5> -->
-          <section>
-            <div @click="setActive('description', $event)" class="flex a-center bet">
-              <h3 class="container-link-img">
-                <img class="link-img" src="../../assets/svg/link.svg" alt />
-                <span>Description</span>
-                <img
-                  :class="{'arrow-down': active === 'description'}"
-                  src="../../assets/svg/downloading2.svg"
-                  alt
-                />
-              </h3>
-            </div>
-            <transition name="fade">
-              <p v-if="active === 'description'">{{proj.description}}</p>
-            </transition>
-          </section>
-          <section>
-            <div @click="setActive('requirements', $event)" class="flex a-center bet">
-              <h3 class="container-link-img">
-                <img class="link-img" src="../../assets/svg/link.svg" alt />
-                <span>Requirements</span>
-                <img
-                  :class="{'arrow-down': active === 'requirements'}"
-                  src="../../assets/svg/downloading2.svg"
-                  alt
-                />
-              </h3>
-            </div>
-            <transition name="fade">
-              <div v-if="active === 'requirements'">
-                <p>
-                  <span class="strong">Required Dates:</span>
-                  {{proj.date[0]}} - {{proj.date[1]}}
-                </p>
-                <p>
-                  <span class="strong">Members needed:</span>
-                  {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
-                </p>
-                <p v-if="proj.requirements.languages.length">
-                  <span class="strong">Language control:</span>
-                  <span v-for="language in proj.requirements.languages" :key="language">{{language}}</span>
-                </p>
-                <p v-if="proj.requirements.otherSkills.length">
-                  <span class="strong">Other Skills:</span>
-                  <span v-for="skill in proj.requirements.otherSkills" :key="skill">{{skill}}</span>
-                </p>
-                <p>
-                  <span class="strong">Minimum Age:</span>
-                  {{proj.requirements.minAge}}
-                </p>
+          <user-profile-for-details :user="proj.createdBy" />
+          <div class="main-content-details">
+            <section>
+              <div @click="setActive('description', $event)" class="flex a-center bet">
+                <h3 class="container-link-img flex bet">
+                  <section>
+                    <img class="link-img" src="../../assets/svg/link.svg" alt />
+                    <span>Description</span>
+                  </section>
+                  <img
+                    :class="{'arrow-down': active === 'description'}"
+                    src="../../assets/svg/downloading2.svg"
+                    alt
+                  />
+                </h3>
               </div>
-            </transition>
-          </section>
-          <section>
-            <div @click="setActive('tags', $event)" class="flex a-center bet">
-              <h3 class="container-link-img">
-                <img class="link-img" src="../../assets/svg/link.svg" alt />
-                <span>What is included</span>
-                <img
-                  :class="{'arrow-down': active === 'tags'}"
-                  src="../../assets/svg/downloading2.svg"
-                  alt
-                />
-              </h3>
-            </div>
-            <transition name="fade">
-              <ul v-if="active === 'tags'">
-                <p v-for="tag in proj.tags" :key="tag">{{tag}}</p>
-              </ul>
-            </transition>
-          </section>
+              <transition name="fade">
+                <p v-if="active === 'description'">{{proj.description}}</p>
+              </transition>
+            </section>
+            <section>
+              <div @click="setActive('requirements', $event)" class="flex a-center bet">
+                <h3 class="container-link-img flex bet">
+                  <section>
+                    <img class="link-img" src="../../assets/svg/link.svg" alt />
+                    <span>Requirements</span>
+                  </section>
+                  <img
+                    :class="{'arrow-down': active === 'requirements'}"
+                    src="../../assets/svg/downloading2.svg"
+                    alt
+                  />
+                </h3>
+              </div>
+              <transition name="fade">
+                <div v-if="active === 'requirements'">
+                  <p>
+                    <span class="strong">Required Dates:</span>
+                    {{proj.date[0]}} - {{proj.date[1]}}
+                  </p>
+                  <p>
+                    <span class="strong">Members needed:</span>
+                    {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
+                  </p>
+                  <p v-if="proj.requirements.languages.length">
+                    <span class="strong">Language control:</span>
+                    <span> {{proj.requirements.languages.join(', ')}}.</span>
+                  </p>
+                  <p v-if="proj.requirements.otherSkills.length">
+                    <span class="strong">Other Skills:</span>
+                    <span> {{proj.requirements.otherSkills.join(', ')}}.</span>
+                  </p>
+                  <p>
+                    <span class="strong">Minimum Age:</span>
+                    {{proj.requirements.minAge}}
+                  </p>
+                </div>
+              </transition>
+            </section>
+            <section>
+              <div @click="setActive('tags', $event)" class="flex a-center bet">
+                <h3 class="container-link-img flex bet">
+                  <section>
+                    <img class="link-img" src="../../assets/svg/link.svg" alt />
+                    <span>What is included</span>
+                  </section>
+                  <img
+                    :class="{'arrow-down': active === 'tags'}"
+                    src="../../assets/svg/downloading2.svg"
+                    alt
+                  />
+                </h3>
+              </div>
+              <transition name="fade">
+                <ul v-if="active === 'tags'">
+                  <li v-for="tag in proj.tags" :key="tag" class="flex a-center">
+                    <img
+                      :src="require('../../assets/svg/' + tag.toLowerCase().split(' ').join('-') + '.svg')"
+                      alt="tag"
+                    />
+                    <span>{{tag}}</span>
+                  </li>
+                </ul>
+              </transition>
+            </section>
+          </div>
+        </div>
+
+        <review-add
+          v-if="(loggedinUser && loggedinUser._id !== proj.createdBy._id) || !loggedinUser"
+          :review="review"
+          @save="save"
+        />
+        <review-list v-if="reviews" class="reviews-container" :reviews="reviews" />
+        <div class="card-deatails map-container">
+          <map-preview :array="[proj]"></map-preview>
         </div>
       </div>
 
-      <review-add
-        v-if="(loggedinUser && loggedinUser._id !== proj.createdBy._id) || !loggedinUser"
-        :review="review"
-        @save="save"
-      />
-      <review-list v-if="reviews" class="reviews-container" :reviews="reviews" />
-      <div class="card-deatails map-container">
-        <map-preview :array="[proj]"></map-preview>
-      </div>
-    </div>
-
-    <div class="edit-link-container width-container">
-      <router-link
-        v-if="loggedinUser &&
+      <div class="edit-link-container width-container">
+        <router-link
+          v-if="loggedinUser &&
         (loggedinUser._id === proj.createdBy._id || 
         loggedinUser.isAdmin)"
-        :to="'/edit/' + proj._id"
-        class="edit-link flex col a-center"
-        title="Edit Project"
-      >
-        <img class="btn-img" src="../../assets/png/edit.png" alt />
-      </router-link>
-      <span
-        v-else-if="loggedinUser &&
+          :to="'/edit/' + proj._id"
+          class="edit-link flex col a-center"
+          title="Edit Project"
+        >
+          <img class="btn-img" src="../../assets/png/edit.png" alt />
+        </router-link>
+        <span
+          v-else-if="loggedinUser &&
+        (loggedinUser._id !== proj.createdBy._id || 
+        loggedinUser.isAdmin)"
+          @click.stop="toggleApply"
+          :class="{'apply-open':isApplyOpen}"
+        >Apply now</span>
+      </div>
+      <proj-apply
+        v-if="loggedinUser"
+        @toggleApply="toggleApply"
+        :proj="proj"
+        :user="loggedinUser"
+        class="proj-apply"
+        :class="{'apply-open':isApplyOpen}"
+      ></proj-apply>
+      <div
+        v-if="loggedinUser &&
         (loggedinUser._id !== proj.createdBy._id || 
         loggedinUser.isAdmin)"
         @click.stop="toggleApply"
+        class="proj-apply-for-mobile"
         :class="{'apply-open':isApplyOpen}"
-      >Apply now</span>
+      >
+        <h1>Apply now</h1>
+      </div>
     </div>
-
-    <!-- <div v-if="loggedinUser && loggedinUser._id !== proj.createdBy._id" @click.stop="stop"> -->
-    <!-- v-if="isApplyOpen" -->
-    <proj-apply
-      v-if="loggedinUser"
-      @toggleApply="toggleApply"
-      :proj="proj"
-      :user="loggedinUser"
-      class="proj-apply"
-      :class="{'apply-open':isApplyOpen}"
-    ></proj-apply>
-    <!-- </div> -->
-    <div
-      v-if="loggedinUser &&
-        (loggedinUser._id !== proj.createdBy._id || 
-        loggedinUser.isAdmin)"
-      @click.stop="toggleApply"
-      class="proj-apply-for-mobile"
-      :class="{'apply-open':isApplyOpen}"
-    >
-      <h1>Apply now</h1>
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -230,7 +238,7 @@ export default {
       };
     },
     setActive(value, ev) {
-      this.active? this.scrollTo(ev, 350): this.scrollTo(ev, 150);
+      this.active ? this.scrollTo(ev, 350) : this.scrollTo(ev, 150);
       this.active = this.active === value ? "" : value;
     },
     toggleApply() {
@@ -256,8 +264,6 @@ export default {
       .querySelector(".screen")
       .addEventListener("click", this.closeApply);
     document.addEventListener("keydown", this.handlePress);
-
-    // document.addEventListener("click", this.closeApply);
     eventBus.$on("updateReview", async review => {
       await this.save(review);
     });
@@ -267,8 +273,6 @@ export default {
       .querySelector(".screen")
       .removeEventListener("click", this.closeApply);
     document.removeEventListener("keydown", this.handlePress);
-
-    // document.removeEventListener("click", this.closeApply);
   }
 };
 </script>

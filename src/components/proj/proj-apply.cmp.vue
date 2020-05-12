@@ -44,17 +44,6 @@ export default {
   data() {
     return {
       request: {}
-      // request: {
-      //   projOwner: this.proj.createdBy,
-      //   projOwnerId: this.proj.createdBy._id,
-      //   projTitle: this.proj.title,
-      //   projId: this.proj._id,
-      //   member: this.user,
-      //   mambersNeeded: this.proj.membersNeeded,
-      //   memebersApllied: null,
-      //   freeTxt: null,
-      //   isApproved: false,
-      // }
     };
   },
   created() {
@@ -77,19 +66,11 @@ export default {
         txt: null,
         isApproved: false
       }
-    // socketService.setup();
-  },
-  destroyed() {
-    // socketService.terminate();
   },
   methods: {
     applyToProj() {
-      // socketService.setup();
       socketService.emit("applyToProj", this.request);
-      this.$emit("onApply");
-      //  eventBus.$emit('applyToProj', this.request);
-      //  this.projOwner.notifications.push(this.request)
-      //TODO update data base
+      this.$emit("toggleApply");
     }
   }
 };

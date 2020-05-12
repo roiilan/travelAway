@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  props: ["reviews", "review"],
+  props: {review: Object},
   data() {
     return {
       colors: this.$store.getters.colors
@@ -35,15 +35,15 @@ export default {
   },
   methods: {
     save() {
-      if (!this.review.txt) {
-        this.$notify({
-          title: "Warning",
-          message: "Can't send without text",
-          type: "warning",
-          duration: 2500
-        });
-        return;
-      }
+      // if (!this.review.txt) {
+      //   this.$notify({
+      //     title: "Warning",
+      //     message: "Don't want to add a few words?",
+      //     type: "warning",
+      //     duration: 2500
+      //   });
+      //   return;
+      // }
       this.$emit("save", this.review);
     },
     scrollTo(ev) {

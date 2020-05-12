@@ -1,8 +1,6 @@
 <template>
-  <div class="login-page">
-    <!-- <div class="width-container">  -->
-      <!-- <login-form  v-if="credentials && !isSignup" :credentials="credentials" @login="login" @goToSignup="goToSignup" /> -->
-      <!-- <transition name="fade"> -->
+  <transition name="fade">
+    <div class="login-page">
       <form v-if="credentials && !isSignup" class="flex col" @submit.prevent="login">
         <h1>Log-in</h1>
         <input ref="username" class="my-form" type="text" v-model="credentials.username" required />
@@ -13,14 +11,10 @@
           <span class="login-link" @click.stop="isSignup = true">Signup</span>
         </h3>
       </form>
-      <!-- </transition> -->
-      <!-- <transition name="fade"> -->
       <form v-if="newUserCred && isSignup" class="flex col" @submit.prevent="signup">
-        <transition name="fade">
-          <myVideo v-if="playVideo" v-model="newUserCred.imgUrl" @stopVideo="toggleVideo"></myVideo>
-        </transition>
         <h1>Sign-UP</h1>
         <section class="signup-form flex col">
+          <avatar-edit :url="newUserCred.imgUrl" />
           <section class="flex col">
             <input
               ref="fullName"
@@ -50,100 +44,36 @@
               <span class="login-link" @click.stop="isSignup = false">Login</span>
             </h3>
           </section>
-          <section
-            @click.stop="openSelect = !openSelect"
-            :class="{'open-select':openSelect}"
-            class="container-img-profile pointer flex j-center"
-          >
-            <img
-              v-if="newUserCred.imgUrl"
-              class="avatar avatar-m"
-              :src="newUserCred.imgUrl"
-              title="Replace profile picture"
-            />
-            <img
-              v-else
-              class="avatar avatar-m"
-              src="../assets/svg/user-profile.svg"
-              title="Set profile picture"
-            />
-            <transition name="fade">
-              <section class="select" @click="openSelect = !openSelect" v-if="openSelect">
-                <label>
-                  <input @change="uploadImg" type="file" hidden />
-                  <li class="upload">Upload a photo</li>
-                </label>
-                <li @click="toggleVideo">Turn on camera</li>
-              </section>
-            </transition>
-          </section>
         </section>
       </form>
-      <!-- </transition> -->
-    <!-- </div> -->
-  </div>
+    </div>
+  </transition>
 </template>
 
 <script>
-// import { userService } from "../services/user.service.js";
-import myVideo from "../components/video/my-video.vue";
+import avatarEdit from "../components/video/avatar-edit.vue";
 import { eventBus } from "../services/eventbus-service.js";
 
 export default {
   name: "Login",
   data() {
     return {
-      playVideo: false,
-      openSelect: false,
       credentials: null,
-      newUserCreds: null,
       isSignup: false
-      // params: {
-      //   client_id:
-      //     "638406108101-fgbubnomg43t3hvbh47v4p26tk7a7ltg.apps.googleusercontent.com"
-      // },
-      // renderParams: {
-      //   width: 250,
-      //   height: 50,
-      //   longtitle: true
-      // }
     };
   },
   async created() {
-    (this.credentials = { username: "", password: "" }),
-      // this.newUserCred = userService.getEmptyUser()
-      (this.newUserCred = {
-        username: "",
-        password: "",
-        fullName: "",
-        imgUrl: "",
-        isAdmin: false,
-        notifications: []
-      });
-    document.addEventListener("click", this.handleClick);
-    document.addEventListener("keydown", this.handlePress);
+    (this.credentials = { username: "", password: "" })
   },
   mounted() {
     this.$refs.username.focus();
+    eventBus.$on("uploadImg", this.uploadImg);
   },
   destroyed() {
-    document.removeEventListener("click", this.handleClick);
-    document.removeEventListener("keydown", this.handlePress);
+    eventBus.$off("uploadImg", this.uploadImg);
   },
 
   methods: {
-    handleClick(event) {
-      if (this.openSelect) this.openSelect = false;
-    },
-    handlePress(event) {
-      if (event.keyCode === 27) {
-        this.handleClick();
-      }
-    },
-    toggleVideo() {
-      this.playVideo = !this.playVideo;
-      document.body.classList.toggle("vidoe-open");
-    },
     async login() {
       var user = await this.$store.dispatch({
         type: "login",
@@ -219,7 +149,9 @@ export default {
         type: "addImg",
         imgEv: ev
       });
-      this.newUserCred.imgUrl = img.url;
+      var newUserCred = JSON.parse(JSON.stringify(this.newUserCred))
+      newUserCred.imgUrl = img.url
+      this.$store.commit({type:'setNewUserCred', newUserCred})
     },
     async removeUser(userId) {
       var msg = await this.$store.dispatch({ type: "removeUser", userId });
@@ -229,12 +161,12 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },
-    titleCamera() {
-      return this.playVideo ? "Turn off camera" : "Turn on camera";
+    newUserCred(){
+      return JSON.parse(JSON.stringify(this.$store.getters.newUserCred));
     }
   },
   components: {
-    myVideo
+    avatarEdit
   }
 };
 </script>
