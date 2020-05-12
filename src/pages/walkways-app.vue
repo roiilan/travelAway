@@ -1,6 +1,7 @@
 <template>
   <div class="walkways-app">
-    <home />
+    <!-- <home /> -->
+    <home :projs="projs" />
   </div>
 </template>
 
@@ -22,7 +23,13 @@ export default {
   async created() {
     await this.$store.dispatch({ type: "loadReviewsCount" });
     await this.$store.dispatch({ type: "loadProjs" });
+  },
+  computed: {
+    projs(){
+      return this.$store.getters.projs
+    }
   }
+   
 };
 </script>
 
