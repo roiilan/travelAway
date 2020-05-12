@@ -17,11 +17,11 @@
               />
               <p v-else>{{user.fullName}}</p>
               <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
-              <review-avarage v-if="reviews.length" :reviews="reviews" />
+              <review-avarage v-if="reviews" :reviews="reviews" />
             </div>
           </div>
           <notification-list
-            v-if="user.notifications.length"
+            v-if="user.notifications"
             :notifications="user.notifications"
             :userId="user._id"
           />
@@ -29,11 +29,11 @@
         <map-preview class="map" :array="[user]"></map-preview>
       </div>
       <review-add
-        v-if="!loggedinUser || (loggedinUser && loggedinUser._id !== user._id) "
+        v-if="!loggedinUser || (loggedinUser && loggedinUser._id !== user._id)"
         :review="review"
         @save="save"
       />
-      <review-list v-if="reviews.length" :reviews="reviews" />
+      <review-list v-if="reviews" :reviews="reviews" />
     </div>
   </transition>
 </template>
@@ -63,6 +63,7 @@ export default {
     this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
     );
+    this.review = this.getEmptyReview();
 
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);

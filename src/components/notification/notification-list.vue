@@ -1,5 +1,5 @@
 <template>
-  <section class="notification-list">
+  <section class="notification-list" v-if="notifications.length">
     <h3 class="container-link-img">
       <img @click="scrollTo" class="link-img" src="../../assets/svg/link.svg" alt />
       <span>Notification</span>

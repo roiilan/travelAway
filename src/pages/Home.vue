@@ -50,7 +50,7 @@
       </div>
       <section class="carousel-for-desctop">
         <ul v-if="projs" class="around-the-world-preview width-container">
-          <li v-for="proj in projs" :key="proj._id" class="around-the-world-card">
+          <li v-for="proj in projsForDisplay" :key="proj._id" class="around-the-world-card">
           <!-- <li v-for="proj in projsForDisplay" :key="proj._id" class="around-the-world-card"> -->
             <marker-card
               :proj="proj"
@@ -133,20 +133,20 @@ export default {
       // return this.$store.getters.reviews.length;
     },
 
-    // projsForDisplay() {
-    //   var projToDisplay = [];
-    //   let projsCopy = JSON.parse(JSON.stringify(this.projs));
-    //   for (let i = 0; i < 6; i++) {
-    //     let ranNum = utilService.getRandomInt(1, projsCopy.length);
-    //     let proj = projsCopy[ranNum];
-    //     let idx = projsCopy.findIndex(currProj => {
-    //       return currProj._id === proj._id;
-    //     });
-    //     projToDisplay.push(proj);
-    //     projsCopy.splice(idx, 1);
-    //   }
-    //   return projToDisplay;
-    // }
+    projsForDisplay() {
+      var projToDisplay = [];
+      let projsCopy = JSON.parse(JSON.stringify(this.projs));
+      for (let i = 0; i < 6; i++) {
+        let ranNum = utilService.getRandomInt(1, projsCopy.length);
+        let proj = projsCopy[ranNum];
+        let idx = projsCopy.findIndex(currProj => {
+          return currProj._id === proj._id;
+        });
+        projToDisplay.push(proj);
+        projsCopy.splice(idx, 1);
+      }
+      return projToDisplay;
+    }
   },
   components: {
     markerCard,
