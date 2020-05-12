@@ -32,7 +32,7 @@
         :review="review"
         @save="save"
       />
-      <review-list v-if="reviews && review.length" :reviews="reviews"/>
+      <review-list v-if="reviews && reviews.length" :reviews="reviews"/>
         <map-preview class="map" :array="[user]"></map-preview>
     </div>
   </transition>
@@ -56,7 +56,8 @@ export default {
       user: null,
       review: null,
       projApplied: null,
-      audioNotification: null
+      audioNotification: null,
+      projs:null
     };
   },
   async created() {
@@ -66,7 +67,11 @@ export default {
     );
 
     const userId = this.$route.params.id;
+    
     const user = await userService.getById(userId);
+     this.projs = await this.$store.dispatch({ type: "loadProjs" ,filterBy:{creators: [user.fullName]} });
+console.log(this.projs);
+
     this.user = JSON.parse(JSON.stringify(user));
     this.imgUrl = user.imgUrl;
     await this.$store.dispatch({
@@ -76,7 +81,6 @@ export default {
     });
     this.fullName = this.user.fullName;
     this.review = this.getEmptyReview();
-        console.log(this.reviews);
 
   },
   mounted() {

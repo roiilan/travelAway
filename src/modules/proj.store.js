@@ -50,6 +50,8 @@ export default {
     },
     actions: {
         async loadProjs(context, { filterBy, limit }) {
+            console.log(filterBy);
+            
             const isLimit = !!limit
             const projs = await projService.query(filterBy, limit)
             if (!isLimit) {
