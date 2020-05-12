@@ -3,75 +3,6 @@
     <div class="proj-details-container width-container" v-if="proj && reviews">
       <!-- <popap-chat :proj="proj"/> -->
 
-<<<<<<< HEAD
-    <div class="proj-details">
-      <div class="main-content-details-contianer">
-        <h1 class="title-proj">{{proj.title}}</h1>
-      {{proj.createdBy.fullName}}
-        <div class="img-proj-container ratio-16-9">
-          <el-carousel indicator-position="outside">
-            <el-carousel-item v-for="(imgUrl, i) in proj.imgUrls" :key="i">
-              <img :src="imgUrl" />
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-        <review-avarage class="review-avarage" :reviews="reviews" />
-
-        <!-- <user-profile-for-details :user="proj.createdBy" /> -->
-        <div class="main-content-details">
-          <!-- <section v-for="item in items" :key="item" class="accodion-item"> -->
-          <!-- <h5>{{proj.createdBy.fullName}}</h5> -->
-          <section>
-            <div @click="setActive('description', $event)" class="flex a-center bet">
-              <h3 class="container-link-img">
-                <img class="link-img" src="../../assets/svg/link.svg" alt />
-                <span>Description</span>
-                <img
-                  :class="{'arrow-down': active === 'description'}"
-                  src="../../assets/svg/downloading2.svg"
-                  alt
-                />
-              </h3>
-            </div>
-            <transition name="fade">
-              <p v-if="active === 'description'">{{proj.description}}</p>
-            </transition>
-          </section>
-          <section>
-            <div @click="setActive('requirements', $event)" class="flex a-center bet">
-              <h3 class="container-link-img">
-                <img class="link-img" src="../../assets/svg/link.svg" alt />
-                <span>Requirements</span>
-                <img
-                  :class="{'arrow-down': active === 'requirements'}"
-                  src="../../assets/svg/downloading2.svg"
-                  alt
-                />
-              </h3>
-            </div>
-            <transition name="fade">
-              <div v-if="active === 'requirements'">
-                <p>
-                  <span class="strong">Required Dates:</span>
-                  {{proj.date[0]}} - {{proj.date[1]}}
-                </p>
-                <p>
-                  <span class="strong">Members needed:</span>
-                  {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
-                </p>
-                <p v-if="proj.requirements.languages.length">
-                  <span class="strong">Language control:</span>
-                  <span v-for="language in proj.requirements.languages" :key="language">{{language}}</span>
-                </p>
-                <p v-if="proj.requirements.otherSkills.length">
-                  <span class="strong">Other Skills:</span>
-                  <span v-for="skill in proj.requirements.otherSkills" :key="skill">{{skill}}</span>
-                </p>
-                <p>
-                  <span class="strong">Minimum Age:</span>
-                  {{proj.requirements.minAge}}
-                </p>
-=======
       <div class="proj-details">
         <div class="main-content-details-contianer">
           <h1 class="title-proj">{{proj.title}}</h1>
@@ -156,7 +87,6 @@
                     alt
                   />
                 </h3>
->>>>>>> c94daba8fc9f2cc2830404f81c767dfe538cc43a
               </div>
               <transition name="fade">
                 <ul v-if="active === 'tags'">
