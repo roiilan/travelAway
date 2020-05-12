@@ -32,7 +32,7 @@
         :review="review"
         @save="save"
       />
-      <review-list v-if="reviews" :reviews="reviews"/>
+      <review-list v-if="reviews && review.length" :reviews="reviews"/>
         <map-preview class="map" :array="[user]"></map-preview>
     </div>
   </transition>

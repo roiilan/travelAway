@@ -7,7 +7,7 @@
             <div class="content-container-footer flex col bet">
                 <div class="flex a-start col bet logo-location-container">
                     <img src="../../assets/svg/icon-location.svg"/>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                    <p>WalkWays is the world’s leading volunteering platform. We show you how to volunteer abroad! Search & compare the best international volunteer programs offered by volunteer organizations and local NGOs with just a few clicks.</p>
                 </div>
                     <div class="phone-email-container flex col around">
                         <div class="flex a-center bet">
@@ -20,9 +20,15 @@
                         </div>
                     </div>
                     <ul>
-                        <li>About Us</li>
-                        <li>Jobs</li>
-                        <li>Press</li>
+                          <router-link to="/" class="router-link">
+                        <li>Home</li>
+                         </router-link>
+                         <router-link to="/edit" class="router-link">
+                        <li>Publish</li>
+                         </router-link>
+                         <router-link to="/projs/aroundTheWorld" class="router-link">
+                        <li>All Projects</li>
+                         </router-link>
                         <li>Blog</li>
                     </ul>
                     <ul>
@@ -31,9 +37,9 @@
                         <li>Privacy</li>
                     </ul>
                     <div class="link-svg">        
-                       <img src="../../assets/svg/1.svg"/>
-                       <img class="svg-2" src="../../assets/svg/2.svg"/>
-                       <img src="../../assets/svg/3.svg"/>
+                       <img class="img-svg" src="../../assets/svg/facebook.svg"/>
+                       <img class="img-svg" src="../../assets/svg/instegram.svg"/>
+                       <img class="img-svg" src="../../assets/svg/linkdin.svg"/>
                     </div>
             </div>
    </div>
