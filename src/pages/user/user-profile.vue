@@ -26,14 +26,14 @@
             :userId="user._id"
           />
         </div>
-        <map-preview class="map" :array="[user]"></map-preview>
       </div>
       <review-add
         v-if="!loggedinUser || (loggedinUser && loggedinUser._id !== user._id)"
         :review="review"
         @save="save"
       />
-      <review-list v-if="reviews" :reviews="reviews" />
+      <review-list v-if="reviews" :reviews="reviews"/>
+        <map-preview class="map" :array="[user]"></map-preview>
     </div>
   </transition>
 </template>
@@ -60,10 +60,10 @@ export default {
     };
   },
   async created() {
+    
     this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
     );
-    this.review = this.getEmptyReview();
 
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
@@ -75,6 +75,9 @@ export default {
       isSetReviews: true
     });
     this.fullName = this.user.fullName;
+    this.review = this.getEmptyReview();
+        console.log(this.reviews);
+
   },
   mounted() {
     eventBus.$on("updateUser", user => (this.user = user));
@@ -156,7 +159,7 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     reviews() {
-      return this.$store.getters.currReviewsForUser;
+      return this.$store.getters.reviews;
     }
   },
   components: {

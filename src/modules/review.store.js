@@ -92,7 +92,7 @@ export default {
             }
             return reviews;
         },
-        async saveReview(context, { review }) {
+        async saveReview(context, { review }) {            
             var isEdit = !!review._id;
             review = await reviewService.saveReview(review);
             // console.log('review.about._id in store after:', review.about._id);

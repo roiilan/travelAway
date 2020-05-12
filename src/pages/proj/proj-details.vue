@@ -131,7 +131,7 @@
         loggedinUser.isAdmin)"
           @click.stop="toggleApply"
           :class="{'apply-open':isApplyOpen}"
-        >Apply now</span>
+        >Apply  now</span>
       </div>
       <proj-apply
         v-if="loggedinUser"

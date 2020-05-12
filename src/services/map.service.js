@@ -1,4 +1,4 @@
-const GAPI_KEY = 'AIzaSyC78ilnhS4Ey5k2TImLGPdWYV6eYsBhoEo';
+const GAPI_KEY = 'AIzaSyBTEWMtjziTWSwBzkhZYC3jc-q2KAXBkkE';
 // const GAPI_KEY = 'AIzaSyAfOgP37XV4mv6RcyxIwOk1ajVevIhN2TM'; 
 
 export default {
@@ -10,7 +10,11 @@ export default {
 import axios from "axios";
 
 async function searchPosition(txt){
+    console.log(txt);
+    
     const res= await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}&language=en&region=US`)
+    console.log(res);
+    
              
     try { 
         var position=res.data.results[0].geometry.location ;
