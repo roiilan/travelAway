@@ -40,19 +40,19 @@
           <!-- <span class="space">{{count}}</span> -->
           <span class="space">{{allFeedbackLength}}</span>
         </h1>
-        <h1 class="divider">
+        <h1 v-if="users && users.length" class="divider">
           <img src="https://image.flaticon.com/icons/svg/978/978012.svg" />Voulnteers
           <span class="space" v-if="users && users.length">{{users.length}}</span>
         </h1>
-        <h1 class="divider">
+        <h1  class="divider">
           <img src="https://image.flaticon.com/icons/svg/921/921439.svg" />Countries
           <span class="space">{{countriesCount}}</span>
         </h1>
       </div>
       <section class="carousel-for-desctop">
         <ul v-if="projs" class="around-the-world-preview width-container">
-          <li v-for="proj in projsForDisplay" :key="proj._id" class="around-the-world-card">
-          <!-- <li v-for="proj in projsForDisplay" :key="proj._id" class="around-the-world-card"> -->
+          <!-- <li v-for="proj in projs" :key="proj._id" class="around-the-world-card"> -->
+            <li v-for="proj in projsForDisplay" :key="proj._id" class="around-the-world-card">
             <marker-card
               :proj="proj"
               :title="proj.description.substring(0,80) +'... Click to read more!!'"
@@ -66,11 +66,12 @@
         </section>
       </section>
 
-    <section class="carousel-for-mobile width-container">
-      <proj-list-carousel v-if="projs" :projs="projsForDisplay" />
-      <img v-else src="../assets/svg/loading.svg" alt />
-      <!-- <img   class="flex a-center j-center" src="../assets/svg/loading.svg" alt /> -->
-    </section>
+      <section class="carousel-for-mobile width-container">
+        <!-- <proj-list-carousel v-if="projs" :projs="projs" /> -->
+        <proj-list-carousel v-if="projs" :projs="projsForDisplay" />
+        <img v-else src="../assets/svg/loading.svg" alt />
+        <!-- <img   class="flex a-center j-center" src="../assets/svg/loading.svg" alt /> -->
+      </section>
 
       <!-- <div class="proj-preview-card">
       <router-link
@@ -93,8 +94,9 @@ import projListCarousel from "../components/proj/proj-list-carousel.vue";
 // @ is an alias to /src
 export default {
   name: "home",
-    props: ["projs"],
-
+  props: {
+    projs: Array
+  },
   data() {
     return {
       // projs: null,
@@ -108,6 +110,7 @@ export default {
         window.scrollTo(0, 0);
 
     this.users = await this.$store.dispatch({ type: "loadUsers" });
+    // this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
     // this.projs = await this.$store.dispatch({ type: "loadProjs" });
 
 
@@ -138,7 +141,6 @@ export default {
       return this.$store.getters.reviewsCount;
       // return this.$store.getters.reviews.length;
     },
-
     projsForDisplay() {
       var projToDisplay = [];
       let projsCopy = JSON.parse(JSON.stringify(this.projs));

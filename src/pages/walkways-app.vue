@@ -23,11 +23,6 @@ export default {
     await this.$store.dispatch({ type: "loadReviewsCount" });
     this.projs = await this.$store.dispatch({ type: "loadProjs" });
   },
-  // computed: {
-  //   projs() {
-  //     return this.$store.getters.projs;
-  //   }
-  // }
 };
 </script>
 
