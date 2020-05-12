@@ -1,6 +1,8 @@
 .main-footer {
     // margin-top: 200px;
     // min-height: 517px;
+    overflow: hidden;
+
     padding: 60px 30px 80px;
     @include for-normal-layout {
         padding: 60px 0px 80px;

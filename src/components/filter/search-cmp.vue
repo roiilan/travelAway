@@ -6,7 +6,7 @@
       type="search"
       v-model="input"
       name="input"
-      placeholder="Search.."
+      placeholder="Search For Project..."
       title="Search By name"
       @input="search"
     />

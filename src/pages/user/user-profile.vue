@@ -46,7 +46,7 @@
             />
             <p v-else>{{user.fullName}}</p>
             <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
-            <review-avarage :reviews="reviews" />
+            <review-avarage :reviews="reviews" v-if="reviews" />
           </div>
         </div>
         <!-- <h3>count notifications: {{user.notifications.length}}</h3> -->
@@ -79,19 +79,17 @@
             </div>
           </div>
         </section>
-        <p v-else>No notifications yet</p>
+        <p v-if="loggedinUser &&  loggedinUser._id !== user._id">No notifications yet</p>
       </div>
       <map-preview class="map" :array="[user]"></map-preview>
     </div>
 
     <!-- <review-list v-if="reviews.length" :reviews="reviews" /> -->
 
-    <review-add v-if="loggedinUser && loggedinUser._id !== user._id" :review="review" @save="save" />
-<pre>
-    {{loggedinUser}}
-
-    {{user}}
-</pre>
+    <review-add v-if="!loggedinUser || loggedinUser._id !== user._id" :review="review" @save="save" />
+    <pre>
+      
+    </pre>
   </div>
 </template>
 <script>

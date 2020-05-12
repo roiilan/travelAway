@@ -64,7 +64,7 @@
     </section>
 
     <section class="carousel-for-mobile width-container">
-      <proj-list-carousel v-if="projs" :projs="projs" />
+      <proj-list-carousel v-if="projs" :projs="projsForDisplay" />
       <img v-else src="../assets/svg/loading.svg" alt />
       <!-- <img   class="flex a-center j-center" src="../assets/svg/loading.svg" alt /> -->
     </section>
@@ -99,7 +99,6 @@ export default {
   },
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
-
     this.projs = await this.$store.dispatch({ type: "loadProjs" });
 
 

@@ -13,8 +13,13 @@
             
             .title-proj {
                 font-family: Sen;
-                font-size: rem(40px);
+                font-size: rem(25px);
                 padding: rem(10px);
+                text-align: center;
+                @include for-normal-layout {
+                    font-size: rem(45px);
+                    
+                }
              }
             .img-proj-container {
                 .el-carousel__container {
@@ -53,7 +58,8 @@
                         overflow-wrap: break-word;
                     }
                     h3 {
-                        // font-size: 20px;
+                        font-size: rem(20px);
+                        margin: 15px 0 10px 0;
                         font-weight: 900;
                         // margin: 0;
                         // padding: rem(20px) rem(30px) rem(20px) rem(15px);
@@ -73,6 +79,11 @@
                                 transform: rotate(180deg);
                             }  
                         }
+                        @include for-normal-layout {
+                            font-size: rem(25px);
+
+                        }
+
                     }
 
                 }
@@ -188,4 +199,6 @@
             }
         }
     }
+
+    
 }
