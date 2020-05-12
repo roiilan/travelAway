@@ -10,18 +10,20 @@
       <div class="ratio-16-9">
         <img :src="proj.imgUrls[0]" class="proj-img" />
       </div>
-      <div class="proj-contnet">
-        <h4>{{proj.organization}}</h4>
-        <h5>{{proj.title}}</h5>
-        <div class="world-details">
-          <img
-            :src="`https://www.countryflags.io/${proj.position.short_country}/shiny/64.png`"
-            v-if="proj.position.short_country"
-          />
-          <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
-          <h5 v-else>{{proj.position.region}},</h5>
-          <h5>{{proj.position.country}}</h5>
-        </div>
+      <div class="proj-content">
+        <section>
+          <h4>{{proj.organization}}</h4>
+          <h5>{{proj.title}}</h5>
+          <div class="world-details">
+            <img
+              :src="`https://www.countryflags.io/${proj.position.short_country}/shiny/64.png`"
+              v-if="proj.position.short_country"
+            />
+            <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
+            <h5 v-else>{{proj.position.region}},</h5>
+            <h5>{{proj.position.country}}</h5>
+          </div>
+        </section>
         <review-avarage-by-id class="review-avarage" :id="proj._id" />
       </div>
     </el-carousel-item>

@@ -1,6 +1,6 @@
 <template>
   <div class="walkways-app">
-    <home/>
+    <home />
   </div>
 </template>
 
@@ -19,12 +19,11 @@ export default {
     projList,
     home
   },
-async created() {
-  await this.$store.dispatch({type: 'loadReviewsCount'});  
-  // await this.$store.dispatch({type: 'loadReviews'});  
-},
-
- };
+  async created() {
+    await this.$store.dispatch({ type: "loadReviewsCount" });
+    await this.$store.dispatch({ type: "loadProjs" });
+  }
+};
 </script>
 
 

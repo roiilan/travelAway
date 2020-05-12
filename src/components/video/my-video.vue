@@ -24,14 +24,13 @@
         height="300"
         autoplay
         preload="none"
+        muted="muted"
       >
         <source src="../../assets/svg/loading.svg" />
       </video>
-      <!-- <video :class="{'stop-video': profile}" ref="video" width="240" height="180" autoplay></video> -->
     </div>
     <canvas ref="canvas" width="640" height="480"></canvas>
     <div class="confirm-img-contianer" v-if="profile">
-      <!-- <button @click="play">Try again</button> -->
       <img v-if="profile" src="../../assets/svg/ok.svg" title="Confirm" @click="uploadImg" />
     </div>
     <div class="capture-img-contianer" v-else>
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+import { eventBus } from '../../services/eventbus-service';
 export default {
   name: "my-video",
   data() {
@@ -83,11 +83,12 @@ export default {
       this.stop();
     },
     async uploadImg() {
-      const img = await this.$store.dispatch({
-        type: "addImg",
-        imgEv: this.profile
-      });
-      this.$emit("input", img.url);
+      eventBus.$emit('uploadImg', this.profile)
+      // const img = await this.$store.dispatch({
+      //   type: "addImg",
+      //   imgEv: this.profile
+      // });
+      // this.$emit("input", img.url);
       this.$emit("stopVideo");
     }
   }

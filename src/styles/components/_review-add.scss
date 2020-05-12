@@ -48,16 +48,16 @@
             font-size: 18px;
         }
     }
-
+    
+    .el-rate {
+        height: fit-content;
+        margin-bottom: 12px;
+        .el-rate__icon {
+            font-size: 40px;
+        }
+    }
 }    
 
-.el-rate {
-    height: fit-content;
-    margin-bottom: 12px;
-    .el-rate__icon {
-        font-size: 50px;
-    }
-}
 
 .container-link-img {
     // &h3 {

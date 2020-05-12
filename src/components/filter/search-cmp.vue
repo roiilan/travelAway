@@ -1,8 +1,8 @@
 <template>
   <section class="search-cmp">
     <input
+    ref="input-search"
       :class="{active: input.length}"
-
       type="search"
       v-model="input"
       name="input"
@@ -40,7 +40,7 @@
 export default {
   props: {
     value: {
-      type: String
+      type: String,
     }
   },
   data() {
@@ -48,6 +48,14 @@ export default {
       input: this.value
     };
   },
+  // created() {
+  //   if (this.$refs.inputRef){
+  //     this.$refs.inputRef.focus()
+
+  //   }
+  //   console.log(this.$refs.inputRef);
+    
+  // },
   methods: {
     search() {
       this.$emit("input", this.input);

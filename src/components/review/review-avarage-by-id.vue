@@ -21,8 +21,6 @@ export default {
       type: "loadReviews",
       id: this.id
     });
-    console.log(this.reviews, 'this.reviews');
-    
   },
   components: {
     reviewAvarage

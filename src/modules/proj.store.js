@@ -50,8 +50,11 @@ export default {
     },
     actions: {
         async loadProjs(context, { filterBy, limit }) {
+            const isLimit = !!limit
             const projs = await projService.query(filterBy, limit)
-            context.commit({ type: 'setProjs', projs })            
+            if (!isLimit) {
+                context.commit({ type: 'setProjs', projs })            
+            }
             return projs
         },
 
