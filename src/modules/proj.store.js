@@ -30,7 +30,9 @@ export default {
     },
     getters: {
         projs(state) {
+            console.log(state);
             return state.projs
+
         },
 
             currProj(state){
@@ -45,7 +47,15 @@ export default {
             });
             return countriesArr.length;
           },
-
+          creators(state){
+            let creators = [];
+            state.projs.forEach(proj => {
+              !creators.includes(proj.createdBy.fullName)
+                ? creators.push(proj.createdBy.fullName)
+                : "";
+            });
+            return creators;
+          },
 
     },
     actions: {

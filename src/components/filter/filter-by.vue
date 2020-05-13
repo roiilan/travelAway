@@ -13,6 +13,7 @@
     ></el-date-picker>
     <select-cmp :class="{'filters-open':isFiltersOpen}" v-model="filterBy.categories" :selects="categories" :placeholder="'Categories'"></select-cmp>
     <select-cmp :class="{'filters-open':isFiltersOpen}" v-model="filterBy.tags" :selects="tags" :placeholder="'Tags'"></select-cmp>
+    <select-cmp :class="{'filters-open':isFiltersOpen}" v-model="filterBy.creators" :selects="creators" :placeholder="'Creators'" ></select-cmp>
   </div>
 </template>
 
@@ -31,18 +32,23 @@ export default {
         name: "",
         categories: [],
         tags: [],
+        creators: [],
         startAt: null,
         endsAt: null
       },
       categories: [],
       tags: [],
-      dates: []
+      dates: [],
+      creators: []
     };
   },
-  created() {    
+  async created() {    
     this.categories = projService.loadCategoties();
     this.categories = this.categories.map(category => category.category);
+    // this.categories = this.categories.map(category => {return {name: category.title, value:category.category}});
     this.tags = projService.loadTags();
+     this.creators = await this.$store.getters.creators
+    
   },
   methods: {
     emitFilter() {

@@ -51,10 +51,14 @@ export default {
     this.initialVal = this.projs.length
 
   },
-   mounted() {
-    eventBus.$on("setFilter", async  filterBy => {
-      let projs = await this.$store.dispatch({ type: "loadProjs", filterBy }); 
-     this.initialVal !== projs.length ?  this.isOpen = false : this.isOpen = true   
+  mounted() {
+    eventBus.$on("setFilter", async filterBy => {
+      await this.$store.dispatch({ type: "loadProjs", filterBy });
+    });
+  },
+  beforeDestroy() {
+    eventBus.$off("setFilter", async filterBy => {
+      await this.$store.dispatch({ type: "loadProjs", filterBy });
     });
   },
   methods: {

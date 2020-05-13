@@ -1,7 +1,7 @@
 <template>
   <div class="review-list review">
-    <h3 class="container-link-img">
-      <img @click="scrollTo" class="link-img" src="../../assets/svg/link.svg" alt />
+    <h3 @click="scrollTo" class="container-link-img">
+      <img  class="link-img" src="../../assets/svg/link.svg" alt />
       <span>Reviews</span>
     </h3>
     <div v-for="(review, index) in reviews" :key="review._id">

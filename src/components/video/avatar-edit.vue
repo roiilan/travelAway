@@ -48,11 +48,11 @@ export default {
     };
   },
    mounted() {
-    document.addEventListener("click", this.handleClick);
+    document.querySelector(".screen").addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
   },
    beforeDestroy() {
-    document.removeEventListener("click", this.handleClick);
+    document.querySelector(".screen").removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
   },
   methods: {

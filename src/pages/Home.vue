@@ -95,21 +95,22 @@ import projListCarousel from "../components/proj/proj-list-carousel.vue";
 export default {
   name: "home",
   props: {
-    projs: Array
+    projs: Array,
+    users: Array
   },
   data() {
     return {
       // projs: null,
       reviews: null,
       categories: null,
-      users: null
+      // users: null
     };
   },
   async created() {
     console.log(this.projs);
         window.scrollTo(0, 0);
 
-    this.users = await this.$store.dispatch({ type: "loadUsers" });
+    // this.users = await this.$store.dispatch({ type: "loadUsers" });
     // this.projs = await this.$store.dispatch({ type: "loadProjs", limit: 6 });
     // this.projs = await this.$store.dispatch({ type: "loadProjs" });
 

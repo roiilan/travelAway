@@ -1,12 +1,9 @@
 .proj-details-container {
     .proj-details {
         min-height: 100vh;
-        >* {
-            margin-bottom: rem(80px);
-            border-radius: 3px;
-        }
-
+        
         .main-content-details-contianer {
+       
             color: darken($clr2, 50%);
             // box-shadow: $shadow1;
             margin: rem(10px) 0;
@@ -15,7 +12,7 @@
                 font-family: Sen;
                 font-size: rem(25px);
                 padding: rem(10px);
-                text-align: center;
+                // text-align: center;
                 @include for-normal-layout {
                     font-size: rem(45px);
                     
@@ -39,9 +36,31 @@
                 }
             }
             .user-profile-for-details {
+                margin-top: 80px;
+                > section {
+                    margin-top: 50px;
+                    a {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        @include for-mobile-layout {
+                            width: fit-content;
+                        }
+                    }
+                    @include for-mobile-layout {
+                        flex-direction: row;
+                    }
+                }
                 .avatar {
-                    margin-inline-start: 40px;
-                    margin-inline-end: 2ch;
+                    margin: 0 0 20px;
+                    width: 220px;
+                    height: 220px;
+                    @include for-mobile-layout {
+                        width: 180px;
+                        height: 180px;
+                        margin: 0 2ch 0 40px;
+                    }
                     transition: opacity .3s;
                     &:hover {
                         opacity: 0.6;
@@ -49,16 +68,38 @@
                 }
                 p {
                     font-size: 25px;
-                    margin: 10px 0 0;
+                    margin: 5px 0 8px;
                     opacity: 0.6;
+                    text-align: center;
+                    @include for-mobile-layout {
+                        text-align: start;
+
+                    }
                 }
                 p:first-child {
                     font-size: 40px;
                     margin: 0;
                     opacity: 1;
                 }
+                .review-avarage {
+                    display: flex;
+                    justify-content: center;
+                    .el-rate {
+                        height: fit-content;
+                        margin-bottom: 12px;
+                        .el-rate__icon {
+                            font-size: 35px;
+                            @include for-mini-mobile-layout {
+                                font-size: 45px;
+                            }
+                        }
+                    }
+                }
             }
             .main-content-details {
+                margin-top: 80px;
+                margin-bottom: 80px;
+
                 font-family: Montserrat;
                 line-height: 1.5;
                 display: grid;
@@ -69,13 +110,19 @@
                     }
                     
                     p {
-                            margin-inline-start: 30px;
+                            margin-inline-start: 5px;
                             padding: rem(7px) rem(30px) rem(7px) rem(15px);
                             overflow-wrap: break-word;
                             font-size: 22px;
+                            span {
+                                display: block;
+                                @include for-mobile-layout {
+                                    display: inline-block;
+                                }
+                            }
                         }
                         ul {
-                            margin-inline-start: 38px;
+                            margin-inline-start: 5px;
                         li {
                             span {
                                 padding: 15px 0;
@@ -85,40 +132,17 @@
                             }
                         }
                     }
-                    h3 {
-                        font-size: rem(20px);
-                        margin: 15px 0 10px 0;
-                        font-weight: 900;
-                        // margin: 0;
-                        // padding: rem(20px) rem(30px) rem(20px) rem(15px);
-                        cursor: pointer;
-                        width: 100%;
-                        transition: opacity .3s;
-                        &:hover {
-                            opacity: .5;
-                            // img:last-child {
-                            //     transform: rotate(30deg);
-                            // }
-                        }
-                        img:last-child {
-                            transition: .3s;
-                            float: right;
-                            &.arrow-down {
-                                transform: rotate(180deg);
-                            }  
-                        }
-                        @include for-normal-layout {
-                            font-size: rem(25px);
-
-                        }
-
-                    }
+                   
 
                 }
             }
+            
         }
+        
        
         .map-container {
+            margin-top: 80px;
+
                 background-color:lighten($clr1, 55%);
                 // mix-blend-mode: multiply;
                 filter: grayscale(0.8);
@@ -135,7 +159,11 @@
        
     }
 
+    
+
     .reviews-container {
+        margin-top: 80px;
+
         // box-shadow: $shadow1;
         // padding: rem(10px);
         // border-radius: 3px;
@@ -231,4 +259,46 @@
     }
 
     
+}
+
+.container-link-img {
+    box-shadow: 0px 0.2px 0px 0px #574457;                
+    padding: 0 20px 15px 0;
+    margin: 50px 0 30px 0;
+    span {
+
+        font-size: rem(26px);
+    }
+    font-weight: 900;
+    cursor: pointer;
+    width: 100%;
+    transition: opacity .3s;
+    opacity: 1;
+  
+    img:last-child {
+        transition: .3s;
+        float: right;
+        &.arrow-down {
+            transform: rotate(180deg);
+        }  
+    }
+    .link-img {
+        padding: 0 2px;
+        visibility: hidden;
+        cursor: pointer;
+    }
+    &:hover {
+        .link-img {
+            visibility: visible;
+            &:hover {
+                mix-blend-mode: color-burn;
+            }
+        }
+        
+    }
+    @include for-normal-layout {
+        font-size: rem(25px);
+
+    }
+
 }

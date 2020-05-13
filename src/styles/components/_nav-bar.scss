@@ -16,7 +16,74 @@
     font-family: Sen;
     .nav-bar {
         padding: 0;
+        .line-search-nav-bar {
+            display: none;
+            @include for-narrow-layout {
+                display: flex;
+            }
+            input[type="search"]::-webkit-search-cancel-button {
+                -webkit-appearance: none;
+              }
+            input {
+                box-shadow: inset 0px -0.5px 0px 0px #ffedb8;
+                cursor: text;
+                // border-radius: 3px;
+                border-radius: 0;
+                border: none;
+                background-color: initial;
+                width: 92%;
+                height: 50px;
+                padding: 0 10px ;
+                font-size: 17px;
+                // color: $clr3;
+                color: #ffedb8;
+                transition: box-shadow .3s;
+        
+                + svg {
+                    cursor: pointer;
+                    margin-left: -25px;
+                    margin-bottom: -2px;
+                    opacity: 0.7;
+                    transition: opacity .3s;
+        
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+                &.active{
+                    + svg {
+                        visibility: hidden;
+                    }
+                }
+                &::placeholder {
+                    color: $clr3;
+                    opacity: 0.7;
+                    transition: opacity .3s;
+                    font-size: 15px;
+                  }
+            }
+            &:hover {
+                ::placeholder, svg {
+                    opacity: 1;
+                  }
+                input {
+                   box-shadow: inset 0px -1px 0px 0px #ffedb8;
+        
+                }
+            }
+        }
+        
         .nav-link-container {
+            .line-search-nav-bar {
+                order: -1;
+                display: block;
+                @include for-narrow-layout {
+                    display: none;
+                }
+                input {
+                    width: 100%;
+                }
+            }
             .container-notification-icon {
                 position: relative;
                 img {
@@ -35,7 +102,6 @@
                     font-weight: 900;                }
             }
             .filter-in-nav-bar {
-                order: -1;
                 // display: none;
             }
             // more scss of filter found in _filter-by.scss 

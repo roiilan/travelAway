@@ -81,7 +81,11 @@ export default {
     });
     this.fullName = this.user.fullName;
     this.review = this.getEmptyReview();
-
+        console.log(this.reviews);
+    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
+    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName.toLowerCase()]}})
+  // console.log(projsForUser, 'projsForUser');
+  
   },
   mounted() {
     eventBus.$on("updateUser", user => (this.user = user));
