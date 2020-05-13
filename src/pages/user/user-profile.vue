@@ -35,9 +35,9 @@
       <review-list v-if="reviews && reviews.length" :reviews="reviews"/>
         <map-preview class="map" :array="[user]"></map-preview>
     </div>
-    <!-- <div class="height-container width-contianer" v-else>
+    <div class="height-container width-contianer" v-else>
       <img src="../../assets/svg/loading.svg" alt="">
-    </div> -->
+    </div>
   </transition>
 </template>
 <script>
