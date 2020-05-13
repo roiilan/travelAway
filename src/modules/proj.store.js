@@ -57,6 +57,8 @@ export default {
             if (!isLimit) {
                 context.commit({ type: 'setProjs', projs })            
             }
+            console.log(projs);
+            
             return projs
         },
 

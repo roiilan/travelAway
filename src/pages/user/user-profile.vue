@@ -69,10 +69,10 @@ export default {
     const userId = this.$route.params.id;
     
     const user = await userService.getById(userId);
-     this.projs = await this.$store.dispatch({ type: "loadProjs" ,filterBy:{creators: [user.fullName]} });
-console.log(this.projs);
-
     this.user = JSON.parse(JSON.stringify(user));
+    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: user.fullName}}) 
+        console.log(projsForUser);
+
     this.imgUrl = user.imgUrl;
     await this.$store.dispatch({
       type: "loadReviews",

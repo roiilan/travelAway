@@ -33,6 +33,10 @@ function query(filterBy, limit = null) {
         queryParams.set('tags', filterBy.tags);
         queryParams.set('startAt', filterBy.startAt);
         queryParams.set('endsAt', filterBy.endsAt);
+        queryParams.set('id', filterBy.id);
+        queryParams.set('creators', filterBy.creators);
+        console.log(queryParams,'paramsssssssssss');
+        
         return httpService.get(`proj?${queryParams}`);
     }
 
