@@ -54,6 +54,7 @@ export default {
   mounted() {
     eventBus.$on("setFilter", async filterBy => {
       await this.$store.dispatch({ type: "loadProjs", filterBy });
+      (this.initialVal !== this.projs.length) ? this.isOpen = false : this.toggleHero()
     });
   },
   beforeDestroy() {

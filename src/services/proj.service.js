@@ -28,17 +28,27 @@ function query(filterBy, limit = null) {
     // }
     const queryParams = new URLSearchParams();
     if (filterBy) {
-        queryParams.set('name', filterBy.name)
-        queryParams.set('categories', filterBy.categories);
-        queryParams.set('tags', filterBy.tags);
-        queryParams.set('creators', filterBy.creators);
-        queryParams.set('id', filterBy.id);
-        queryParams.set('startAt', filterBy.startAt);
-        queryParams.set('endsAt', filterBy.endsAt);
-        queryParams.set('id', filterBy.id);
-        queryParams.set('creators', filterBy.creators);
-        console.log(queryParams,'paramsssssssssss');
-        
+        if(filterBy.name){
+            queryParams.set('name', filterBy.name)
+        }
+        if( filterBy.categories){
+            queryParams.set('categories',  filterBy.categories)
+        }
+        if(filterBy.tags){
+            queryParams.set('tags', filterBy.tags)
+        }
+        if(filterBy.creators){
+            queryParams.set('creators', filterBy.creators)
+        }
+        if(filterBy.startAt){
+            queryParams.set('startAt', filterBy.startAt)
+        }
+        if(filterBy.endsAt){
+            queryParams.set('endsAt', filterBy.endsAt)
+        }
+        if(filterBy.id){
+            queryParams.set('id', filterBy.id)
+        }
         return httpService.get(`proj?${queryParams}`);
     }
 

@@ -83,7 +83,7 @@ export default {
     this.review = this.getEmptyReview();
         console.log(this.reviews);
     // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
-    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName.toLowerCase()]}})
+    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName]}})
   // console.log(projsForUser, 'projsForUser');
   
   },
