@@ -1,5 +1,6 @@
 <template>
   <transition name="fade">
+    <div v-if="isLoaded"> 
     <div class="proj-list-filtered flex col">
       <div class="main-content">
         <div class="header ratio-16-9" v-if="projsHeader">
@@ -24,9 +25,14 @@
 
       <!-- <side-bar :projs="projs" class="side-bar" v-if="projs"></side-bar> -->
     </div>
+    </div>
+
+    <div class="height-container width-contianer" v-else>
+      <img src="../../assets/svg/loading.svg" alt="">
+    </div>
+
   </transition>
 </template>
-
 
 
 <script>
@@ -39,16 +45,20 @@ export default {
   data() {
     return {
       projs: null,
-      projsHeader: null
+      projsHeader: null,
+      isLoaded: false
     };
   },
   async created() {
+    // console.log('this.isLoaded, ',this.isLoaded)
     this.projs = await this.$store.dispatch({ type: "loadProjs" });
     const filter = this.$route.params.filter;
     const filteredProjs = this.projs.filter(proj => {
+      this.isLoaded=true;
       return proj.category === filter;
     });
     this.projs = filteredProjs;
+    // console.log('this.isLoaded, ',this.isLoaded)
     this.getHeader(filter);
     window.scrollTo(0, 0);
   },
