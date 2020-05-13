@@ -35,6 +35,9 @@
       <review-list v-if="reviews && reviews.length" :reviews="reviews"/>
         <map-preview class="map" :array="[user]"></map-preview>
     </div>
+    <!-- <div class="height-container width-contianer" v-else>
+      <img src="../../assets/svg/loading.svg" alt="">
+    </div> -->
   </transition>
 </template>
 <script>
@@ -78,8 +81,8 @@ export default {
     this.review = this.getEmptyReview();
         console.log(this.reviews);
     // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
-    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName.toLowerCase()]}})
-  // console.log(projsForUser, 'projsForUser');
+    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName]}})
+  console.log(projsForUser, 'projsForUser');
   
   },
   mounted() {
