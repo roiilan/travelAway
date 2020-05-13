@@ -5,6 +5,7 @@
     padding: rem(10px);
     display: grid;
     gap: rem(20px);
+    overflow: hidden;
     
     
     .container-img {
@@ -88,6 +89,16 @@
                 cursor: pointer;
             }
         }
+    }
+
+    .user-projs-container{
+        display: flex;
+        // flex-wrap: wrap;
+        height: 200px;
+        overflow-x: auto;
+        justify-content: center;
+        align-items: baseline;
+
     }
 
 }

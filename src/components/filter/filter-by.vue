@@ -47,7 +47,7 @@ export default {
     this.categories = this.categories.map(category => category.category);
     // this.categories = this.categories.map(category => {return {name: category.title, value:category.category}});
     this.tags = projService.loadTags();
-     this.creators = await this.$store.getters.creators
+    this.creators = await this.$store.getters.creators
     
   },
   methods: {

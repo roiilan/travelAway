@@ -20,6 +20,12 @@
               <review-avarage v-if="reviews" :reviews="reviews" />
             </div>
           </div>
+          <div  class="user-projs-container width-container">
+          <div v-for="proj in projs" :key="proj._id">
+          <user-projs :proj = "proj" v-if="projs"/>
+          </div>
+
+          </div>
           <notification-list
             v-if="user.notifications"
             :notifications="user.notifications"
@@ -45,6 +51,7 @@ import mapPreview from "../../components/map-preview.vue";
 import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
+import userProjs from "../../components/user/user.projs.vue";
 import notificationList from "../../components/notification/notification-list.vue";
 import avatarEdit from "../../components/video/avatar-edit.vue";
 
@@ -70,7 +77,7 @@ export default {
     
     const user = await userService.getById(userId);
     this.user = JSON.parse(JSON.stringify(user));
-    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: user.fullName}}) 
+    this.projs = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: user.fullName}}) 
         console.log(projsForUser);
 
     this.imgUrl = user.imgUrl;
@@ -83,7 +90,7 @@ export default {
     this.review = this.getEmptyReview();
         console.log(this.reviews);
     // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
-    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName.toLowerCase()]}})
+    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName]}})
   // console.log(projsForUser, 'projsForUser');
   
   },
@@ -176,7 +183,8 @@ export default {
     reviewAdd,
     reviewAvarage,
     notificationList,
-    avatarEdit
+    avatarEdit,
+    userProjs
   },
   watch: {
     loggedinUser() {
