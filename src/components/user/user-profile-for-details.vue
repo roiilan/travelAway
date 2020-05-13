@@ -1,10 +1,10 @@
 <template>
   <section class="user-profile-for-details">
-    <h3 class="container-link-img">
-      <img @click="scrollTo" class="link-img" src="../../assets/svg/link.svg" alt />
+    <h3 @click="scrollTo" class="container-link-img">
+      <img  class="link-img" src="../../assets/svg/link.svg" alt />
       <span>Created by</span>
     </h3>
-    <section class="flex">
+    <section class="flex col">
       <router-link :to="'/user/' + user._id">
         <img class="avatar avatar-m" :src="user.imgUrl" :alt="user.fullName" :title="user.fullName" />
       </router-link>

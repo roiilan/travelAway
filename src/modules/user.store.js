@@ -21,6 +21,8 @@ export default {
     },
     getters: {
         users(state) {
+            console.log(state);
+
             return state.users;
         },
         loggedinUser(state) {
@@ -28,7 +30,8 @@ export default {
         },
         newUserCred(state) {
             return state.newUserCred
-        }
+        },
+        
     },
     mutations: {
         setUser(state, { user }) {
@@ -63,7 +66,9 @@ export default {
             return res
         },
         async loadUsers(context) {
+            // console.log('users in store');
             const users = await userService.getUsers();
+            
             context.commit({ type: 'setUsers', users })
             return users;
         },

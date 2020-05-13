@@ -5,14 +5,21 @@
 
       <div class="proj-details">
         <div class="main-content-details-contianer">
-          <h1 class="title-proj">{{proj.title}}</h1>
-          <div class="img-proj-container ratio-16-9">
+          <!-- TITLE OF PROJECT-->
+          <!-- <h1 class="title-proj">{{proj.title}}</h1> -->
+          <input class="title-proj" v-model="proj.title" placeholder="Project Title" />
+
+          <!-- IMAGES GALERY OF PROJECT-->
+          <label class="img-proj-container ratio-16-9">
+            <input @input="uploadImg" type="file" hidden />
             <el-carousel indicator-position="outside">
               <el-carousel-item v-for="(imgUrl, i) in proj.imgUrls" :key="i">
                 <img :src="imgUrl" />
               </el-carousel-item>
             </el-carousel>
-          </div>
+          </label>
+
+          <!--AVARAGE REVIEW OF PROJECT-->
           <review-avarage class="review-avarage review" :reviews="reviews" />
 
           <user-profile-for-details :user="proj.createdBy" />
@@ -61,11 +68,11 @@
                   </p>
                   <p v-if="proj.requirements.languages.length">
                     <span class="strong">Language control:</span>
-                    <span> {{proj.requirements.languages.join(', ')}}.</span>
+                    <span>{{proj.requirements.languages.join(', ')}}.</span>
                   </p>
                   <p v-if="proj.requirements.otherSkills.length">
                     <span class="strong">Other Skills:</span>
-                    <span> {{proj.requirements.otherSkills.join(', ')}}.</span>
+                    <span>{{proj.requirements.otherSkills.join(', ')}}.</span>
                   </p>
                   <p>
                     <span class="strong">Minimum Age:</span>
@@ -131,7 +138,7 @@
         !loggedinUser.isAdmin)"
           @click.stop="toggleApply"
           :class="{'apply-open':isApplyOpen}"
-        >Apply  now</span>
+        >Apply now</span>
       </div>
       <proj-apply
         v-if="loggedinUser"

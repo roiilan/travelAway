@@ -45,7 +45,7 @@ export default {
     navBar,
     mainFooter
   },
-  created() {
+  async created() {
     socketService.setup();
     if (this.loggedinUser) this.connectSockets();
     this.user = JSON.parse(JSON.stringify(this.loggedinUser));

@@ -37,11 +37,14 @@ export default {
   async created() {
     await this.$store.dispatch({ type: "loadProjs" });
   },
-  async mounted() {
-    eventBus.$on("setFilter", filterBy => {
-      console.log((this.$root.$refs, 'this.$root.$refs'));
-      
-      this.$store.dispatch({ type: "loadProjs", filterBy });
+  mounted() {
+    eventBus.$on("setFilter", async filterBy => {
+      await this.$store.dispatch({ type: "loadProjs", filterBy });
+    });
+  },
+  beforeDestroy() {
+    eventBus.$off("setFilter", async filterBy => {
+      await this.$store.dispatch({ type: "loadProjs", filterBy });
     });
   },
   methods: {

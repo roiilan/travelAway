@@ -4,19 +4,46 @@
       <router-link to="/">
         <img class="logo" src="../assets/svg/help.svg" alt="Logo" />
       </router-link>
-      <!-- <search-cmp
-      class="search-cmp-in-navbar"
-        v-model="txtSearch"
-      ></search-cmp> -->
-
-      <filter-By v-if="!isProjListOpen" @click.native.stop class="filter-in-nav-bar" />
+      <section v-if="!isProjListOpen" class="line-search-nav-bar flex a-center j-center">
+        <input type="search" @input="onGoToSearchPage" placeholder="Search Project" />
+        <svg
+          @click="onGoToSearchPage"
+          title="See All"
+          role="presentation"
+          viewBox="0 0 32 32"
+          width="14"
+          height="14"
+          fill="none"
+          stroke="#ffedb8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+        >
+          <circle cx="14" cy="14" r="12" />
+          <path d="M23 23 L30 30" />
+        </svg>
+      </section>
       <div class="nav-link-container flex col" :class="{'open-menu':openMenu}">
-        <!-- <router-link to="/search">Search</router-link> -->
-        <!-- <a href="#"> -->
-
-      <filter-By v-if="!isProjListOpen" @click.native.stop class="filter-in-nav-bar" />
+        <section v-if="!isProjListOpen" class="line-search-nav-bar flex a-center j-center">
+          <input type="search" @input="onGoToSearchPage" placeholder="Search Project" />
+          <svg
+            @click="$router.push('/projs/aroundTheWorld')"
+            title="See All"
+            role="presentation"
+            viewBox="0 0 32 32"
+            width="14"
+            height="14"
+            fill="none"
+            stroke="#ffedb8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+          >
+            <circle cx="14" cy="14" r="12" />
+            <path d="M23 23 L30 30" />
+          </svg>
+        </section>
         <router-link active-class="active" to="/" title="Home" exact>
-
           <img src="../assets/svg/homepage.svg" alt />
           <span>Home</span>
         </router-link>
@@ -78,7 +105,7 @@ import filterBy from "./filter/filter-by.vue";
 import LoginVue from "../pages/Login.vue";
 import { projService } from "../services/proj.service.js";
 import { eventBus } from "../services/eventbus-service";
-import searchCmp from './filter/search-cmp.vue' 
+import searchCmp from "./filter/search-cmp.vue";
 
 export default {
   data() {
@@ -89,7 +116,7 @@ export default {
       isActive: false,
       categories: null,
       isProjListOpen: false,
-      txtSearch: '',
+      txtSearch: ""
     };
   },
   computed: {
@@ -98,9 +125,16 @@ export default {
     }
   },
   methods: {
-    goToSearch(){
-      this.$router.push('/projs/aroundTheWorld')
-      eventBus.$emit('sendTxtSearch', this.txtSearch)
+    async onGoToSearchPage(ev) {
+      console.log(ev.target.value);
+      
+      if (this.openMenu) {
+        this.toogleMemu();
+      }
+      await this.$router.push("/projs/aroundTheWorld");
+      if (ev.target.value){
+        eventBus.$emit("goToSearchPage", ev.target.value);
+      }
     },
     async logout() {
       eventBus.$emit("disconnectSockets");
@@ -121,10 +155,8 @@ export default {
       }
     },
     toogleMemu() {
-      setTimeout(() => {
-        this.openMenu = !this.openMenu;
-        document.body.classList.toggle("menu-open");
-      }, 1);
+      this.openMenu = !this.openMenu;
+      document.body.classList.toggle("menu-open");
     },
     handleClick(event) {
       if (this.isActive) this.isActive = false;
@@ -141,14 +173,23 @@ export default {
     }
   },
   created() {
+    if (this.$route.path === "/projs/aroundTheWorld") {
+      this.isProjListOpen = true;
+    }
     this.categories = projService.loadCategoties();
+  },
+  mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    document.addEventListener("click", this.handleClick);
+    document
+      .querySelector(".screen")
+      .addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
   },
-  destroyed() {
+  beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
-    document.removeEventListener("click", this.handleClick);
+    document
+      .querySelector(".screen")
+      .removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
   },
   components: {
@@ -166,23 +207,20 @@ export default {
     },
     // txtSearch:{
     //   handler(){
-    //     this.goToSearch()        
+    //     this.goToSearchPage()
     //   },
     //   deep:true
     // }
-    // "$route.path": {
-    //   handler() {
-    //     if (this.$route.path === "/projs/aroundTheWorld") {
-    //       this.isProjListOpen = true;
-    //       // this.handleClick();
-
-    //     } else {
-
-    //     }
-    //     this.isProjListOpen = false;
-    //   },
-    //   deep: true
-    // }
+    "$route.path": {
+      handler() {
+        if (this.$route.path === "/projs/aroundTheWorld") {
+          this.isProjListOpen = true;
+        } else {
+          this.isProjListOpen = false;
+        }
+      },
+      deep: true
+    }
     // 'loggedinUser.notifications'() {
     //   // console.log(this.loggedinUser.notifications);
     //   console.log('hi!!');

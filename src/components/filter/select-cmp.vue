@@ -24,6 +24,10 @@
       <option v-for="select in selects" :key="select" :value="select">{{select}}</option>
     </datalist>-->
     <!-- <section @click="isOpen = !isOpen"> -->
+
+
+
+
     <span>
       <div v-if="selecteds.length || select.length">
         <span
@@ -44,9 +48,33 @@
     </span>
     <transition name="fade">
       <ul v-if="isOpen" class="list-select">
-        <li v-for="select in selects" :key="select" @click.stop="search1(select)">{{select}}</li>
+        <li v-for="select in selects" :key="select" @click.stop="search1(select)">{{select.charAt(0).toUpperCase() + select.slice(1)}}</li>
       </ul>
     </transition>
+    
+    <!-- <span>
+      <div v-if="selecteds.length || select.length">
+        <span
+          class="selected"
+          v-for="selected in selecteds"
+          :key="selected.value"
+          @click.stop="removeFromList(selected)"
+        >{{selected.name}}</span>
+      </div>
+      <p v-else>Choose {{placeholder}}..</p>
+      <input
+        :class="{active: selecteds.length}"
+        type="search"
+        v-model="txt"
+        @change="inputTxtHendler(txt)"
+        
+      />
+    </span>
+    <transition name="fade">
+      <ul v-if="isOpen" class="list-select">
+        <li v-for="select in selects" :key="select.value" @click.stop="search1(select)">{{select.name}}</li>
+      </ul>
+    </transition> -->
 
     <!-- </section> -->
   </section>
@@ -63,19 +91,20 @@ export default {
   data() {
     return {
       select: "",
+      txt: "",
       selecteds: [],
       isOpen: false
     };
   },
   methods: {
-    // search() {
-    //   this.selecteds.push(this.select);
-    //   var idx = this.selects.findIndex(select => select === this.select);
-    //   this.selects.splice(idx, 1);
-    //   this.$emit("input", this.selecteds);
-    //   this.select = "";
-    // },
-    search1(val) {
+    search() {
+      this.selecteds.push(this.select);
+      var idx = this.selects.findIndex(select => select === this.select);
+      this.selects.splice(idx, 1);
+      this.$emit("input", this.selecteds);
+      this.select = "";
+    },
+     search1(val) {
       this.isOpen = false;
       if (!val.length) return;
       this.selecteds.push(val);
@@ -90,6 +119,34 @@ export default {
       this.selects.unshift(select);
       this.$emit("input", this.selecteds);
     },
+
+    // inputTxtHendler(txt){
+    //   if (txt.length){
+    //     this.search1({name: txt, value: txt})
+    //   }
+    // },
+    // search1(selector) {
+    //   this.isOpen = false;
+    //   this.selecteds.push(selector);
+    //   var idx = this.selects.findIndex(select => select.value === selector.value);
+    //   if (idx !== -1) this.selects.splice(idx, 1);
+    //   this.emitFilter(this.selecteds)
+      
+    // },
+    // removeFromList(currSelected) {
+    //   var idx = this.selecteds.findIndex(selected => selected.value === currSelected.value);
+    //   var select = this.selecteds.splice(idx, 1).join("");
+    //   this.selects.unshift(select);
+    //   this.emitFilter(this.selecteds)
+    // },
+    // emitFilter(selecteds){
+    //   const selectedsForFilter = selecteds.map(s=> s.value)
+    //   console.log(selectedsForFilter, 'selectedsForFilter');
+      
+    //   this.$emit("input", this.selectedsForFilter);
+    // },
+   
+    
     closeSearch() {
       this.isOpen = false;
     },

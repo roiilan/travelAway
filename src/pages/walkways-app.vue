@@ -1,6 +1,6 @@
 <template>
   <div class="walkways-app">
-    <home :projs="projs" />
+    <home :projs="projs" :users="users"/>
   </div>
 </template>
 
@@ -12,7 +12,8 @@ export default {
   name: "projApp",
   data(){
     return{
-      projs:null,
+      projs: null,
+      users: []
     }
   },
   components: {
@@ -20,8 +21,10 @@ export default {
     home
   },
   async created() {
+    this.users = await this.$store.dispatch({ type: "loadUsers" });
     await this.$store.dispatch({ type: "loadReviewsCount" });
     this.projs = await this.$store.dispatch({ type: "loadProjs" });
+
   },
 };
 </script>

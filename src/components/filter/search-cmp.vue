@@ -1,7 +1,7 @@
 <template>
   <section class="search-cmp">
     <input
-    ref="input-search"
+      ref="inputRef"
       :class="{active: input.length}"
       type="search"
       v-model="input"
@@ -37,10 +37,12 @@
 </template>
 
 <script>
+import { eventBus } from "../../services/eventbus-service";
+
 export default {
   props: {
     value: {
-      type: String,
+      type: String
     }
   },
   data() {
@@ -48,15 +50,23 @@ export default {
       input: this.value
     };
   },
-  created() {
-    if (this.$refs.inputRef){
-      this.$refs.inputRef.focus()
-
+  mounted() {
+    window.scrollTo(0, 0);
+    eventBus.$on("goToSearchPage", this.goToSearchPage);
+    if (this.$refs.inputRef) {
+      this.$refs.inputRef.focus();
     }
-  //   console.log(this.$refs.inputRef);
-    
+  },
+  beforeDestroy() {
+    eventBus.$off("goToSearchPage", this.goToSearchPage);
   },
   methods: {
+    goToSearchPage(txt) {
+        this.$refs.inputRef.focus();
+        window.scrollTo(0, 0);
+        this.input = txt;
+        this.search();
+    },
     search() {
       this.$emit("input", this.input);
     }

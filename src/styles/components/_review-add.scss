@@ -51,7 +51,9 @@
     
     .el-rate {
         height: fit-content;
+        width: max-content;
         margin-bottom: 12px;
+
         .el-rate__icon {
             font-size: 40px;
         }
@@ -60,33 +62,12 @@
 
 
 .container-link-img {
-    // &h3 {
-        font-size: 30px;
-        padding-bottom: 15px;
-        margin-bottom: 40px;
-        box-shadow: 0px 0.2px 0px 0px #574457;                
-    // }
+    // padding: 0 20px 15px 0;
+    // margin-bottom: 40px;
     
     span {
         // margin-inline-start: -8px;
     }
     // position: relative;
-    .link-img {
-        // margin-inline-start: -62px;
-        padding: 0 2px;
-        visibility: hidden;
-        // position: absolute;
-        cursor: pointer;
-        // top: 10px;
-        // left: -5%;
-    }
-    &:hover {
-        .link-img {
-            visibility: visible;
-            &:hover {
-                mix-blend-mode: color-burn;
-            }
-        }
-        
-    }
+    
 }
