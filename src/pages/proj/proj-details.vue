@@ -5,7 +5,10 @@
 
       <div class="proj-details">
         <div class="main-content-details-contianer">
+          <!-- TITLE OF PROJECT-->
           <h1 class="title-proj">{{proj.title}}</h1>
+          
+          <!-- IMAGES GALERY OF PROJECT-->
           <div class="img-proj-container ratio-16-9">
             <el-carousel indicator-position="outside">
               <el-carousel-item v-for="(imgUrl, i) in proj.imgUrls" :key="i">

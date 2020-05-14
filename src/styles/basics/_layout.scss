@@ -2,7 +2,7 @@
 .width-container {
     margin: 0 auto;
         width: 100vw;
-        padding: rem(5px);
+        padding: 0 rem(25px) 0 rem(15px);
         @include for-mobile-layout {
             padding: rem(10px);
         }
@@ -13,4 +13,8 @@
 
 .height-container {
     min-height: 100vh;
+}
+
+.loading-page {
+    width: 70vw;
 }

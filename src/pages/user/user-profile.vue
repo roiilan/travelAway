@@ -4,22 +4,35 @@
       <div class="main-content">
         <div>
           <div class="user-profile-inside-container flex col">
+            
+          <!-- CMP AVATAR OF USER ---- EDIT-MODE-->
             <avatar-edit v-if="loggedinUser && loggedinUser._id === user._id" :url="user.imgUrl" />
+          <!-- V-ELSE: IMG AVATAR OF USER --- SHOW-MODE-->
             <div v-else class="container-img">
               <img class="avatar avatar-m" :src="user.imgUrl" />
             </div>
+     
             <div class="container-details-user flex col a-center j-center">
+             
+              <!-- FULLNAME  --> 
+              <!-- EDIT-MODE -->
               <input
                 class="input-fullname"
                 type="text"
                 v-if="loggedinUser && loggedinUser._id === user._id"
                 v-model="fullName"
               />
+              <!--  SHOW-MODE -->
               <p v-else>{{user.fullName}}</p>
+              
+              <!-- JOIN-AT -->
               <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
+    
+              <!--CMP AVARAGE REVIEW OF USER-->
               <review-avarage v-if="reviews" :reviews="reviews" />
             </div>
           </div>
+          <!--CMP NOTIFICATIONS OF USER-->
           <notification-list
             v-if="user.notifications"
             :notifications="user.notifications"
@@ -27,17 +40,25 @@
           />
         </div>
       </div>
+      
+      <!--CMP ADD REVIEW-->
       <review-add
         v-if="!loggedinUser || (loggedinUser && loggedinUser._id !== user._id)"
         :review="review"
         @save="save"
       />
+      
+      <!--CMP LIST REVIEWS-->
       <review-list v-if="reviews && reviews.length" :reviews="reviews"/>
+      
+      <!--CMP LOCATION OF USER-->
         <map-preview class="map" :array="[user]"></map-preview>
     </div>
-    <!-- <div class="height-container width-contianer" v-else>
-      <img src="../../assets/svg/loading.svg" alt="">
-    </div> -->
+    
+    <!--PAGE LOADING-->
+    <div class="height-container width-contianer flex a-center j-center" v-else>
+      <img class="loading-page" src="../../assets/svg/loading.svg" alt="">
+    </div>
   </transition>
 </template>
 <script>
@@ -80,8 +101,8 @@ export default {
     this.fullName = this.user.fullName;
     this.review = this.getEmptyReview();
         console.log(this.reviews);
-    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
-    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName]}})
+    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
+    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName]}})
   console.log(projsForUser, 'projsForUser');
   
   },

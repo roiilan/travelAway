@@ -18,38 +18,15 @@ export const projService = {
 
 
 function query(filterBy, limit = null) {
-    // const queryParams = new URLSearchParams();
-    // if(filterBy){
-    // if(filterBy.name) queryParams.set('name', filterBy.name)
-    // queryParams.set('minPrice', filterBy.minPrice);
-    // queryParams.set('maxPrice', filterBy.maxPrice);
-    // queryParams.set('type', filterBy.type);
-    // return httpService.get(`proj?${queryParams}`);
-    // }
     const queryParams = new URLSearchParams();
+    
     if (filterBy) {
-        if (filterBy.name){
-            queryParams.set('name', filterBy.name)
-        }
-        if (filterBy.categories){
-            queryParams.set('categories', filterBy.categories)
-        }
-        if (filterBy.tags){
-            queryParams.set('tags', filterBy.tags)
-        }
-        if (filterBy.creators){
-            queryParams.set('creators', filterBy.creators)
-        }
-        if (filterBy.id){
-            queryParams.set('id', filterBy.id)
-        }
-        if (filterBy.startAt){
-            queryParams.set('startAt', filterBy.startAt)
-        }
-        if (filterBy.endsAt){
-            queryParams.set('endsAt', filterBy.endsAt)
-        }
-        console.log(queryParams, 'queryParams');
+        for (const property in filterBy) {
+            console.log(`${property}: ${filterBy[property]}`);
+            if (filterBy[property]){
+                queryParams.set(property, filterBy[property])
+            }
+        } 
         return httpService.get(`proj?${queryParams}`);
     }
 

@@ -1,6 +1,6 @@
 <template>
   <section class="user-profile-for-details">
-    <h3 @click="scrollTo" class="container-link-img">
+    <h3 @click="$emit('setActive')" class="container-link-img">
       <img  class="link-img" src="../../assets/svg/link.svg" alt />
       <span>Created by</span>
     </h3>
@@ -24,11 +24,6 @@ import reviewAvarageById from "../review/review-avarage-by-id.vue";
 export default {
   props: {
     user: Object
-  },
-  methods: {
-    scrollTo(ev) {
-      window.scrollTo(0, ev.target.offsetTop - 200);
-    }
   },
   components: {
     reviewAvarageById

@@ -142,6 +142,7 @@ export default {
       this.isShow = true;
     },
     handlePress(event) {
+      if (!this.isShow) return
       if (event.keyCode === 27 || event.keyCode === 32) {
         this.closeImg();
       }
