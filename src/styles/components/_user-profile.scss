@@ -89,5 +89,13 @@
             }
         }
     }
-
 }
+        .user-projs-container{
+            display: flex;
+            // flex-wrap: wrap;
+            height: 200px;
+            overflow-x: auto;
+            justify-content: center;
+            align-items: baseline;
+    
+        }
