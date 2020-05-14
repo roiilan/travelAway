@@ -1,4 +1,4 @@
-const GAPI_KEY = 'AIzaSyBTEWMtjziTWSwBzkhZYC3jc-q2KAXBkkE';
+const GAPI_KEY = 'AIzaSyAfOgP37XV4mv6RcyxIwOk1ajVevIhN2TM';
 // const GAPI_KEY = 'AIzaSyAfOgP37XV4mv6RcyxIwOk1ajVevIhN2TM'; 
 
 export default {

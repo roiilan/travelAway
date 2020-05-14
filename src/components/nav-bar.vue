@@ -44,19 +44,19 @@
           </svg>
         </section>
         <router-link active-class="active" to="/" title="Home" exact>
-          <img src="../assets/svg/homepage.svg" alt />
+          <img class="link-img" src="../assets/svg/homepage.svg" alt />
           <span>Home</span>
         </router-link>
         <router-link active-class="active" to="/edit" title="Let's Publish">
-          <img src="../assets/svg/project.svg" alt />
+          <img class="link-img" src="../assets/svg/project.svg" alt />
           <span>Publish</span>
         </router-link>
         <a v-if="loggedinUser" active-class="active" @click="logout" title="Logout">
-          <img src="../assets/svg/log-in.svg" alt />
+          <img class="link-img" src="../assets/svg/log-in.svg" alt />
           <span>Logout</span>
         </a>
         <router-link v-else to="/login" active-class="active" title="Login">
-          <img src="../assets/svg/log-in.svg" alt />
+          <img class="link-img" src="../assets/svg/log-in.svg" alt />
           <span>Login</span>
         </router-link>
         <router-link
@@ -74,7 +74,7 @@
         </router-link>
         <section class="categories-contianer">
           <a href="#" @click.stop="toglleActive" :class="{'active': isActive}" title="Categories">
-            <img src="../assets/svg/tool.svg" alt />
+            <img class="link-img" src="../assets/svg/tool.svg" alt />
             <span>Categories</span>
             <img :class="{'arrow-down': isActive}" src="../assets/svg/downloading.svg" alt />
           </a>

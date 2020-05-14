@@ -74,6 +74,9 @@
         }
         
         .nav-link-container {
+            .link-img{
+                width: rem(30px);
+            }
             .line-search-nav-bar {
                 order: -1;
                 display: block;
@@ -90,6 +93,7 @@
                     position: absolute;
                     top: 5px;
                     left: -20px;
+                    // width: rem(15px);
                 }
                 span {
                     position: absolute;

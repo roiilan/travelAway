@@ -295,6 +295,7 @@ export default {
     };
   },
   async created() {
+    window.scrollTo(0,0)
     this.loggedinUser = await this.$store.getters.loggedinUser;
     const projId = this.$route.params.id;
     if (projId) {
