@@ -20,11 +20,10 @@
               <review-avarage v-if="reviews" :reviews="reviews" />
             </div>
           </div>
-          <div  class="user-projs-container width-container">
-          <div v-for="proj in projs" :key="proj._id">
-          <user-projs :proj = "proj" v-if="projs"/>
-          </div>
-
+          <div class="user-projs-container width-container">
+            <div v-for="proj in projs" :key="proj._id">
+              <user-projs :proj="proj" v-if="projs" />
+            </div>
           </div>
           <notification-list
             v-if="user.notifications"
@@ -38,11 +37,11 @@
         :review="review"
         @save="save"
       />
-      <review-list v-if="reviews && reviews.length" :reviews="reviews"/>
-        <map-preview class="map" :array="[user]"></map-preview>
+      <review-list v-if="reviews && reviews.length" :reviews="reviews" />
+      <map-preview class="map" :array="[user]"></map-preview>
     </div>
     <div class="height-container width-contianer" v-else>
-      <img src="../../assets/svg/loading.svg" alt="">
+      <img src="../../assets/svg/loading.svg" alt />
     </div>
   </transition>
 </template>
@@ -67,21 +66,22 @@ export default {
       review: null,
       projApplied: null,
       audioNotification: null,
-      projs:null
+      projs: null
     };
   },
   async created() {
-    
     this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
     );
 
     const userId = this.$route.params.id;
-    
+
     const user = await userService.getById(userId);
     this.user = JSON.parse(JSON.stringify(user));
-    this.projs = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: user.fullName}}) 
-        console.log(projsForUser);
+    this.projs = await this.$store.dispatch({
+      type: "loadProjs",
+      filterBy: { creators: user.fullName }
+    });
 
     this.imgUrl = user.imgUrl;
     await this.$store.dispatch({
@@ -91,11 +91,13 @@ export default {
     });
     this.fullName = this.user.fullName;
     this.review = this.getEmptyReview();
-        console.log(this.reviews);
+    console.log(this.reviews);
     // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
-    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName]}})
-  // console.log(projsForUser, 'projsForUser');
-  
+    var projsForUser = await this.$store.dispatch({
+      type: "loadProjs",
+      filterBy: { creators: [this.user.fullName] }
+    });
+    // console.log(projsForUser, 'projsForUser');
   },
   mounted() {
     eventBus.$on("updateUser", user => (this.user = user));
@@ -187,7 +189,9 @@ export default {
     reviewAvarage,
     notificationList,
     avatarEdit,
-    userProjs
+    userProjs,
+
+
   },
   watch: {
     loggedinUser() {
