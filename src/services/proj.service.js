@@ -18,38 +18,15 @@ export const projService = {
 
 
 function query(filterBy, limit = null) {
-    // const queryParams = new URLSearchParams();
-    // if(filterBy){
-    // if(filterBy.name) queryParams.set('name', filterBy.name)
-    // queryParams.set('minPrice', filterBy.minPrice);
-    // queryParams.set('maxPrice', filterBy.maxPrice);
-    // queryParams.set('type', filterBy.type);
-    // return httpService.get(`proj?${queryParams}`);
-    // }
     const queryParams = new URLSearchParams();
+    
     if (filterBy) {
-        if (filterBy.name) {
-            queryParams.set('name', filterBy.name)
-        }
-        if (filterBy.categories) {
-            queryParams.set('categories', filterBy.categories)
-        }
-        if (filterBy.tags) {
-            queryParams.set('tags', filterBy.tags)
-        }
-        if (filterBy.creators) {
-            queryParams.set('creators', filterBy.creators)
-        }
-        if (filterBy.id) {
-            queryParams.set('id', filterBy.id)
-        }
-        if (filterBy.startAt) {
-            queryParams.set('startAt', filterBy.startAt)
-        }
-        if (filterBy.endsAt) {
-            queryParams.set('endsAt', filterBy.endsAt)
-        }
-        console.log(queryParams, 'queryParams');
+        for (const property in filterBy) {
+            console.log(`${property}: ${filterBy[property]}`);
+            if (filterBy[property]){
+                queryParams.set(property, filterBy[property])
+            }
+        } 
         return httpService.get(`proj?${queryParams}`);
     }
 
@@ -57,7 +34,6 @@ function query(filterBy, limit = null) {
         queryParams.set('limit', limit);
         return httpService.get(`proj?${queryParams}`);
     }
-
     return httpService.get('proj');
 }
 
@@ -125,45 +101,54 @@ function loadTags() {
 }
 
 function loadCategoties() {
-    return [{
+    return [
+        {
             category: "childcare",
             title: "Child Care",
-            imgUrl: "https://images7.design-editor.com/91/9184191/3958%2F50493C55-F17D-C782-89A5-C19900347370.jpg"
+            imgUrl:
+                "https://s23916.pcdn.co/wp-content/uploads/2019/03/why-your-kids-need-boy-girl-relationships.jpg"
         },
         {
             category: "education",
             title: "Education",
-            imgUrl: "https://cdn.shopify.com/s/files/1/1151/8374/articles/smaller_lead_photo_2048x.jpg?v=1523044466"
+            imgUrl:
+                "https://cdn.shopify.com/s/files/1/1151/8374/articles/smaller_lead_photo_2048x.jpg?v=1523044466"
         },
         {
             category: "animalsAndWildlife",
             title: "Animals & Wildlife",
-            imgUrl: "https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg"
+            imgUrl:
+                "https://i.pinimg.com/originals/f6/b8/c2/f6b8c285b662090279a4c1f5089bb53d.jpg"
         },
         {
             category: "environmentalProtection",
             title: "Environmental Protection",
-            imgUrl: "https://beaches.lacounty.gov/wp-content/uploads/2016/10/BeachCleaning.jpg"
+            imgUrl:
+                "https://beaches.lacounty.gov/wp-content/uploads/2016/10/BeachCleaning.jpg"
         },
         {
             category: "farming",
             title: "Farming",
-            imgUrl: "https://www.thebalancesmb.com/thmb/zLMhuQKCL24jIckZmKqw6E4n2hI=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-585859259-57997e215f9b589aa94c4243.jpg"
+            imgUrl:
+                "https://www.thebalancesmb.com/thmb/zLMhuQKCL24jIckZmKqw6E4n2hI=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-585859259-57997e215f9b589aa94c4243.jpg"
         },
         {
             category: "scubaDiving",
             title: "Scuba Diving",
-            imgUrl: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720,f_auto/w_80,x_15,y_15,g_south_west,l_klook_water/activities/i8v1v92sfkikn0ro47ba/ScubaDivingLessonsinGuambyJNSDives.webp"
+            imgUrl:
+                "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720,f_auto/w_80,x_15,y_15,g_south_west,l_klook_water/activities/i8v1v92sfkikn0ro47ba/ScubaDivingLessonsinGuambyJNSDives.webp"
         },
         {
             category: "humanitarian",
             title: "Humanitarian",
-            imgUrl: "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/387-mj-5779.jpg?auto=format&bg=transparent&con=3&cs=srgb&dpr=1&fm=jpg&ixlib=php-3.1.0&mark=rawpixel-watermark.png&markalpha=90&markpad=13&markscale=10&markx=25&q=75&usm=15&vib=3&w=1400&s=19310451bd014a0ee3714a2fc0bc90b3"
+            imgUrl:
+                "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/387-mj-5779.jpg?auto=format&bg=transparent&con=3&cs=srgb&dpr=1&fm=jpg&ixlib=php-3.1.0&mark=rawpixel-watermark.png&markalpha=90&markpad=13&markscale=10&markx=25&q=75&usm=15&vib=3&w=1400&s=19310451bd014a0ee3714a2fc0bc90b3"
         },
         {
             category: "healthcare",
             title: "Health Care",
-            imgUrl: "https://mikedanneskjold.files.wordpress.com/2013/01/sickness-3rd-world-doctor.jpg"
+            imgUrl:
+                "https://mikedanneskjold.files.wordpress.com/2013/01/sickness-3rd-world-doctor.jpg"
         },
         {
             category: "sports",
@@ -173,7 +158,8 @@ function loadCategoties() {
         {
             category: "art",
             title: "Art",
-            imgUrl: "https://levlalev.com/wp-content/uploads/2019/06/Art-Projec-to-benefit-orphans.jpg"
+            imgUrl:
+                "https://levlalev.com/wp-content/uploads/2019/06/Art-Projec-to-benefit-orphans.jpg"
         },
         {
             category: "humanRights",

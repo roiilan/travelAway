@@ -295,7 +295,6 @@ export default {
     };
   },
   async created() {
-    window.scrollTo(0,0)
     this.loggedinUser = await this.$store.getters.loggedinUser;
     const projId = this.$route.params.id;
     if (projId) {
@@ -342,11 +341,6 @@ export default {
     },
     async save(proj) {
       if (!proj.category) {
-        // this.$store.commit({
-        //   type: "setMsg",
-        //   msg: { isShow: true, txt: "You must select a category" }
-        // });
-
         this.$notify({
           title: "Warning",
           message: "You must select a category",
@@ -385,29 +379,14 @@ export default {
       this.currentImgIdx = idx;
     },
     async searchPosition(txt) {
-      //  var txt =proj.position.txtAddress
       var currPosition = await this.$store.dispatch({
         type: "searchPosition",
         txt
       });
       if (currPosition) {
         this.proj.position = currPosition;
-
-        // this.zoomSize = 14;
-        // this.markers = [
-        //   { position: { lat: currPosition.lat, lng: currPosition.lng } }
-        // ];
       }
     },
-    // getMarkers() {
-    //   var markers = [{ pos: this.proj.position, proj: this.proj }];
-    //   markers.forEach(marker => {
-    //     this.markers.push({
-    //       position: { lat: marker.pos.lat, lng: marker.pos.lng },
-    //       proj: marker.proj
-    //     });
-    //   });
-    // },
     reset() {
       this.proj = projService.getEmptyProj();
       window.scrollTo(0, 0);

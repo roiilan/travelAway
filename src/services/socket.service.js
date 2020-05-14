@@ -1,9 +1,9 @@
 import io from 'socket.io-client';
 import {storageService} from './storage.service.js'
 
-const BASE_URL = process.env.NODE_ENV !== 'development'
-    ? '/api/'
-    : '//localhost:3030/api/'
+const BASE_URL = process.env.NODE_ENV === 'production' ?
+    '/' :
+    '//localhost:3030'
 var socket;
 
 export default {

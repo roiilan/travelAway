@@ -6,7 +6,6 @@
           <source src="../assets/video/heroHeader.mp4" type="video/mp4" />
         </video>
       </div>
-      <!-- <pre>{{projs}}</pre> -->
       <div class="overlayText">
         <h3 id="welcom-txt">WalkWays</h3>
         <p>

@@ -4,27 +4,35 @@
       <div class="main-content">
         <div>
           <div class="user-profile-inside-container flex col">
+            
+          <!-- CMP AVATAR OF USER ---- EDIT-MODE-->
             <avatar-edit v-if="loggedinUser && loggedinUser._id === user._id" :url="user.imgUrl" />
+          <!-- V-ELSE: IMG AVATAR OF USER --- SHOW-MODE-->
             <div v-else class="container-img">
               <img class="avatar avatar-m" :src="user.imgUrl" />
             </div>
+     
             <div class="container-details-user flex col a-center j-center">
+             
+              <!-- FULLNAME  --> 
+              <!-- EDIT-MODE -->
               <input
                 class="input-fullname"
                 type="text"
                 v-if="loggedinUser && loggedinUser._id === user._id"
                 v-model="fullName"
               />
+              <!--  SHOW-MODE -->
               <p v-else>{{user.fullName}}</p>
+              
+              <!-- JOIN-AT -->
               <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
+    
+              <!--CMP AVARAGE REVIEW OF USER-->
               <review-avarage v-if="reviews" :reviews="reviews" />
             </div>
           </div>
-          <div class="user-projs-container width-container">
-            <div v-for="proj in projs" :key="proj._id">
-              <user-projs :proj="proj" v-if="projs" />
-            </div>
-          </div>
+          <!--CMP NOTIFICATIONS OF USER-->
           <notification-list
             v-if="user.notifications"
             :notifications="user.notifications"
@@ -32,16 +40,24 @@
           />
         </div>
       </div>
+      
+      <!--CMP ADD REVIEW-->
       <review-add
         v-if="!loggedinUser || (loggedinUser && loggedinUser._id !== user._id)"
         :review="review"
         @save="save"
       />
-      <review-list v-if="reviews && reviews.length" :reviews="reviews" />
-      <map-preview class="map" :array="[user]"></map-preview>
+      
+      <!--CMP LIST REVIEWS-->
+      <review-list v-if="reviews && reviews.length" :reviews="reviews"/>
+      
+      <!--CMP LOCATION OF USER-->
+        <map-preview class="map" :array="[user]"></map-preview>
     </div>
-    <div class="height-container width-contianer" v-else>
-      <img src="../../assets/svg/loading.svg" alt />
+    
+    <!--PAGE LOADING-->
+    <div class="height-container width-contianer flex a-center j-center" v-else>
+      <img class="loading-page" src="../../assets/svg/loading.svg" alt="">
     </div>
   </transition>
 </template>
@@ -53,7 +69,6 @@ import mapPreview from "../../components/map-preview.vue";
 import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
-import userProjs from "../../components/user/user.projs.vue";
 import notificationList from "../../components/notification/notification-list.vue";
 import avatarEdit from "../../components/video/avatar-edit.vue";
 
@@ -65,24 +80,18 @@ export default {
       user: null,
       review: null,
       projApplied: null,
-      audioNotification: null,
-      projs: null
+      audioNotification: null
     };
   },
   async created() {
+    
     this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
     );
 
     const userId = this.$route.params.id;
-
     const user = await userService.getById(userId);
     this.user = JSON.parse(JSON.stringify(user));
-    this.projs = await this.$store.dispatch({
-      type: "loadProjs",
-      filterBy: { creators: user.fullName }
-    });
-
     this.imgUrl = user.imgUrl;
     await this.$store.dispatch({
       type: "loadReviews",
@@ -91,13 +100,11 @@ export default {
     });
     this.fullName = this.user.fullName;
     this.review = this.getEmptyReview();
-    console.log(this.reviews);
-    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
-    var projsForUser = await this.$store.dispatch({
-      type: "loadProjs",
-      filterBy: { creators: [this.user.fullName] }
-    });
-    // console.log(projsForUser, 'projsForUser');
+        console.log(this.reviews);
+    var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {id: this.user._id}})
+    // var projsForUser = await this.$store.dispatch({type: 'loadProjs', filterBy: {creators: [this.user.fullName]}})
+  console.log(projsForUser, 'projsForUser');
+  
   },
   mounted() {
     eventBus.$on("updateUser", user => (this.user = user));
@@ -188,10 +195,7 @@ export default {
     reviewAdd,
     reviewAvarage,
     notificationList,
-    avatarEdit,
-    userProjs,
-
-
+    avatarEdit
   },
   watch: {
     loggedinUser() {
