@@ -1,9 +1,8 @@
 import io from 'socket.io-client';
 import {storageService} from './storage.service.js'
 
-const BASE_URL = process.env.NODE_ENV === 'production'
+const BASE_URL = process.env.NODE_ENV !== 'development'
     ? '/api/'
-    // : '//localhost:3000/api/'
     : '//localhost:3030/api/'
 var socket;
 
