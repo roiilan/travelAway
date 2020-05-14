@@ -1,14 +1,8 @@
 <template>
   <transition name="fade">
     <div class="proj-list width-container" v-if="projs">
-      <filter-By class="filter-in-proj-list"/>
-              <div class="header ratio-16-9" v-if="isOpen">
-          <img src="../../assets/jpg/people.jpg" />
-          <div class="page-header">
-      <h2 class="projs-title">Be the change </h2>
-      <h3>Be a global volunteer abroad</h3>
-          </div>
-        </div>
+      <filter-By class="filter-in-proj-list" />
+      <h2>Be the change, Be a global volunteer abroad</h2>
       <div class="around-the-world-list">
         <marker-card
           v-for="proj in projs"
@@ -29,12 +23,7 @@ import { eventBus } from "../../services/eventbus-service.js";
 
 export default {
   name: "projList",
-  data(){
-    return{
-      isOpen:true,
-      initialVal:null
-    }
-  },
+
   computed: {
     projs: {
       get() {
@@ -46,15 +35,11 @@ export default {
     }
   },
   async created() {
-    window.scrollTo(0,0)
     await this.$store.dispatch({ type: "loadProjs" });
-    this.initialVal = this.projs.length
-
   },
   mounted() {
     eventBus.$on("setFilter", async filterBy => {
       await this.$store.dispatch({ type: "loadProjs", filterBy });
-      (this.initialVal !== this.projs.length) ? this.isOpen = false : this.toggleHero()
     });
   },
   beforeDestroy() {
@@ -65,16 +50,11 @@ export default {
   methods: {
     openDetails(id) {
       this.$router.push("/proj/" + id);
-    },
-    toggleHero(){
-     this.isOpen = true
     }
   },
   components: {
     filterBy: () => import("../../components/filter/filter-by.vue"),
     markerCard
-  },
-
-
+  }
 };
 </script>

@@ -26,7 +26,7 @@
             <input @change="uploadImg" type="file" hidden />
             <li class="upload">Upload a photo</li>
           </label>
-          <li class="upload" @click="toggleVideo">Turn on camera</li>
+          <li @click="toggleVideo">Turn on camera</li>
         </section>
       </transition>
     </section>
