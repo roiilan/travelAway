@@ -389,7 +389,8 @@
                 -webkit-appearance: none;
               }
             input {
-                box-shadow: inset 0px -0.5px 0px 0px #68667a;
+                border-bottom: 1.1px solid #0000002b;
+                box-shadow: none;
                 cursor: text;
                 border-radius: 0;
                 background-color: initial;
@@ -429,13 +430,15 @@
                     opacity: 1;
                   }
                 input {
-                   box-shadow: inset 0px -1px 0px 0px #68667a;
-        
+                    border-bottom: 1.8px solid #0000002b;
                 }
             }
         }
         .location-txt {
-           font-size: 22px;
+           font-size: 16px;
+           @include for-mobile-layout {
+            font-size: 22px;
+        }
            font-weight: 400;
            font-family: Montserrat;
            margin-inline-start: 10px; 
@@ -459,7 +462,7 @@
        
     }
 
-    
+   
 
     .reviews-container {
         margin-top: 40px;

@@ -1,38 +1,37 @@
 <template>
-  <el-carousel indicator-position="outside">
-    <el-carousel-item
+  <section class="carousel-proj-container">
+    <section
       v-for="proj in projs"
       :key="proj._id"
-      @click.native="openDetails(proj._id)"
+      @click="openDetails(proj._id)"
       :title="proj.description.substring(0,80) +'... Click to read more!!'"
-      class="proj-preview-card flex col"
+      class="carousel-proj-preview"
     >
-      <!-- <div class="ratio-16-9"> -->
-        <img :src="proj.imgUrls[0]" class="proj-img" />
-      <!-- </div> -->
-      <div class="proj-content">
+      <img :src="proj.imgUrls[0]" />
+      <div class="proj-content flex col bet">
         <section>
-          <h4>{{proj.organization}}</h4>
-          <h5>{{proj.title}}</h5>
-          <div class="world-details">
+          <h3>{{proj.organization}}</h3>
+          <h4>{{proj.title}}</h4>
+        </section>
+        <section>
+          <h5 class="flex a-center">
             <img
               :src="`https://www.countryflags.io/${proj.position.short_country}/shiny/64.png`"
               v-if="proj.position.short_country"
             />
-            <h5 v-if="proj.position.city">{{proj.position.city}},</h5>
-            <h5 v-else>{{proj.position.region}},</h5>
-            <h5>{{proj.position.country}}</h5>
-          </div>
+            <span v-if="proj.position.city">{{proj.position.city}},</span>
+            <span v-else>{{proj.position.region}},</span>
+            <span>{{proj.position.country}}</span>
+          </h5>
+          <review-avarage-by-id class="review-avarage" :id="proj._id" />
         </section>
-        <review-avarage-by-id class="review-avarage" :id="proj._id" />
       </div>
-    </el-carousel-item>
-  </el-carousel>
+    </section>
+  </section>
 </template>
 
 <script>
 import reviewAvarageById from "../review/review-avarage-by-id.vue";
-
 export default {
   props: {
     projs: Array

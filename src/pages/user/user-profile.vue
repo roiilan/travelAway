@@ -30,11 +30,21 @@
               <review-avarage v-if="reviews" :reviews="reviews" />
             </div>
           </div>
-          
-          <div v-if="projs" class="user-projs-container">
-              <user-projs  v-for="proj in projs" :key="proj._id" :proj="proj"  />
-          </div>
-          
+          <section v-if="projs">
+            <div @click="scrollTo" class="flex a-center bet">
+              <h3 class="container-link-img flex bet">
+                <section>
+                  <img class="link-img" src="../../assets/svg/link.svg" alt />
+                  <span>{{user.fullName}}'s projects</span>
+                </section>
+                <!-- <img class="edit-mode" v-if="editMode" src="../../assets/svg/pen2.svg" alt="Edit" /> -->
+              </h3>
+            </div>
+            <div  class="user-projs-container">
+              <user-projs v-for="proj in projs" :key="proj._id" :proj="proj" />
+            </div>
+          </section>
+
           <!--CMP NOTIFICATIONS OF USER-->
           <notification-list
             v-if="user.notifications"
@@ -55,6 +65,16 @@
       <review-list v-if="reviews && reviews.length" :reviews="reviews" />
 
       <!--CMP LOCATION OF USER-->
+
+      <div @click="scrollTo" class="flex a-center bet">
+        <h3 class="container-link-img flex bet">
+          <section>
+            <img class="link-img" src="../../assets/svg/link.svg" alt />
+            <span>Location</span>
+          </section>
+          <!-- <img class="edit-mode" v-if="editMode" src="../../assets/svg/pen2.svg" alt="Edit" /> -->
+        </h3>
+      </div>
       <map-preview class="map" :array="[user]"></map-preview>
     </div>
 
@@ -77,7 +97,7 @@ import avatarEdit from "../../components/video/avatar-edit.vue";
 import userProjs from "../../components/user/user.projs.vue";
 
 export default {
-    name: "UserProfile",
+  name: "UserProfile",
 
   data() {
     return {
@@ -87,14 +107,12 @@ export default {
       review: null,
       projApplied: null,
       projs: null,
-                  audioNotification: null,
-
-
+      audioNotification: null
     };
   },
   async created() {
-    window.scrollTo(0,0)
-   this.audioNotification = new Audio(
+    window.scrollTo(0, 0);
+    this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
     );
 
@@ -132,6 +150,9 @@ export default {
     eventBus.$off("uploadImg", this.uploadImg);
   },
   methods: {
+    scrollTo(ev) {
+      window.scrollTo(0, ev.target.offsetTop - 200);
+    },
     async save(review) {
       await this.$store.dispatch({
         type: "saveReview",

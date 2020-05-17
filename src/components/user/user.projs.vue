@@ -1,8 +1,8 @@
 <template>
-<div class="proj-container">
+<router-link :to="'/proj/' + proj._id"  class="proj-container">
   <img class="proj-minimal-img" :src="proj.imgUrls[0]" alt="">
   <img class="proj-flag" :src="`https://www.countryflags.io/${proj.position.short_country}/shiny/64.png`" alt="">
-</div>
+</router-link>
 </template>
 <script>
 

@@ -1,7 +1,6 @@
 <template>
   <transition name="fade">
     <div class="proj-details-container width-container" v-if="proj && reviews">
-      <!-- <popap-chat :proj="proj"/> -->
 
       <div class="proj-details">
         <div class="main-content-details-contianer">
@@ -314,7 +313,7 @@
         />
 
         <!--CMP LOCATION OF PROJECT IN MAP-->
-        <section>
+        <section class="container-location">
           <div @click="scrollTo" class="flex a-center bet">
             <h3 class="container-link-img flex bet">
               <section>
@@ -480,8 +479,6 @@ import reviewList from "../../components/review/review-list.cmp.vue";
 import reviewAdd from "../../components/review/review-add.cmp.vue";
 import reviewAvarage from "../../components/review/review-avarage.cmp.vue";
 import reviewAvarageById from "../../components/review/review-avarage-by-id.vue";
-import popapChat from "../../components/socket/popap-chat.vue";
-import userProfileForDetails from "../../components/user/user-profile-for-details.vue";
 import selectCmp from "../../components/filter/select-cmp.vue";
 
 export default {
@@ -552,8 +549,6 @@ export default {
     reviewAdd,
     reviewAvarage,
     reviewAvarageById,
-    popapChat,
-    userProfileForDetails,
     selectCmp
   },
   computed: {
