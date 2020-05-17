@@ -79,6 +79,8 @@ import avatarEdit from "../../components/video/avatar-edit.vue";
 import userProjs from "../../components/user/user.projs.vue";
 
 export default {
+    name: "UserProfile",
+
   data() {
     return {
       timeOut: null,
@@ -86,13 +88,14 @@ export default {
       user: null,
       review: null,
       projApplied: null,
-      audioNotification: null,
-      projs: null
+      projs: null,
+                  audioNotification: null,
+
 
     };
   },
   async created() {
-    this.audioNotification = new Audio(
+   this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
     );
 
@@ -127,7 +130,6 @@ export default {
     eventBus.$off("deleteNotification", this.deleteNotification);
     eventBus.$off("onApprove", this.onApprove);
     eventBus.$off("onDecline", this.onDecline);
-
     eventBus.$off("uploadImg", this.uploadImg);
   },
   methods: {

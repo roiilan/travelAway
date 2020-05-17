@@ -7,7 +7,7 @@
 
     }
 
-    padding: 60px 30px 80px;
+    padding: 30px;
     @include for-normal-layout {
         padding: 60px 0px 80px;
     
@@ -22,6 +22,9 @@
     }
 
         .inside-footer-container {
+            .logo{
+                width: rem(100px);
+            }
             height: 100%;
             
             .content-container-footer {
@@ -38,17 +41,17 @@
                 }
 
                 .logo-location-container {
+                    flex-direction: row;
                     align-items: flex-start;
                     width: fit-content;
                     > *:first-child {
-                        margin-bottom: 20px;
+                        // margin-bottom: 20px;
                         margin-inline-end: 20px;
                     }
                     > *:last-child {
                         max-width: 340px;
                     }
                     @include for-medium-mobile-layout {
-                        flex-direction: row;
                             > *:first-child {
                                 margin-bottom: 0px;
                             }
@@ -65,28 +68,62 @@
     
                 
                 .phone-email-container {
-                    width: 157.5px;
+                    width: 180.5px;
                     height: 70px;
                     cursor: pointer;
-                    p {
+                    p, a.mail-link {
+                        padding-bottom:16px;
+                        padding-left: 100px;
+                        color: #fff8e2;
                         font-size: 14px;
                         margin: 0;
                         line-height: 21px;
+                        &:last-child{     
+                            padding: 0 10px 15px 15px;
+                        }
                     }
+                    img{
+                        padding-bottom:16px;
+                        margin: 0 12px 0 0;
+                    }
+                    .mail-icon{
+                        margin-right: 6px ;
+                    }
+                    @include for-normal-layout{
+                        p, a.mail-link {
+                            &:last-child{     
+                                padding: 0 10px 15px 0px;
+                            }
+                        }
+                    }
+      
                 }
+
+
+
+
+
                .img-svg {
-                   margin: 0 12px;
+                &:first-child {
+                    margin: 0 12px 0 0;
+                }
+                  margin: 0 12px;
                    width: rem(30px);
                    border: 0.5px solid transparent;
                    border-radius: 40%;
+
                    
                 }
                 ul {
                     * {
-                        margin-bottom: 16px;
+                        margin-bottom: 10px;
                         cursor: pointer;
+                        @include for-normal-layout{
+                            margin-bottom: 16px;
+    
+                        }
                     }
-                }
+                    }
             }
           }
         }

@@ -1,9 +1,8 @@
 import router from '@/router'
 import store from '@/store'
 
-const BASE_URL = process.env.NODE_ENV === 'production'
+const BASE_URL = process.env.NODE_ENV !== 'development'
     ? '/api/'
-    // : '//localhost:3000/api/'
     : '//localhost:3030/api/'
 
 

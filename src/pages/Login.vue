@@ -142,7 +142,7 @@ export default {
       this.credentials.password = "";
     },
     goBack() {
-      this.$router.go(-1);
+      this.$router.push('/');
     },
     async uploadImg(ev) {
       var img = await this.$store.dispatch({

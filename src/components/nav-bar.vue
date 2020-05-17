@@ -128,12 +128,12 @@ export default {
   methods: {
     async onGoToSearchPage(ev) {
       console.log(ev.target.value);
-      
+
       if (this.openMenu) {
         this.toogleMemu();
       }
       await this.$router.push("/projs/aroundTheWorld");
-      if (ev.target.value){
+      if (ev.target.value) {
         eventBus.$emit("goToSearchPage", ev.target.value);
       }
     },
@@ -156,11 +156,14 @@ export default {
         this.isScrollering = false;
       }
     },
-    toogleMemu() {
+    toogleMemu() {   
+      this.isActive = false
       this.openMenu = !this.openMenu;
       document.body.classList.toggle("menu-open");
     },
     handleClick(event) {
+      console.log('hi');
+      
       if (this.isActive) this.isActive = false;
       if (!this.openMenu) return;
       this.toogleMemu();

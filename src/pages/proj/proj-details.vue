@@ -54,23 +54,23 @@
               </div>
               <transition name="fade">
                 <div v-if="active === 'requirements'">
-                  <p>
+                  <p class="requirements">
                     <span class="strong">Required Dates:</span>
                     {{proj.date[0]}} - {{proj.date[1]}}
                   </p>
-                  <p>
+                  <p class="requirements">
                     <span class="strong">Members needed:</span>
                     {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
                   </p>
-                  <p v-if="proj.requirements.languages.length">
+                  <p v-if="proj.requirements.languages.length" class="requirements">
                     <span class="strong">Language control:</span>
                     <span> {{proj.requirements.languages.join(', ')}}.</span>
                   </p>
-                  <p v-if="proj.requirements.otherSkills.length">
+                  <p v-if="proj.requirements.otherSkills.length" class="requirements">
                     <span class="strong">Other Skills:</span>
                     <span> {{proj.requirements.otherSkills.join(', ')}}.</span>
                   </p>
-                  <p>
+                  <p class="requirements">
                     <span class="strong">Minimum Age:</span>
                     {{proj.requirements.minAge}}
                   </p>
@@ -255,7 +255,7 @@ export default {
       document.body.classList.remove("apply-open");
     },
     handlePress() {
-      if (event.keyCode === 27 || event.keyCode === 32) {
+      if (event.keyCode === 27 ) {
         this.closeApply();
       }
     },

@@ -25,7 +25,7 @@ export default {
 
             return state.users;
         },
-        loggedinUser(state) {
+        loggedinUser(state) {                        
             return state.loggedinUser
         },
         newUserCred(state) {
@@ -52,7 +52,7 @@ export default {
             const user = await userService.login(credentials);
             if (user !== 'err') {
                 context.commit({ type: 'setUser', user })
-            }
+            }            
             return user;
         },
         async signup(context, { newUserCred }) {

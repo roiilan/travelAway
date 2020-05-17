@@ -13,7 +13,8 @@ export default {
   data(){
     return{
       projs: null,
-      users: []
+      users: [],
+      loggedinUser:null
     }
   },
   components: {

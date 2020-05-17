@@ -160,34 +160,34 @@
               <transition v-else name="fade">
                 <div v-if="active === 'requirements'">
                   <!--DATES REQUIEMENTS-->
-                  <p>
+                  <div class="requirements">
                     <span class="strong">Required Dates:</span>
-                    {{proj.date[0]}} - {{proj.date[1]}}
-                  </p>
+                    <div class ="dates">{{proj.date[0]}} - {{proj.date[1]}}</div>
+                  </div>
 
                   <!--MEMBERS NEEDED REQUIEMENTS-->
-                  <p>
+                  <div class="requirements">
                     <span class="strong">Members needed:</span>
                     {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
-                  </p>
+                  </div>
 
                   <!--LANGUAGES REQUIEMENTS-->
-                  <p v-if="proj.requirements.languages.length">
+                  <div v-if="proj.requirements.languages.length" class="requirements">
                     <span class="strong">Language control:</span>
                     <span>{{proj.requirements.languages.join(', ')}}.</span>
-                  </p>
+                  </div>
 
                   <!--OTHER SKILLS REQUIEMENTS-->
-                  <p v-if="proj.requirements.otherSkills.length">
+                  <div v-if="proj.requirements.otherSkills.length" class="requirements">
                     <span class="strong">Other Skills:</span>
                     <span>{{proj.requirements.otherSkills.join(', ')}}.</span>
-                  </p>
+                  </div>
 
                   <!--AGE REQUIEMENTS-->
-                  <p>
+                  <div class="requirements">
                     <span class="strong">Minimum Age:</span>
                     {{proj.requirements.minAge}}
-                  </p>
+                  </div>
                 </div>
               </transition>
             </section>
@@ -673,7 +673,7 @@ export default {
       document.body.classList.remove("apply-open");
     },
     handlePress() {
-      if (event.keyCode === 27 || event.keyCode === 32) {
+      if (event.keyCode === 27) {
         this.closeApply();
       }
     },
