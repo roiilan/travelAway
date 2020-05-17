@@ -1,11 +1,11 @@
 <template>
-  <el-carousel indicator-position="outside">
-    <el-carousel-item
+  <section class="carousel-proj-container">
+    <section
       v-for="proj in projs"
       :key="proj._id"
-      @click.native="openDetails(proj._id)"
+      @click="openDetails(proj._id)"
       :title="proj.description.substring(0,80) +'... Click to read more!!'"
-      class="proj-preview-card flex col"
+      class="carousel-proj-preview"
     >
       <!-- <div class="ratio-16-9"> -->
         <img :src="proj.imgUrls[0]" class="proj-img" />
@@ -26,8 +26,8 @@
         </section>
         <review-avarage-by-id class="review-avarage" :id="proj._id" />
       </div>
-    </el-carousel-item>
-  </el-carousel>
+    </section>
+  </section>
 </template>
 
 <script>

@@ -122,7 +122,7 @@
               </div>
               <transition v-if="editMode" name="fade">
                 <div>
-                  <h5>Choose a date</h5>
+                  <p>Choose a date</p>
                   <el-date-picker
                     v-model="proj.date"
                     type="daterange"
@@ -130,23 +130,25 @@
                     range-separator="To"
                     start-placeholder="Start date"
                     end-placeholder="End date"
-                    format="yyyy/MM/dd"
+                    value-format="yyyy-MM-dd"
                   ></el-date-picker>
-                  <h5>Members Needed</h5>
+                  <p>Members Needed</p>
                   <el-input-number v-model="proj.membersNeeded" :min="1" :max="100"></el-input-number>
-                  <h5>Minimum Age: {{proj.requirements.minAge}}</h5>
+                  <p>Minimum Age: {{proj.requirements.minAge}}</p>
                   <el-input-number v-model="proj.requirements.minAge" :min="14"></el-input-number>
-                  <h5>Language skill</h5>
+                  <p>Language skill</p>
                   <div class="select-cmp-container">
                     <select-cmp
+                      class="filters-open"
                       v-model="proj.requirements.languages"
                       :selects="languages"
                       :placeholder="'Add Skills'"
                     ></select-cmp>
                   </div>
-                  <h5>More skills</h5>
+                  <p>More skills</p>
                   <div class="select-cmp-container">
                     <select-cmp
+                      class="filters-open"
                       v-model="proj.requirements.otherSkills"
                       :selects="otherSkills"
                       :placeholder="'Add Skills'"
@@ -211,7 +213,8 @@
 
               <transition v-if="editMode" name="fade">
                 <div class="select-cmp-container">
-                  <select-cmp v-model="proj.tags" :selects="tags" :placeholder="'What\'s included'"></select-cmp>
+                   
+                  <select-cmp  class="filters-open" v-model="proj.tags" :selects="tags" :placeholder="'What\'s included'"></select-cmp>
                 </div>
               </transition>
               <transition v-else name="fade">
@@ -282,11 +285,9 @@
                 </h3>
               </div>
               <transition v-if="editMode" name="fade">
-                <input
-                  class="input-organization"
-                  v-model="proj.organization"
-                  placeholder="Project organization"
-                />
+                <section class="input-organization">
+                  <input v-model="proj.organization" placeholder="Project organization" />
+                </section>
               </transition>
               <transition v-else name="fade">
                 <h3 v-if="active === 'organization'">{{proj.organization}}</h3>
@@ -356,10 +357,8 @@
             <map-preview :array="[proj]"></map-preview>
           </div>
         </section>
-        <!-- <span class="btn-span" v-if="proj._id" @click="removeProj(proj._id)">Delete</span>
-        <span class="btn-span" v-else @click="reset">Reset</span>-->
-        <!-- <button class="btn-save" @click="saveProj(proj)">Save</button> -->
-        <section v-if="editMode" class="container-controller-proj-btn width-container">
+
+        <!-- <section v-if="editMode" class="container-controller-proj-btn width-container">
           <section v-if="proj._id">
             <img @click="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Save" />
           </section>
@@ -369,11 +368,41 @@
           <section>
             <img @click="saveProj(proj)" src="../../assets/svg/save.svg" alt="Save" />
           </section>
-        </section>
+        </section>-->
       </div>
+      <section>
+        <section class="container-controller-proj-btn width-container">
+          <section v-if="proj._id && editMode">
+            <img @click="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Save" />
+          </section>
+          <section v-else-if="editMode">
+            <img @click="reset" src="../../assets/svg/clean.svg" alt="Reset" />
+          </section>
+          <section v-if="editMode">
+            <img @click="saveProj(proj)" src="../../assets/svg/save.svg" alt="Save" />
+          </section>
+          <section
+            v-if="!newProjMode && loggedinUser &&
+        (loggedinUser._id === proj.createdBy._id || 
+        loggedinUser.isAdmin)"
+            :title="editMode? 'Switch to read mode': 'Switch to edit mode'"
+            @click="editMode = !editMode"
+          >
+            <img v-if="editMode" src="../../assets/svg/read-mode.svg" alt />
+            <img v-else src="../../assets/svg/pen.svg" alt />
+          </section>
+          <span
+            v-else-if="!newProjMode && loggedinUser &&
+        (loggedinUser._id !== proj.createdBy._id || 
+        !loggedinUser.isAdmin)"
+            @click.stop="toggleApply"
+            :class="{'apply-open':isApplyOpen}"
+          >Apply now</span>
+        </section>
+      </section>
 
       <!--CONTAINER BUTTONS OPEN-APPLY/EDIT-NODE FOT DESCTOP-->
-      <div v-if="!newProjMode" class="edit-link-container width-container">
+      <!-- <div v-if="!newProjMode" class="edit-link-container width-container">
         <section
           v-if="loggedinUser &&
         (loggedinUser._id === proj.createdBy._id || 
@@ -392,7 +421,7 @@
           @click.stop="toggleApply"
           :class="{'apply-open':isApplyOpen}"
         >Apply now</span>
-      </div>
+      </div>-->
 
       <proj-apply
         v-if="loggedinUser && !newProjMode"
@@ -406,7 +435,7 @@
       <!--BUTTON OPEN APPLY FOT MOBILE-->
       <!-- TODO: ADD BUTTON FOR EDIT-MODE IN:V-ELSE -->
 
-      <section v-if="!newProjMode" class="container-btn-footer-for-mobile">
+      <!-- <section v-if="!newProjMode" class="container-btn-footer-for-mobile">
         <h1
           v-if="loggedinUser &&
         (loggedinUser._id === proj.createdBy._id || 
@@ -431,7 +460,7 @@
           @click.stop="toggleApply"
           :class="{'apply-open':isApplyOpen}"
         >Apply now</h1>
-      </section>
+      </section>-->
     </div>
     <div class="height-container width-contianer flex a-center j-center" v-else>
       <img class="loading-page" src="../../assets/svg/loading.svg" alt />

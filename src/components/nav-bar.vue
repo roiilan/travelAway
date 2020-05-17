@@ -43,11 +43,11 @@
             <path d="M23 23 L30 30" />
           </svg>
         </section>
-        <router-link active-class="active" to="/" title="Home" exact>
+        <router-link @click="toogleMemu" active-class="active" to="/" title="Home" exact>
           <img src="../assets/svg/homepage.svg" alt />
           <span>Home</span>
         </router-link>
-        <router-link active-class="active" to="/edit" title="Let's Publish">
+        <router-link @click="toogleMemu" active-class="active" to="/proj" title="Let's Publish">
           <img src="../assets/svg/project.svg" alt />
           <span>Publish</span>
         </router-link>
@@ -55,7 +55,7 @@
           <img src="../assets/svg/log-in.svg" alt />
           <span>Logout</span>
         </a>
-        <router-link v-else to="/login" active-class="active" title="Login">
+        <router-link v-else @click="toogleMemu" to="/login" active-class="active" title="Login">
           <img src="../assets/svg/log-in.svg" alt />
           <span>Login</span>
         </router-link>
@@ -81,6 +81,7 @@
           <transition name="fade">
             <div class="accordion-categories" v-if="isActive" @click="isActive = !isActive">
               <router-link
+                @click="toogleMemu"
                 v-for="category in categories"
                 :key="category.category"
                 :to="'/projs/' + category.category"
@@ -147,6 +148,7 @@ export default {
           duration: 1500
         });
       }
+      this.toogleMemu();
     },
     handleScroll() {
       this.isScrollering = true;
@@ -201,16 +203,7 @@ export default {
       document.title = this.loggedinUser
         ? `(${this.loggedinUser.notifications.length}) Walkways`
         : "Walkways";
-      // if (!this.loggedinUser) {
-      // this.$router.push("/");
-      // }
     },
-    // txtSearch:{
-    //   handler(){
-    //     this.goToSearchPage()
-    //   },
-    //   deep:true
-    // }
     "$route.path": {
       handler() {
         if (this.$route.path === "/projs/aroundTheWorld") {
@@ -221,10 +214,6 @@ export default {
       },
       deep: true
     }
-    // 'loggedinUser.notifications'() {
-    //   // console.log(this.loggedinUser.notifications);
-    //   console.log('hi!!');
-    // }
   }
 };
 </script>

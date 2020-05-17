@@ -48,6 +48,8 @@
           <span class="space">{{countriesCount}}</span>
         </h1>
       </div>
+
+
       <section class="carousel-for-desctop">
         <ul v-if="projs" class="around-the-world-preview width-container">
           <!-- <li v-for="proj in projs" :key="proj._id" class="around-the-world-card"> -->
@@ -66,11 +68,15 @@
       </section>
 
       <section class="carousel-for-mobile width-container">
-        <!-- <proj-list-carousel v-if="projs" :projs="projs" /> -->
+        <proj-list-carousel2 v-if="projs" :projs="projsForDisplay" />
+        <img v-else src="../assets/svg/loading.svg" alt />
+      </section>
+
+      <!-- <section class="carousel-for-mobile width-container">
+        <proj-list-carousel v-if="projs" :projs="projs" />
         <proj-list-carousel v-if="projs" :projs="projsForDisplay" />
         <img v-else src="../assets/svg/loading.svg" alt />
-        <!-- <img   class="flex a-center j-center" src="../assets/svg/loading.svg" alt /> -->
-      </section>
+      </section> -->
 
       <!-- <div class="proj-preview-card">
       <router-link
@@ -88,7 +94,8 @@ import { utilService } from "../services/util.service.js";
 import { projService } from "../services/proj.service.js";
 import socketService from "../services/socket.service.js";
 import markerCard from "../components/marker-card.vue";
-import projListCarousel from "../components/proj/proj-list-carousel.vue";
+import projListCarousel2 from "../components/proj/proj-list-carousel2.vue";
+// import projListCarousel from "../components/proj/proj-list-carousel.vue";
 
 // @ is an alias to /src
 export default {
@@ -158,7 +165,8 @@ export default {
   },
   components: {
     markerCard,
-    projListCarousel
+    projListCarousel2,
+    // projListCarousel
   }
 };
 </script>

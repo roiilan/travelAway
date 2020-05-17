@@ -11,15 +11,52 @@
         }
     }
     .carousel-for-mobile {
+        margin-top: 25px;
         display: block;
         @include for-mobile-layout {
             display: none;
         }
-
-        .proj-content {
-            padding: 20px;
-            height: 50%;
+        .carousel-proj-container {
+            // width: 100px;
+            // height: 300px;
+            // overflow-y: auto;
+            // overflow-x: hidden;
+            // >* {
+            //     width: 100px;
+            //     height: 100px;
+            //     transform: rotate(90deg);
+            //     // transform-origin: right top;
+            // }
+            // transform:rotate(-90deg) translateY(-100px);
+            // transform-origin: right top;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            // height: 80px;
+            white-space:nowrap;
+            
+            >* {
+                width: 100%;
+                .proj-img {
+                    // width: 100px;
+                    // height: 500px;
+                    width: 100%;
+                }
+                box-shadow: 1px 1px 10px #999;
+                margin: 2px;
+                max-height: 450px;
+                cursor: pointer;
+                display:inline-block;
+                *display:inline;/* For IE7*/
+                *zoom:1;/* For IE7*/
+                vertical-align:top;
+            }
         }
+
+
+        // .proj-content {
+        //     padding: 20px;
+        //     height: 50%;
+        // }
 
         .el-carousel__container {
             // height: 400px;
@@ -29,10 +66,10 @@
                 height: 85vw;
             }
         }
-        > img {
-            height: 500px;
-            width: 100%;
-        }
+        // > img {
+        //     height: 500px;
+        //     width: 100%;
+        // }
         .el-carousel__arrow {
             background-color: #ffffffa3;
             color: #000;

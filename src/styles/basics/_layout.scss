@@ -2,7 +2,7 @@
 .width-container {
     margin: 0 auto;
         width: 100vw;
-        padding: 0 rem(25px) 0 rem(15px);
+        padding: 0 rem(10px) 0 rem(5px);
         @include for-mobile-layout {
             padding: rem(10px);
         }

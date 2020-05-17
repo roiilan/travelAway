@@ -6,7 +6,7 @@ import userProfile from '../pages/user/user-profile.vue'
 import userEdit from '../pages/user/user-edit.vue'
 import projEdit from '../pages/proj/proj-edit.vue'
 import projListFiltered from '../pages/proj/proj-list-filtered.vue'
-import projDetails from '../pages/proj/proj-details2.vue'
+import projDetailsEdit from '../pages/proj/proj-details-edit.vue'
 // import projDetails from '../pages/proj/proj-details.vue'
 import projList from '../pages/proj/proj-list.vue'
 // import projSearch from '../components/proj-search.vue'
@@ -63,7 +63,7 @@ const routes = [{
     {
         path: '/proj/:id?',
         name: 'projDetails',
-        component: projDetails
+        component: projDetailsEdit
     },
 ]
 
