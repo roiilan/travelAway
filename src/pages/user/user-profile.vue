@@ -93,6 +93,7 @@ export default {
     };
   },
   async created() {
+    window.scrollTo(0,0)
    this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
     );

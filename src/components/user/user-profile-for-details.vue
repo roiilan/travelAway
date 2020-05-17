@@ -25,6 +25,10 @@ export default {
   props: {
     user: Object
   },
+  created(){
+  console.log(this.user);
+
+  },
   components: {
     reviewAvarageById
   }

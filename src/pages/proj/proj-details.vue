@@ -18,7 +18,7 @@
           </div>
           <review-avarage class="review-avarage review" :reviews="reviews" />
 
-          <user-profile-for-details :user="proj.createdBy" />
+          <!-- <user-profile-for-details :user="proj.createdBy" /> -->
           <div class="main-content-details">
             <section>
               <div @click="setActive('description', $event)" class="flex a-center bet">
