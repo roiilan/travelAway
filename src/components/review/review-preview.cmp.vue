@@ -30,21 +30,30 @@
               class="btn-img"
               title="Delete"
               @click.stop="removeReview"
-              src="../../assets/png/rubbish.png"
+              src="../../assets/svg/bin2.svg"
               alt
             />
 
             <img
+              v-if="isEdit"
+              class="btn-img"
+              title="Stop update"
+              @click="isEdit = !isEdit"
+              src="../../assets/svg/read-mode2.svg"
+              alt
+            />
+            <img
+              v-else
               class="btn-img"
               title="Update"
               @click="isEdit = !isEdit"
-              src="../../assets/png/edit.png"
+              src="../../assets/svg/pen2.svg"
               alt
             />
           </div>
         </div>
       </div>
-      <div v-if="isEdit" class="flex">
+      <div v-if="isEdit" class="container-add-review-txt-btn flex col">
         <el-input
           type="textarea"
           :autosize="{ minRows: 3}"

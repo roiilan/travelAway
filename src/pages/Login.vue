@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="login-page">
+    <div class="login-page height-container">
       <form v-if="credentials && !isSignup" class="flex col" @submit.prevent="login">
         <h1>Log-in</h1>
         <input ref="username" class="my-form" type="text" v-model="credentials.username" required />

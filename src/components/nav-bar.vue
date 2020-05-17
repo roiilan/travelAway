@@ -2,7 +2,7 @@
   <div class="nav-bar-container" :class="{'scrollering': isScrollering, 'off-line':offLine}">
     <nav class="nav-bar width-container flex bet">
       <router-link to="/">
-        <img class="logo" src="../assets/svg/help.svg" alt="Logo" />
+        <img class="logo" src="../assets/svg/help.svg" alt="Logo" @click="onCloseMenu"/>
       </router-link>
       <section v-if="!isProjListOpen" class="line-search-nav-bar flex a-center j-center">
         <input type="search" @input="onGoToSearchPage" placeholder="Search Project" />
@@ -27,7 +27,7 @@
         <section v-if="!isProjListOpen" class="line-search-nav-bar flex a-center j-center">
           <input type="search" @input="onGoToSearchPage" placeholder="Search Project" />
           <svg
-            @click="$router.push('/projs/aroundTheWorld')"
+            @click="onGoToSearchPage"
             title="See All"
             role="presentation"
             viewBox="0 0 32 32"
@@ -43,49 +43,58 @@
             <path d="M23 23 L30 30" />
           </svg>
         </section>
-        <router-link @click="toogleMemu" active-class="active" to="/" title="Home" exact>
-          <img src="../assets/svg/homepage.svg" alt />
-          <span>Home</span>
-        </router-link>
-        <router-link @click="toogleMemu" active-class="active" to="/proj" title="Let's Publish">
-          <img src="../assets/svg/project.svg" alt />
-          <span>Publish</span>
-        </router-link>
+        <section class="link-container" @click="onCloseMenu">
+          <router-link active-class="active" to="/" title="Home" exact>
+            <img src="../assets/svg/homepage.svg" alt />
+            <span>Home</span>
+          </router-link>
+        </section>
+        <section class="link-container" @click="onCloseMenu">
+          <router-link active-class="active" to="/proj" title="Let's Publish">
+            <img src="../assets/svg/project.svg" alt />
+            <span>Publish</span>
+          </router-link>
+        </section>
         <a v-if="loggedinUser" active-class="active" @click="logout" title="Logout">
           <img src="../assets/svg/log-in.svg" alt />
           <span>Logout</span>
         </a>
-        <router-link v-else @click="toogleMemu" to="/login" active-class="active" title="Login">
-          <img src="../assets/svg/log-in.svg" alt />
-          <span>Login</span>
-        </router-link>
-        <router-link
-          :to="'/user/' + loggedinUser._id"
-          v-if="loggedinUser"
-          class="img-user-link"
-          active-class="active"
-        >
-          <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
-          <section class="container-notification-icon">
-            <img src="../assets/svg/notification.svg" alt />
-            <span>{{loggedinUser.notifications.length}}</span>
-          </section>
-          <span>My Profile</span>
-        </router-link>
+        <section v-else class="link-container" @click="onCloseMenu">
+          <router-link to="/login" active-class="active" title="Login">
+            <img src="../assets/svg/log-in.svg" alt />
+            <span>Login</span>
+          </router-link>
+        </section>
+        <section class="link-container img-user-link" @click="onCloseMenu">
+          <router-link
+            :to="'/user/' + loggedinUser._id"
+            v-if="loggedinUser"
+            class=""
+            active-class="active"
+          >
+            <img class="img-user" :src="loggedinUser.imgUrl" :title="loggedinUser.fullName" />
+            <section class="container-notification-icon">
+              <img src="../assets/svg/notification.svg" alt />
+              <span>{{loggedinUser.notifications.length}}</span>
+            </section>
+            <span>My Profile</span>
+          </router-link>
+        </section>
         <section class="categories-contianer">
-          <a href="#" @click.stop="toglleActive" :class="{'active': isActive}" title="Categories">
+          <a href="#" @click="toglleActive" :class="{'active': isActive}" title="Categories">
             <img src="../assets/svg/tool.svg" alt />
             <span>Categories</span>
             <img :class="{'arrow-down': isActive}" src="../assets/svg/downloading.svg" alt />
           </a>
           <transition name="fade">
             <div class="accordion-categories" v-if="isActive" @click="isActive = !isActive">
-              <router-link
-                @click="toogleMemu"
-                v-for="category in categories"
-                :key="category.category"
-                :to="'/projs/' + category.category"
-              >{{category.title}}</router-link>
+              <section class="link-container" @click="onCloseMenu">
+                <router-link
+                  v-for="category in categories"
+                  :key="category.category"
+                  :to="'/projs/' + category.category"
+                >{{category.title}}</router-link>
+              </section>
             </div>
           </transition>
         </section>
@@ -126,9 +135,13 @@ export default {
     }
   },
   methods: {
+    onCloseMenu() {
+      if (this.openMenu) {
+        this.toogleMemu();
+      }
+    },
     async onGoToSearchPage(ev) {
       console.log(ev.target.value);
-
       if (this.openMenu) {
         this.toogleMemu();
       }
@@ -156,14 +169,16 @@ export default {
         this.isScrollering = false;
       }
     },
-    toogleMemu() {   
-      this.isActive = false
+    toogleMemu() {
+      console.log(123);
+
+      this.isActive = false;
       this.openMenu = !this.openMenu;
       document.body.classList.toggle("menu-open");
     },
     handleClick(event) {
-      console.log('hi');
-      
+      console.log("hi");
+
       if (this.isActive) this.isActive = false;
       if (!this.openMenu) return;
       this.toogleMemu();

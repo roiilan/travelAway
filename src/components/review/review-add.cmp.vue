@@ -9,7 +9,7 @@
         <el-rate v-model="review.rate" text-color="#0b757d" :colors="colors"></el-rate>
       </div>
     </div>
-    <div class="flex row">
+    <div class="container-add-review-txt-btn flex col">
       <el-input
         ref="my-ref"
         type="textarea"

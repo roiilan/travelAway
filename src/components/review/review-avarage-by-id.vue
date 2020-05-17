@@ -1,6 +1,6 @@
 <template>
   <div class="review-avarage-by-id">
-    <review-avarage :reviews="reviews" />
+    <review-avarage v-if="reviews" :reviews="reviews" />
   </div>
 </template>
 
@@ -13,7 +13,8 @@ export default {
   },
   data() {
     return {
-      reviews: []
+      reviews: [],
+      colors: this.$store.getters.colors
     };
   },
   async created() {

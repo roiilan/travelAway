@@ -1,9 +1,9 @@
 <template>
   <transition name="fade">
-    <div class="user-profile width-container" v-if="user">
+    <div class="user-profile width-container height-container" v-if="user">
       <div class="main-content">
         <div>
-          <div class="user-profile-inside-container flex col">
+          <div class="user-profile-inside-container flex col a-center">
             <!-- CMP AVATAR OF USER ---- EDIT-MODE-->
             <avatar-edit v-if="loggedinUser && loggedinUser._id === user._id" :url="user.imgUrl" />
             <!-- V-ELSE: IMG AVATAR OF USER --- SHOW-MODE-->
@@ -11,7 +11,7 @@
               <img class="avatar avatar-m" :src="user.imgUrl" />
             </div>
 
-            <div class="container-details-user flex col a-center j-center">
+            <div class="container-details-user flex col">
               <!-- FULLNAME  -->
               <!-- EDIT-MODE -->
               <input
@@ -31,10 +31,8 @@
             </div>
           </div>
           
-          <div class="user-projs-container width-container">
-            <div v-for="proj in projs" :key="proj._id">
-              <user-projs :proj="proj" v-if="projs" />
-            </div>
+          <div v-if="projs" class="user-projs-container">
+              <user-projs  v-for="proj in projs" :key="proj._id" :proj="proj"  />
           </div>
           
           <!--CMP NOTIFICATIONS OF USER-->

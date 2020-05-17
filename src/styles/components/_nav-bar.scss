@@ -248,14 +248,11 @@
                     }  
                 }
             } 
+          
             .img-user-link {
                 order: -1;
                 @include for-narrow-layout {
-                    // width: 20%;
                     order: 1;
-                }
-                @include for-normal-layout {
-                    // width: 100%;
                 }
                 .img-user {
                     border-radius: 50%;

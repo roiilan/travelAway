@@ -121,7 +121,7 @@
                 </h3>
               </div>
               <transition v-if="editMode" name="fade">
-                <div>
+                <div class="edit-container">
                   <p>Choose a date</p>
                   <el-date-picker
                     v-model="proj.date"
@@ -160,34 +160,34 @@
               <transition v-else name="fade">
                 <div v-if="active === 'requirements'">
                   <!--DATES REQUIEMENTS-->
-                  <div class="requirements">
+                  <p>
                     <span class="strong">Required Dates:</span>
-                    <div class ="dates">{{proj.date[0]}} - {{proj.date[1]}}</div>
-                  </div>
+                    {{proj.date[0]}} - {{proj.date[1]}}
+                  </p>
 
                   <!--MEMBERS NEEDED REQUIEMENTS-->
-                  <div class="requirements">
+                  <p>
                     <span class="strong">Members needed:</span>
                     {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
-                  </div>
+                  </p>
 
                   <!--LANGUAGES REQUIEMENTS-->
-                  <div v-if="proj.requirements.languages.length" class="requirements">
+                  <p v-if="proj.requirements.languages.length">
                     <span class="strong">Language control:</span>
                     <span>{{proj.requirements.languages.join(', ')}}.</span>
-                  </div>
+                  </p>
 
                   <!--OTHER SKILLS REQUIEMENTS-->
-                  <div v-if="proj.requirements.otherSkills.length" class="requirements">
+                  <p v-if="proj.requirements.otherSkills.length">
                     <span class="strong">Other Skills:</span>
                     <span>{{proj.requirements.otherSkills.join(', ')}}.</span>
-                  </div>
+                  </p>
 
                   <!--AGE REQUIEMENTS-->
-                  <div class="requirements">
+                  <p>
                     <span class="strong">Minimum Age:</span>
                     {{proj.requirements.minAge}}
-                  </div>
+                  </p>
                 </div>
               </transition>
             </section>
@@ -211,10 +211,13 @@
                 </h3>
               </div>
 
-              <transition v-if="editMode" name="fade">
-                <div class="select-cmp-container">
-                   
-                  <select-cmp  class="filters-open" v-model="proj.tags" :selects="tags" :placeholder="'What\'s included'"></select-cmp>
+              <transition v-if="editMode"  name="fade">
+                <div class="edit-container">
+                  <div class="select-cmp-container">
+                    
+                    <select-cmp  class="filters-open" v-model="proj.tags" :selects="tags" :placeholder="'What\'s included'"></select-cmp>
+                  </div>
+
                 </div>
               </transition>
               <transition v-else name="fade">
@@ -249,7 +252,7 @@
                 </h3>
               </div>
               <transition name="fade">
-                <section v-if="active === 'createdBy'" class="flex col">
+                <section v-if="active === 'createdBy'" class="details-created-by flex col">
                   <router-link :to="'/user/' + proj.createdBy._id">
                     <img
                       class="avatar avatar-m"
@@ -290,7 +293,7 @@
                 </section>
               </transition>
               <transition v-else name="fade">
-                <h3 v-if="active === 'organization'">{{proj.organization}}</h3>
+                <p v-if="active === 'organization'">{{proj.organization}}</p>
               </transition>
             </section>
           </div>
@@ -321,7 +324,7 @@
               <img class="edit-mode" v-if="editMode" src="../../assets/svg/pen2.svg" alt="Edit" />
             </h3>
           </div>
-          <section v-if="editMode" class="search-location">
+          <section v-if="editMode" class="search-location edit-container">
             <input
               type="search"
               placeholder="Please enter an address"
@@ -673,7 +676,7 @@ export default {
       document.body.classList.remove("apply-open");
     },
     handlePress() {
-      if (event.keyCode === 27) {
+      if (event.keyCode === 27 || event.keyCode === 32) {
         this.closeApply();
       }
     },
