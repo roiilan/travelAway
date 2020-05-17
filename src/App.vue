@@ -55,7 +55,7 @@ export default {
     // if (this.user) this.connectSockets();
     
     this.audioNotification = new Audio(
-      require("../../travelAway/src/assets/audio/notification.mp3")
+      require("./assets/audio/notification.mp3")
     );
     socketService.setup();
     // this.loggedInUser = this.$store.getters.loggedinUser
