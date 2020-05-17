@@ -53,9 +53,9 @@ export default {
   mounted() {
     window.scrollTo(0, 0);
     eventBus.$on("goToSearchPage", this.goToSearchPage);
-    if (this.$refs.inputRef) {
-      this.$refs.inputRef.focus();
-    }
+    // if (this.$refs.inputRef) {
+    //   this.$refs.inputRef.focus();
+    // }
   },
   beforeDestroy() {
     eventBus.$off("goToSearchPage", this.goToSearchPage);

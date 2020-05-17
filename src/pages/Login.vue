@@ -14,7 +14,7 @@
       <form v-if="newUserCred && isSignup" class="flex col" @submit.prevent="signup">
         <h1>Sign-UP</h1>
         <section class="signup-form flex col">
-          <avatar-edit :url="newUserCred.imgUrl" />
+          <avatar-edit :url="newUserCred.imgUrl"  />
           <section class="flex col">
             <input
               ref="fullName"
@@ -100,6 +100,7 @@ export default {
       }
     },
     async signup() {
+      
       if (this.newUserCred.fullName.length < 3) {
         this.$notify({
           title: "Warning",
@@ -145,13 +146,17 @@ export default {
       this.$router.push('/');
     },
     async uploadImg(ev) {
-      var img = await this.$store.dispatch({
-        type: "addImg",
-        imgEv: ev
-      });
       var newUserCred = JSON.parse(JSON.stringify(this.newUserCred))
+      // newUserCred.imgUrl = '../assets/svg/loading.svg' 
+      // setTimeout( async  (ev) => {        
+        // this.$store.dispatch({type:'setNewUserCred',newUserCred })
+        var img = await this.$store.dispatch({
+          type: "addImg",
+          imgEv: ev
+        });
       newUserCred.imgUrl = img.url
-      this.$store.commit({type:'setNewUserCred', newUserCred})
+      // }, 500);
+      this.$store.dispatch({type:'setNewUserCred', newUserCred})
     },
     async removeUser(userId) {
       var msg = await this.$store.dispatch({ type: "removeUser", userId });
@@ -162,6 +167,8 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     newUserCred(){
+      console.log(this.$store.getters.newUserCred);
+      
       return JSON.parse(JSON.stringify(this.$store.getters.newUserCred));
     }
   },

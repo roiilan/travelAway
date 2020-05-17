@@ -45,7 +45,8 @@ export default new Vuex.Store({
     async addImg(context, { imgEv }) {
       const img = await cloudinaryService.uploadImg(imgEv)
       return img
-  }
+  },
+
   },
   modules: {
     projStore,

@@ -3,7 +3,7 @@
        <div class="width-container inside-footer-container flex col a-start j-center">
             <router-link to="/">
         <img class="logo" src="../../assets/svg/help.svg" alt="Logo" />
-      </router-link>
+         </router-link>
             <div class="content-container-footer flex col bet">
                 <div class="flex a-start col bet logo-location-container">
                     <img src="../../assets/svg/icon-location.svg" class="img-svg"/>

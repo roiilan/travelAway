@@ -21,8 +21,7 @@ export default {
     },
     getters: {
         users(state) {
-            console.log(state);
-
+            
             return state.users;
         },
         loggedinUser(state) {                        
@@ -44,6 +43,7 @@ export default {
             state.users = state.users.filter(user => user._id !== userId)
         },
         setNewUserCred(state, {newUserCred}){
+            
             state.newUserCred = newUserCred
         }
     },
@@ -87,5 +87,10 @@ export default {
             }
             return updatedUser;
         },
+
+        async setNewUserCred(context, {newUserCred}){
+            
+           context.commit({type:'setNewUserCred', newUserCred})
+        }
     }
 }

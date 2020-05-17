@@ -47,6 +47,8 @@ export default {
       openSelect: false
     };
   },
+  created(){  
+  },
    mounted() {
     document.querySelector(".screen").addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
