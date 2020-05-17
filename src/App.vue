@@ -25,16 +25,18 @@ export default {
   data() {
     return {
       audioNotification: null,
-      user: null
+      user: null,
+       audioNotification: null,
+
     };
   },
   computed: {
     msg() {
       return this.$store.getters.msg;
     },
-    loggedinUser() {
-      return this.$store.getters.loggedinUser;
-    }
+    // loggedinUser() {
+    //   return this.$store.getters.loggedinUser;
+    // }
   },
   methods: {
     closeMsg() {
@@ -43,18 +45,29 @@ export default {
   },
   components: {
     navBar,
-    mainFooter
+    mainFooter,
   },
   async created() {
+    console.log('app created!');
+    console.log(this.loggedinUser);
+    
+    
+    // if (this.user) this.connectSockets();
+    
+    this.audioNotification = new Audio(
+      require("../../travelAway/src/assets/audio/notification.mp3")
+    );
     socketService.setup();
-    if (this.loggedinUser) this.connectSockets();
-    this.user = JSON.parse(JSON.stringify(this.loggedinUser));
+    // this.loggedInUser = this.$store.getters.loggedinUser
+    console.log(this.$store.getters.loggedinUser);
+    
 
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
   },
   mounted() {
+    
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
     eventBus.$on("removeReview", async reviewId => {
@@ -70,23 +83,27 @@ export default {
       ? `(${this.loggedinUser.notifications.length}) Walkways`
       : "Walkways";
   },
-  destroyed() {
-    if (this.loggedinUser) this.disconnectSockets();
-    socketService.terminate();
-  },
+  // destroyed() {
+  //   if (this.loggedinUser) this.disconnectSockets();
+  //   socketService.terminate();
+  // },
   methods: {
-    connectSockets() {
-      socketService.on(`apply ${this.loggedinUser._id}`, this.pushNotification);
-      socketService.on(`decline ${this.loggedinUser._id}`, this.decline);
-      socketService.on(`approve ${this.loggedinUser._id}`, this.approve);
+    connectSockets() {     
+      console.log('conect socket!');
+      this.user =  JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
+             
+      socketService.on(`apply ${this.user._id}`, this.pushNotification);
+      socketService.on(`decline ${this.user._id}`, this.decline);
+      socketService.on(`approve ${this.user._id}`, this.approve);
     },
     disconnectSockets() {
+      if(!this.user) return
       socketService.off(
-        `apply ${this.loggedinUser._id}`,
+        `apply ${this.user._id}`,
         this.pushNotification
       );
-      socketService.off(`decline ${this.loggedinUser._id}`, this.decline);
-      socketService.off(`approve ${this.loggedinUser._id}`, this.approve);
+      socketService.off(`decline ${this.user._id}`, this.decline);
+      socketService.off(`approve ${this.user._id}`, this.approve);
     },
     pushNotification(notification) {
       // var res = this.$store.dispatch({ type: "addRequest", request });
@@ -98,11 +115,13 @@ export default {
       this.updateUser();
     },
     decline(notification) {
+      console.log(notification);
+      
       // var res = this.$store.dispatch({ type: "decline", notification });
       // if (res) this.audioNotification.play();
 
       // eventBus.$emit("decline", notification);
-      if (notification.from._id === this.loggedinUser._id) {
+      if (notification.from._id === this.user._id) {
         this.user.notifications.push({
           _id: utilService.makeId(),
           proj: notification.proj,
@@ -124,7 +143,7 @@ export default {
       // if (res) this.audioNotification.play();
 
       // eventBus.$emit("approve", notification);
-      if (notification.from._id === this.loggedinUser._id) {
+      if (notification.from._id === this.user._id) {
         this.user.notifications.push({
           _id: utilService.makeId(),
          proj: notification.proj,

@@ -43,7 +43,7 @@
             <path d="M23 23 L30 30" />
           </svg>
         </section>
-        <router-link active-class="active" to="/" title="Home" exact>
+        <router-link active-class="active" to="/" title="Home" exact >
           <img src="../assets/svg/homepage.svg" alt />
           <span>Home</span>
         </router-link>
@@ -55,7 +55,7 @@
           <img src="../assets/svg/log-in.svg" alt />
           <span>Logout</span>
         </a>
-        <router-link v-else to="/login" active-class="active" title="Login">
+        <router-link v-else to="/login" active-class="active" title="Login" >
           <img src="../assets/svg/log-in.svg" alt />
           <span>Login</span>
         </router-link>
@@ -127,12 +127,12 @@ export default {
   methods: {
     async onGoToSearchPage(ev) {
       console.log(ev.target.value);
-      
+
       if (this.openMenu) {
         this.toogleMemu();
       }
       await this.$router.push("/projs/aroundTheWorld");
-      if (ev.target.value){
+      if (ev.target.value) {
         eventBus.$emit("goToSearchPage", ev.target.value);
       }
     },
@@ -147,6 +147,7 @@ export default {
           duration: 1500
         });
       }
+      this.toogleMemu()
     },
     handleScroll() {
       this.isScrollering = true;
@@ -154,11 +155,14 @@ export default {
         this.isScrollering = false;
       }
     },
-    toogleMemu() {
+    toogleMemu() {   
+      this.isActive = false
       this.openMenu = !this.openMenu;
       document.body.classList.toggle("menu-open");
     },
     handleClick(event) {
+      console.log('hi');
+      
       if (this.isActive) this.isActive = false;
       if (!this.openMenu) return;
       this.toogleMemu();

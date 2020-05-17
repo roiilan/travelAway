@@ -1,10 +1,9 @@
 .home {
     margin-bottom: rem(50px);
-    
     .loading-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 20px;    
+        gap: 20px;
         img {
             margin: 0 auto;
             height: 300px;
@@ -15,21 +14,18 @@
         @include for-mobile-layout {
             display: none;
         }
-
         .proj-content {
             padding: 20px;
             height: 50%;
         }
-
         .el-carousel__container {
             // height: 400px;
             // height: 125vw;
-            
             @include for-medium-mobile-layout {
                 height: 85vw;
             }
         }
-        > img {
+        >img {
             height: 500px;
             width: 100%;
         }
@@ -66,7 +62,6 @@
                 font-size: 26px;
             }
         }
-       
         h5 {
             font-size: 12px;
             @include for-mini-mobile-layout {
@@ -90,7 +85,6 @@
             }
         }
     }
-   
 }
 
 .category-container {
@@ -227,11 +221,10 @@
 }
 
 .overlayText {
-    height: 60vh;
     position: absolute;
     font-family: Sen;
     left: 50%;
-    top: 50%;
+    top: 30%;
     transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
@@ -244,19 +237,30 @@
     p {
         font-size: rem(12px);
         line-height: 1.5;
+        padding: 5px;
     }
     @include for-mobile-layout {
+        top: 40%;
         h3 {
             font-size: rem(90px);
             margin: 0;
         }
         p {
-            font-size: rem(25px);
-            line-height: 2;
+            font-size: rem(18px);
+            line-height: 1.6;
+            margin-top: 5px;
         }
     }
+    @include for-narrow-layout {
+        p {
+            font-size: rem(23px);
+            line-height: 1.8;
+            margin-top: 5px;
+        }
+        
+    }
     @include for-normal-layout {
-        height: 50vh;
+        top: 50%;
         h3 {
             font-size: rem(120px);
             margin: 0;
@@ -285,7 +289,6 @@
     // margin: 0 auto;
     // display: flex;
     .around-the-world-card {
-
         position: relative;
         width: 100%;
         // padding: 5px;
@@ -327,7 +330,6 @@
     }
 }
 
-
 .walk-ways-details {
     // > * {
     //     display: flex;
@@ -343,17 +345,15 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    
     .space {
         margin: 0 10px
     }
-    img{
+    img {
         width: rem(20px);
         margin-left: 5px;
         margin-bottom: 10px
     }
-    
-    .divider{
+    .divider {
         font-family: Montserrat;
         display: flex;
         padding: 0 10px 0 10px;
@@ -364,14 +364,13 @@
     }
     @include for-mobile-layout {
         justify-content: center;
-        flex-direction: row; 
+        flex-direction: row;
         .space {
             margin: 0 10px
         }
         .divider {
             font-size: rem(20px);
             flex-direction: column;
-            
         }
         img {
             width: rem(50px);
@@ -379,21 +378,17 @@
             margin-bottom: 20px
         }
         justify-content: space-around;
-
     }
-    
     @include for-normal-layout {
         height: rem(200px);
         justify-content: center;
         flex-direction: row;
-        
         .space {
             margin: 0 10px
         }
         .divider {
             font-size: rem(25px);
             flex-direction: column;
-            
         }
         img {
             width: rem(55px);
@@ -405,23 +400,20 @@
         display: flex;
         justify-content: space-around;
     }
-    
 }
+
 // .details-header {
 //     font-family: Sen;
 //     font-size: rem(40px);
 //     margin: 10px 0 10px 0;
 // }
-
-.details-header{
+.details-header {
     font-size: rem(20px);
-        text-align: center;
+    text-align: center;
     font-weight: lighter;
     @include for-mobile-layout {
         font-size: rem(40px);
-
     }
-
     @include for-normal-layout {
         font-size: rem(50px);
     }

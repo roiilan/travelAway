@@ -145,11 +145,15 @@
                         opacity: 0.6;
                     }
                 }
-                p {
+                .requirements {
                     font-size: 25px;
-                    margin: 5px 0 8px;
+                    margin: 5px 0 50px;
                     opacity: 0.6;
                     text-align: center;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+
                     @include for-mobile-layout {
                         text-align: start;
 
@@ -198,10 +202,11 @@
                     }
 
                     p {
-                        margin-inline-start: 5px;
+                        // margin-inline-start: 5px;
+                        margin: 0;
                         padding: rem(7px) rem(30px) rem(7px) rem(15px);
                         overflow-wrap: break-word;
-                        font-size: 22px;
+                        font-size: 15px;
                         span {
                             display: block;
                             @include for-mobile-layout {
@@ -542,16 +547,33 @@
             } 
         }
     }
+    .requirements{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        margin-bottom: 15px;
+        margin-left: 15px;
+
+
+        .dates{
+            font-size: rem(13px);
+            margin: 0;
+        }
+        span{
+            font-size: rem(16px);
+        }
+        span.strong{
+            margin-right: 5px;
+        }
+    }
     
 }
 
 .container-link-img {
-    box-shadow: 0px 0.2px 0px 0px #574457;                
-    padding: 0 20px 15px 0;
-    margin: 50px 0 30px 0;
+    // padding: 0 20px 15px 0;
+    margin: 0 0 15px 0;
     span {
-
-        font-size: rem(26px);
+        font-size: rem(15px);
     }
     font-weight: 900;
     cursor: pointer;
@@ -562,6 +584,7 @@
     img:last-child {
         transition: .3s;
         float: right;
+        width: rem(15px);
         &.arrow-down {
             transform: rotate(180deg);
         } 
@@ -583,8 +606,10 @@
         }
         
     }
+
     @include for-normal-layout {
         font-size: rem(25px);
+        box-shadow: 0px 0.2px 0px 0px #574457;                
 
     }
 
