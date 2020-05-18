@@ -38,16 +38,17 @@ export default {
   computed: {
     projs: {
       get() {
-        return this.$store.getters.projs;
+        return this.$store.getters.currProjs;
       },
       set(val) {
-        this.$store.getters.projs;
+        this.$store.getters.currProjs;
       }
     }
   },
   async created() {
     window.scrollTo(0, 0);
     await this.$store.dispatch({ type: "loadProjs" });
+    this.initialVal = this.projs.length
   },
   mounted() {
     eventBus.$on("setFilter", async filterBy => {

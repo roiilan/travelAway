@@ -3,7 +3,8 @@
     <div class="screen"></div>
     <nav-bar />
     <router-view />
-    <main-footer />
+    <!-- <home :projs="projs" :users="users"/> -->
+    <main-footer/>
     <div class="msg" v-if="msg && msg.isShow">
       <button class="close-msg-btn" @click="closeMsg">X</button>
       {{msg.txt}}
@@ -52,10 +53,13 @@ export default {
       require("./assets/audio/notification.mp3")
     );
     socketService.setup();
+    // await this.$store.dispatch({ type: "loadProjs" });
+    // await this.$store.dispatch({ type: "loadUsers" });
+    await this.$store.dispatch({ type: "loadReviewsCount" });
   },
   mounted() {
-    console.log(this.loggedinUser);
-
+    // console.log(this.loggedinUser);
+    
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
     eventBus.$on("removeReview", async reviewId => {

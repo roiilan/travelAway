@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import projApp from '../pages/walkways-app.vue'
+import Home from '../pages/Home.vue'
+// import projApp from '../pages/walkways-app.vue'
 import Login from '../pages/Login.vue';
 import userProfile from '../pages/user/user-profile.vue'
 import projListFiltered from '../pages/proj/proj-list-filtered.vue'
@@ -10,11 +11,17 @@ import projList from '../pages/proj/proj-list.vue'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+    {
         path: '/',
-        name: 'projApp',
-        component: projApp
+        name: 'Home',
+        component: Home
     },
+    // {
+    //     path: '/',
+    //     name: 'projApp',
+    //     component: projApp
+    // },
     {
         path: '/projs/aroundTheWorld',
         name: 'aroundTheWorld',

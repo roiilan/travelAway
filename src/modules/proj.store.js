@@ -6,13 +6,16 @@ import mapService from '../services/map.service.js'
 export default {
     state: {
         projs: [],
+        currProjs: []
         // currProj: null
     },
     mutations: {
         setProjs(state, { projs }) {
             state.projs = projs
         },
-
+        setCurrProjs(state, { projs }) {
+            state.currProjs = projs
+        },
         setProj(state, { proj }) {
             state.currProj = proj
         },
@@ -30,15 +33,17 @@ export default {
     },
     getters: {
         projs(state) {
-            console.log(state);
+            console.log(state.projs, 'state.projs in stor');
+            
             return state.projs
-
         },
-
-            currProj(state){
+        currProjs(state) {
+            return state.currProjs
+        },
+        currProj(state){
             return state.proj
-          },
-          countries(state){
+        },
+        countries(state){
             let countriesArr = [];
             state.projs.forEach(proj => {
               !countriesArr.includes(proj.position.country)
@@ -46,8 +51,8 @@ export default {
                 : "";
             });
             return countriesArr.length;
-          },
-          creators(state){
+        },
+        creators(state){
             let creators = [];
             state.projs.forEach(proj => {
               !creators.includes(proj.createdBy.fullName)
@@ -55,15 +60,23 @@ export default {
                 : "";
             });
             return creators;
-          },
-
+        },
     },
     actions: {
         async loadProjs(context, { filterBy, limit }) {
             const isLimit = !!limit
+            const isFilterBy = !!filterBy
             const projs = await projService.query(filterBy, limit)
-            if (!isLimit) {
+            // if (!isLimit) {
+            //     context.commit({ type: 'setProjs', projs })            
+            // }
+            if (!isLimit && !isFilterBy) {
                 context.commit({ type: 'setProjs', projs })            
+                context.commit({ type: 'setCurrProjs', projs })            
+            }
+            if (isFilterBy) {
+                // context.commit({ type: 'setProjs', projs })            
+                context.commit({ type: 'setCurrProjs', projs })            
             }
             return projs
         },
