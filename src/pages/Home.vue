@@ -98,7 +98,6 @@ export default {
   },
   data() {
     return {
-      // projs: null,
       reviews: null,
       categories: null
       // users: null

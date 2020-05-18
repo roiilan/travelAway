@@ -10,19 +10,14 @@
           </div>
         </div>
         <ul>
-          <li v-for="(proj) in projs" :key="proj._id">
-            <!-- <div class="proj-preview" @mousemove="log(proj._id)"> -->
-
+          <li v-for="(proj) in filteredProjs" :key="proj._id">
             <proj-preview :proj="proj"></proj-preview>
-            <!-- </div> -->
           </li>
         </ul>
       </div>
       <div class="side-bar">
-        <map-preview :array="projs"></map-preview>
+        <map-preview :array="filteredProjs"></map-preview>
       </div>
-
-      <!-- <side-bar :projs="projs" class="side-bar" v-if="projs"></side-bar> -->
     </div>
   </transition>
 </template>
@@ -39,36 +34,48 @@ export default {
   data() {
     return {
       projs: null,
+      filteredProjs: null,
       projsHeader: null
     };
   },
   async created() {
-    this.projs = await this.$store.dispatch({ type: "loadProjs" });
-    const filter = this.$route.params.filter;
-    const filteredProjs = this.projs.filter(proj => {
-      return proj.category === filter;
-    });
-    this.projs = filteredProjs;
-    this.getHeader(filter);
-    window.scrollTo(0, 0);
+    this.projs = this.$store.getters.projs;
+    if (!this.projs.length) {
+      this.projs = await this.$store.dispatch({ type: "loadProjs" });
+    }
+    this.setFilteredProjs();
   },
-
   methods: {
     async getHeader(filter) {
       var headerObj = await this.$store.dispatch({
         type: "getFilteredProjHeader",
         filter
       });
-
       if (headerObj) {
         this.projsHeader = headerObj;
       }
+    },
+    setFilteredProjs() {
+      const filter = this.$route.params.filter;
+      this.filteredProjs = this.projs.filter(proj => {
+        return proj.category === filter;
+      });
+      this.getHeader(filter);
+      window.scrollTo(0, 0);
     }
   },
 
   components: {
     projPreview,
     mapPreview
+  },
+  watch: {
+    "$route.path": {
+      handler() {
+        this.setFilteredProjs();
+      },
+      deep: true
+    }
   }
 };
 </script>

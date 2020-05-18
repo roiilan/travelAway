@@ -167,7 +167,7 @@
                       class="filters-open"
                       v-model="proj.requirements.languages"
                       :selects="languages"
-                      :placeholder="'Add Skills'"
+                      :placeholder="'language requirements'"
                     ></select-cmp>
                   </div>
                   <p>More skills</p>
@@ -176,7 +176,7 @@
                       class="filters-open"
                       v-model="proj.requirements.otherSkills"
                       :selects="otherSkills"
-                      :placeholder="'Add Skills'"
+                      :placeholder="'skills requirements'"
                     ></select-cmp>
                   </div>
                 </div>

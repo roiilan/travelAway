@@ -10,6 +10,10 @@
         }
     }
     .carousel-for-mobile {
+        > img {
+            display: flex;
+            margin: 0 auto;
+        }
         margin-top: 25px;
         display: block;
         @include for-mobile-layout {

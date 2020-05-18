@@ -37,7 +37,7 @@
           @click.stop="removeFromList(selected)"
         >{{selected}}</span>
       </div>
-      <p v-else>Choose {{placeholder}}..</p>
+      <p v-else>{{placeholder}}</p>
       <input
         :class="{active: selecteds.length}"
         type="search"

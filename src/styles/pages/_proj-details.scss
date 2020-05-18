@@ -385,6 +385,7 @@
                             }
                             * {
                                 font-size: 18px;
+                                font-family: Montserrat;
                                 color: $clr1;
                                 ::placeholder {
                                     color: #56465e;
@@ -723,5 +724,11 @@
 .edit-container {
     >* {
         margin: 5px 0px 20px 10px;
+    }
+}
+
+.el-picker-panel {
+    * {
+        font-family: Montserrat;
     }
 }
