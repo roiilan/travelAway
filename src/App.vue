@@ -3,7 +3,7 @@
     <div class="screen"></div>
     <nav-bar />
     <router-view />
-    <main-footer/>
+    <main-footer />
     <div class="msg" v-if="msg && msg.isShow">
       <button class="close-msg-btn" @click="closeMsg">X</button>
       {{msg.txt}}
@@ -18,7 +18,7 @@ import mainFooter from "./components/footer/main-footer.vue";
 import { eventBus } from "./services/eventbus-service.js";
 import { utilService } from "./services/util.service.js";
 import socketService from "./services/socket.service.js";
-import {projService} from './services/proj.service.js';
+import { projService } from "./services/proj.service.js";
 
 export default {
   name: "projApp",
@@ -26,14 +26,13 @@ export default {
     return {
       audioNotification: null,
       user: null,
-       audioNotification: null,
-
+      audioNotification: null
     };
   },
   computed: {
     msg() {
       return this.$store.getters.msg;
-    },
+    }
     // loggedinUser() {
     //   return this.$store.getters.loggedinUser;
     // }
@@ -45,19 +44,18 @@ export default {
   },
   components: {
     navBar,
-    mainFooter,
+    mainFooter
   },
   async created() {
-    console.log('app created!');
+    console.log("app created!");
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
     socketService.setup();
-
   },
   mounted() {
     console.log(this.loggedinUser);
-    
+
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
     eventBus.$on("removeReview", async reviewId => {
@@ -72,24 +70,21 @@ export default {
       : "Walkways";
   },
   methods: {
-    connectSockets() {     
-      this.user =  JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));       
+    connectSockets() {
+      this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
       socketService.on(`apply ${this.user._id}`, this.pushNotification);
       socketService.on(`decline ${this.user._id}`, this.decline);
       socketService.on(`approve ${this.user._id}`, this.approve);
     },
     disconnectSockets() {
-      if(!this.user) return
-      socketService.off(
-        `apply ${this.user._id}`,
-        this.pushNotification
-      );
+      if (!this.user) return;
+      socketService.off(`apply ${this.user._id}`, this.pushNotification);
       socketService.off(`decline ${this.user._id}`, this.decline);
       socketService.off(`approve ${this.user._id}`, this.approve);
     },
     pushNotification(notification) {
-      console.log('notificationnnnnn',notification);
-      
+      console.log("notificationnnnnn", notification);
+
       // var res = this.$store.dispatch({ type: "addRequest", request });
       // if (res) this.audioNotification.play();
 
@@ -113,17 +108,18 @@ export default {
           currProj => currProj._id === notification._id
         );
         this.user.notifications.splice(idx, 1);
+        this.updateUser();
       }
-      this.updateUser();
     },
     async approve(notification) {
       if (notification.from._id === this.user._id) {
         this.user.notifications.push({
           _id: utilService.makeId(),
-         proj: notification.proj,
+          proj: notification.proj,
           from: notification.to,
           to: notification.from,
-          txt: "We are pleased to inform you that you have been accepted for our project..!",
+          txt:
+            "We are pleased to inform you that you have been accepted for our project..!",
           isApproved: true
         });
       } else {

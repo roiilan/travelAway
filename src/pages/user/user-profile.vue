@@ -177,6 +177,7 @@ export default {
         type: "updateUser",
         user: this.user
       });
+      this.user = updatedUser
     },
     getEmptyReview() {
       return {
@@ -201,12 +202,11 @@ export default {
       this.audioNotification.play();
       this.updateUser();
     },
-    deleteNotification(notification) {
+    async deleteNotification(notification) {
       const idx = this.user.notifications.findIndex(
         currProj => currProj._id === notification._id
       );
       this.user.notifications.splice(idx, 1);
-      this.updateUser();
     },
     onApprove(notification) {
       socketService.emit("approve", notification);
