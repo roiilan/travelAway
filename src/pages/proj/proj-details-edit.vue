@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="proj-details-container width-container" v-if="proj && reviews">
+    <div class="proj-details-container width-container height-container" v-if="proj && reviews">
       <div class="proj-details">
         <div class="main-content-details-contianer">
           <!-- TITLE OF PROJECT-->
@@ -13,7 +13,7 @@
           <!-- IMAGES GALERY OF PROJECT-->
           <input ref="uploadImg" @input="uploadImg" type="file" hidden />
           <section v-if="isLoading" class="upload-new-img-btn flex col a-center j-center">
-            <img class="rolling2-loader" src="../../assets/svg/rolling2.svg" alt="">
+            <img class="rolling2-loader" src="../../assets/svg/rolling2.svg" alt />
             <p>Wait a few moments</p>
           </section>
           <div v-else-if="proj.imgUrls.length" class="img-proj-container ratio-16-9">
@@ -126,7 +126,7 @@
                 <div class="edit-container">
                   <p>Choose a date</p>
                   <el-date-picker
-                  class="date-pickar-for-desctop"
+                    class="date-pickar-for-desctop"
                     v-model="proj.date"
                     type="daterange"
                     unlink-panels
@@ -135,10 +135,8 @@
                     end-placeholder="End date"
                     value-format="yyyy-MM-dd"
                   ></el-date-picker>
-                  <section
-                  class="date-pickar-for-mobile flex col"
-                  >
-                  <p>Start date</p>
+                  <section class="date-pickar-for-mobile flex col">
+                    <p>Start date</p>
                     <el-date-picker
                       v-model="proj.date[0]"
                       type="date"
@@ -147,7 +145,7 @@
                       value-format="yyyy-MM-dd"
                       @change="goToEnd"
                     ></el-date-picker>
-                  <p>End date</p>
+                    <p>End date</p>
                     <el-date-picker
                       v-model="proj.date[1]"
                       type="date"
@@ -388,18 +386,6 @@
             <map-preview :array="[proj]"></map-preview>
           </div>
         </section>
-
-        <!-- <section v-if="editMode" class="container-controller-proj-btn width-container">
-          <section v-if="proj._id">
-            <img @click="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Save" />
-          </section>
-          <section v-else>
-            <img @click="reset" src="../../assets/svg/clean.svg" alt="Reset" />
-          </section>
-          <section>
-            <img @click="saveProj(proj)" src="../../assets/svg/save.svg" alt="Save" />
-          </section>
-        </section>-->
       </div>
       <section>
         <section class="container-controller-proj-btn width-container">
@@ -432,28 +418,6 @@
         </section>
       </section>
 
-      <!--CONTAINER BUTTONS OPEN-APPLY/EDIT-NODE FOT DESCTOP-->
-      <!-- <div v-if="!newProjMode" class="edit-link-container width-container">
-        <section
-          v-if="loggedinUser &&
-        (loggedinUser._id === proj.createdBy._id || 
-        loggedinUser.isAdmin)"
-          class="edit-link flex col a-center"
-          :title="editMode? 'Switch to read mode': 'Switch to edit mode'"
-          @click="editMode = !editMode"
-        >
-          <img v-if="editMode" src="../../assets/svg/read-mode.svg" alt />
-          <img v-else src="../../assets/svg/pen.svg" alt />
-        </section>
-        <span
-          v-else-if="loggedinUser &&
-        (loggedinUser._id !== proj.createdBy._id || 
-        !loggedinUser.isAdmin)"
-          @click.stop="toggleApply"
-          :class="{'apply-open':isApplyOpen}"
-        >Apply now</span>
-      </div>-->
-
       <proj-apply
         v-if="loggedinUser && !newProjMode"
         @toggleApply="toggleApply"
@@ -462,36 +426,6 @@
         class="proj-apply"
         :class="{'apply-open':isApplyOpen}"
       ></proj-apply>
-
-      <!--BUTTON OPEN APPLY FOT MOBILE-->
-      <!-- TODO: ADD BUTTON FOR EDIT-MODE IN:V-ELSE -->
-
-      <!-- <section v-if="!newProjMode" class="container-btn-footer-for-mobile">
-        <h1
-          v-if="loggedinUser &&
-        (loggedinUser._id === proj.createdBy._id || 
-        loggedinUser.isAdmin)"
-          class="edit-link flex col a-center"
-          :title="editMode? 'Switch to read mode': 'Switch to edit mode'"
-          @click="editMode = !editMode"
-        >
-          <section v-if="editMode" class="flex">
-            <span>Switch to read mode</span>
-            <img src="../../assets/svg/read-mode.svg" alt />
-          </section>
-          <section v-else>
-            <span>Switch to edit mode</span>
-            <img src="../../assets/svg/pen.svg" alt />
-          </section>
-        </h1>
-        <h1
-          v-else-if="loggedinUser &&
-        (loggedinUser._id !== proj.createdBy._id || 
-        !loggedinUser.isAdmin)"
-          @click.stop="toggleApply"
-          :class="{'apply-open':isApplyOpen}"
-        >Apply now</h1>
-      </section>-->
     </div>
     <div class="height-container width-contianer flex a-center j-center" v-else>
       <img class="loading-page" src="../../assets/svg/loading.svg" alt />
@@ -590,9 +524,9 @@ export default {
     }
   },
   methods: {
-    goToEnd(){
-      if (!this.proj.date[0]) return
-      this.$refs['date-end'].focus()
+    goToEnd() {
+      if (!this.proj.date[0]) return;
+      this.$refs["date-end"].focus();
     },
     async searchPosition(txt) {
       var currPosition = await this.$store.dispatch({
@@ -612,18 +546,18 @@ export default {
     },
     async uploadImg(ev) {
       // this.proj.imgUrls.push(require('../../assets/svg/loading.svg'));
-      this.isLoading = true
+      this.isLoading = true;
       var img = await this.$store.dispatch({
         type: "addImg",
         imgEv: ev
       });
 
       // this.currentImgIdx || this.currentImgIdx === 0
-        // ? this.proj.imgUrls.splice(this.currentImgIdx, 1, img.url)
-        // : this.proj.imgUrls.push(img.url);
+      // ? this.proj.imgUrls.splice(this.currentImgIdx, 1, img.url)
+      // : this.proj.imgUrls.push(img.url);
       // this.currentImgIdx = null;
       // this.proj.imgUrls.splice(-1, 1);
-      this.isLoading = false
+      this.isLoading = false;
       this.proj.imgUrls.push(img.url);
     },
     removeImg(index) {

@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="proj-list-filtered flex col">
+    <div class="proj-list-filtered height-container flex col">
       <div class="main-content">
         <div class="header ratio-16-9" v-if="projsHeader">
           <img :src="projsHeader.imgUrl" />
