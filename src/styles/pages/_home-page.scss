@@ -270,7 +270,7 @@
 
 #myVideo {
     width: 100%;
-    height: 30vh;
+    height: 25vh;
     @include for-mobile-layout {
         height: 50vh;
     }
@@ -286,7 +286,7 @@
     position: absolute;
     font-family: Sen;
     left: 50%;
-    top: 30%;
+    top: 24vh;
     transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
@@ -302,7 +302,7 @@
         padding: 5px;
     }
     @include for-mobile-layout {
-        top: 40%;
+        top: 37vh;
         h3 {
             font-size: rem(90px);
             margin: 0;
@@ -322,7 +322,7 @@
         
     }
     @include for-normal-layout {
-        top: 50%;
+        top: 46vh;
         h3 {
             font-size: rem(120px);
             margin: 0;
