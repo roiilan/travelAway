@@ -54,7 +54,11 @@
             }
             .img-proj-container {
                 position: relative;
+                .el-carousel--horizontal{
+                    overflow: hidden;
+                }
                 .el-carousel__container {
+                    overflow: hidden;
                     height: 93%;
                     border-radius: 5px;
                 }
