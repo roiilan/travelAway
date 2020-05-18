@@ -110,6 +110,13 @@
                 img {
                     transition: opacity .3s;
                     opacity: .5;
+                    
+                    &.rolling2-loader {
+                        width: 60px;
+                        @include for-mobile-layout {
+                            width: auto;
+                        }
+                    }
                 }
 
                 @include for-normal-layout {
@@ -271,7 +278,7 @@
                         padding: rem(7px) rem(30px) rem(7px) rem(15px);
                         box-shadow: none;
                         border: none;
-                        background-color: #dad1df;
+                        background-color: #dad1df30;
                         border-radius: 0;
                         font-family: Sen;
                         font-weight: 400;
@@ -324,41 +331,72 @@
                             }
                         }
                     }
-                    .el-range-editor {
-                        width: 96%;
+                    .date-pickar-for-desctop {
+                        display: none;
                         @include for-mobile-layout {
-                            width: 360px;
+                            display: block;
                         }
-                        min-height: 60px;
-                        background-color: initial;
-                        border: none;
-                        box-shadow: $shadow1;
-                        
-                        ::placeholder {
-                            color: #56465e;
-                            font-family: Montserrat;
-                            opacity: 0.7;
-                            // transition: opacity .3s;
+                        &.el-range-editor {
+                            // width: 96%;
+                            // @include for-mobile-layout {
+                                width: 360px;
+                            // }
+                            min-height: 60px;
+                            background-color: initial;
+                            border: none;
+                            box-shadow: $shadow1;
                             
-                        }
-                        * {
-                            font-size: 18px;
-                            color: $clr1;
-                        }
-                      
-                        >* {
-                            cursor: pointer;
-                
-                        }
-                        .el-range-separator {
-                            display: none;
-                            //  line-height: 42px;
-                            //  font-size: 16px;
-                            //  font-weight: 100;
-                            //  width: auto;
-                            // color: red;
+                            ::placeholder {
+                                color: #56465e;
+                                font-family: Montserrat;
+                                opacity: 0.7;
+                            }
+                            * {
+                                font-size: 18px;
+                                color: $clr1;
+                            }
+                          
+                            >* {
+                                cursor: pointer;
+                    
+                            }
+                            .el-range-separator {
+                                display: none;
+                            }
                         }
                     }
+                    
+                    .date-pickar-for-mobile {
+                        display: block;
+                        @include for-mobile-layout {
+                            display: none;
+                        }
+                        .el-date-editor {
+                            width: 96%;
+                            .el-input__inner {
+                                min-height: 60px;
+                                background-color: initial;
+                                border: none;
+                                box-shadow: $shadow1;
+                            }
+                            * {
+                                font-size: 18px;
+                                color: $clr1;
+                                ::placeholder {
+                                    color: #56465e;
+                                    font-family: Montserrat;
+                                    opacity: 0.7;
+                                }
+                            }
+                          
+                            >* {
+                                cursor: pointer;
+                    
+                            }
+                        }
+                    }
+                    
+                   
                 }
             }
             

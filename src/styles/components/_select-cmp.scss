@@ -3,7 +3,7 @@
     &.filters-open {
         display: block;
     }
-    @include for-medium-mobile-layout {
+    @include for-mobile-layout {
         display: block;
     }
     box-shadow: $shadow1;

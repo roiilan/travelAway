@@ -19,6 +19,14 @@
             @include for-medium-mobile-layout{
                 margin: 0 3ch 80px 0;
             }
+            .select {
+                li {
+                    width: 200px;
+                }
+                &::after {
+                    top: -15%;
+                }
+            }
         }
         label {
             img {

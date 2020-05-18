@@ -14,7 +14,7 @@
       <form v-if="newUserCred && isSignup" class="flex col" @submit.prevent="signup">
         <h1>Sign-UP</h1>
         <section class="signup-form flex col">
-          <avatar-edit :url="newUserCred.imgUrl"  />
+          <avatar-edit :url="newUserCred.imgUrl" :isLoading="isLoading" />
           <section class="flex col">
             <input
               ref="fullName"
@@ -59,7 +59,8 @@ export default {
   data() {
     return {
       credentials: null,
-      isSignup: false
+      isSignup: false,
+      isLoading: false
     };
   },
   async created() {
@@ -143,19 +144,19 @@ export default {
       this.credentials.password = "";
     },
     goBack() {
-      this.$router.push('/');
+      this.$router.go(-1);
     },
     async uploadImg(ev) {
       var newUserCred = JSON.parse(JSON.stringify(this.newUserCred))
-      // newUserCred.imgUrl = '../assets/svg/loading.svg' 
-      // setTimeout( async  (ev) => {        
-        // this.$store.dispatch({type:'setNewUserCred',newUserCred })
+      this.isLoading = true
+      newUserCred.imgUrl = null 
+      this.$store.dispatch({type:'setNewUserCred', newUserCred})
         var img = await this.$store.dispatch({
           type: "addImg",
           imgEv: ev
         });
+      this.isLoading = false
       newUserCred.imgUrl = img.url
-      // }, 500);
       this.$store.dispatch({type:'setNewUserCred', newUserCred})
     },
     async removeUser(userId) {

@@ -2,61 +2,89 @@
 
 .filter-in-proj-list {   
     &.filter-container {
+        margin-top: 10px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        grid-template-columns: 1fr;
         @include for-mobile-layout {
             grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
         }
         @include for-narrow-layout {
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         }
-        @include for-normal-layout {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        }
         gap: 10px;
-                >* {
-                    min-height: 50px;
-                }
-        .el-range-editor {
-            ::placeholder {
-                color: #000;
-                font-family: Montserrat;
-                opacity: 0.7;
-                font-size: 15px;
-                // transition: opacity .3s;
+        >* {
+            min-height: 60px;
+        }
+        // .el-range-editor {
+        //     ::placeholder {
+        //         color: #000;
+        //         font-family: Montserrat;
+        //         opacity: 0.7;
+        //         font-size: 15px;
+        //         // transition: opacity .3s;
 
-              }
-            * {
-                color: $clr1;
-            }
+        //       }
+        //     * {
+        //         color: $clr1;
+        //     }
+        //     display: none;
+        //     &.filters-open {
+        //         display: block;
+        //     }
+        //     @include for-mobile-layout {
+        //         display: block;
+        //     }
+        //     width: 100%;
+        //     min-height: 100%;
+        //     background-color: initial;
+        //     border: none;
+        //     box-shadow: $shadow1;
+        //     >* {
+        //         cursor: pointer;
+    
+        //     }
+        //     .el-range-separator {
+        //         display: none;
+        //         //  line-height: 42px;
+        //         //  font-size: 16px;
+        //         //  font-weight: 100;
+        //         //  width: auto;
+        //         // color: red;
+        //     }
+        // }
+
+        .el-date-editor {
+            width: 100%;
             display: none;
             &.filters-open {
                 display: block;
             }
-            @include for-medium-mobile-layout {
+            @include for-mobile-layout {
                 display: block;
             }
-            width: 100%;
-            min-height: 100%;
-            background-color: initial;
-            border: none;
-            box-shadow: $shadow1;
+            .el-input__inner {
+                min-height: 60px;
+                background-color: initial;
+                border: none;
+                box-shadow: $shadow1;
+            }
+            * {
+                font-size: 18px;
+                color: $clr1;
+                ::placeholder {
+                    color: #56465e;
+                    font-family: Montserrat;
+                    opacity: 0.7;
+                }
+            }
+          
             >* {
                 cursor: pointer;
     
             }
-            .el-range-separator {
-                display: none;
-                //  line-height: 42px;
-                //  font-size: 16px;
-                //  font-weight: 100;
-                //  width: auto;
-                // color: red;
-            }
         }
-     
-       
-       
+        
+        
         .search-cmp {
             padding: 0;
             position: relative;
@@ -69,7 +97,7 @@
                 border: none;
                 background-color: initial;
                 width: 100%;
-                height: 50px;
+                height: 60px;
                 padding: 0 10px ;
                 font-size: 17px;
             }
@@ -86,7 +114,7 @@
                     transform: translate(-50%, -50%) rotate(-180deg);
                 }
             }
-            @include for-medium-mobile-layout {
+            @include for-mobile-layout {
                 img {
                     display: none;
                 }
@@ -94,5 +122,4 @@
         }
     }
 }
-
 

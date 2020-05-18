@@ -8,10 +8,12 @@
       :class="{'open-select':openSelect}"
       class="container-img container-img-profile pointer flex j-center"
     >
+      <!-- <pre>{{url}}</pre> -->
+      <img v-if="url" class="avatar avatar-m" :src="url" title="Replace profile picture" />
       <img
-        v-if="url"
+        v-else-if="isLoading"
         class="avatar avatar-m"
-        :src="url"
+        src="../../assets/svg/rolling.svg"
         title="Replace profile picture"
       />
       <img
@@ -34,27 +36,31 @@
 </template>
 
 <script>
-import myVideo from './my-video.vue';
-import { eventBus } from '../../services/eventbus-service';
+import myVideo from "./my-video.vue";
+import { eventBus } from "../../services/eventbus-service";
 
 export default {
-    props: {
-        url: String
-    },
+  props: {
+    url: String,
+    isLoading: Boolean
+  },
   data() {
     return {
       playVideo: false,
       openSelect: false
     };
   },
-  created(){  
-  },
-   mounted() {
-    document.querySelector(".screen").addEventListener("click", this.handleClick);
+  created() {},
+  mounted() {
+    document
+      // .querySelector(".screen")
+      .addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
   },
-   beforeDestroy() {
-    document.querySelector(".screen").removeEventListener("click", this.handleClick);
+  beforeDestroy() {
+    document
+      // .querySelector(".screen")
+      .removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
   },
   methods: {
@@ -66,16 +72,16 @@ export default {
         this.handleClick();
       }
     },
-    uploadImg(ev){
-      eventBus.$emit('uploadImg', ev)
+    uploadImg(ev) {
+      eventBus.$emit("uploadImg", ev);
     },
     toggleVideo() {
       this.playVideo = !this.playVideo;
       document.body.classList.toggle("vidoe-open");
-    },
+    }
   },
   components: {
-      myVideo
+    myVideo
   }
 };
 </script>

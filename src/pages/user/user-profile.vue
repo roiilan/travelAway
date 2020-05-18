@@ -5,7 +5,7 @@
         <div>
           <div class="user-profile-inside-container flex col a-center">
             <!-- CMP AVATAR OF USER ---- EDIT-MODE-->
-            <avatar-edit v-if="loggedinUser && loggedinUser._id === user._id" :url="user.imgUrl" />
+            <avatar-edit v-if="loggedinUser && loggedinUser._id === user._id" :url="user.imgUrl" :isLoading="isLoading"/>
             <!-- V-ELSE: IMG AVATAR OF USER --- SHOW-MODE-->
             <div v-else class="container-img">
               <img class="avatar avatar-m" :src="user.imgUrl" />
@@ -107,7 +107,8 @@ export default {
       review: null,
       projApplied: null,
       projs: null,
-      audioNotification: null
+      audioNotification: null,
+      isLoading: false
     };
   },
   async created() {
@@ -161,10 +162,13 @@ export default {
       this.review = this.getEmptyReview();
     },
     async uploadImg(ev) {
+      this.user.imgUrl = null;
+      this.isLoading = true
       var img = await this.$store.dispatch({
         type: "addImg",
         imgEv: ev
       });
+      this.isLoading = false
       this.user.imgUrl = img.url;
       await this.updateUser();
     },

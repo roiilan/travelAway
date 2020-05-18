@@ -161,7 +161,7 @@ export default {
           duration: 1500
         });
       }
-      this.toogleMemu();
+      this.onCloseMenu();
     },
     handleScroll() {
       this.isScrollering = true;

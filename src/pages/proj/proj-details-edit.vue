@@ -1,7 +1,6 @@
 <template>
   <transition name="fade">
     <div class="proj-details-container width-container" v-if="proj && reviews">
-
       <div class="proj-details">
         <div class="main-content-details-contianer">
           <!-- TITLE OF PROJECT-->
@@ -13,7 +12,11 @@
 
           <!-- IMAGES GALERY OF PROJECT-->
           <input ref="uploadImg" @input="uploadImg" type="file" hidden />
-          <div v-if="proj.imgUrls.length" class="img-proj-container ratio-16-9">
+          <section v-if="isLoading" class="upload-new-img-btn flex col a-center j-center">
+            <img class="rolling2-loader" src="../../assets/svg/rolling2.svg" alt="">
+            <p>Wait a few moments</p>
+          </section>
+          <div v-else-if="proj.imgUrls.length" class="img-proj-container ratio-16-9">
             <el-carousel indicator-position="outside">
               <el-carousel-item v-for="(imgUrl, index) in proj.imgUrls" :key="index">
                 <img @click="setCurrImg(index)" :src="imgUrl" />
@@ -123,6 +126,7 @@
                 <div class="edit-container">
                   <p>Choose a date</p>
                   <el-date-picker
+                  class="date-pickar-for-desctop"
                     v-model="proj.date"
                     type="daterange"
                     unlink-panels
@@ -131,6 +135,28 @@
                     end-placeholder="End date"
                     value-format="yyyy-MM-dd"
                   ></el-date-picker>
+                  <section
+                  class="date-pickar-for-mobile flex col"
+                  >
+                  <p>Start date</p>
+                    <el-date-picker
+                      v-model="proj.date[0]"
+                      type="date"
+                      placeholder="Start date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy-MM-dd"
+                      @change="goToEnd"
+                    ></el-date-picker>
+                  <p>End date</p>
+                    <el-date-picker
+                      v-model="proj.date[1]"
+                      type="date"
+                      ref="date-end"
+                      placeholder="End date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy-MM-dd"
+                    ></el-date-picker>
+                  </section>
                   <p>Members Needed</p>
                   <el-input-number v-model="proj.membersNeeded" :min="1" :max="100"></el-input-number>
                   <p>Minimum Age: {{proj.requirements.minAge}}</p>
@@ -210,13 +236,16 @@
                 </h3>
               </div>
 
-              <transition v-if="editMode"  name="fade">
+              <transition v-if="editMode" name="fade">
                 <div class="edit-container">
                   <div class="select-cmp-container">
-                    
-                    <select-cmp  class="filters-open" v-model="proj.tags" :selects="tags" :placeholder="'What\'s included'"></select-cmp>
+                    <select-cmp
+                      class="filters-open"
+                      v-model="proj.tags"
+                      :selects="tags"
+                      :placeholder="'What\'s included'"
+                    ></select-cmp>
                   </div>
-
                 </div>
               </transition>
               <transition v-else name="fade">
@@ -505,7 +534,8 @@ export default {
         "Wifi",
         "Hot Water"
       ],
-      categories: null
+      categories: null,
+      isLoading: false
     };
   },
   async created() {
@@ -560,6 +590,10 @@ export default {
     }
   },
   methods: {
+    goToEnd(){
+      if (!this.proj.date[0]) return
+      this.$refs['date-end'].focus()
+    },
     async searchPosition(txt) {
       var currPosition = await this.$store.dispatch({
         type: "searchPosition",
@@ -577,20 +611,26 @@ export default {
       ev.target.style.height = ev.target.scrollHeight + "px";
     },
     async uploadImg(ev) {
+      // this.proj.imgUrls.push(require('../../assets/svg/loading.svg'));
+      this.isLoading = true
       var img = await this.$store.dispatch({
         type: "addImg",
         imgEv: ev
       });
-      this.currentImgIdx || this.currentImgIdx === 0
-        ? this.proj.imgUrls.splice(this.currentImgIdx, 1, img.url)
-        : this.proj.imgUrls.push(img.url);
-      this.currentImgIdx = null;
+
+      // this.currentImgIdx || this.currentImgIdx === 0
+        // ? this.proj.imgUrls.splice(this.currentImgIdx, 1, img.url)
+        // : this.proj.imgUrls.push(img.url);
+      // this.currentImgIdx = null;
+      // this.proj.imgUrls.splice(-1, 1);
+      this.isLoading = false
+      this.proj.imgUrls.push(img.url);
     },
     removeImg(index) {
       this.proj.imgUrls.splice(index, 1);
     },
     async setCurrImg(idx) {
-      this.currentImgIdx = idx;
+      // this.currentImgIdx = idx;
     },
     async saveProj(proj) {
       if (!proj.category) {

@@ -29,7 +29,7 @@
       @click="$emit('toggleFilters')"
       src="../../assets/svg/downloading2.svg"
       alt="More option"
-      title="Show search options"
+      :title="isFiltersOpen? 'Hide search options' : 'Show search options'"
     />
 
     <!-- {{input}} -->
@@ -42,7 +42,8 @@ import { eventBus } from "../../services/eventbus-service";
 export default {
   props: {
     value: {
-      type: String
+      type: String,
+      isFiltersOpen: Boolean
     }
   },
   data() {
