@@ -43,8 +43,8 @@ export default {
   props: {
     value: {
       type: String,
+    },
       isFiltersOpen: Boolean
-    }
   },
   data() {
     return {
