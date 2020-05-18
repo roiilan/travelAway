@@ -37,9 +37,14 @@
                     width: 170px;
                     height: 150px;
                     object-fit: cover;
+                    border-top-left-radius: 3px;
+                    border-top-right-radius: 3px;
                 }
                 
                 .proj-content {
+                    margin-top: -4px;
+                    border-bottom-left-radius: 3px;
+                    border-bottom-right-radius: 3px;
                     background-color: #fff;
                     padding: 5px;
                     height: 150px;
@@ -390,6 +395,13 @@
             font-size: 11px;
         }
     }
+}
+
+.divider-container {
+    background-color: #3a334205;
+    color: #46394e;
+    padding: 20px 0;
+    border-radius: 3px;
 }
 
 .walk-ways-details {

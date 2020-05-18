@@ -47,14 +47,16 @@ export default {
     navBar,
     mainFooter,
   },
-  async created() {   
-    console.log('created!');
+  async created() {
+    console.log('app created!');
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
     socketService.setup();
+
   },
   mounted() {
+    console.log(this.loggedinUser);
     
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
