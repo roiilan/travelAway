@@ -1,12 +1,12 @@
 <template>
   <div class="walkways-app">
-    <home :projs="projs" :users="users"/>
+    <!-- <home :projs="projs" :users="users"/> -->
   </div>
 </template>
 
 <script>
-import projList from "../pages/proj/proj-list.vue";
-import home from "./Home.vue";
+// import projList from "../pages/proj/proj-list.vue";
+// import home from "./Home.vue";
 
 export default {
   name: "projApp",
@@ -18,8 +18,8 @@ export default {
     }
   },
   components: {
-    projList,
-    home
+    // projList,
+    // home
   },
   async created() {
     console.log('walkways created');

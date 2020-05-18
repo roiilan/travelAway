@@ -3,6 +3,7 @@
     <div class="screen"></div>
     <nav-bar />
     <router-view />
+    <!-- <home :projs="projs" :users="users"/> -->
     <main-footer/>
     <div class="msg" v-if="msg && msg.isShow">
       <button class="close-msg-btn" @click="closeMsg">X</button>
@@ -53,12 +54,12 @@ export default {
       require("./assets/audio/notification.mp3")
     );
     socketService.setup();
-    this.audioNotification = new Audio(
-      require("./assets/audio/notification.mp3")
-    );
+    // await this.$store.dispatch({ type: "loadProjs" });
+    // await this.$store.dispatch({ type: "loadUsers" });
+    await this.$store.dispatch({ type: "loadReviewsCount" });
   },
   mounted() {
-    console.log(this.loggedinUser);
+    // console.log(this.loggedinUser);
     
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());

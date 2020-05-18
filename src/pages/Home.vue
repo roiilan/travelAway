@@ -93,20 +93,32 @@ import projListCarousel from "../components/proj/proj-list-carousel.vue";
 // @ is an alias to /src
 export default {
   name: "home",
-  props: {
-    projs: Array,
-    users: Array
-  },
+  // props: {
+  //   projs: Array,
+  //   users: Array
+  // },
   data() {
     return {
       reviews: null,
-      categories: null
-      // users: null
+      categories: null,
+      projs: [],
+      users: []
     };
   },
   async created() {
     window.scrollTo(0, 0);
+    console.log("Home");
     this.categories = projService.loadCategoties();
+    this.projs = this.$store.getters.projs;
+    this.users = this.$store.getters.users;
+    if (!this.projs.length) {
+      await this.$store.dispatch({ type: "loadProjs" });
+      this.projs = this.$store.getters.projs;
+    }
+    if (!this.users.length) {
+      await this.$store.dispatch({ type: "loadUsers" });
+      this.users = this.$store.getters.users;
+    }
   },
   methods: {
     openDetails(id) {
@@ -124,18 +136,27 @@ export default {
       return this.$store.getters.reviewsCount;
     },
     projsForDisplay() {
+      // return JSON.parse(JSON.stringify(this.projs)).splice(0, 6);
       var projToDisplay = [];
-      let projsCopy = JSON.parse(JSON.stringify(this.projs));
-      for (let i = 0; i < 6; i++) {
-        let ranNum = utilService.getRandomInt(1, projsCopy.length);
-        let proj = projsCopy[ranNum];
-        let idx = projsCopy.findIndex(currProj => {
-          return currProj._id === proj._id;
-        });
-        projToDisplay.push(proj);
-        projsCopy.splice(idx, 1);
-      }
+        let projsCopy = JSON.parse(JSON.stringify(this.projs));
+
+        if (projsCopy.length) {
+        for (let i = 0; i < 6; i++) {
+          let ranNum = utilService.getRandomInt(1, projsCopy.length);
+          let proj = projsCopy[ranNum];
+          let idx = projsCopy.findIndex(currProj => {
+            return currProj._id === proj._id;
+          });
+          projToDisplay.push(proj);
+          projsCopy.splice(idx, 1);
+        }
+        }
       return projToDisplay;
+    }
+  },
+  watch: {
+    projsForDisplay() {
+      
     }
   },
   components: {
