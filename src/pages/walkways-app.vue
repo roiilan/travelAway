@@ -22,6 +22,8 @@ export default {
     home
   },
   async created() {
+    console.log('hiiiiiiiii');
+    
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     await this.$store.dispatch({ type: "loadReviewsCount" });
     this.projs = await this.$store.dispatch({ type: "loadProjs" });

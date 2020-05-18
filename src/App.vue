@@ -47,32 +47,18 @@ export default {
     navBar,
     mainFooter,
   },
-  async created() {
-    console.log('app created!');
-    console.log(this.loggedinUser);
-    
-    
-    // if (this.user) this.connectSockets();
-    
+  async created() {   
+    console.log('created!');
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
     socketService.setup();
-    // this.loggedInUser = this.$store.getters.loggedinUser
-    console.log(this.$store.getters.loggedinUser);
-    
-
-    this.audioNotification = new Audio(
-      require("./assets/audio/notification.mp3")
-    );
   },
   mounted() {
     
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
     eventBus.$on("removeReview", async reviewId => {
-      console.log("removeReview");
-
       const msg = await this.$store.dispatch({
         type: "removeReview",
         reviewId
@@ -83,15 +69,9 @@ export default {
       ? `(${this.loggedinUser.notifications.length}) Walkways`
       : "Walkways";
   },
-  // destroyed() {
-  //   if (this.loggedinUser) this.disconnectSockets();
-  //   socketService.terminate();
-  // },
   methods: {
     connectSockets() {     
-      console.log('conect socket!');
-      this.user =  JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
-             
+      this.user =  JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));       
       socketService.on(`apply ${this.user._id}`, this.pushNotification);
       socketService.on(`decline ${this.user._id}`, this.decline);
       socketService.on(`approve ${this.user._id}`, this.approve);
@@ -106,6 +86,8 @@ export default {
       socketService.off(`approve ${this.user._id}`, this.approve);
     },
     pushNotification(notification) {
+      console.log('notificationnnnnn',notification);
+      
       // var res = this.$store.dispatch({ type: "addRequest", request });
       // if (res) this.audioNotification.play();
 
@@ -115,12 +97,6 @@ export default {
       this.updateUser();
     },
     decline(notification) {
-      console.log(notification);
-      
-      // var res = this.$store.dispatch({ type: "decline", notification });
-      // if (res) this.audioNotification.play();
-
-      // eventBus.$emit("decline", notification);
       if (notification.from._id === this.user._id) {
         this.user.notifications.push({
           _id: utilService.makeId(),
@@ -139,10 +115,6 @@ export default {
       this.updateUser();
     },
     async approve(notification) {
-      // var res = this.$store.dispatch({ type: "approve", notification });
-      // if (res) this.audioNotification.play();
-
-      // eventBus.$emit("approve", notification);
       if (notification.from._id === this.user._id) {
         this.user.notifications.push({
           _id: utilService.makeId(),
@@ -175,20 +147,8 @@ export default {
       } else {
         console.log("ERROR IN UPDATE USER");
       }
-
-      // console.log(updatedUser, " updatedUser");
     }
   }
-  // watch: {
-  //   loggedinUser: {
-  //     hendler() {
-  //       document.title = this.loggedinUser
-  //         ? `(${this.loggedinUser.notifications.length}) Walkways`
-  //         : "Walkways";
-  //     },
-  //     deep: true
-  //   }
-  // }
 };
 </script>
 

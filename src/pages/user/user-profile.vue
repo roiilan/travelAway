@@ -237,7 +237,6 @@ export default {
       }
     },
     user() {
-      console.log("I'm watch on user");
     },
     fullName: {
       handler() {
