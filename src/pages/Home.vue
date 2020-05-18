@@ -39,9 +39,9 @@
             <!-- <span class="space">{{count}}</span> -->
             <span class="space">{{allFeedbackLength}}</span>
           </h1>
-          <h1 v-if="users && users.length" class="divider">
+          <h1 v-if="users" class="divider">
             <img src="../assets/svg/business.svg" />Voulnteers
-            <span class="space" v-if="users && users.length">{{users.length}}</span>
+            <span class="space" v-if="users">{{users.length}}</span>
           </h1>
           <h1 class="divider">
             <img src="../assets/svg/maps-and-flags.svg" />Countries
