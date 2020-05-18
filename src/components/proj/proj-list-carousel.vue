@@ -10,8 +10,8 @@
       <img :src="proj.imgUrls[0]" />
       <div class="proj-content flex col bet">
         <section>
-          <h3>{{proj.organization}}</h3>
-          <h4>{{proj.title}}</h4>
+          <h3>{{proj.title}}</h3>
+          <h4>{{proj.organization}}</h4>
         </section>
         <section>
           <h5 class="flex a-center">
