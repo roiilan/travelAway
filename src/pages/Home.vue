@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="home height-container">
+    <div class="home">
       <div class="video-bcg">
         <video autoplay muted loop id="myVideo">
           <source src="../assets/video/heroHeader.mp4" type="video/mp4" />
@@ -26,31 +26,32 @@
           <div class="img-tag" :class="category.category">{{category.title}}</div>
         </router-link>
       </div>
+      <section class="divider-container width-container">
+        <h1 class="details-header">Our community Activity</h1>
+        <div class="walk-ways-details" v-if="projs">
+          <h1 class="divider">
+            <img src="../assets/svg/technology.svg" />Projects
+            <!-- <span class="space">{{count}}</span> -->
+            <span class="space">{{allProjsLength}}</span>
+          </h1>
+          <h1 class="divider">
+            <img src="../assets/svg/communications.svg" />Feedbacks
+            <!-- <span class="space">{{count}}</span> -->
+            <span class="space">{{allFeedbackLength}}</span>
+          </h1>
+          <h1 v-if="users && users.length" class="divider">
+            <img src="../assets/svg/business.svg" />Voulnteers
+            <span class="space" v-if="users && users.length">{{users.length}}</span>
+          </h1>
+          <h1 class="divider">
+            <img src="../assets/svg/maps-and-flags.svg" />Countries
+            <span class="space">{{countriesCount}}</span>
+          </h1>
+        </div>
+      </section>
 
-      <h1 class="details-header">Our community Activity</h1>
-      <div class="walk-ways-details width-container" v-if="projs">
-        <h1 class="divider">
-          <img src="https://image.flaticon.com/icons/svg/2628/2628442.svg" />Projects
-          <!-- <span class="space">{{count}}</span> -->
-          <span class="space">{{allProjsLength}}</span>
-        </h1>
-        <h1 class="divider">
-          <img src="https://image.flaticon.com/icons/svg/1162/1162344.svg" />Feedbacks
-          <!-- <span class="space">{{count}}</span> -->
-          <span class="space">{{allFeedbackLength}}</span>
-        </h1>
-        <h1 v-if="users && users.length" class="divider">
-          <img src="https://image.flaticon.com/icons/svg/978/978012.svg" />Voulnteers
-          <span class="space" v-if="users && users.length">{{users.length}}</span>
-        </h1>
-        <h1 class="divider">
-          <img src="https://image.flaticon.com/icons/svg/921/921439.svg" />Countries
-          <span class="space">{{countriesCount}}</span>
-        </h1>
-      </div>
-
-      <section class="carousel-for-desctop">
-        <ul v-if="projs" class="around-the-world-preview width-container">
+      <section class="carousel-for-desctop width-container">
+        <ul v-if="projs" class="around-the-world-preview">
           <!-- <li v-for="proj in projs" :key="proj._id" class="around-the-world-card"> -->
           <li v-for="proj in projsForDisplay" :key="proj._id" class="around-the-world-card">
             <marker-card
@@ -61,7 +62,7 @@
             />
           </li>
         </ul>
-        <section v-else class="loading-container width-container">
+        <section v-else class="loading-container">
           <img v-for="i in 6" :key="i" src="../assets/svg/loading.svg" alt />
         </section>
       </section>

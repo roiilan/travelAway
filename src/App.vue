@@ -49,24 +49,16 @@ export default {
   },
   async created() {
     console.log('app created!');
-    console.log(this.loggedinUser);
-    
-    
-    // if (this.user) this.connectSockets();
-    
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
     socketService.setup();
-    // this.loggedInUser = this.$store.getters.loggedinUser
-    console.log(this.$store.getters.loggedinUser);
-    
-
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
   },
   mounted() {
+    console.log(this.loggedinUser);
     
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
