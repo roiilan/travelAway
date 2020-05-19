@@ -4,7 +4,7 @@
     <nav-bar />
     <router-view />
     <!-- <home :projs="projs" :users="users"/> -->
-    <main-footer/>
+    <main-footer />
     <div class="msg" v-if="msg && msg.isShow">
       <button class="close-msg-btn" @click="closeMsg">X</button>
       {{msg.txt}}
@@ -26,33 +26,20 @@ export default {
   data() {
     return {
       audioNotification: null,
-      user: null,
-      audioNotification: null
+      user: null
     };
-  },
-  computed: {
-    msg() {
-      return this.$store.getters.msg;
-    }
-  },
-
-  components: {
-    navBar,
-    mainFooter
   },
   async created() {
     console.log("app created!");
+    socketService.setup();
+    this.connectSockets()
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
-    socketService.setup();
-    // await this.$store.dispatch({ type: "loadProjs" });
-    // await this.$store.dispatch({ type: "loadUsers" });
+    // TODO: TRANSFER TO HOME
     await this.$store.dispatch({ type: "loadReviewsCount" });
   },
   mounted() {
-    // console.log(this.loggedinUser);
-    
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
     eventBus.$on("removeReview", async reviewId => {
@@ -66,16 +53,24 @@ export default {
       ? `(${this.loggedinUser.notifications.length}) Walkways`
       : "Walkways";
   },
+  destroyed() {
+    if (this.loggedinUser) this.disconnectSockets();
+    socketService.terminate();
+  },
   methods: {
     connectSockets() {
       this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
-      if(!this.user) return
+      if (!this.user) return;
+      console.log("conect socket!");
+
       socketService.on(`apply ${this.user._id}`, this.pushNotification);
       socketService.on(`decline ${this.user._id}`, this.decline);
       socketService.on(`approve ${this.user._id}`, this.approve);
     },
     disconnectSockets() {
+      this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
       if (!this.user) return;
+      console.log("disconect socket!");
       socketService.off(`apply ${this.user._id}`, this.pushNotification);
       socketService.off(`decline ${this.user._id}`, this.decline);
       socketService.off(`approve ${this.user._id}`, this.approve);
@@ -91,7 +86,13 @@ export default {
       this.user.notifications.push(notification);
       this.updateUser();
     },
-    decline(notification) {      
+    decline(notification) {
+      console.log(notification);
+
+      // var res = this.$store.dispatch({ type: "decline", notification });
+      // if (res) this.audioNotification.play();
+
+      // eventBus.$emit("decline", notification);
       if (notification.from._id === this.user._id) {
         this.user.notifications.push({
           _id: utilService.makeId(),
@@ -144,6 +145,15 @@ export default {
         console.log("ERROR IN UPDATE USER");
       }
     }
+  },
+  computed: {
+    msg() {
+      return this.$store.getters.msg;
+    }
+  },
+  components: {
+    navBar,
+    mainFooter
   }
 };
 </script>

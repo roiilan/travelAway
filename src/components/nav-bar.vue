@@ -100,7 +100,7 @@
         </section>
       </div>
       <img
-        @click.stop="toogleMemu"
+        @click.stop="toggleMemu"
         class="hamburger"
         :class="{'open-menu':openMenu}"
         src="../assets/svg/menu.svg"
@@ -137,13 +137,13 @@ export default {
   methods: {
     onCloseMenu() {
       if (this.openMenu) {
-        this.toogleMemu();
+        this.toggleMemu();
       }
     },
     async onGoToSearchPage(ev) {
       console.log(ev.target.value);
       if (this.openMenu) {
-        this.toogleMemu();
+        this.toggleMemu();
       }
       await this.$router.push("/projs/aroundTheWorld");
       if (ev.target.value) {
@@ -169,7 +169,7 @@ export default {
         this.isScrollering = false;
       }
     },
-    toogleMemu() {
+    toggleMemu() {
       console.log(123);
 
       this.isActive = false;
@@ -177,11 +177,9 @@ export default {
       document.body.classList.toggle("menu-open");
     },
     handleClick(event) {
-      console.log("hi");
-
       if (this.isActive) this.isActive = false;
       if (!this.openMenu) return;
-      this.toogleMemu();
+      this.toggleMemu();
     },
     handlePress(event) {
       if (event.keyCode === 27) {
@@ -199,14 +197,14 @@ export default {
     this.categories = projService.loadCategoties();
   },
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
+    // window.addEventListener("scroll", this.handleScroll);
     document
       .querySelector(".screen")
       .addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
   },
   beforeDestroy() {
-    window.removeEventListener("scroll", this.handleScroll);
+    // window.removeEventListener("scroll", this.handleScroll);
     document
       .querySelector(".screen")
       .removeEventListener("click", this.handleClick);

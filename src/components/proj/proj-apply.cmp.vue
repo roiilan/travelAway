@@ -8,7 +8,7 @@
           title="Close"
           class="close-popap-img pointer"
         />
-        <h1>apply now</h1>
+        <h1>Apply now</h1>
       </section>
       <form class="form-apply" @submit.prevent="applyToProj">
         <el-input

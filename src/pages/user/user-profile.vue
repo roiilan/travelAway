@@ -5,7 +5,11 @@
         <div>
           <div class="user-profile-inside-container flex col a-center">
             <!-- CMP AVATAR OF USER ---- EDIT-MODE-->
-            <avatar-edit v-if="loggedinUser && loggedinUser._id === user._id" :url="user.imgUrl" :isLoading="isLoading"/>
+            <avatar-edit
+              v-if="loggedinUser && loggedinUser._id === user._id"
+              :url="user.imgUrl"
+              :isLoading="isLoading"
+            />
             <!-- V-ELSE: IMG AVATAR OF USER --- SHOW-MODE-->
             <div v-else class="container-img">
               <img class="avatar avatar-m" :src="user.imgUrl" />
@@ -30,27 +34,39 @@
               <review-avarage v-if="reviews" :reviews="reviews" />
             </div>
           </div>
-          <section v-if="projs">
-            <div @click="scrollTo" class="flex a-center bet">
-              <h3 class="container-link-img flex bet">
-                <section>
-                  <img class="link-img" src="../../assets/svg/link.svg" alt />
-                  <span>{{user.fullName}}'s projects</span>
-                </section>
-                <!-- <img class="edit-mode" v-if="editMode" src="../../assets/svg/pen2.svg" alt="Edit" /> -->
-              </h3>
-            </div>
-            <div  class="user-projs-container">
-              <user-projs v-for="proj in projs" :key="proj._id" :proj="proj" />
+          <transition name="fade">
+            <section v-if="projs && projs.length">
+              <div @click="scrollTo" class="flex a-center bet">
+                <h3 class="container-link-img flex bet">
+                  <section>
+                    <img class="link-img" src="../../assets/svg/link.svg" alt />
+                    <span>{{user.fullName}}'s projects</span>
+                  </section>
+                  <!-- <img class="edit-mode" v-if="editMode" src="../../assets/svg/pen2.svg" alt="Edit" /> -->
+                </h3>
+              </div>
+              <div class="user-projs-container">
+                <user-projs v-for="proj in projs" :key="proj._id" :proj="proj" />
+              </div>
+            </section>
+          </transition>
+          
+          <!--CMP NOTIFICATIONS OF USER-->
+          <section v-if="loggedinUser && loggedinUser._id === user._id" class="container-notification-icon width-container">
+            <div @click="toggleNotifications" v-if="!isNotificationsOpen" class="pointer" :class="{'not-allowed':!loggedinUser.notifications.length}">
+              <img src="../../assets/svg/notification.svg" alt />
+              <span>{{loggedinUser.notifications.length}}</span>
             </div>
           </section>
-
-          <!--CMP NOTIFICATIONS OF USER-->
-          <notification-list
-            v-if="user.notifications"
-            :notifications="user.notifications"
-            :userId="user._id"
-          />
+          <transition name="fade">
+            <notification-list
+              :class="{'notifications-open':isNotificationsOpen}"
+              v-if="user.notifications"
+              :notifications="user.notifications"
+              :userId="user._id"
+              @toggleNotifications="toggleNotifications"
+            />
+          </transition>
         </div>
       </div>
 
@@ -108,7 +124,8 @@ export default {
       projApplied: null,
       projs: null,
       audioNotification: null,
-      isLoading: false
+      isLoading: false,
+      isNotificationsOpen: false
     };
   },
   async created() {
@@ -130,7 +147,7 @@ export default {
     this.review = this.getEmptyReview();
     this.projs = await this.$store.dispatch({
       type: "loadProjs",
-      filterBy: { creators: user.fullName }
+      filterBy: { id: user._id }
     });
   },
   mounted() {
@@ -141,6 +158,11 @@ export default {
     eventBus.$on("onDecline", this.onDecline);
 
     eventBus.$on("uploadImg", this.uploadImg);
+
+     document
+      .querySelector(".screen")
+      .addEventListener("click", this.handleClick);
+    document.addEventListener("keydown", this.handlePress);
   },
   beforeDestroy() {
     eventBus.$off("updateUser", user => (this.user = user));
@@ -149,8 +171,28 @@ export default {
     eventBus.$off("onApprove", this.onApprove);
     eventBus.$off("onDecline", this.onDecline);
     eventBus.$off("uploadImg", this.uploadImg);
+
+     document
+      .querySelector(".screen")
+      .removeEventListener("click", this.handleClick);
+    document.removeEventListener("keydown", this.handlePress);
   },
   methods: {
+    toggleNotifications() {
+      // window.scrollTo(0, 0);
+      if (!this.loggedinUser.notifications.length && !this.isNotificationsOpen) return
+      this.isNotificationsOpen = !this.isNotificationsOpen;
+      document.body.classList.toggle("notifications-open");
+    },
+    handleClick(event) {
+      if (!this.isNotificationsOpen) return;
+      this.toggleNotifications();
+    },
+    handlePress(event) {
+      if (event.keyCode === 27) {
+        this.handleClick();
+      }
+    },
     scrollTo(ev) {
       window.scrollTo(0, ev.target.offsetTop - 200);
     },
@@ -163,12 +205,12 @@ export default {
     },
     async uploadImg(ev) {
       this.user.imgUrl = null;
-      this.isLoading = true
+      this.isLoading = true;
       var img = await this.$store.dispatch({
         type: "addImg",
         imgEv: ev
       });
-      this.isLoading = false
+      this.isLoading = false;
       this.user.imgUrl = img.url;
       await this.updateUser();
     },
@@ -254,6 +296,15 @@ export default {
           this.user.fullName = this.fullName;
           this.updateUser();
         }, 3000);
+      },
+      deep: true
+    },
+    'user.notifications': {
+      handler(){
+        // if (!this.user.notifications.length && this.isNotificationsOpen) {
+        console.log('hi')
+          this.toggleNotifications()
+        // }
       },
       deep: true
     }
