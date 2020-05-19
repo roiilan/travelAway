@@ -3,12 +3,7 @@
     <div class="screen"></div>
     <nav-bar />
     <router-view />
-    <!-- <home :projs="projs" :users="users"/> -->
     <main-footer />
-    <div class="msg" v-if="msg && msg.isShow">
-      <button class="close-msg-btn" @click="closeMsg">X</button>
-      {{msg.txt}}
-    </div>
   </div>
 </template>
 
@@ -22,7 +17,7 @@ import socketService from "./services/socket.service.js";
 import { projService } from "./services/proj.service.js";
 
 export default {
-  name: "projApp",
+  name: "App",
   data() {
     return {
       audioNotification: null,
@@ -32,7 +27,7 @@ export default {
   async created() {
     console.log("app created!");
     socketService.setup();
-    this.connectSockets()
+    this.connectSockets();
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
@@ -42,18 +37,15 @@ export default {
   mounted() {
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
-    eventBus.$on("removeReview", async reviewId => {
-      const msg = await this.$store.dispatch({
-        type: "removeReview",
-        reviewId
-      });
-      this.reviews = this.$store.getters.reviews;
-    });
+    eventBus.$on("removeReview", (reviewId)=> this.removeReview(reviewId));
     document.title = this.loggedinUser
       ? `(${this.loggedinUser.notifications.length}) Walkways`
       : "Walkways";
   },
   destroyed() {
+    eventBus.$off("connectSockets", () => this.connectSockets());
+    eventBus.$off("disconnectSockets", () => this.disconnectSockets());
+    eventBus.$off("removeReview", (reviewId)=> this.removeReview(reviewId));
     if (this.loggedinUser) this.disconnectSockets();
     socketService.terminate();
   },
@@ -62,84 +54,23 @@ export default {
       this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
       if (!this.user) return;
       console.log("conect socket!");
-
-      socketService.on(`apply ${this.user._id}`, this.pushNotification);
-      socketService.on(`decline ${this.user._id}`, this.decline);
-      socketService.on(`approve ${this.user._id}`, this.approve);
+      socketService.on(`updatedUser ${this.user._id}`, this.updateUser);
     },
     disconnectSockets() {
       this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
       if (!this.user) return;
       console.log("disconect socket!");
-      socketService.off(`apply ${this.user._id}`, this.pushNotification);
-      socketService.off(`decline ${this.user._id}`, this.decline);
-      socketService.off(`approve ${this.user._id}`, this.approve);
+      socketService.off(`updatedUser ${this.user._id}`, this.updateUser);
     },
-    pushNotification(notification) {
-      console.log("notificationnnnnn", notification);
-
-      // var res = this.$store.dispatch({ type: "addRequest", request });
-      // if (res) this.audioNotification.play();
-
-      // eventBus.$emit("addRequest", request);
-
-      this.user.notifications.push(notification);
-      this.updateUser();
-    },
-    decline(notification) {
-      console.log(notification);
-
-      // var res = this.$store.dispatch({ type: "decline", notification });
-      // if (res) this.audioNotification.play();
-
-      // eventBus.$emit("decline", notification);
-      if (notification.from._id === this.user._id) {
-        this.user.notifications.push({
-          _id: utilService.makeId(),
-          proj: notification.proj,
-          from: notification.to,
-          to: notification.from,
-          txt: "Sorry, your application was disapproved..!",
-          isApproved: false
-        });
-      } else {
-        const idx = this.user.notifications.findIndex(
-          currProj => currProj._id === notification._id
-        );
-        this.user.notifications.splice(idx, 1);
-      }
-        this.updateUser();
-    },
-    async approve(notification) {
-      if (notification.from._id === this.user._id) {
-        this.user.notifications.push({
-          _id: utilService.makeId(),
-          proj: notification.proj,
-          from: notification.to,
-          to: notification.from,
-          txt:
-            "We are pleased to inform you that you have been accepted for our project..!",
-          isApproved: true
-        });
-      } else {
-        const proj = await projService.getById(notification.proj._id);
-        proj.membersApplyed.push(notification.from);
-        proj.membersNeeded -= notification.memebersApllied;
-        await this.$store.dispatch({ type: "saveProj", proj });
-        const idx = this.user.notifications.findIndex(
-          currProj => currProj._id === notification._id
-        );
-        this.user.notifications.splice(idx, 1);
-      }
-      this.updateUser();
-    },
-    async updateUser() {
-      const updatedUser = await this.$store.dispatch({
-        type: "updateUser",
-        user: this.user
+    async removeReview(reviewId){
+        await this.$store.dispatch({
+        type: "removeReview",
+        reviewId
       });
+    },
+    updateUser(updatedUser) {
       if (updatedUser) {
-        eventBus.$emit("updateUser", updatedUser);
+        this.$store.commit({type:'setUser', user: updatedUser})
         this.audioNotification.play();
       } else {
         console.log("ERROR IN UPDATE USER");

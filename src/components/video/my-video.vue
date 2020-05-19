@@ -14,7 +14,19 @@
       />
     </header>
     <div class="container-canvas-video">
+      <!-- <img class="profile-img" v-if="profile" width="640" height="480" :src="profile" alt /> -->
       <img class="profile-img" v-if="profile" width="400" height="300" :src="profile" alt />
+      <!-- <video
+        @loadstart="loading = true"
+        @loadeddata="loading = false"
+        :class="{'stop-video': profile, loading}"
+        ref="video"
+        width="640"
+        height="480"
+        autoplay
+        preload="none"
+        muted="muted"
+      > -->
       <video
         @loadstart="loading = true"
         @loadeddata="loading = false"
@@ -26,10 +38,12 @@
         preload="none"
         muted="muted"
       >
+      
         <source src="../../assets/svg/loading.svg" />
       </video>
     </div>
-    <canvas ref="canvas" width="640" height="480"></canvas>
+    <!-- <canvas class="my-canvas" ref="canvas" width="640" height="480"></canvas> -->
+    <canvas class="my-canvas" ref="canvas" width="400" height="300"></canvas>
     <div class="confirm-img-contianer" v-if="profile">
       <img v-if="profile" src="../../assets/svg/ok.svg" title="Confirm" @click="uploadImg" />
     </div>
@@ -57,9 +71,12 @@ export default {
     this.video = this.$refs.video;
     this.canvas = this.$refs.canvas;
     this.context = this.canvas.getContext("2d");
-    this.context.translate(640, 0);
+    // this.context.translate(640, 0);
+    this.context.translate(400, 0);
     this.context.scale(-1, 1);
     this.play();
+    // this.canvas.width = window.innerWidth
+    // this.canvas.height = window.innerHeight
   },
   beforeDestroy() {
     this.stop();
@@ -78,7 +95,8 @@ export default {
       }
     },
     capture() {
-      this.context.drawImage(this.video, 0, 0, 640, 480);
+      // this.context.drawImage(this.video, 0, 0, 640, 480);
+      this.context.drawImage(this.video, 0, 0, 400, 300);
       this.profile = this.canvas.toDataURL("image/png");
       this.stop();
     },
