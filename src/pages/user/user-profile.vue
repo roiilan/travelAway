@@ -50,10 +50,18 @@
               </div>
             </section>
           </transition>
-          
+
           <!--CMP NOTIFICATIONS OF USER-->
-          <section v-if="loggedinUser && loggedinUser._id === user._id" class="container-notification-icon width-container">
-            <div @click="toggleNotifications" v-if="!isNotificationsOpen" class="pointer" :class="{'not-allowed':!loggedinUser.notifications.length}">
+          <section
+            v-if="loggedinUser && loggedinUser._id === user._id"
+            class="container-notification-icon width-container"
+          >
+            <div
+              @click="toggleNotifications"
+              v-if="!isNotificationsOpen"
+              class="pointer"
+              :class="{'not-allowed':!loggedinUser.notifications.length}"
+            >
               <img src="../../assets/svg/notification.svg" alt />
               <span>{{loggedinUser.notifications.length}}</span>
             </div>
@@ -61,11 +69,18 @@
           <transition name="fade">
             <notification-list
               :class="{'notifications-open':isNotificationsOpen}"
+              v-if="loggedinUser.notifications"
+              :notifications="loggedinUser.notifications"
+              :userId="loggedinUser._id"
+              @toggleNotifications="toggleNotifications"
+            />
+            <!-- <notification-list
+              :class="{'notifications-open':isNotificationsOpen}"
               v-if="user.notifications"
               :notifications="user.notifications"
               :userId="user._id"
               @toggleNotifications="toggleNotifications"
-            />
+            /> -->
           </transition>
         </div>
       </div>
@@ -137,6 +152,8 @@ export default {
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
     this.user = JSON.parse(JSON.stringify(user));
+    // this.user.notifications = []
+    // this.updateUser()
     this.imgUrl = user.imgUrl;
     await this.$store.dispatch({
       type: "loadReviews",
@@ -151,28 +168,24 @@ export default {
     });
   },
   mounted() {
-    eventBus.$on("updateUser", user => (this.user = user));
-
     eventBus.$on("deleteNotification", this.deleteNotification);
     eventBus.$on("onApprove", this.onApprove);
     eventBus.$on("onDecline", this.onDecline);
 
     eventBus.$on("uploadImg", this.uploadImg);
 
-     document
+    document
       .querySelector(".screen")
       .addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
   },
   beforeDestroy() {
-    eventBus.$off("updateUser", user => (this.user = user));
-
     eventBus.$off("deleteNotification", this.deleteNotification);
     eventBus.$off("onApprove", this.onApprove);
     eventBus.$off("onDecline", this.onDecline);
     eventBus.$off("uploadImg", this.uploadImg);
 
-     document
+    document
       .querySelector(".screen")
       .removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
@@ -180,7 +193,8 @@ export default {
   methods: {
     toggleNotifications() {
       // window.scrollTo(0, 0);
-      if (!this.loggedinUser.notifications.length && !this.isNotificationsOpen) return
+      if (!this.loggedinUser.notifications.length && !this.isNotificationsOpen)
+        return;
       this.isNotificationsOpen = !this.isNotificationsOpen;
       document.body.classList.toggle("notifications-open");
     },
@@ -214,12 +228,7 @@ export default {
       this.user.imgUrl = img.url;
       await this.updateUser();
     },
-    async updateUser() {
-      var updatedUser = await this.$store.dispatch({
-        type: "updateUser",
-        user: this.user
-      });
-    },
+   
     getEmptyReview() {
       return {
         txt: "",
@@ -232,27 +241,31 @@ export default {
         }
       };
     },
-    onDecline(notification) {
-      socketService.emit("decline", notification);
-    },
-    decline(notification) {
-      const idx = this.user.notifications.findIndex(
-        currProj => currProj._id === notification._id
-      );
-      this.user.notifications.splice(idx, 1);
-      this.audioNotification.play();
-      this.updateUser();
-    },
-    deleteNotification(notification) {
-      const idx = this.user.notifications.findIndex(
-        currProj => currProj._id === notification._id
-      );
-      this.user.notifications.splice(idx, 1);
-      this.updateUser();
-    },
     onApprove(notification) {
       socketService.emit("approve", notification);
-    }
+      this.spliceNotification(notification);
+    },
+    onDecline(notification) {
+      socketService.emit("decline", notification);
+      this.spliceNotification(notification);
+    },
+    async deleteNotification(notification) {
+      await this.spliceNotification(notification);
+      this.updateUser();
+    },
+    spliceNotification(notification) {
+      const idx = this.user.notifications.findIndex(
+        currProj => currProj._id === notification._id
+      );
+      this.user.notifications.splice(idx, 1);
+      this.$store.commit({ type: "setUser", user: this.user });
+    },
+    async updateUser() {
+      var updatedUser = await this.$store.dispatch({
+        type: "updateUser",
+        user: this.user
+      });
+    },
   },
 
   computed: {
@@ -300,12 +313,12 @@ export default {
       },
       deep: true
     },
-    'user.notifications': {
-      handler(){
-        // if (!this.user.notifications.length && this.isNotificationsOpen) {
-        console.log('hi')
-          this.toggleNotifications()
-        // }
+    "loggedinUser.notifications": {
+      handler() {
+        if (!this.loggedinUser.notifications.length && this.isNotificationsOpen) {
+          console.log("hi");
+          this.toggleNotifications();
+        }
       },
       deep: true
     }

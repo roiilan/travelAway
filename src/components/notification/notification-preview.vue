@@ -18,19 +18,38 @@
     <transition name="fade">
       <section v-if="active === notification.from._id">
         <div class="notification-details">
-          <p>About: <span> {{notification.proj.title}} </span></p>
-          <p
-            v-if="notification.proj.createdById === userId"
-          >Members intrested:<span>{{' ' + notification.memebersApllied}} </span></p>
+          <p>
+            About:
+            <span>{{notification.proj.title}}</span>
+          </p>
+          <p v-if="notification.proj.createdById === userId">
+            Members intrested:
+            <span>{{' ' + notification.memebersApllied}}</span>
+          </p>
           <!-- <p v-if="notification.txt">{{notification.txt}}</p> -->
-          <p>Message: <span>{{notification.txt || 'I heard about your project and I really like it, can I sign up for it?'}} </span></p>
+          <p>
+            Message:
+            <span>{{notification.txt || 'I heard about your project and I really like it, can I sign up for it?'}}</span>
+          </p>
         </div>
         <div class="notification-btn">
           <section v-if="notification.proj.createdById === userId" class="flex">
-            <button @click="onApprove">Approve <img src="../../assets/svg/ok2.svg" alt=""></button>
-            <button @click="onDecline">Decline <img src="../../assets/svg/close2.svg" alt=""></button>
+            <button @click="onApprove">
+              Approve
+              <img src="../../assets/svg/ok2.svg" alt />
+            </button>
+            <button @click="onDecline">
+              Decline
+              <img src="../../assets/svg/close2.svg" alt />
+            </button>
           </section>
-        <img v-else src="../../assets/svg/bin.svg" alt="remove" title="Delete this message" @click.prevent="deleteNotification" />
+          <img
+            v-else
+            src="../../assets/svg/bin.svg"
+            alt="remove"
+            title="Delete this message"
+            @click.prevent="deleteNotification"
+          />
         </div>
       </section>
     </transition>
@@ -39,6 +58,7 @@
 
 <script>
 import { eventBus } from "../../services/eventbus-service.js";
+import { utilService } from "../../services/util.service.js";
 export default {
   props: {
     notification: Object,
@@ -50,10 +70,27 @@ export default {
       eventBus.$emit("deleteNotification", this.notification);
     },
     onApprove() {
-      eventBus.$emit("onApprove", this.notification);
+      const approve = {
+        _id: utilService.makeId(),
+        proj: notification.proj,
+        from: notification.to,
+        to: notification.from,
+        txt:
+          "We are pleased to inform you that you have been accepted for our project..!",
+        isApproved: true
+      };
+      eventBus.$emit("onApprove", approve);
     },
     onDecline() {
-      eventBus.$emit("onDecline", this.notification);
+      const decline = {
+        _id: utilService.makeId(),
+        proj: this.notification.proj,
+        from: this.notification.to,
+        to: this.notification.from,
+        txt: "Sorry, your application was disapproved..!",
+        isApproved: false
+      };
+      eventBus.$emit("onDecline", decline);
     }
   }
 };

@@ -87,7 +87,9 @@ export default {
             }
             return updatedUser;
         },
-
+        // async setUser(context, {user}){
+        //     context.commit({ type: 'setUser', user })
+        // },
         async setNewUserCred(context, {newUserCred}){
             
            context.commit({type:'setNewUserCred', newUserCred})
