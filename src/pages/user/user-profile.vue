@@ -29,7 +29,6 @@
 
               <!-- JOIN-AT -->
               <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
-              <pre>{{user.notifications}}</pre>
 
               <!--CMP AVARAGE REVIEW OF USER-->
               <review-avarage v-if="reviews" :reviews="reviews" />
@@ -75,13 +74,6 @@
               :userId="loggedinUser._id"
               @toggleNotifications="toggleNotifications"
             />
-            <!-- <notification-list
-              :class="{'notifications-open':isNotificationsOpen}"
-              v-if="user.notifications"
-              :notifications="user.notifications"
-              :userId="user._id"
-              @toggleNotifications="toggleNotifications"
-            /> -->
           </transition>
         </div>
       </div>
@@ -130,7 +122,6 @@ import userProjs from "../../components/user/user.projs.vue";
 
 export default {
   name: "UserProfile",
-
   data() {
     return {
       timeOut: null,
@@ -139,22 +130,15 @@ export default {
       review: null,
       projApplied: null,
       projs: null,
-      audioNotification: null,
       isLoading: false,
       isNotificationsOpen: false
     };
   },
   async created() {
     window.scrollTo(0, 0);
-    this.audioNotification = new Audio(
-      require("../../assets/audio/notification.mp3")
-    );
-
     const userId = this.$route.params.id;
     const user = await userService.getById(userId);
     this.user = JSON.parse(JSON.stringify(user));
-    // this.user.notifications = []
-    // this.updateUser()
     this.imgUrl = user.imgUrl;
     await this.$store.dispatch({
       type: "loadReviews",
@@ -172,9 +156,7 @@ export default {
     eventBus.$on("deleteNotification", this.deleteNotification);
     eventBus.$on("onApprove", this.onApprove);
     eventBus.$on("onDecline", this.onDecline);
-
     eventBus.$on("uploadImg", this.uploadImg);
-
     document
       .querySelector(".screen")
       .addEventListener("click", this.handleClick);
@@ -185,32 +167,12 @@ export default {
     eventBus.$off("onApprove", this.onApprove);
     eventBus.$off("onDecline", this.onDecline);
     eventBus.$off("uploadImg", this.uploadImg);
-
     document
       .querySelector(".screen")
       .removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
   },
   methods: {
-    toggleNotifications() {
-      // window.scrollTo(0, 0);
-      if (!this.loggedinUser.notifications.length && !this.isNotificationsOpen)
-        return;
-      this.isNotificationsOpen = !this.isNotificationsOpen;
-      document.body.classList.toggle("notifications-open");
-    },
-    handleClick(event) {
-      if (!this.isNotificationsOpen) return;
-      this.toggleNotifications();
-    },
-    handlePress(event) {
-      if (event.keyCode === 27) {
-        this.handleClick();
-      }
-    },
-    scrollTo(ev) {
-      window.scrollTo(0, ev.target.offsetTop - 200);
-    },
     async save(review) {
       await this.$store.dispatch({
         type: "saveReview",
@@ -218,18 +180,6 @@ export default {
       });
       this.review = this.getEmptyReview();
     },
-    async uploadImg(ev) {
-      this.user.imgUrl = null;
-      this.isLoading = true;
-      var img = await this.$store.dispatch({
-        type: "addImg",
-        imgEv: ev
-      });
-      this.isLoading = false;
-      this.user.imgUrl = img.url;
-      await this.updateUser();
-    },
-   
     getEmptyReview() {
       return {
         txt: "",
@@ -267,8 +217,36 @@ export default {
         user: this.user
       });
     },
+    toggleNotifications() {
+      if (!this.loggedinUser.notifications.length && !this.isNotificationsOpen)
+        return;
+      this.isNotificationsOpen = !this.isNotificationsOpen;
+      document.body.classList.toggle("notifications-open");
+    },
+    async uploadImg(ev) {
+      this.user.imgUrl = null;
+      this.isLoading = true;
+      var img = await this.$store.dispatch({
+        type: "addImg",
+        imgEv: ev
+      });
+      this.isLoading = false;
+      this.user.imgUrl = img.url;
+      await this.updateUser();
+    },
+    handleClick(event) {
+      if (!this.isNotificationsOpen) return;
+      this.toggleNotifications();
+    },
+    handlePress(event) {
+      if (event.keyCode === 27) {
+        this.handleClick();
+      }
+    },
+    scrollTo(ev) {
+      window.scrollTo(0, ev.target.offsetTop - 200);
+    }
   },
-
   computed: {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
@@ -314,8 +292,10 @@ export default {
     },
     "loggedinUser.notifications": {
       handler() {
-        if (!this.loggedinUser.notifications.length && this.isNotificationsOpen) {
-          console.log("hi");
+        if (
+          !this.loggedinUser.notifications.length &&
+          this.isNotificationsOpen
+        ) {
           this.toggleNotifications();
         }
       },
