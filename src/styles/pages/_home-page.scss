@@ -290,11 +290,10 @@
 
 .overlayText {
     overflow: hidden;
-
     position: absolute;
     font-family: Sen;
     left: 50%;
-    top: 24.5%;
+    top: rem(170px);
     transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;

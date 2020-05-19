@@ -29,7 +29,7 @@
 
               <!-- JOIN-AT -->
               <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
-              <pre>{{user.notifications}}</pre>
+              <!-- <pre>{{user.notifications}}</pre> -->
 
               <!--CMP AVARAGE REVIEW OF USER-->
               <review-avarage v-if="reviews" :reviews="reviews" />
@@ -41,7 +41,7 @@
                 <h3 class="container-link-img flex bet">
                   <section>
                     <img class="link-img" src="../../assets/svg/link.svg" alt />
-                    <span>{{user.fullName}}'s projects</span>
+                    <span>Projects By {{user.fullName}} Worldwide</span>
                   </section>
                   <!-- <img class="edit-mode" v-if="editMode" src="../../assets/svg/pen2.svg" alt="Edit" /> -->
                 </h3>
@@ -138,6 +138,7 @@ export default {
     };
   },
   async created() {
+    
     window.scrollTo(0, 0);
     this.audioNotification = new Audio(
       require("../../assets/audio/notification.mp3")
@@ -161,7 +162,6 @@ export default {
   },
   mounted() {
     eventBus.$on("updateUser", user => (this.user = user));
-
     eventBus.$on("deleteNotification", this.deleteNotification);
     eventBus.$on("onApprove", this.onApprove);
     eventBus.$on("onDecline", this.onDecline);
@@ -229,7 +229,6 @@ export default {
         type: "updateUser",
         user: this.user
       });
-      this.user = updatedUser;
     },
     getEmptyReview() {
       return {
@@ -311,10 +310,10 @@ export default {
     },
     "user.notifications": {
       handler() {
-        // if (!this.user.notifications.length && this.isNotificationsOpen) {
+        if (!this.user.notifications.length && this.isNotificationsOpen) {
         console.log("hi");
         this.toggleNotifications();
-        // }
+        }
       },
       deep: true
     }
