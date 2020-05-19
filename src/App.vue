@@ -4,7 +4,7 @@
     <nav-bar />
     <router-view />
     <!-- <home :projs="projs" :users="users"/> -->
-    <main-footer/>
+    <main-footer />
     <div class="msg" v-if="msg && msg.isShow">
       <button class="close-msg-btn" @click="closeMsg">X</button>
       {{msg.txt}}
@@ -19,53 +19,30 @@ import mainFooter from "./components/footer/main-footer.vue";
 import { eventBus } from "./services/eventbus-service.js";
 import { utilService } from "./services/util.service.js";
 import socketService from "./services/socket.service.js";
-import {projService} from './services/proj.service.js';
+import { projService } from "./services/proj.service.js";
 
 export default {
   name: "projApp",
   data() {
     return {
       audioNotification: null,
-      user: null,
-       audioNotification: null,
-
+      user: null
     };
   },
-  computed: {
-    msg() {
-      return this.$store.getters.msg;
-    },
-    // loggedinUser() {
-    //   return this.$store.getters.loggedinUser;
-    // }
-  },
-  methods: {
-    closeMsg() {
-      this.$store.commit({ type: "closeMsg", msg: { isShow: false, txt: "" } });
-    }
-  },
-  components: {
-    navBar,
-    mainFooter,
-  },
   async created() {
-    console.log('app created!');
+    console.log("app created!");
+    socketService.setup();
+    this.connectSockets()
     this.audioNotification = new Audio(
       require("./assets/audio/notification.mp3")
     );
-    socketService.setup();
-    // await this.$store.dispatch({ type: "loadProjs" });
-    // await this.$store.dispatch({ type: "loadUsers" });
+    // TODO: TRANSFER TO HOME
     await this.$store.dispatch({ type: "loadReviewsCount" });
   },
   mounted() {
-    // console.log(this.loggedinUser);
-    
     eventBus.$on("connectSockets", () => this.connectSockets());
     eventBus.$on("disconnectSockets", () => this.disconnectSockets());
     eventBus.$on("removeReview", async reviewId => {
-      console.log("removeReview");
-
       const msg = await this.$store.dispatch({
         type: "removeReview",
         reviewId
@@ -76,25 +53,25 @@ export default {
       ? `(${this.loggedinUser.notifications.length}) Walkways`
       : "Walkways";
   },
-  // destroyed() {
-  //   if (this.loggedinUser) this.disconnectSockets();
-  //   socketService.terminate();
-  // },
+  destroyed() {
+    if (this.loggedinUser) this.disconnectSockets();
+    socketService.terminate();
+  },
   methods: {
-    connectSockets() {     
-      console.log('conect socket!');
-      this.user =  JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
-             
+    connectSockets() {
+      this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
+      if (!this.user) return;
+      console.log("conect socket!");
+
       socketService.on(`apply ${this.user._id}`, this.pushNotification);
       socketService.on(`decline ${this.user._id}`, this.decline);
       socketService.on(`approve ${this.user._id}`, this.approve);
     },
     disconnectSockets() {
-      if(!this.user) return
-      socketService.off(
-        `apply ${this.user._id}`,
-        this.pushNotification
-      );
+      this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
+      if (!this.user) return;
+      console.log("disconect socket!");
+      socketService.off(`apply ${this.user._id}`, this.pushNotification);
       socketService.off(`decline ${this.user._id}`, this.decline);
       socketService.off(`approve ${this.user._id}`, this.approve);
     },
@@ -109,7 +86,7 @@ export default {
     },
     decline(notification) {
       console.log(notification);
-      
+
       // var res = this.$store.dispatch({ type: "decline", notification });
       // if (res) this.audioNotification.play();
 
@@ -139,10 +116,11 @@ export default {
       if (notification.from._id === this.user._id) {
         this.user.notifications.push({
           _id: utilService.makeId(),
-         proj: notification.proj,
+          proj: notification.proj,
           from: notification.to,
           to: notification.from,
-          txt: "We are pleased to inform you that you have been accepted for our project..!",
+          txt:
+            "We are pleased to inform you that you have been accepted for our project..!",
           isApproved: true
         });
       } else {
@@ -168,20 +146,17 @@ export default {
       } else {
         console.log("ERROR IN UPDATE USER");
       }
-
-      // console.log(updatedUser, " updatedUser");
     }
+  },
+  computed: {
+    msg() {
+      return this.$store.getters.msg;
+    }
+  },
+  components: {
+    navBar,
+    mainFooter
   }
-  // watch: {
-  //   loggedinUser: {
-  //     hendler() {
-  //       document.title = this.loggedinUser
-  //         ? `(${this.loggedinUser.notifications.length}) Walkways`
-  //         : "Walkways";
-  //     },
-  //     deep: true
-  //   }
-  // }
 };
 </script>
 

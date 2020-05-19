@@ -411,7 +411,7 @@
           <span
             v-else-if="!newProjMode && loggedinUser &&
         (loggedinUser._id !== proj.createdBy._id || 
-        !loggedinUser.isAdmin)"
+        !loggedinUser.isAdmin) && !isApplyOpen"
             @click.stop="toggleApply"
             :class="{'apply-open':isApplyOpen}"
           >Apply now</span>
