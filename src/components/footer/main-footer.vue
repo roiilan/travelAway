@@ -25,7 +25,7 @@
           <router-link to="/" class="router-link">
             <li>Home</li>
           </router-link>
-          <router-link to="/edit" class="router-link">
+          <router-link to="/proj" class="router-link">
             <li>Publish</li>
           </router-link>
           <router-link to="/projs/aroundTheWorld" class="router-link">

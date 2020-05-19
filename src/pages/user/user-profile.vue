@@ -29,6 +29,7 @@
 
               <!-- JOIN-AT -->
               <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
+              <pre>{{user.notifications}}</pre>
 
               <!--CMP AVARAGE REVIEW OF USER-->
               <review-avarage v-if="reviews" :reviews="reviews" />
@@ -50,10 +51,18 @@
               </div>
             </section>
           </transition>
-          
+
           <!--CMP NOTIFICATIONS OF USER-->
-          <section v-if="loggedinUser && loggedinUser._id === user._id" class="container-notification-icon width-container">
-            <div @click="toggleNotifications" v-if="!isNotificationsOpen" class="pointer" :class="{'not-allowed':!loggedinUser.notifications.length}">
+          <section
+            v-if="loggedinUser && loggedinUser._id === user._id"
+            class="container-notification-icon width-container"
+          >
+            <div
+              @click="toggleNotifications"
+              v-if="!isNotificationsOpen"
+              class="pointer"
+              :class="{'not-allowed':!loggedinUser.notifications.length}"
+            >
               <img src="../../assets/svg/notification.svg" alt />
               <span>{{loggedinUser.notifications.length}}</span>
             </div>
@@ -159,7 +168,7 @@ export default {
 
     eventBus.$on("uploadImg", this.uploadImg);
 
-     document
+    document
       .querySelector(".screen")
       .addEventListener("click", this.handleClick);
     document.addEventListener("keydown", this.handlePress);
@@ -172,7 +181,7 @@ export default {
     eventBus.$off("onDecline", this.onDecline);
     eventBus.$off("uploadImg", this.uploadImg);
 
-     document
+    document
       .querySelector(".screen")
       .removeEventListener("click", this.handleClick);
     document.removeEventListener("keydown", this.handlePress);
@@ -180,7 +189,8 @@ export default {
   methods: {
     toggleNotifications() {
       // window.scrollTo(0, 0);
-      if (!this.loggedinUser.notifications.length && !this.isNotificationsOpen) return
+      if (!this.loggedinUser.notifications.length && !this.isNotificationsOpen)
+        return;
       this.isNotificationsOpen = !this.isNotificationsOpen;
       document.body.classList.toggle("notifications-open");
     },
@@ -219,7 +229,7 @@ export default {
         type: "updateUser",
         user: this.user
       });
-      this.user = updatedUser
+      this.user = updatedUser;
     },
     getEmptyReview() {
       return {
@@ -249,6 +259,7 @@ export default {
         currProj => currProj._id === notification._id
       );
       this.user.notifications.splice(idx, 1);
+      this.updateUser();
     },
     onApprove(notification) {
       socketService.emit("approve", notification);
@@ -278,8 +289,7 @@ export default {
         this.$router.push("/");
       }
     },
-    user() {
-    },
+    user() {},
     fullName: {
       handler() {
         if (
@@ -299,11 +309,11 @@ export default {
       },
       deep: true
     },
-    'user.notifications': {
-      handler(){
+    "user.notifications": {
+      handler() {
         // if (!this.user.notifications.length && this.isNotificationsOpen) {
-        console.log('hi')
-          this.toggleNotifications()
+        console.log("hi");
+        this.toggleNotifications();
         // }
       },
       deep: true
