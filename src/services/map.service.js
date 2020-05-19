@@ -10,9 +10,7 @@ export default {
 
 import axios from "axios";
 
-async function searchPosition(txt){
-    console.log(txt);
-    
+async function searchPosition(txt){    
     const res= await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${txt.split(" ").join('+')}&key=${GAPI_KEY}&language=en&region=US`)
     console.log(res);
     

@@ -645,7 +645,7 @@ export default {
       document.body.classList.remove("apply-open");
     },
     handlePress() {
-      if (event.keyCode === 27 || event.keyCode === 32) {
+      if (event.keyCode === 27) {
         this.closeApply();
       }
     },

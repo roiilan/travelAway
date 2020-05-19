@@ -12,34 +12,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: true,
-  // state: {
-  //   msg: {
-  //     isShow: false,
-  //     txt: ''
-  //   },
-  //   timeout: '',
-  // },
+ 
   mutations: {
-    // setMsg(state, { msg }){
-    //   console.log(msg);
-      
-    //   state.msg = msg
-    //   state.timeout = setTimeout (()=>{
-    //       state.msg = {
-    //         isShow: false,
-    //         txt: ''
-    //       }
-    //     },2500)
-    // },
-    // closeMsg(state, { msg }){
-    //   state.msg = msg;
-    //   clearTimeout(state.timeout)
-    // }
+    
   },
   getters: {
-    //  msg(state) {
-    //    return state.msg
-    //  }
+   
   }, 
   actions: {
     async addImg(context, { imgEv }) {

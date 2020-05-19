@@ -119,33 +119,6 @@ export default {
       this.selects.unshift(select);
       this.$emit("input", this.selecteds);
     },
-
-    // inputTxtHendler(txt){
-    //   if (txt.length){
-    //     this.search1({name: txt, value: txt})
-    //   }
-    // },
-    // search1(selector) {
-    //   this.isOpen = false;
-    //   this.selecteds.push(selector);
-    //   var idx = this.selects.findIndex(select => select.value === selector.value);
-    //   if (idx !== -1) this.selects.splice(idx, 1);
-    //   this.emitFilter(this.selecteds)
-      
-    // },
-    // removeFromList(currSelected) {
-    //   var idx = this.selecteds.findIndex(selected => selected.value === currSelected.value);
-    //   var select = this.selecteds.splice(idx, 1).join("");
-    //   this.selects.unshift(select);
-    //   this.emitFilter(this.selecteds)
-    // },
-    // emitFilter(selecteds){
-    //   const selectedsForFilter = selecteds.map(s=> s.value)
-    //   console.log(selectedsForFilter, 'selectedsForFilter');
-      
-    //   this.$emit("input", this.selectedsForFilter);
-    // },
-   
     
     closeSearch() {
       this.isOpen = false;

@@ -29,6 +29,7 @@
 
               <!-- JOIN-AT -->
               <p>Join At: {{user.joinAt.date}}, {{user.joinAt.time}}</p>
+              <pre>{{user.notifications}}</pre>
 
               <!--CMP AVARAGE REVIEW OF USER-->
               <review-avarage v-if="reviews" :reviews="reviews" />
@@ -291,9 +292,7 @@ export default {
         this.$router.push("/");
       }
     },
-    user() {
-      console.log("I'm watch on user");
-    },
+    user() {},
     fullName: {
       handler() {
         if (

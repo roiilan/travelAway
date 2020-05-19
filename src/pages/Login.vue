@@ -167,9 +167,7 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },
-    newUserCred(){
-      console.log(this.$store.getters.newUserCred);
-      
+    newUserCred(){      
       return JSON.parse(JSON.stringify(this.$store.getters.newUserCred));
     }
   },
