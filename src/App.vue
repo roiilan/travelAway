@@ -34,15 +34,8 @@ export default {
     msg() {
       return this.$store.getters.msg;
     }
-    // loggedinUser() {
-    //   return this.$store.getters.loggedinUser;
-    // }
   },
-  methods: {
-    closeMsg() {
-      this.$store.commit({ type: "closeMsg", msg: { isShow: false, txt: "" } });
-    }
-  },
+
   components: {
     navBar,
     mainFooter
@@ -76,6 +69,7 @@ export default {
   methods: {
     connectSockets() {
       this.user = JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
+      if(!this.user) return
       socketService.on(`apply ${this.user._id}`, this.pushNotification);
       socketService.on(`decline ${this.user._id}`, this.decline);
       socketService.on(`approve ${this.user._id}`, this.approve);
@@ -97,7 +91,7 @@ export default {
       this.user.notifications.push(notification);
       this.updateUser();
     },
-    decline(notification) {
+    decline(notification) {      
       if (notification.from._id === this.user._id) {
         this.user.notifications.push({
           _id: utilService.makeId(),
@@ -112,8 +106,8 @@ export default {
           currProj => currProj._id === notification._id
         );
         this.user.notifications.splice(idx, 1);
-        this.updateUser();
       }
+        this.updateUser();
     },
     async approve(notification) {
       if (notification.from._id === this.user._id) {
