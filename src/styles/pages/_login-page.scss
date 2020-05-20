@@ -20,9 +20,9 @@
         }
         @include for-mobile-layout {
             margin: 0;
+            padding: 35px;
         }
         @include for-normal-layout {
-           padding: 35px;
 
         }
         height: 100%;

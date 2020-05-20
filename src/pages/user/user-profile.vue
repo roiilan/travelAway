@@ -6,13 +6,15 @@
           <div class="user-profile-inside-container flex col a-center">
             <!-- CMP AVATAR OF USER ---- EDIT-MODE-->
             <avatar-edit
-              v-if="loggedinUser && loggedinUser._id === user._id"
+              v-if="loggedinUser && (loggedinUser._id === user._id || loggedinUser.isAdmin)"
               :url="user.imgUrl"
               :isLoading="isLoading"
             />
             <!-- V-ELSE: IMG AVATAR OF USER --- SHOW-MODE-->
             <div v-else class="container-img">
-              <img class="avatar avatar-m" :src="user.imgUrl" />
+              <!-- <img class="avatar avatar-m" src="" @error="replaceByDefault" /> -->
+              <!-- <img class="avatar avatar-m" src=""  @beforeunload="replaceByLoading" /> -->
+              <img class="avatar avatar-m" :src="user.imgUrl" @error="replaceByDefault" />
             </div>
 
             <div class="container-details-user flex col">
@@ -21,7 +23,7 @@
               <input
                 class="input-fullname"
                 type="text"
-                v-if="loggedinUser && loggedinUser._id === user._id"
+                v-if="loggedinUser && (loggedinUser._id === user._id || loggedinUser.isAdmin)"
                 v-model="fullName"
               />
               <!--  SHOW-MODE -->
@@ -58,7 +60,7 @@
           >
             <div
               @click="toggleNotifications"
-              v-if="!isNotificationsOpen"
+              v-if="!isNotificationsOpen && loggedinUser"
               class="pointer"
               :class="{'not-allowed':!loggedinUser.notifications.length}"
             >
@@ -69,7 +71,7 @@
           <transition name="fade">
             <notification-list
               :class="{'notifications-open':isNotificationsOpen}"
-              v-if="loggedinUser.notifications"
+              v-if="loggedinUser && loggedinUser.notifications"
               :notifications="loggedinUser.notifications"
               :userId="loggedinUser._id"
               @toggleNotifications="toggleNotifications"
@@ -135,22 +137,8 @@ export default {
     };
   },
   async created() {
-    window.scrollTo(0, 0);
-    const userId = this.$route.params.id;
-    const user = await userService.getById(userId);
-    this.user = JSON.parse(JSON.stringify(user));
-    this.imgUrl = user.imgUrl;
-    await this.$store.dispatch({
-      type: "loadReviews",
-      id: userId,
-      isSetReviews: true
-    });
-    this.fullName = this.user.fullName;
+    await this.setCurrUser()
     this.review = this.getEmptyReview();
-    this.projs = await this.$store.dispatch({
-      type: "loadProjs",
-      filterBy: { id: user._id }
-    });
   },
   mounted() {
     eventBus.$on("deleteNotification", this.deleteNotification);
@@ -173,6 +161,25 @@ export default {
     document.removeEventListener("keydown", this.handlePress);
   },
   methods: {
+    async setCurrUser(){
+      window.scrollTo(0, 0);
+    const userId = this.$route.params.id;
+    console.log(userId, 'userId');
+    
+    const user = await userService.getById(userId);
+    this.user = JSON.parse(JSON.stringify(user));
+    this.imgUrl = user.imgUrl;
+    await this.$store.dispatch({
+      type: "loadReviews",
+      id: userId,
+      isSetReviews: true
+    });
+    this.fullName = this.user.fullName;
+    this.projs = await this.$store.dispatch({
+      type: "loadProjs",
+      filterBy: { id: user._id }
+    });
+    },
     async save(review) {
       await this.$store.dispatch({
         type: "saveReview",
@@ -218,7 +225,7 @@ export default {
       });
     },
     toggleNotifications() {
-      if (!this.loggedinUser.notifications.length && !this.isNotificationsOpen)
+      if (!loggedinUser && !this.loggedinUser.notifications.length && !this.isNotificationsOpen)
         return;
       this.isNotificationsOpen = !this.isNotificationsOpen;
       document.body.classList.toggle("notifications-open");
@@ -233,6 +240,12 @@ export default {
       this.isLoading = false;
       this.user.imgUrl = img.url;
       await this.updateUser();
+    },
+    replaceByDefault(ev){
+      ev.target.src = require("../../assets/svg/user-profile.svg")
+    },
+    replaceByLoading(ev){
+      ev.target.src = require("../../assets/svg/loading2.svg")
     },
     handleClick(event) {
       if (!this.isNotificationsOpen) return;
@@ -298,6 +311,12 @@ export default {
         ) {
           this.toggleNotifications();
         }
+      },
+      deep: true
+    },
+    "$route.path": {
+      handler() {
+        this.setCurrUser();
       },
       deep: true
     }

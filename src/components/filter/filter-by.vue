@@ -18,40 +18,34 @@
       :selects="creators"
       :placeholder="'Creators'"
     ></select-cmp>
-    <!-- <el-date-picker
-      :class="{'filters-open':isFiltersOpen}"
-      v-model="dates"
-      type="daterange"
-      unlink-panels
-      range-separator="To"
-      start-placeholder="Start date"
-      end-placeholder="End date"
-      format="yyyy/MM/dd"
-    ></el-date-picker>-->
     <select-cmp
       :class="{'filters-open':isFiltersOpen}"
       v-model="filterBy.categories"
       :selects="categories"
       :placeholder="'Categories'"
     ></select-cmp>
-    <el-date-picker
-      :class="{'filters-open':isFiltersOpen}"
-      v-model="dates[0]"
-      type="date"
-      placeholder="Start date"
-      format="yyyy/MM/dd"
-      value-format="yyyy-MM-dd"
-      @change="goToEnd"
-    ></el-date-picker>
-    <el-date-picker
-      :class="{'filters-open':isFiltersOpen}"
-      v-model="dates[1]"
-      type="date"
-      ref="date-end"
-      placeholder="End date"
-      format="yyyy/MM/dd"
-      value-format="yyyy-MM-dd"
-    ></el-date-picker>
+    <transition name="fade">
+      <el-date-picker
+        :class="{'filters-open':isFiltersOpen}"
+        v-model="dates[0]"
+        type="date"
+        placeholder="Start date"
+        format="yyyy/MM/dd"
+        value-format="yyyy-MM-dd"
+        @change="goToEnd"
+      ></el-date-picker>
+    </transition>
+    <transition name="fade">
+      <el-date-picker
+        :class="{'filters-open':isFiltersOpen}"
+        v-model="dates[1]"
+        type="date"
+        ref="date-end"
+        placeholder="End date"
+        format="yyyy/MM/dd"
+        value-format="yyyy-MM-dd"
+      ></el-date-picker>
+    </transition>
   </div>
 </template>
 
@@ -85,6 +79,10 @@ export default {
     this.categories = this.categories.map(category => category.category);
     // this.categories = this.categories.map(category => {return {name: category.title, value:category.category}});
     this.tags = projService.loadTags();
+    const projs = this.$store.getters.projs;
+    if (!projs.length) {
+      await this.$store.dispatch({ type: "loadProjs" });
+    }
     this.creators = await this.$store.getters.creators;
   },
   methods: {
@@ -103,7 +101,7 @@ export default {
       return datum / 1000;
     },
     goToEnd() {
-      if (!this.dates[0]) return
+      if (!this.dates[0]) return;
       this.$refs["date-end"].focus();
     }
   },

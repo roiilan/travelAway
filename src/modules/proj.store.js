@@ -63,21 +63,13 @@ export default {
         },
     },
     actions: {
-        async loadProjs(context, { filterBy, limit }) {
-            const isLimit = !!limit
+        async loadProjs(context, { filterBy }) {
             const isFilterBy = !!filterBy
-            const projs = await projService.query(filterBy, limit)
-            // if (!isLimit) {
-            //     context.commit({ type: 'setProjs', projs })            
-            // }
-            if (!isLimit && !isFilterBy) {
+            const projs = await projService.query(filterBy)
+            if (!isFilterBy) {
                 context.commit({ type: 'setProjs', projs })            
-                context.commit({ type: 'setCurrProjs', projs })            
             }
-            if (isFilterBy) {
-                // context.commit({ type: 'setProjs', projs })            
                 context.commit({ type: 'setCurrProjs', projs })            
-            }
             return projs
         },
 

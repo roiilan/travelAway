@@ -77,7 +77,8 @@ export default {
         to: notification.from,
         txt:
           "We are pleased to inform you that you have been accepted for our project..!",
-        isApproved: true
+        isApproved: true,
+        memebersApllied: this.notification.memebersApllied
       };
       eventBus.$emit("onApprove", approve);
     },
