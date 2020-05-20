@@ -585,7 +585,10 @@ export default {
       proj.endsAt = this.toTimestamp(proj.date[1]);
       proj.date = this.fixDate(proj.date);
       proj.createdBy = this.loggedinUser;
-      this.toggleLoading();
+      if(!proj.imgUrls.length) proj.imgUrls[0] = 'https://res.cloudinary.com/tamir/image/upload/v1589967682/noImg_imojcv.jpg'
+      console.log(proj);
+      
+      this.toggleLoading()      
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$notify({
         title: "Success",
