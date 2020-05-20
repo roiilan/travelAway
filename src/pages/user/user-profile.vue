@@ -6,7 +6,7 @@
           <div class="user-profile-inside-container flex col a-center">
             <!-- CMP AVATAR OF USER ---- EDIT-MODE-->
             <avatar-edit
-              v-if="loggedinUser && (loggedinUser._id === user._id || loggedinUser.isAdmin)"
+              v-if="loggedinUser && (loggedinUser._id === user._id)"
               :url="user.imgUrl"
               :isLoading="isLoading"
             />
@@ -23,7 +23,7 @@
               <input
                 class="input-fullname"
                 type="text"
-                v-if="loggedinUser && (loggedinUser._id === user._id || loggedinUser.isAdmin)"
+                v-if="loggedinUser && (loggedinUser._id === user._id)"
                 v-model="fullName"
               />
               <!--  SHOW-MODE -->
@@ -288,7 +288,7 @@ export default {
       handler() {
         if (
           !this.loggedinUser ||
-          (this.loggedinUser && this.loggedinUser._id !== this.user._id)
+          (this.loggedinUser && this.loggedinUser._id !== this.user._id )
         ) {
           return;
         }
