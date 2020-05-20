@@ -11,7 +11,8 @@ function uploadImg(ev) {
 
     return fetch(UPLOAD_URL, {
             method: 'POST',
-            body: formData
+            body: formData,
+            secure:true
         })
         .then(res => res.json())
         .then(res => {

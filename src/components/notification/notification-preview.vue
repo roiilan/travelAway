@@ -72,12 +72,13 @@ export default {
     onApprove() {
       const approve = {
         _id: utilService.makeId(),
-        proj: notification.proj,
-        from: notification.to,
-        to: notification.from,
+        proj: this.notification.proj,
+        from: this.notification.to,
+        to: this.notification.from,
         txt:
           "We are pleased to inform you that you have been accepted for our project..!",
-        isApproved: true
+        isApproved: true,
+        memebersApllied: this.notification.memebersApllied
       };
       eventBus.$emit("onApprove", approve);
     },
