@@ -33,7 +33,7 @@ body {
         opacity: 0;
         visibility: hidden;
     }
-    &.menu-open, &.vidoe-open, &.apply-open, &.notifications-open {
+    &.menu-open, &.vidoe-open, &.apply-open, &.notifications-open, &.loading-active {
         // .home {
         //     transform: translateX(-80px);
         //     transition: all 0.3s ease 0s;

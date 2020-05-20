@@ -14,21 +14,7 @@
       />
     </header>
     <div class="container-canvas-video">
-      <!-- <img class="profile-img" v-if="profile" width="640" height="480" :src="profile" alt /> -->
       <img class="profile-img" v-if="profile" :src="profile" alt />
-      <!-- <video
-        @loadstart="loading = true"
-        @loadeddata="loading = false"
-        :class="{'stop-video': profile, loading}"
-        ref="video"
-        width="640"
-        height="480"
-        autoplay
-        preload="none"
-        muted="muted"
-      >-->
-      <!-- width="400"
-      height="300"-->
       <video
         @loadstart="loading = true"
         @loadeddata="loading = false"
@@ -41,7 +27,6 @@
         <source src="../../assets/svg/loading.svg" />
       </video>
     </div>
-    <!-- <canvas class="my-canvas" ref="canvas" width="640" height="480"></canvas> -->
     <canvas class="my-canvas" ref="canvas" width="400" height="300"></canvas>
     <div class="confirm-img-contianer" v-if="profile">
       <img v-if="profile" src="../../assets/svg/ok.svg" title="Confirm" @click="uploadImg" />
@@ -71,31 +56,11 @@ export default {
   mounted() {
     // window.addEventListener("resize", this.setVidoeCanvasWidth);
     console.log(window.innerHeight);
-    
-    // this.video = this.$refs.video;
-    // this.canvas = this.$refs.canvas;
     this.setVidoeCanvasWidth();
-    // this.screenWidth = window.innerWidth;
-    // this.vgaConstraints =
-    //   this.screenWidth < 440
-    //     ? {
-    //         video: {
-    //           width: { exact: this.screenWidth },
-    //           height: { exact: (this.screenWidth * 3) / 2 }
-    //         }
-    //       }
-    //     : { video: { width: { exact: 400 }, height: { exact: 300 } } };
-    // this.canvas.width = this.vgaConstraints.video.width.exact
-    // this.canvas.height = this.vgaConstraints.video.height.exact
-    // this.context = this.canvas.getContext("2d");
-    // // this.context.translate(640, 0);
-    // this.context.translate(this.canvas.width, 0);
-    // this.context.scale(-1, 1);
-    // this.play();
   },
   beforeDestroy() {
     this.stop();
-    window.removeEventListener("resize", this.setVidoeCanvasWidth);
+    // window.removeEventListener("resize", this.setVidoeCanvasWidth);
   },
   methods: {
     async setVidoeCanvasWidth() {
@@ -113,7 +78,6 @@ export default {
               video: {
                 width: { exact: this.screenWidth },
                 height: { exact: window.innerHeight -180 }
-                // height: { exact: (this.screenWidth * 95) /100 }
               }
             }
           : { video: { width: { exact: 400 }, height: { exact: 300 } } };
@@ -129,10 +93,6 @@ export default {
     },
     play() {
       this.profile = null;
-      // const hdConstraints = {
-      //   video: { width: { min: 1280 }, height: { min: 720 } }
-      // };
-
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices
           .getUserMedia(this.vgaConstraints)
@@ -143,7 +103,6 @@ export default {
       }
     },
     capture() {
-      // this.context.drawImage(this.video, 0, 0, 640, 480);
       this.context.drawImage(
         this.video,
         0,
@@ -156,11 +115,6 @@ export default {
     },
     async uploadImg() {
       eventBus.$emit("uploadImg", this.profile);
-      // const img = await this.$store.dispatch({
-      //   type: "addImg",
-      //   imgEv: this.profile
-      // });
-      // this.$emit("input", img.url);
       this.$emit("stopVideo");
     }
   }

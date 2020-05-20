@@ -1,6 +1,9 @@
 <template>
   <transition name="fade">
     <div class="proj-details-container width-container height-container" v-if="proj && reviews">
+      <div v-if="isSaveLoading" class="save-loading">
+            <img src="../../assets/svg/rolling2.svg" alt />
+      </div>
       <div class="proj-details">
         <div class="main-content-details-contianer">
           <!-- TITLE OF PROJECT-->
@@ -32,12 +35,15 @@
             </el-carousel>
           </div>
           <section
-            v-else
+            v-else-if="editMode"
             class="upload-new-img-btn pointer flex a-center j-center"
             title="Add image for your project"
             @click="$refs.uploadImg.click()"
           >
-            <img src="../../assets/svg/plus.svg" />
+          </section>
+          <section v-else class="container-img-default ratio-16-9">
+            <img src="https://www.thebalancesmb.com/thmb/zLMhuQKCL24jIckZmKqw6E4n2hI=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-585859259-57997e215f9b589aa94c4243.jpg" />
+            <h2 class="flex a-center j-center">Write a few words</h2>
           </section>
 
           <!--CMP AVARAGE REVIEW OF PROJECT-->
@@ -390,13 +396,13 @@
       <section>
         <section class="container-controller-proj-btn width-container">
           <section v-if="proj._id && editMode">
-            <img @click="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Save" />
+            <img @click.stop="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Save" />
           </section>
           <section v-else-if="editMode">
-            <img @click="reset" src="../../assets/svg/clean.svg" alt="Reset" />
+            <img @click.stop="reset" src="../../assets/svg/clean.svg" alt="Reset" />
           </section>
           <section v-if="editMode">
-            <img @click="saveProj(proj)" src="../../assets/svg/save.svg" alt="Save" />
+            <img @click.stop="saveProj(proj)" src="../../assets/svg/save.svg" alt="Save" />
           </section>
           <section
             v-if="!newProjMode && loggedinUser &&
@@ -469,7 +475,8 @@ export default {
         "Hot Water"
       ],
       categories: null,
-      isLoading: false
+      isLoading: false,
+      isSaveLoading: false
     };
   },
   async created() {
@@ -581,8 +588,20 @@ export default {
       proj.endsAt = this.toTimestamp(proj.date[1]);
       proj.date = this.fixDate(proj.date);
       proj.createdBy = this.loggedinUser;
+      this.toggleLoading()
       var res = await this.$store.dispatch({ type: "saveProj", proj });
+      this.$notify({
+        title: "Success",
+          message: "The project was successfully added",
+          type: "success",
+          duration: 1500
+        });
+      this.toggleLoading()
       this.$router.push("/");
+    },
+    toggleLoading(){
+      this.isSaveLoading = !this.isSaveLoading
+      document.body.classList.toggle("loading-active");
     },
     toTimestamp(strDate) {
       return Date.parse(strDate) / 1000;
@@ -597,8 +616,14 @@ export default {
           : date;
       });
     },
-    async removeProj(projId) {
-      var res = await this.$store.dispatch({ type: "removeProj", projId });
+    removeProj(projId) {
+      this.$store.dispatch({ type: "removeProj", projId });
+       this.$notify({
+          title: "Success",
+          message: "Project successfully deleted",
+          type: "success",
+          duration: 1500
+        });
       this.$router.push("/");
     },
     async saveReview(review) {
