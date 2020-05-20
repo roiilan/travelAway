@@ -194,7 +194,7 @@
                   <!--MEMBERS NEEDED REQUIEMENTS-->
                   <p>
                     <span class="strong">Members needed:</span>
-                    {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
+                    {{proj.membersApplyed.length}} / {{proj.membersNeeded}}
                   </p>
 
                   <!--LANGUAGES REQUIEMENTS-->

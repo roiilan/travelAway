@@ -7,6 +7,7 @@
       :title="proj.description.substring(0,80) +'... Click to read more!!'"
       class="carousel-proj-preview"
     >
+      <img src="../../assets/png/fully-booked.png" v-if="proj.membersApplyed.length === proj.membersNeeded" class = "fully-booked"/>
       <img :src="proj.imgUrls[0]" />
       <div class="proj-content flex col bet">
         <section>

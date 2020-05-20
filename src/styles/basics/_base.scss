@@ -171,6 +171,19 @@ select {
     cursor: pointer;
     height: 100%;
 
+    .fully-booked{
+        // height: 50%;
+        // width: 100%;
+        top:-8%;
+        left:8%;
+        width:75%;
+        object-fit: cover;
+
+        position: absolute;
+
+        z-index: 1;
+    }
+
 
     .proj-img {
         border-top-left-radius: 5px;

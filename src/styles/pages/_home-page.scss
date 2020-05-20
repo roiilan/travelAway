@@ -10,6 +10,14 @@
         }
     }
     .carousel-for-mobile {
+        
+        .fully-booked{
+            height: 18%;
+            width: 45%;
+            position: absolute;
+            z-index: 1;
+        }
+       
         margin-bottom: 15px;
         > img {
             display: flex;
@@ -23,6 +31,9 @@
             overflow-x: scroll;
             overflow-y: hidden;
             white-space:nowrap;
+
+
+            
             
             >* {
                 display:inline-block;
@@ -86,6 +97,7 @@
         }
 
         .el-carousel__container {
+     
             // height: 400px;
             // height: 125vw;
             @include for-medium-mobile-layout {
