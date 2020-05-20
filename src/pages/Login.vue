@@ -3,8 +3,9 @@
     <div class="login-page height-container">
       <form v-if="credentials && !isSignup" class="flex col" @submit.prevent="login">
         <h1>Log-in</h1>
-        <input ref="username" class="my-form" type="text" v-model="credentials.username" required />
-        <input type="password" v-model="credentials.password" required />
+        <input ref="username" class="my-form" type="text" v-model="credentials.username" placeholder="User Name"
+ required  />
+        <input type="password" v-model="credentials.password" placeholder="Password" required />
         <button class="login-btn" type="submit">Login</button>
         <h3>
           Don't have an account?
@@ -20,14 +21,14 @@
               ref="fullName"
               type="text"
               v-model="newUserCred.fullName"
-              placeholder="FullName"
+              placeholder="Full Name"
               required
             />
             <input
               ref="username"
               type="text"
               v-model="newUserCred.username"
-              placeholder="Username"
+              placeholder="User Name"
               required
             />
             <input
