@@ -121,6 +121,21 @@ export default {
       await this.$store.dispatch({ type: "loadUsers" });
       this.users = this.$store.getters.users;
     }
+        console.log('imgUrl createdBy');
+
+    // var projsForChangeHtpToHttps = JSON.parse(JSON.stringify(this.projs))
+    // projsForChangeHtpToHttps.forEach(async proj=> {
+    //   // console.log(proj.createdBy.imgUrl)
+    //   // proj.imgUrls = await proj.imgUrls.map(imgUrl=> {
+    //     //  return imgUrl.replace('http://', 'https://');
+    //   // })
+    //   // proj.createdBy.imgUrl = await  proj.createdBy.imgUrl.replace('http://', 'https://');
+    //   console.log(proj.createdBy.imgUrl)
+    //   // console.log(proj.imgUrls);
+    // //  await  this.$store.dispatch({type:'saveProj', proj})
+      
+    // })
+   
   },
   methods: {
     openDetails(id) {
