@@ -77,7 +77,7 @@
           title="Show more about 'around the world'"
           to="/projs/aroundTheWorld"
         >
-          <p>All Project </p>
+          <p>All Projects </p>
           <img src="../assets/svg/technology.svg" alt="">
         </router-link>
       </section>

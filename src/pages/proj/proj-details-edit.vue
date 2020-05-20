@@ -396,13 +396,13 @@
       <section>
         <section class="container-controller-proj-btn width-container">
           <section v-if="proj._id && editMode">
-            <img @click.stop="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Save" />
+            <img @click="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Delete" />
           </section>
           <section v-else-if="editMode">
-            <img @click.stop="reset" src="../../assets/svg/clean.svg" alt="Reset" />
+            <img @click="reset" src="../../assets/svg/clean.svg" alt="Reset" />
           </section>
           <section v-if="editMode">
-            <img @click.stop="saveProj(proj)" src="../../assets/svg/save.svg" alt="Save" />
+            <img @click="saveProj(proj)" src="../../assets/svg/save.svg" alt="Save" />
           </section>
           <section
             v-if="!newProjMode && loggedinUser &&

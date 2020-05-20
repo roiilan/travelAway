@@ -42,7 +42,7 @@
                 <h3 class="container-link-img flex bet">
                   <section>
                     <img class="link-img" src="../../assets/svg/link.svg" alt />
-                    <span>{{user.fullName}}'s projects</span>
+                    <span>Projects By {{user.fullName}} Worldwide</span>
                   </section>
                   <!-- <img class="edit-mode" v-if="editMode" src="../../assets/svg/pen2.svg" alt="Edit" /> -->
                 </h3>
