@@ -1,16 +1,31 @@
 .my-video {
     
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 0;
+    left: 0;
+    @include for-medium-mobile-layout {
+        bottom: initial;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
     border-radius: 3px;
     box-shadow: $shadow3;
     z-index: 10;
     header {
-        height: 60px;
         padding: 0 30px;
-        background-color: #4f4b64;
+        height: 100px;
+        background-color: #3e3c4d;
+        img:first-child {
+            width: 25px;
+        }
+        @include for-medium-mobile-layout {
+            img:first-child {
+                width: auto;
+            }
+            height: 60px;
+            background-color: #4f4b64;
+        }
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
         img {
@@ -19,9 +34,15 @@
                 mix-blend-mode: luminosity;
             }
         }
+       
     }
     .container-canvas-video {
-        height: 300px;
+        width: 100vw;
+        height: calc(100vh - 180px);
+        @include for-medium-mobile-layout {
+            width: 400px;
+            height: 300px;
+        }
         padding: 0 1px;
         background-color: #4f4b64;
     }
@@ -33,8 +54,12 @@
     }
     video {
         transform: rotateY(180deg);
-        max-width: 100vw;
-        // height: 100vh;
+        width: 100vw;
+        height: calc(100vh - 180px);
+        @include for-medium-mobile-layout {
+            width: 400px;
+            height: 300px;
+        }
         &.loading {
             background-image: url('~@/assets/svg/loading2.svg');
             background-position: center center;
@@ -45,13 +70,15 @@
         }
     }
     .profile-img {
-        max-width: 100vw;
-        max-height: 75vw;
+        width: 100vw;
+        height: calc(100vh - 180px);
+        @include for-medium-mobile-layout {
+            width: 400px;
+            height: 300px;
+        }
     }
     canvas {
         display: none;
-        max-width: 100vw;
-        // height: 75vw;
     }
     .capture-img-contianer, .confirm-img-contianer {
         border-radius: 50%;
@@ -63,7 +90,7 @@
         }
         width: fit-content;
         position: absolute;
-        top: 74%;
+        bottom: 50px;
         left: 50%;
         transform: translate(-50%);
         z-index: 1000;

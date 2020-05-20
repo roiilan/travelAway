@@ -1,12 +1,16 @@
 .nav-bar-container {
     overflow: hidden;
-    position: static;
-    &.scrollering {
+    // position: static;
+    // &.scrollering {
         position: sticky;
         top: 0;
         // height: rem(0px);
-    }
-    background-color: #68667a;
+    // }
+    // background-color: red;
+    // @include for-medium-mobile-layout {
+        background-color: #68667a;
+
+    // }
     // background-color: lighten($clr1, 35%);
     // background-image: linear-gradient(-180deg, #1b141a 0%, #644c64 100%);
 

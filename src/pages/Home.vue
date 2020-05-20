@@ -37,7 +37,7 @@
           <h1 class="divider">
             <img src="../assets/svg/communications.svg" />Feedbacks
             <!-- <span class="space">{{count}}</span> -->
-            <span class="space">{{allFeedbackLength}}</span>
+            <span class="space">{{allFeedbackLength || 0}}</span>
           </h1>
           <h1 v-if="users" class="divider">
             <img src="../assets/svg/business.svg" />Voulnteers
@@ -51,7 +51,7 @@
       </section>
 
       <section class="carousel-for-desctop width-container">
-        <ul v-if="projs" class="around-the-world-preview">
+        <ul v-if="projs.length" class="around-the-world-preview">
           <!-- <li v-for="proj in projs" :key="proj._id" class="around-the-world-card"> -->
           <li v-for="proj in projsForDisplay" :key="proj._id" class="around-the-world-card">
             <marker-card
@@ -68,17 +68,19 @@
       </section>
 
       <section class="carousel-for-mobile width-container">
-        <proj-list-carousel v-if="projs" :projs="projsForDisplay" />
+        <proj-list-carousel v-if="projs.length" :projs="projsForDisplay" />
         <img v-else src="../assets/svg/loading.svg" alt />
       </section>
-
-      <!-- <div class="proj-preview-card">
-      <router-link
-        class="show-more"
-        title="Show more about 'around the world'"
-        to="/projs/aroundTheWorld"
-      >Show more</router-link>
-      </div>-->
+      <section class="width-container see-all flex">
+        <router-link
+          class="flex"
+          title="Show more about 'around the world'"
+          to="/projs/aroundTheWorld"
+        >
+          <p>All Project </p>
+          <img src="../assets/svg/technology.svg" alt="">
+        </router-link>
+      </section>
     </div>
   </transition>
 </template>
@@ -138,9 +140,9 @@ export default {
     projsForDisplay() {
       // return JSON.parse(JSON.stringify(this.projs)).splice(0, 6);
       var projToDisplay = [];
-        let projsCopy = JSON.parse(JSON.stringify(this.projs));
+      let projsCopy = JSON.parse(JSON.stringify(this.projs));
 
-        if (projsCopy.length) {
+      if (projsCopy.length) {
         for (let i = 0; i < 6; i++) {
           let ranNum = utilService.getRandomInt(1, projsCopy.length);
           let proj = projsCopy[ranNum];
@@ -150,14 +152,12 @@ export default {
           projToDisplay.push(proj);
           projsCopy.splice(idx, 1);
         }
-        }
+      }
       return projToDisplay;
     }
   },
   watch: {
-    projsForDisplay() {
-      
-    }
+    projsForDisplay() {}
   },
   components: {
     markerCard,

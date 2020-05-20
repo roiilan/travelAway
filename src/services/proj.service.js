@@ -17,12 +17,11 @@ export const projService = {
 }
 
 
-function query(filterBy, limit = null) {
+function query(filterBy) {
     const queryParams = new URLSearchParams();
     
     if (filterBy) {
         for (const property in filterBy) {
-            console.log(`${property}: ${filterBy[property]}`);
             if (filterBy[property]){
                 queryParams.set(property, filterBy[property])
             }
@@ -30,10 +29,6 @@ function query(filterBy, limit = null) {
         return httpService.get(`proj?${queryParams}`);
     }
 
-    if (limit) {
-        queryParams.set('limit', limit);
-        return httpService.get(`proj?${queryParams}`);
-    }
     return httpService.get('proj');
 }
 

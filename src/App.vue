@@ -7,7 +7,6 @@
   </div>
 </template>
 
-
 <script>
 import navBar from "./components/nav-bar.vue";
 import mainFooter from "./components/footer/main-footer.vue";

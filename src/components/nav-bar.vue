@@ -111,7 +111,6 @@
 </template>
 
 <script>
-import filterBy from "./filter/filter-by.vue";
 import LoginVue from "../pages/Login.vue";
 import { projService } from "../services/proj.service.js";
 import { eventBus } from "../services/eventbus-service";
@@ -211,7 +210,6 @@ export default {
     document.removeEventListener("keydown", this.handlePress);
   },
   components: {
-    filterBy,
     searchCmp
   },
   watch: {
