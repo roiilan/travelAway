@@ -8,11 +8,11 @@
       </section>
       <div class="content-container-footer flex col bet">
         <div class="flex a-start col bet logo-location-container">
-          <img src="../../assets/svg/icon-location.svg" class="img-svg" />
+          <img src="../../assets/svg/icon-location.svg" class="img-svg cursor-initial" />
           <p>WalkWays is the world’s leading volunteering platform. We show you how to volunteer abroad! Search & compare the best international volunteer programs offered by volunteer organizations and local NGOs with just a few clicks.</p>
         </div>
         <div class="phone-email-container flex col around">
-          <div class="flex a-center">
+          <div class="flex a-center not-allowed">
             <img src="../../assets/svg/icon-phone.svg" />
             <p>+1-543-123-4567</p>
           </div>
@@ -22,21 +22,21 @@
           </div>
         </div>
         <ul>
-          <router-link to="/" class="router-link">
-            <li>Home</li>
-          </router-link>
-          <router-link to="/proj" class="router-link">
-            <li>Publish</li>
-          </router-link>
-          <router-link to="/projs/aroundTheWorld" class="router-link">
-            <li>All Projects</li>
-          </router-link>
-          <li>Blog</li>
+          <li>
+            <router-link to="/" class="router-link">Home</router-link>
+          </li>
+          <li>
+            <router-link to="/proj" class="router-link">Publish</router-link>
+          </li>
+          <li>
+            <router-link to="/projs/aroundTheWorld" class="router-link">All Projects</router-link>
+          </li>
+          <li><span>Blog</span></li>
         </ul>
         <ul>
-          <li>Contact Us</li>
-          <li>Terms</li>
-          <li>Privacy</li>
+          <li><span>Contact Us</span></li>
+          <li><span>Terms</span></li>
+          <li><span>Privacy</span></li>
         </ul>
         <div class="link-svg">
           <img class="img-svg" src="../../assets/svg/facebook.svg" />

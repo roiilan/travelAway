@@ -123,10 +123,14 @@
        
     }
     .container-notification-icon {
-        position: fixed;
-        top: 180px;
+        position: absolute;
+        top: 140px;
+        transform: translate(-10px, -50%);
+        @include for-mobile-layout {
+            top: 168px;
+            transform: translate(-20px, -50%);
+        }
         height: 0;
-        z-index: 1000;
         display: flex;
         justify-content: flex-end;
         align-items: center;
