@@ -233,12 +233,12 @@ export default {
     async uploadImg(ev) {
       this.user.imgUrl = null;
       this.isLoading = true;
-      var img = await this.$store.dispatch({
+      var imgUrl = await this.$store.dispatch({
         type: "addImg",
         imgEv: ev
       });
       this.isLoading = false;
-      this.user.imgUrl = img.url;
+      this.user.imgUrl = imgUrl;
       await this.updateUser();
     },
     replaceByDefault(ev){

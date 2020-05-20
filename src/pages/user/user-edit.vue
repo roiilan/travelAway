@@ -39,11 +39,11 @@ export default {
       this.$router.push("/login");
     },
     async uploadImg(ev) {
-      var img = await this.$store.dispatch({
+      var imgUrl = await this.$store.dispatch({
         type: "addImg",
         imgEv: ev
       });
-      this.user.imgUrl = img.url;
+      this.user.imgUrl = imgUrl;
     }
   }
 };

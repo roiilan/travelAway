@@ -479,15 +479,11 @@
     }
 }
 
-// .details-header {
-//     font-family: Sen;
-//     font-size: rem(40px);
-//     margin: 10px 0 10px 0;
-// }
 .details-header {
     font-size: rem(20px);
     text-align: center;
     font-weight: lighter;
+    margin: 0 0 10px 0;
     @include for-mobile-layout {
         font-size: rem(40px);
     }
