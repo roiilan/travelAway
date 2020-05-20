@@ -551,7 +551,7 @@ export default {
     async uploadImg(ev) {
       // this.proj.imgUrls.push(require('../../assets/svg/loading.svg'));
       this.isLoading = true;
-      var img = await this.$store.dispatch({
+      var imgUrl = await this.$store.dispatch({
         type: "addImg",
         imgEv: ev
       });
@@ -562,7 +562,7 @@ export default {
       // this.currentImgIdx = null;
       // this.proj.imgUrls.splice(-1, 1);
       this.isLoading = false;
-      this.proj.imgUrls.push(img.url);
+      this.proj.imgUrls.push(imgUrl);
     },
     removeImg(index) {
       this.proj.imgUrls.splice(index, 1);

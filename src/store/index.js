@@ -21,8 +21,10 @@ export default new Vuex.Store({
   }, 
   actions: {
     async addImg(context, { imgEv }) {
-      const img = await cloudinaryService.uploadImg(imgEv)
-      return img
+      const img = await cloudinaryService.uploadImg(imgEv)   
+      console.log(img.secure_url);
+         
+      return img.secure_url
   },
 
   },
