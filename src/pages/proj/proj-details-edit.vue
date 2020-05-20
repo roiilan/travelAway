@@ -390,7 +390,7 @@
       <section>
         <section class="container-controller-proj-btn width-container">
           <section v-if="proj._id && editMode">
-            <img @click="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Save" />
+            <img @click="removeProj(proj._id)" src="../../assets/svg/bin.svg" alt="Delete" />
           </section>
           <section v-else-if="editMode">
             <img @click="reset" src="../../assets/svg/clean.svg" alt="Reset" />
@@ -597,8 +597,8 @@ export default {
           : date;
       });
     },
-    async removeProj(projId) {
-      var res = await this.$store.dispatch({ type: "removeProj", projId });
+     removeProj(projId) {
+     this.$store.dispatch({ type: "removeProj", projId });
       this.$router.push("/");
     },
     async saveReview(review) {
