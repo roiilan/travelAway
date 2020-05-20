@@ -41,11 +41,6 @@
             @click="$refs.uploadImg.click()"
           >
           </section>
-          <section v-else class="container-img-default ratio-16-9">
-            <img src="https://www.thebalancesmb.com/thmb/zLMhuQKCL24jIckZmKqw6E4n2hI=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-585859259-57997e215f9b589aa94c4243.jpg" />
-            <h2 class="flex a-center j-center">Write a few words</h2>
-          </section>
-
           <!--CMP AVARAGE REVIEW OF PROJECT-->
           <review-avarage v-if="!editMode" class="review-avarage review" :reviews="reviews" />
 
@@ -588,7 +583,10 @@ export default {
       proj.endsAt = this.toTimestamp(proj.date[1]);
       proj.date = this.fixDate(proj.date);
       proj.createdBy = this.loggedinUser;
-      this.toggleLoading()
+      if(!proj.imgUrls.length) proj.imgUrls[0] = 'https://res.cloudinary.com/tamir/image/upload/v1589967682/noImg_imojcv.jpg'
+      console.log(proj);
+      
+      this.toggleLoading()      
       var res = await this.$store.dispatch({ type: "saveProj", proj });
       this.$notify({
         title: "Success",
