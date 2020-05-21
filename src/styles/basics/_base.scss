@@ -165,23 +165,18 @@ select {
 .proj-preview-card {
     border-radius: 5px;
     width: 100%;
-    // box-shadow: $shadow1;
-    // background-color: #242424;;
     background-color: lighten($clr2, 25%);
     cursor: pointer;
     height: 100%;
 
     .fully-booked{
-        // height: 50%;
-        // width: 100%;
-        top:-8%;
-        left:8%;
-        width:75%;
-        object-fit: cover;
-
+        top:-9%;
+        left:7%;
+        width:80%;
         position: absolute;
-
         z-index: 1;
+        transform: rotate(10deg);
+
     }
 
 

@@ -62,6 +62,15 @@
             }
             .img-proj-container {
                 position: relative;
+                .fully-booked{
+                    top:-28%;
+                    left:6%;
+                    width:84%;
+                    position: absolute;
+                    z-index: 1;
+                    transform: rotate(10deg);
+
+                }
                 .el-carousel--horizontal{
                     overflow: hidden;
                 }
@@ -747,6 +756,7 @@
 }
 
 .el-picker-panel {
+    content: 'blaaaaaaaaaaaaa';
     * {
         font-family: Montserrat;
     }

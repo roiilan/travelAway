@@ -7,8 +7,10 @@
       :title="proj.description.substring(0,80) +'... Click to read more!!'"
       class="carousel-proj-preview"
     >
-      <img src="../../assets/png/fully-booked.png" v-if="proj.membersApplyed.length === proj.membersNeeded" class = "fully-booked"/>
-      <img :src="proj.imgUrls[0]" />
+      <div class="ratio-square">
+      <img src="../../assets/png/fully-booked.png" v-if="proj.membersApplyed.length === proj.membersNeeded" class = "fully-booked flex a-center j-center"/>
+        <img :src="proj.imgUrls[0]" />
+      </div>
       <div class="proj-content flex col bet">
         <section>
           <h3>{{proj.title}}</h3>

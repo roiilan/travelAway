@@ -4,7 +4,6 @@
       <el-carousel class="ratio-16-9">
         <el-carousel-item v-for="url in proj.imgUrls" :key="url">
          <img src="../assets/png/fully-booked.png" v-if="proj.membersApplyed.length === proj.membersNeeded" class = "fully-booked"/>
-         
           <img :src="url" class="proj-img" />
         </el-carousel-item>
       </el-carousel>

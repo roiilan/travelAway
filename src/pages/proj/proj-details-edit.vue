@@ -22,6 +22,7 @@
           <div v-else-if="proj.imgUrls.length" class="img-proj-container ratio-16-9">
             <el-carousel indicator-position="outside">
               <el-carousel-item v-for="(imgUrl, index) in proj.imgUrls" :key="index">
+               <img src="../../assets/png/fully-booked.png" v-if="proj.membersApplyed.length === proj.membersNeeded" class = "fully-booked"/>
                 <img @click="setCurrImg(index)" :src="imgUrl" />
                 <div v-if="editMode" class="edit-img-container-btn">
                   <div title="Delete this image from project">
