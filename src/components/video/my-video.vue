@@ -54,17 +54,13 @@ export default {
     };
   },
   mounted() {
-    // window.addEventListener("resize", this.setVidoeCanvasWidth);
-    console.log(window.innerHeight);
     this.setVidoeCanvasWidth();
   },
   beforeDestroy() {
     this.stop();
-    // window.removeEventListener("resize", this.setVidoeCanvasWidth);
   },
   methods: {
     async setVidoeCanvasWidth() {
-      console.log('hi');
       if (this.video === this.$refs.video) {
        await this.stop()
       }else {

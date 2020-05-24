@@ -3,10 +3,11 @@
     <transition name="fade">
       <myVideo v-if="playVideo" @stopVideo="toggleVideo"></myVideo>
     </transition>
+    <!-- Todo hendle container-img -->
     <section
       @click.stop="openSelect = !openSelect"
       :class="{'open-select':openSelect}"
-      class="container-img container-img-profile pointer flex j-center"
+      class="container-im container-img-profile pointer flex j-center"
     >
       <!-- <pre>{{url}}</pre> -->
       <img v-if="url" class="avatar avatar-m" :src="url" title="Replace profile picture" />

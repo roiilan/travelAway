@@ -10,15 +10,11 @@
         }
     }
     .carousel-for-mobile {
-        
-        .fully-booked{
-            z-index: 1;
-        }
-       
         margin-bottom: 15px;
         > img {
             display: flex;
             margin: 0 auto;
+            height: 300px;
         }
         display: block;
         @include for-mobile-layout {
@@ -28,10 +24,6 @@
             overflow-x: scroll;
             overflow-y: hidden;
             white-space:nowrap;
-
-
-            
-            
             >* {
                 display:inline-block;
                 vertical-align:top;
@@ -47,13 +39,25 @@
                     object-fit: cover;
                     border-top-left-radius: 3px;
                     border-top-right-radius: 3px;
+                    background-color: #fcfbf8;
+                    display: none;
+                    &.isLoad, &.isError {
+                        display: block;
+                    }
                 }
-                
+
+                .ripple-img {
+                    display: block;
+                    &.isLoad {
+                        display: none;
+                    }
+                }
+
                 .proj-content {
-                    margin-top: -4px;
+                    margin-top: -5px;
                     border-bottom-left-radius: 3px;
                     border-bottom-right-radius: 3px;
-                    background-color: #fff;
+                    background-color: #fcfbf8;
                     padding: 5px;
                     height: 150px;
                     h3 {
@@ -413,6 +417,10 @@
     padding: 20px 0;
     border-radius: 3px;
     overflow: hidden;
+    img:last-child {
+        width: 30px;
+        margin: 0;
+    }
 }
 
 .walk-ways-details {

@@ -1,16 +1,15 @@
 <template>
   <section class="carousel-proj-container">
     <section
-      v-for="proj in projs"
-      :key="proj._id"
+      v-for="(proj, i) in projs"
+      :key="i"
       @click="openDetails(proj._id)"
       :title="proj.description.substring(0,80) +'... Click to read more!!'"
       class="carousel-proj-preview"
     >
-      <div class="ratio-square">
-      <img src="../../assets/png/fully-booked.png" v-if="proj.membersApplyed.length === proj.membersNeeded" class = "fully-booked flex a-center j-center"/>
-        <img :src="proj.imgUrls[0]" />
-      </div>
+      <img src="../../assets/svg/broken.svg" alt="" :class="{isError}">
+      <img v-if="!isError" :src="proj.imgUrls[0]" :class="{isLoad}" @load="isLoad = true" @error="isError = true"/> 
+      <img src="../../assets/svg/ripple.svg" class="ripple-img" :class="{isLoad}"/>
       <div class="proj-content flex col bet">
         <section>
           <h3>{{proj.title}}</h3>
@@ -23,10 +22,31 @@
               v-if="proj.position.short_country"
             />
             <span v-if="proj.position.city">{{proj.position.city}},</span>
-            <span v-else>{{proj.position.region}},</span>
-            <span>{{proj.position.country}}</span>
+            <span v-if="proj.position.region">{{proj.position.region}},</span>
+            <span v-if="proj.position.country">{{proj.position.country}}</span>
           </h5>
-          <review-avarage-by-id class="review-avarage" :id="proj._id" />
+          <section  class="review-avarage">
+           <el-rate
+            class="el-rate-avarage"
+            v-if="proj.rate.average"
+            v-model="proj.rate.average"
+            disabled
+            show-score
+            text-color="#0b757d"
+            :score-template="`${proj.rate.average.toFixed(1)} (${proj.rate.length})`"
+            :colors="colors"
+          ></el-rate> 
+           <el-rate
+            class="el-rate-avarage"
+            v-else
+            disabled
+            show-score
+            text-color="#0b757d"
+            :score-template="`0 (0)`"
+            :colors="colors"
+          ></el-rate> 
+        </section>
+          <!-- <review-avarage-by-id class="review-avarage" :id="proj._id" /> -->
         </section>
       </div>
     </section>
@@ -39,10 +59,17 @@ export default {
   props: {
     projs: Array
   },
+  data() {
+    return {
+      colors: this.$store.getters.colors,
+      isLoad: false,
+      isError: false
+    }
+  },
   methods: {
     openDetails(id) {
       this.$router.push("/proj/" + id);
-    }
+    },
   },
   components: {
     reviewAvarageById

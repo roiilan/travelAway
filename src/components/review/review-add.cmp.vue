@@ -35,16 +35,7 @@ export default {
   },
   methods: {
     save() {
-      // if (!this.review.txt) {
-      //   this.$notify({
-      //     title: "Warning",
-      //     message: "Don't want to add a few words?",
-      //     type: "warning",
-      //     duration: 2500
-      //   });
-      //   return;
-      // }
-      this.$emit("save", this.review);
+      this.$emit("saveReview", this.review);
     },
     scrollTo(ev) {
       window.scrollTo(0, ev.target.offsetTop - 200);

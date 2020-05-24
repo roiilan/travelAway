@@ -165,20 +165,18 @@ select {
 .proj-preview-card {
     border-radius: 5px;
     width: 100%;
+    // box-shadow: $shadow1;
+    // background-color: #242424;;
     background-color: lighten($clr2, 25%);
     cursor: pointer;
     height: 100%;
-
-    .fully-booked{
-        top:-9%;
-        left:7%;
-        width:80%;
-        position: absolute;
-        z-index: 1;
-        transform: rotate(10deg);
-
+    .isError {
+        width: 100%;
+        height: fit-content;
+        object-fit: cover;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
     }
-
 
     .proj-img {
         border-top-left-radius: 5px;
@@ -255,6 +253,15 @@ select {
         }
 
     }
+}
+
+.save-loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    z-index: 10;
 }
 
 // .h1-l {@include h1-l;}

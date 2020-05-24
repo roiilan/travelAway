@@ -1,12 +1,5 @@
+
 .proj-details-container {
-    .save-loading {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 150px;
-        z-index: 10;
-    }
     .proj-details {
         min-height: 100vh;
         
@@ -62,15 +55,6 @@
             }
             .img-proj-container {
                 position: relative;
-                .fully-booked{
-                    top:-28%;
-                    left:6%;
-                    width:84%;
-                    position: absolute;
-                    z-index: 1;
-                    transform: rotate(10deg);
-
-                }
                 .el-carousel--horizontal{
                     overflow: hidden;
                 }
@@ -82,7 +66,22 @@
                 img {
                     border-radius: 5px;
                     width: 100%;
+                    display: none;
+                    &.isImgProjLoad {
+                        display: block;
+                    }
+                    &.isImgProjError {
+                        // display: block;
+                        height: inherit;
+                        object-fit: cover;
+                    }
                 }
+
+                .ripple-img {
+                    display: block;
+                    width: 50%;
+                }
+
                 .el-carousel__arrow {
                     background-color: #ffffffa3;
                     color: #000;
@@ -189,7 +188,16 @@
                     }
                 }
                 .details-created-by {
-
+                    img:first-child {
+                        display: none;
+                        &.isImgProfileLoad {
+                            display: block;
+    
+                        }
+                    }
+                    .ripple-img{
+                        background-color: initial;
+                    }
                     p {
                         font-size: 16px;
                         padding-inline-start: 6px;
@@ -756,7 +764,6 @@
 }
 
 .el-picker-panel {
-    content: 'blaaaaaaaaaaaaa';
     * {
         font-family: Montserrat;
     }

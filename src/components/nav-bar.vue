@@ -140,7 +140,6 @@ export default {
       }
     },
     async onGoToSearchPage(ev) {
-      console.log(ev.target.value);
       if (this.openMenu) {
         this.toggleMemu();
       }
@@ -169,8 +168,6 @@ export default {
       }
     },
     toggleMemu() {
-      console.log(123);
-
       this.isActive = false;
       this.openMenu = !this.openMenu;
       document.body.classList.toggle("menu-open");
@@ -187,6 +184,11 @@ export default {
     },
     toglleActive() {
       this.isActive = !this.isActive;
+    },
+    setTitle(){
+      document.title = this.loggedinUser
+      ? `(${this.loggedinUser.notifications.length}) Walkways`
+      : "Walkways";
     }
   },
   created() {
@@ -196,6 +198,7 @@ export default {
     this.categories = projService.loadCategoties();
   },
   mounted() {
+    this.setTitle()
     // window.addEventListener("scroll", this.handleScroll);
     document
       .querySelector(".screen")
@@ -214,9 +217,7 @@ export default {
   },
   watch: {
     loggedinUser() {
-      document.title = this.loggedinUser
-        ? `(${this.loggedinUser.notifications.length}) Walkways`
-        : "Walkways";
+     this.setTitle()
     },
     "$route.path": {
       handler() {
