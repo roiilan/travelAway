@@ -24,17 +24,18 @@
               <el-carousel-item v-for="(imgUrl, index) in proj.imgUrls" :key="index">
                 <!-- <img :src="imgUrl" /> -->
                 <img
+                  src="../../assets/png/fully-booked.png"
+                  v-if="proj.membersApplyed.length === proj.membersNeeded && isImgProjLoad"
+                  class="fully-booked"
+                />
+                <img
                   :src="imgUrl"
                   :class="{isImgProjLoad, isImgProjError}"
-                  @load="isImgProjLoad = true"
                   @error="OnErrorImgProj"
+                  @load="isImgProjLoad = true"
                 />
                 <div class="flex a-center j-center">
-                  <img
-                    v-if="!isImgProjLoad"
-                    src="../../assets/svg/ripple.svg"
-                    class="ripple-img"
-                  />
+                  <img v-if="!isImgProjLoad" src="../../assets/svg/ripple.svg" class="ripple-img" />
                 </div>
                 <div v-if="editMode" class="edit-img-container-btn">
                   <div title="Delete this image from project">
@@ -207,7 +208,7 @@
                   <!--MEMBERS NEEDED REQUIEMENTS-->
                   <p>
                     <span class="strong">Members needed:</span>
-                    {{proj.membersNeeded}} / {{proj.membersNeeded + proj.membersApplyed.length}}
+                    {{proj.membersApplyed.length}} / {{proj.membersNeeded}}
                   </p>
 
                   <!--LANGUAGES REQUIEMENTS-->
@@ -720,7 +721,7 @@ export default {
     OnErrorImgProj(ev) {
       ev.target.src = require("../../assets/svg/broken.svg");
       this.isImgProjError = true
-    },
+    }
   },
   mounted() {
     document

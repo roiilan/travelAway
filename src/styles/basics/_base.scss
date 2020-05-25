@@ -170,6 +170,17 @@ select {
     background-color: lighten($clr2, 25%);
     cursor: pointer;
     height: 100%;
+
+    .fully-booked{
+        top:-9%;
+        left:7%;
+        width:80%;
+        position: absolute;
+        z-index: 1;
+        transform: rotate(10deg);
+
+    }
+
     .isError {
         width: 100%;
         height: fit-content;

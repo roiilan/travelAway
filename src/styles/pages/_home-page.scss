@@ -11,6 +11,9 @@
     }
     .carousel-for-mobile {
         margin-bottom: 15px;
+
+        
+
         > img {
             display: flex;
             margin: 0 auto;
@@ -32,29 +35,35 @@
                 max-height: 450px;
                 margin: 0 8px;
                 cursor: pointer;
-                
-                > img {
-                    width: 170px;
-                    height: 150px;
-                    object-fit: cover;
-                    border-top-left-radius: 3px;
-                    border-top-right-radius: 3px;
-                    background-color: #fcfbf8;
-                    display: none;
-                    &.isLoad, &.isError {
+                div {
+
+                    > img {
+                        width: 170px;
+                        height: 150px;
+                        object-fit: cover;
+                        border-top-left-radius: 3px;
+                        border-top-right-radius: 3px;
+                        display: none;
+                        &.isLoad, &.isError {
+                            display: block;
+                        }
+                    }
+                    .fully-booked{
+                        z-index: 1;
                         display: block;
                     }
-                }
-
-                .ripple-img {
-                    display: block;
-                    &.isLoad {
-                        display: none;
+                    .ripple-img {
+                        background-color: #fcfbf8;
+                        display: block;
+                        &.isLoad {
+                            display: none;
+                        }
                     }
                 }
 
                 .proj-content {
-                    margin-top: -5px;
+                    z-index: 1;
+                    // margin-top: -5px;
                     border-bottom-left-radius: 3px;
                     border-bottom-right-radius: 3px;
                     background-color: #fcfbf8;

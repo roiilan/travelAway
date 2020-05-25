@@ -62,21 +62,24 @@ export default {
   methods: {
     async setVidoeCanvasWidth() {
       if (this.video === this.$refs.video) {
-       await this.stop()
-      }else {
+        await this.stop();
+      } else {
         this.video = this.$refs.video;
-      this.canvas = this.$refs.canvas;
+        this.canvas = this.$refs.canvas;
       }
       this.screenWidth = window.innerWidth;
-      this.vgaConstraints =
-        this.screenWidth < 440
-          ? {
-              video: {
-                width: { exact: this.screenWidth },
-                height: { exact: window.innerHeight -180 }
-              }
-            }
-          : { video: { width: { exact: 400 }, height: { exact: 300 } } };
+      // this.vgaConstraints =
+      //   this.screenWidth < 440
+      //     ? {
+      //         video: {
+      //           width: { exact: this.screenWidth },
+      //           height: { exact: window.innerHeight -180 }
+      //         }
+      //       }
+      //     : { video: { width: { exact: 400 }, height: { exact: 300 } } };
+      this.vgaConstraints = {
+        video: { width: { exact: 400 }, height: { exact: 300 } }
+      };
       this.canvas.width = this.vgaConstraints.video.width.exact;
       this.canvas.height = this.vgaConstraints.video.height.exact;
       this.context = this.canvas.getContext("2d");

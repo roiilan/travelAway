@@ -54,7 +54,6 @@
                 }
             }
             .img-proj-container {
-                position: relative;
                 .el-carousel--horizontal{
                     overflow: hidden;
                 }
@@ -62,6 +61,16 @@
                     overflow: hidden;
                     height: 93%;
                     border-radius: 5px;
+                }
+                position: relative;
+                .fully-booked{
+                    top:-28%;
+                    left:6%;
+                    width:84%;
+                    position: absolute;
+                    z-index: 1;
+                    transform: rotate(10deg);
+                    display: block;
                 }
                 img {
                     border-radius: 5px;
@@ -71,7 +80,6 @@
                         display: block;
                     }
                     &.isImgProjError {
-                        // display: block;
                         height: inherit;
                         object-fit: cover;
                     }
