@@ -2,11 +2,13 @@
   <transition name="fade">
     <div class="proj-list width-container height-container">
       <!-- <div class="proj-list width-container height-container" v-if="projs"> -->
-      <filter-By class="filter-in-proj-list" />  
+      <filter-By class="filter-in-proj-list" />
+      
       <transition name="fade">
         <div class="header ratio-16-9" v-if="!currProjs.length">
           <img src="../../assets/jpg/people.jpg" />
           <div class="page-header">
+            <h1></h1>
             <h2 class="projs-title">Be the change</h2>
             <h3>Be a global volunteer abroad</h3>
           </div>
@@ -62,7 +64,7 @@ export default {
     eventBus.$on("setFilter", filterBy => this.setFilter(filterBy));
     window.addEventListener("scroll", this.handleScroll);
 
-    this.initialVal === this.currProjs.length
+    this.initialVal !== this.currProjs.length
       ? (this.isOpen = false)
       : this.toggleHero();
   },
