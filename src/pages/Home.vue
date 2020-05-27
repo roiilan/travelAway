@@ -23,8 +23,8 @@
         <img src="../assets/svg/WalkingMan.svg" class="walking"/>
         <title-link :title="'Take A Walk With Us'" class="title"/>
         </div>
-        <h3>
-          <span>{{about.substring(0, 100)}}</span>
+        <h3 class="width-container">
+          <span>{{about.substring(0, 170)}}</span>
           <span v-if="!isReadMore">... 
             <span class="read-more pointer" @click="isReadMore = !isReadMore">Read more</span>
           </span>
@@ -98,7 +98,7 @@
       </section>
 
 
-      <h2 class="width-container titles">Here are some of out projects Aboard </h2>
+      <h2 class="width-container titles">Here are some of our projects Aboard </h2>
 
       <section class="carousel-for-desctop width-container">
         <ul v-if="currProjs.length" class="around-the-world-preview">

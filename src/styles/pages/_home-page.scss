@@ -43,7 +43,6 @@
 
     .about-container {   
         overflow: hidden;
-        background-color: #3a334205;
 
         .walking{
             width:rem(30px);
@@ -98,6 +97,7 @@
     
         h3 {
             // height: calc(180px - 15vw) ;
+            background-color: #3a334205;
             font-size: 16px;
             text-align: center;
             font-weight: lighter;
